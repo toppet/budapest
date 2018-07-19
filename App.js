@@ -9,7 +9,7 @@ import {
   Text,
   View,
   StyleSheet,
-  Image,
+  Button,
 } from 'react-native';
 // import HomeScreen from './screens/HomeScreen';
 // import MapScreen from './screens/MapScreen';
@@ -50,6 +50,10 @@ export default class App extends Component {
         >
           <View style={styles.dialogView}>
             <Text>Beallitasok</Text>
+            <Button
+              title="Ablak bezarasa"
+              onPress={() => this.settingsDialog.dismiss()}
+            />
           </View>
         </PopupDialog>
 
@@ -60,6 +64,10 @@ export default class App extends Component {
         >
           <View style={styles.dialogView}>
             <Text>Kontakt</Text>
+            <Button
+              title="Ablak bezarasa"
+              onPress={() => this.contactDialog.dismiss()}
+            />
           </View>
         </PopupDialog>
 
