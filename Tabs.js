@@ -6,7 +6,7 @@ import { createBottomTabNavigator, BottomTabBar } from 'react-navigation';
 
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
-import ExploreScreen from './screens/ExploreScreen';
+import NewsScreen from './screens/NewsScreen';
 import EventsScreen from './screens/EventsScreen';
 import CalendarScreen from './screens/CalendarScreen';
 
@@ -17,8 +17,8 @@ export default createBottomTabNavigator(
 
     },
     Map: MapScreen,
-    Explore: ExploreScreen,
     Events: EventsScreen,
+    News: NewsScreen,
     Calendar: CalendarScreen,
   },
   {
@@ -32,9 +32,9 @@ export default createBottomTabNavigator(
           icon = <Image source={require('./assets/images/home.png')} />;
         } else if (routeName === 'Map') {
           icon = <Image source={require('./assets/images/map.png')} />;
-        } else if (routeName === 'Explore') {
-          icon = <Image source={require('./assets/images/explore.png')} />;
         } else if (routeName === 'Events') {
+          icon = <Image source={require('./assets/images/explore.png')} />;
+        } else if (routeName === 'News') {
           icon = <Image source={require('./assets/images/news.png')} />;
         } else if (routeName === 'Calendar') {
           icon = <Image source={require('./assets/images/calendar.png')} />;

@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Button,
   ImageBackground,
-  Modal,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -15,52 +13,51 @@ export default class SideMenuScreen extends Component {
     impressumModalVisible: false,
   }
   
-  setImpressumModalVisible(visible) {
-    this.setState({impressumModalVisible: visible});
-  }
-
   render() {
     console.log('SideMenuScreen.props', this.props);
     return (
       <View style={{flex: 1}}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.impressumModalVisible}
-          onRequestClose={() => {
-            alert('Modal has been closed.');
-          }}>
-          <View style={{marginTop: 22}}>
-            <View>
-              <Text>Hello World!</Text>
-
-              <TouchableHighlight
-                onPress={() => {
-                  this.setImpressumModalVisible(!this.state.impressumModalVisible);
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
 
         <ImageBackground source={require('../../assets/images/menu_bg.png')} style={{width: '100%', height: '100%', position: 'relative'}}>
+
           <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'flex-end'}}>
-            <View style={{opacity: 0.3, borderRadius: 6, height: '90%', width: 40, backgroundColor: "#b7a99b", position: 'absolute', right: -10}}></View>
-            <View style={{opacity: 0.45,  borderRadius: 6, height: '95%', width: 30, right: -15, backgroundColor: "#b7a99b", position: 'absolute', }}></View>
+            <View style={{opacity: 0.3, borderRadius: 6, height: '90%', width: 500, right: -470, backgroundColor: "#b7a99b", position: 'absolute', }}></View>
+            <View style={{opacity: 0.45,  borderRadius: 6, height: '95%', width: 500, right: -485, backgroundColor: "#b7a99b", position: 'absolute', }}></View>
           </View>
 
-          <View style={{flex: 4, marginTop: 120, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'transparent'}}>
-            <Icon.Button style={styles.button} size={22} name="settings" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.showSettingsDialog()}>
+          <View style={{flex: 4, marginTop: 130, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'transparent'}}>
+            {/* <Icon.Button style={styles.button} size={22} name="settings" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.showSettingsDialog()}>
               <Text style={styles.buttonText}>Beállítások</Text>
-            </Icon.Button>
-            <Icon.Button style={styles.button} size={20} name="chat-bubble" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.showContactDialog()}>
+            </Icon.Button> */}
+            <TouchableOpacity onPress={() => this.props.showSettingsDialog()} style={{marginBottom: 30}}>
+              <View style={styles.buttonView}>
+                <Icon style={styles.buttonIcon} size={22} name="settings" color="#c49565" />
+                <Text style={styles.buttonText}>Beállítások</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.props.showContactDialog()} style={{marginBottom: 30}}>
+              <View style={styles.buttonView}>
+                <Icon style={styles.buttonIcon} size={22} name="chat-bubble" color="#c49565" />
+                <Text style={styles.buttonText}>Kapcsolat</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.props.setImpressumModalVisible()}>
+              <View style={styles.buttonView}>
+                <Icon style={styles.buttonIcon} size={22} name="insert-drive-file" color="#c49565" />
+                <Text style={styles.buttonText}>Impresszum</Text>
+              </View>
+            </TouchableOpacity>
+
+            {/* <Icon.Button style={styles.button} size={20} name="chat-bubble" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.showContactDialog()}>
               <Text style={styles.buttonText}>Kapcsolat</Text>
             </Icon.Button>
-            <Icon.Button style={styles.button} size={20} name="insert-drive-file" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.setImpressumModalVisible(true)}>
+            <Icon.Button style={styles.button} size={20} name="insert-drive-file" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.setImpressumModalVisible()}>
               <Text style={styles.buttonText}>Impresszum</Text>
-            </Icon.Button>
+            </Icon.Button> */}
           </View>
+
           <View style={{flex: 2, alignItems: 'flex-start', justifyContent: 'flex-end', marginLeft: "auto", marginRight: "auto"}}>
             <Text style={styles.addressL}>Dohány utcai </Text>
             <Text style={styles.addressL}>Zsinagóga</Text>
@@ -68,11 +65,11 @@ export default class SideMenuScreen extends Component {
             <Text style={styles.addressS}>Dohány u. 2,</Text> 
             <Text style={styles.addressS}>1074</Text>
           </View>
+
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 10}}>
             <Text style={{fontFamily: "Montserrat", fontSize: 11, fontWeight: "bold",}}>Verzio beta-0.1</Text>
           </View>
 
-          
         </ImageBackground>
         
       </View>
@@ -81,8 +78,14 @@ export default class SideMenuScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    width: 165,
+  buttonView: {
+    flexDirection: 'row', 
+    width: 165, 
+    alignItems: 'flex-start', 
+    justifyContent: 'flex-start',
+  },
+  buttonIcon: {
+    marginRight: 10,
   },
   buttonText: {
     fontFamily: "Montserrat", 
