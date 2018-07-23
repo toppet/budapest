@@ -14,7 +14,7 @@ export default class SideMenuScreen extends Component {
   }
   
   render() {
-    console.log('SideMenuScreen.props', this.props);
+    // console.log('SideMenuScreen.props', this.props);
     return (
       <View style={{flex: 1}}>
 

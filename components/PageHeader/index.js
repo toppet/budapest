@@ -6,18 +6,37 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 export default class PageHeader extends Component {
   render() {
-    return (
-      <View style={styles.header}>
+    let leftIcon;
+    const { pageTitle, isBack } = this.props;
+    
+    if(isBack) {
+      leftIcon = (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.goBack()}
+        >
+          <Icon name='keyboard-backspace' size={20}/>
+        </TouchableOpacity>
+      )
+    } else {
+      leftIcon = (
         <TouchableOpacity
           style={styles.button}
           onPress={() => this.props.screenProps.openMenu()}
         >
           <Image source={require('../../assets/images/icMenu.png')} />
         </TouchableOpacity>
-        <Text style={styles.pageTitle}>JewPS</Text>
+      )
+    }
+    return (
+      <View style={styles.header}>
+        {leftIcon}
+        <Text style={styles.pageTitle}>{pageTitle ? pageTitle : 'JewPS'}</Text>
         <Image style={styles.button} source={require('../../assets/images/icKereses.png')} />
       </View>
     )
@@ -46,3 +65,5 @@ const styles = StyleSheet.create({
     fontFamily: "YoungSerif-Regular",
   },
 });
+
+

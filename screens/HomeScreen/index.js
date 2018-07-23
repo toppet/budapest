@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import {
   View,
   Text,
@@ -26,7 +27,7 @@ const latestNews = [
   {
     id: 1,
     imageSrc: require('../../assets/images/app.jpg'),
-    desc: 'A fejlesztok az igerik, hogy jo lesz.',
+    desc: 'A fejlesztok azt igerik, hogy jo lesz.',
     date: new Date(),
   },
   {
@@ -66,15 +67,21 @@ const latestEvents = [
 ]
 
 export default class HomeScreen extends Component {
-  state = {
-    menuOpened: false,  // Initial value for opacity: 0
+  constructor(props){
+    super(props);  
+    this.state = {
+      menuOpened: false,  // Initial value for opacity: 0
+    }
   }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return _.difference(this.state, nextState).length > 0 ? true : false;
+  // }
 
   
   render() {
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
-
+    console.log('this.props', this.props);
     const newsCards = latestNews.map((n) => (
       <View style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id}>
         <View style={styles.newsCard}>
@@ -114,7 +121,7 @@ export default class HomeScreen extends Component {
               <Text style={styles.eventYear}>{moment(e.date).format('YYYY')}</Text>
             </View>
             <View style={{width: 55}}>
-              <Text style={styles.eventTime}>{moment(e.date).format('hh:mm')}</Text> 
+              <Text style={styles.eventTime}>{moment(e.date).format('HH:mm')}</Text> 
               <Text style={styles.eventTimeText}>{'Kezdés'}</Text> 
             </View>
           </View>
@@ -134,7 +141,7 @@ export default class HomeScreen extends Component {
           <PageHeader {...this.props} />
 
           <View style={{flex: 1, padding: 15,}}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
 
               <View style={{marginBottom: 38}}>
                 <Text style={styles.title}>Üdvözöljük!</Text>
