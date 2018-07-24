@@ -12,6 +12,9 @@ import {
   ImageBackground,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import icomoonConfig from '../../selection.json';
+const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
 require('moment/locale/hu');
 
@@ -81,7 +84,7 @@ export default class HomeScreen extends Component {
   render() {
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
-    console.log('this.props', this.props);
+    // console.log('this.props', this.props);
     const newsCards = latestNews.map((n) => (
       <View style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id}>
         <View style={styles.newsCard}>
@@ -96,12 +99,12 @@ export default class HomeScreen extends Component {
             
             <Text style={styles.newsDate}>{moment(n.date).format('YYYY.MM.DD')}</Text>
             
-            <TouchableOpacity onPress={() => console.log('ikonka')} style={{ marginLeft: 'auto' }}>
+            {/* <TouchableOpacity onPress={() => console.log('ikonka')} style={{ marginLeft: 'auto' }}>
               <Icon name="bookmark-border" size={25} color="#73beff" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity onPress={() => console.log('ikonka')} style={{marginLeft: 10}}>
-              <Icon name="publish" size={25} color='#73beff'/>
+              <CustomIcon name="ic_share" size={20} color='#73beff'/>
             </TouchableOpacity>
           </View>
         </View>
@@ -109,7 +112,7 @@ export default class HomeScreen extends Component {
     ));
 
     const eventCards = latestEvents.map((e) => (
-      <View style={[styles.cardShadow, {width: eventCardWidth}]} key={e.id}>
+      <TouchableOpacity style={[styles.cardShadow, { width: eventCardWidth }]} key={e.id} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
         <View style={styles.eventCard}>
 
           <View style={styles.eventCardInfoView}>
@@ -129,7 +132,7 @@ export default class HomeScreen extends Component {
           <Text style={styles.eventCardDesc}>{e.eventDesc}</Text>
 
         </View>
-      </View>
+      </TouchableOpacity>
     ));
 
 

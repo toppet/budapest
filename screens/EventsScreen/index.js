@@ -15,6 +15,9 @@ import {
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import icomoonConfig from '../../selection.json';
+const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
 import {  ListItem, Left, Body, Right, Title } from "native-base";
 
@@ -66,52 +69,6 @@ const latestEvents = [
   },
 ];
 
-// const listOfEvents = {
-//   '2018-07-21': [
-//     {
-//       id: 0,
-//       date: '2018-07-21',
-//       time: '2018-07-21 16:00',
-//       eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
-//       eventLoc: 'Dohány utcai Zsinagóga',
-//       eventCity: 'Budapest',
-//     },
-//     {
-//       id: 1,
-//       date: '2018-07-21',
-//       time: '2018-07-21 18:25',
-//       eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
-//       eventLoc: 'Dohány utcai Zsinagóga',
-//       eventCity: 'Budapest',
-//     },
-//   ],
-//   '2018-08-05': [
-//     {
-//       id: 2,
-//       date: '2018-08-05',
-//       time: '2018-08-05 08:00',
-//       eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
-//       eventLoc: 'Kiss Dobos utca',
-//       eventCity: 'Balatonakarattya',
-//     },
-//     {
-//       id: 3,
-//       date: '2018-08-05',
-//       time: '2018-08-05 13:00',
-//       eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
-//       eventLoc: 'Kiss Dobos utca',
-//       eventCity: 'Balatonakarattya',
-//     },
-//     {
-//       id: 4,
-//       date: '2018-08-05',
-//       time: '2018-08-05 19:45',
-//       eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
-//       eventLoc: 'Kiss Dobos utca',
-//       eventCity: 'Balatonakarattya',
-//     },
-//   ],
-// }
 
 const eventList = [
   {
@@ -119,19 +76,25 @@ const eventList = [
     data: [
       {
         id: 0,
-        date: '2018-07-21',
-        time: '2018-07-21 16:00',
-        eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
-        eventLoc: 'Dohány utcai Zsinagóga',
+        date: '2018-07-23',
+        startTime: '2018-07-23 16:00',
+        endTime: '2018-07-23 20:00',
+        eventDesc: 'A Dohány Kulturális Páholy vendége: Haumann Péter',
+        eventLocation: 'Goldmark hall- Goldmark terem',
+        eventAddress: 'Wesselényi utca 7., Budapest, 1075',
         eventCity: 'Budapest',
+        eventDetails: 'A Dohány utcai zsinagóga vagy Nagy Zsinagóga a neológ zsidóság nagy zsinagógája Budapesten, a Dohány utcában. Európa legnagyobb zsinagógája. Az egykori zsidónegyedben áll, ahol ma is sok zsidó vallású ember él, akik a hagyományokat még mindig őrzik. A zsinagóga rendszeresen helyszíne a Zsidó Nyári Fesztiválnak. A Dohány utcai zsinagóga vagy Nagy Zsinagóga a neológ zsidóság nagy zsinagógája Budapesten, a Dohány utcában. Európa legnagyobb zsinagógája. Az egykori zsidónegyedben áll, ahol ma is sok zsidó vallású ember él, akik a hagyományokat még mindig őrzik. A zsinagóga rendszeresen helyszíne a Zsidó Nyári Fesztiválnak.',
+        eventImg: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg',
+        fbEvent: '',
       },
       {
         id: 1,
         date: '2018-07-22',
-        time: '2018-07-22 17:30',
+        startTime: '2018-07-22 17:30',
+        endTime: '2018-07-22 19:30',
         eventDesc: 'Az esemény címe, körülbelül ilyen hosszu',
-        eventLoc: 'Dohány utcai Zsinagóga',
-        eventCity: 'Budapest',
+        eventLocation: 'Dohány utcai Zsinagóga',
+        eventCity: 'Érd',
       }
     ]
   },
@@ -141,26 +104,29 @@ const eventList = [
       {
         id: 0,
         date: '2018-08-01',
-        time: '2018-08-01 06:00',
+        startTime: '2018-08-01 06:00',
+        endTime: '2018-08-01 11:00',
         eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
-        eventLoc: 'Dohány utcai Zsinagóga',
+        eventLocation: 'Dohány utcai Zsinagóga',
         eventCity: 'Budapest',
       },
       {
         id: 1,
         date: '2018-08-01',
-        time: '2018-08-01 10:30',
+        startTime: '2018-08-01 10:30',
+        endTime: '2018-08-01 12:30',
         eventDesc: 'Az esemény címe, körülbelül ilyen hosszu',
-        eventLoc: 'Dohány utcai Zsinagóga',
-        eventCity: 'Budapest',
+        eventLocation: 'Dohány utcai Zsinagóga',
+        eventCity: 'Balatonakarattya',
       },
       {
         id: 2,
         date: '2018-08-01',
-        time: '2018-08-01 12:30',
+        startTime: '2018-08-01 12:30',
+        endTime: '2018-08-01 20:30',
         eventDesc: 'Az esemény címe, körülbelül ilyen hosszu',
-        eventLoc: 'Dohány utcai Zsinagóga',
-        eventCity: 'Budapest',
+        eventLocation: 'Dohány utcai Zsinagóga',
+        eventCity: 'Veszprém',
       }
     ]
   }
@@ -179,36 +145,19 @@ export default class EventsScreen extends Component {
   }
 
   componentWillMount() {
-    // const tmpLocations = [];
+    const tmpLocations = [];
     // const tmpEventHeaders = [];
 
-    // latestEvents.map((e) => {
-    //   if (tmpLocations.indexOf(e.location) === -1) {
-    //     tmpLocations.push(e.location);
-    //   }
-    // });
+    eventList.map((e) => {
+      e.data.map((d) => {
+        if (tmpLocations.indexOf(d.eventCity) === -1) {
+          tmpLocations.push(d.eventCity);
+        }
+      })
+    });
 
-    // listOfEvents.map((event) => {
-    //   if(tmpEventHeaders.indexOf(event.date) === -1) {
-    //     tmpEventHeaders.push(event.date);
-    //   }
-    // });
-
-    // this.setState({ eventListHeaders: tmpEventHeaders , locations: tmpLocations }, () => console.log('eventListHeaders', tmpEventHeaders, 'locations', tmpLocations));
+    this.setState({ locations: tmpLocations });
   }
-
-  // renderItem = ({ item }) => {
-  //   console.log(item);
-  //   return (
-  //     <ListItem style={{ marginLeft: 0 }}>
-  //       <Body>
-  //         <Text>{item.id} - {item.date}</Text>
-  //       </Body>
-  //     </ListItem>
-  //   );
-  //   // return <Text>Hello</Text>
-  // }
-
 
   render() {
     const { locations, locationFilter } = this.state;
@@ -217,7 +166,7 @@ export default class EventsScreen extends Component {
 
     const events = latestEvents.map((e) => (
       <View style={[styles.cardShadow, { width: 315 }]} key={e.id}>
-        <View style={styles.eventsCard}>
+        <TouchableOpacity style={styles.eventsCard} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
           
           <View style={styles.imageBgBox}>
             <ImageBackground source={e.imageSrc} style={{width: '100%', height: '100%'}}/>
@@ -242,7 +191,7 @@ export default class EventsScreen extends Component {
             <Text style={styles.eventCardDesc}>{e.eventDesc}</Text>
 
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     ));
 
@@ -270,17 +219,17 @@ export default class EventsScreen extends Component {
     const eventListItems = (
       <SectionList
         renderItem={({item, index, section}) => (
-          <TouchableOpacity key={index} activeOpacity={0.8} onPress={() => {console.log('item', item); this.props.navigation.navigate('EventDetail', { item })}} style={styles.eventListItem}>
+          <TouchableOpacity key={index} activeOpacity={0.8} onPress={() => {console.log('item', item); this.props.navigation.navigate('EventDetail', { event: item })}} style={styles.eventListItem}>
             <View style={{flex: 1, paddingRight: 50}}>
               <Text style={styles.eventListItemDesc}>{item.eventDesc}</Text>
               <View style={{flexDirection: 'row'}}>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 20 }}>
                   <Icon name="watch-later" size={13} color="#73beff" style={{marginRight: 5}}/> 
-                  <Text style={styles.eventListItemText}>{moment(item.time).format('HH:mm')}</Text>
+                  <Text style={styles.eventListItemText}>{moment(item.startTime).format('HH:mm')}</Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                   <Icon name="near-me" size={13} color="#c49565" style={{marginRight: 5}}/> 
-                  <Text style={styles.eventListItemText}>{item.eventLoc}</Text>
+                  <Text style={styles.eventListItemText}>{item.eventLocation}</Text>
                 </View>
               </View>
             </View>
@@ -311,28 +260,36 @@ export default class EventsScreen extends Component {
         />
 
           <ScrollView 
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false} 
             style={styles.content}
-            // stickyHeaderIndices={[3]}
+            stickyHeaderIndices={[3]}
           >
             <Text style={styles.title}>Közelgő események</Text>
-            <ScrollView horizontal showsVerticalScrollIndicator={false} style={{paddingBottom: 10}}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10}}>
               {events}
             </ScrollView>
 
             <Text style={styles.title}>Összes esemény</Text>
 
             <View style={styles.filterRow}>
-              <View style={{flex: 1, padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
+              <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
                 <TouchableOpacity onPress={() => this.setState({datePickerModalVisible: true})} style={styles.locationFilter}>
                   <Icon name="date-range" size={20} />
-                  <Text style={[styles.locationFilterText, { color: '#434656'} ]}>Dátum</Text>
+                  <Text style={[styles.locationFilterTextInActive, { color: '#434656'} ]}>Dátum</Text>
                 </TouchableOpacity>
               </View>
-              <View style={{flex: 1, padding: 10, marginLeft: 15,}}>
+              <View style={{ position: 'absolute', right: 10, padding: 10, marginLeft: 15, }}>
                 <TouchableOpacity onPress={() => this.setState({locationModalVisible: true})} style={styles.locationFilter}>
-                  <Image source={require('../../assets/images/fill204.png')}/>
-                  <Text style={styles.locationFilterText}>{locationFilter.length > 10 ? `${locationFilter.slice(0,10)}...` : locationFilter}</Text>
+                  <CustomIcon 
+                    name="ic_location" 
+                    size={20} 
+                    color={locationFilter !== locationPlaceholder ? "#c49565" : "#434656"}
+                  />
+                  <Text 
+                    style={locationFilter !== locationPlaceholder ? styles.locationFilterTextActive : styles.locationFilterTextInActive}
+                  >
+                    {locationFilter.length > 10 ? `${locationFilter.slice(0,10)}...` : locationFilter}
+                  </Text>
                   {locationFilterCancelBtn}
                 </TouchableOpacity>
               </View>
@@ -355,8 +312,8 @@ export default class EventsScreen extends Component {
                 <View>
                   <Picker
                     selectedValue={locationFilter}  
-                    onValueChange={(itemValue, itemIndex) => this.setState({locationFilter: itemValue})}>
-                    {/* <Picker.Item label="" value="" /> */}
+                    onValueChange={(itemValue) => this.setState({locationFilter: itemValue !== '' ? itemValue : locationPlaceholder})}>
+                    <Picker.Item label="" value="" />
                     {locationPickers}
                   </Picker>
                   <Button
@@ -481,15 +438,23 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     borderColor: '#ededed',
     backgroundColor: '#fff',
-    paddingTop: 5,
-    paddingBottom: 5,
     marginBottom: 15,
+    position: 'relative',
+    height: 50,
   }, 
   locationFilter: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  locationFilterText: {
+  locationFilterTextInActive: {
+    fontFamily: "Montserrat",
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#434656',
+    width: 85,
+    marginLeft: 10,
+  },
+  locationFilterTextActive: {
     fontFamily: "Montserrat",
     fontSize: 12,
     fontWeight: '600',
