@@ -141,7 +141,7 @@ export default class HomeScreen extends Component {
       
         <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', paddingTop: 20,}}>
           
-          <PageHeader {...this.props} />
+          <PageHeader {...this.props} noRightIcon/>
 
           <View style={{flex: 1, padding: 15,}}>
             <ScrollView showsVerticalScrollIndicator={false}>

@@ -21,6 +21,17 @@ export default class EventDetailScreen extends Component {
     const { navigation } = this.props;
     const eventParam = navigation.getParam('event');
     console.log('EventDetailScreen event', eventParam);
+
+    let eventDetails;
+
+    if(eventParam.eventDetails) {
+      eventDetails = (
+        <View>
+          <Text style={styles.detailsTitle}>RÉSZLETEK</Text>
+          <Text style={styles.detailsText}>{eventParam.eventDetails}</Text>
+        </View>
+      );
+    }
     
     return (
       <View style={styles.container}>
@@ -31,7 +42,7 @@ export default class EventDetailScreen extends Component {
         />
         <ScrollView showsVerticalScrollIndicator={false}>
           
-          <View style={{marginBottom: 25}}>
+          <View style={{ marginBottom: 25, padding: 15, }}>
             
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 25, }}>
               <View style={{width: '50%',}}>
@@ -39,7 +50,7 @@ export default class EventDetailScreen extends Component {
                 <Text style={styles.eventDescText}>{eventParam.eventDesc}</Text>
               </View>
               <View style={{width: '50%', }}>
-                <Image source={{uri: eventParam.eventImg}} style={{borderWidth: 2, width: 158, height: 90, marginLeft: 'auto'}}/>
+                <Image source={{uri: eventParam.eventImg}} style={{borderWidth: 1, borderRadius: 3, width: 158, height: 90, marginLeft: 'auto'}}/>
               </View>            
             </View> 
 
@@ -48,6 +59,7 @@ export default class EventDetailScreen extends Component {
               <Text style={[styles.eventTimeText, { width: 210 }]}>{moment(eventParam.date).format('YYYY. MMMM DD')} <Text style={styles.timeDivider}>|</Text> {moment(eventParam.startTime).format('HH:mm')} - {moment(eventParam.endTime).format('HH:mm')}</Text>
               <TouchableOpacity
                 style={styles.secondIcon}
+                activeOpacity={0.8}
               >
                 <Icon name="today" size={20} color="#fff"/>
               </TouchableOpacity>
@@ -61,15 +73,13 @@ export default class EventDetailScreen extends Component {
               </View>
               <TouchableOpacity
                 style={styles.secondIcon}
+                activeOpacity={0.8}
               >
                 <Icon name="directions" size={20} color="#fff"/>
               </TouchableOpacity>
             </View>
 
-            <View>
-              <Text style={styles.detailsTitle}>RÉSZLETEK</Text>
-              <Text style={styles.detailsText}>{eventParam.eventDetails}</Text>
-            </View>
+            {eventDetails}
 
             <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8}>
               <Icon name="face" size={20} color="#c49565"/>
@@ -88,8 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 20,
-    paddingLeft: 15,
-    paddingRight: 15,
     // marginBottom: 25,
   },
   eventDateText: {
@@ -167,6 +175,9 @@ const styles = StyleSheet.create({
     paddingRight: 35,
     marginLeft: 'auto',
     marginRight: 'auto',
+    // position: 'fixed',
+    backgroundColor: '#fff',
+    // bottom: 0,
   },
   facebookBtnText: {
     fontFamily: 'Montserrat',

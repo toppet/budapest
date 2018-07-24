@@ -15,7 +15,7 @@ export default class PageHeader extends Component {
   render() {
     let leftIcon;
     let rightIcon;
-    const { pageTitle, isBack } = this.props;
+    const { pageTitle, isBack, noRightIcon } = this.props;
     
     if(isBack) {
       leftIcon = (
@@ -23,7 +23,7 @@ export default class PageHeader extends Component {
           style={styles.backButton}
           onPress={() => this.props.navigation.goBack()}
         >
-          <Icon name='keyboard-backspace' size={30}/>
+          <Icon name='keyboard-backspace' size={30} style={{ marginLeft: -5 }}/>
         </TouchableOpacity>
       )
       rightIcon = (
@@ -54,6 +54,14 @@ export default class PageHeader extends Component {
       );
     }
 
+    if (noRightIcon) {
+      rightIcon = (
+        <View style={styles.rightIconPlaceholder}>
+
+        </View>
+      );
+    }
+
 
     return (
       <View style={styles.header}>
@@ -74,7 +82,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between', 
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    // borderWidth: 2,
   },
   button: {
     // width: 20,
@@ -83,11 +92,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   backButton: {
-    // width: 30,
+    width: 30,
     // height: 30,
     // borderWidth: 2,
-    alignItems: 'center',
-    justifyContent: 'flex-end'
+    // alignItems: 'center',
+    // justifyContent: 'flex-start',
   },
   shareButton: {
     width: 30,
@@ -101,6 +110,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "YoungSerif-Regular",
   },
+  rightIconPlaceholder: {
+    width: 20,
+    height: 20,
+  }
 });
 
 
