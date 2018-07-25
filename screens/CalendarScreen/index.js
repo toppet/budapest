@@ -10,9 +10,9 @@ import { LocaleConfig, Agenda } from 'react-native-calendars';
 
 LocaleConfig.locales['hu'] = {
   monthNames: ['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'],
-  monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+  monthNamesShort: ['Jan.','Febr.','Marc.','Apr.','Máj.','Jún.','Júl.','Aug.','Szept.','Okt.','Nov.','Dec.'],
   dayNames: ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'],
-  dayNamesShort: ['V.','H','K','Sz.','Cs.','P.','Szo.',]
+  dayNamesShort: ['V','H','K','Sz','Cs','P','Szo']
 };
 
 LocaleConfig.defaultLocale = 'hu';
@@ -27,23 +27,28 @@ export default class CalendarScreen extends Component {
 
   loadItems(day) {
     setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = this.timeToString(time);
-        if (!this.state.items[strTime]) {
-          this.state.items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 5);
-          for (let j = 0; j < numItems; j++) {
-            this.state.items[strTime].push({
-              name: 'Item for ' + strTime,
-              height: Math.max(50, Math.floor(Math.random() * 150))
-            });
-          }
-        }
-      }
+      // for (let i = -15; i < 85; i++) {
+      //   const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+      //   const strTime = this.timeToString(time);
+      //   if (!this.state.items[strTime]) {
+      //     this.state.items[strTime] = [];
+      //     const numItems = Math.floor(Math.random() * 5);
+      //     for (let j = 0; j < numItems; j++) {
+      //       this.state.items[strTime].push({
+      //         name: 'Item for ' + strTime,
+      //         height: Math.max(50, Math.floor(Math.random() * 150))
+      //       });
+      //     }
+      //   }
+      // }
       //console.log(this.state.items);
-      const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+      const newItems = {
+        '2018-07-25': [{ name: 'Item for 2018-07-25 - 1' }, { name: 'Item for 2018-07-25 - 2' }],
+        '2018-07-28': [{ name: 'Item for 2018-07-28 - 1' }, { name: 'Item for 2018-07-28 - 2' }, { name: 'Item for 2018-07-28 - 3' }],
+        '2018-08-01': [{ name: 'Item for 2018-08-01 - 1' }],
+      };
+
+      // Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
       this.setState({
         items: newItems
       });
@@ -53,7 +58,9 @@ export default class CalendarScreen extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text></View>
+      <View style={[styles.item, {height: item.height}]}>
+        <Text>{item.name}</Text>
+      </View>
     );
   }
 
@@ -77,6 +84,7 @@ export default class CalendarScreen extends Component {
               { ...this.props }
               pageTitle="Naptár"  
             />
+            <Text style={styles.pageTitle}>Válasszon napot!</Text>
             <View style={{ flex: 1 }}>
               <Agenda
                 items={this.state.items}
@@ -89,9 +97,13 @@ export default class CalendarScreen extends Component {
                 theme={{
                   textMonthFontFamily: 'Montserrat',
                   textMonthFontWeight: 'bold',
+                  textDayFontFamily: 'Montserrat',
                   monthTextColor: '#c49565',
                   dotColor: '#c49565',
                   selectedDayBackgroundColor: '#c49565',
+                  todayTextColor: '#73beff',
+                  textMonthFontSize: 18,
+                  textDayFontSize: 13,
                 }}
               />
             </View>
@@ -105,6 +117,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 20,
+  },
+  pageTitle: {
+    fontSize: 20,
+    fontFamily: "YoungSerif-Regular",
+    paddingLeft: 15,
+    marginTop: 15,
+    marginBottom: 15,
   },
   item: {
     backgroundColor: 'white',
