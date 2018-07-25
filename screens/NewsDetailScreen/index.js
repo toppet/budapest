@@ -16,7 +16,11 @@ export default class NewsDetailScreen extends Component {
     console.log('NewsDetailScreen this.props', this.props)
     return (
       <View style={styles.container}>
-        <PageHeader {...this.props} isBack/>
+        <PageHeader 
+          {...this.props}
+          pageTitle="Hírek"
+          isBack
+        />
         <Text>Hello NewsDetailScreen Screen</Text>
       </View>
     )
