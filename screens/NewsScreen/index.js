@@ -40,6 +40,35 @@ const latestNews = [
         newsTag: 'masik cimke',
       },
     ]
+  },
+  {
+    title: '2018-07-25',
+    data: [
+      {
+        id: 0,
+        newsDate: '2018-07-25',
+        newsTitle: 'Következő hetiszakaszunk: Vöeszchánon (וָאֶתְחַנַּן)',
+        newsContent: '',
+        newsBackground: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg',
+        newsTag: 'hetiszakasz',
+      },
+      {
+        id: 1,
+        newsDate: '2018-07-25',
+        newsTitle: 'Következő hetiszakaszunk: Mátajsz-Mászé (מַּטּוֹת-מַסְעֵי)',
+        newsContent: '',
+        newsBackground: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg',
+        newsTag: 'masik cimke',
+      },
+      {
+        id: 2,
+        newsDate: '2018-07-25',
+        newsTitle: 'Következő hetiszakaszunk: Mátajsz-Mászé (מַּטּוֹת-מַסְעֵי)',
+        newsContent: '',
+        newsBackground: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg',
+        newsTag: 'masik cimke',
+      },
+    ]
   }
 ]
 

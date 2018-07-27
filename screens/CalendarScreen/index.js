@@ -3,8 +3,10 @@ import {
     View,
     Text,
     StyleSheet,
+    TouchableOpacity,
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { LocaleConfig, Agenda } from 'react-native-calendars';
 
@@ -59,7 +61,10 @@ export default class CalendarScreen extends Component {
   renderItem(item) {
     return (
       <View style={[styles.item, {height: item.height}]}>
-        <Text>{item.name}</Text>
+        <Text style={styles.itemText}>{item.name}</Text>
+        <TouchableOpacity onPress={() => console.log('Add this to calendar', item)}>
+          <Icon name="date-range" />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -128,10 +133,15 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: 'white',
     flex: 1,
-    borderRadius: 5,
     padding: 10,
     marginRight: 10,
-    marginTop: 17
+    marginTop: 17,
+    borderRadius: 5,
+  },
+  itemText: {
+    fontFamily: 'YoungSerif-Regular',
+    fontSize: 20,
+    color: '#434656',
   },
   emptyDate: {
     height: 15,

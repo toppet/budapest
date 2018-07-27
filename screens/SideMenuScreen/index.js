@@ -61,7 +61,7 @@ export default class SideMenuScreen extends Component {
           <View style={{flex: 2, alignItems: 'flex-start', justifyContent: 'flex-end', marginLeft: "auto", marginRight: "auto"}}>
             <Text style={styles.addressL}>Dohány utcai </Text>
             <Text style={styles.addressL}>Zsinagóga</Text>
-            <Text style={[styles.addressS, {marginTop: 10}]}>Budapest,</Text>
+            <Text style={[styles.addressS, {marginTop: 10}]}>JewPS,</Text>
             <Text style={styles.addressS}>Dohány u. 2,</Text> 
             <Text style={styles.addressS}>1074</Text>
           </View>

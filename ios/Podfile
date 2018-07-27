@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '11.4'
+platform :ios, '10.0'
 
-target 'Budapest' do
+target 'JewPS' do
   rn_path = '../node_modules/react-native'
   rn_maps_path = '../node_modules/react-native-maps'
 
@@ -37,9 +37,6 @@ target 'Budapest' do
   pod 'react-native-google-maps', path: rn_maps_path  # Remove this line if you don't want to support GoogleMaps on iOS
   pod 'GoogleMaps'  # Remove this line if you don't want to support GoogleMaps on iOS
   pod 'Google-Maps-iOS-Utils' # Remove this line if you don't want to support GoogleMaps on iOS
-
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
 end
 
 post_install do |installer|
