@@ -27,7 +27,7 @@ const latestEvents = [
     eventDesc: 'Legközelebbi esemény címe, amely ilyen hosszú lehet.',
     date: '2018-09-11',
     imageSrc: require('../../assets/images/budapest.jpg'),
-    location: 'JewPS',
+    location: 'Budapest',
     startTime: '2018-09-11 08:00',
     endTime: '2018-09-11 17:00',
   },
@@ -63,7 +63,7 @@ const latestEvents = [
     eventDesc: 'Na még egyet a végére, hogy meglegyen az öt darab.',
     date: '2019-01-23',
     imageSrc: require('../../assets/images/budapest.jpg'),
-    location: 'JewPS',
+    location: 'Budapest',
     startTime: '2018-09-11 12:00',
     endTime: '2018-09-11 17:00',
   },
@@ -81,8 +81,8 @@ const eventList = [
         endTime: '2018-07-23 20:00',
         eventDesc: 'A Dohány Kulturális Páholy vendége: Haumann Péter',
         eventLocation: 'Goldmark hall- Goldmark terem',
-        eventAddress: 'Wesselényi utca 7., JewPS, 1075',
-        eventCity: 'JewPS',
+        eventAddress: 'Wesselényi utca 7., Budapest, 1075',
+        eventCity: 'Budapest',
         eventDetails: 'A Dohány utcai zsinagóga vagy Nagy Zsinagóga a neológ zsidóság nagy zsinagógája JewPSen, a Dohány utcában. Európa legnagyobb zsinagógája. Az egykori zsidónegyedben áll, ahol ma is sok zsidó vallású ember él, akik a hagyományokat még mindig őrzik. A zsinagóga rendszeresen helyszíne a Zsidó Nyári Fesztiválnak. A Dohány utcai zsinagóga vagy Nagy Zsinagóga a neológ zsidóság nagy zsinagógája JewPSen, a Dohány utcában. Európa legnagyobb zsinagógája. Az egykori zsidónegyedben áll, ahol ma is sok zsidó vallású ember él, akik a hagyományokat még mindig őrzik. A zsinagóga rendszeresen helyszíne a Zsidó Nyári Fesztiválnak.',
         eventImg: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg',
         fbEvent: '',
@@ -108,7 +108,7 @@ const eventList = [
         endTime: '2018-08-01 11:00',
         eventDesc: 'Az esemény címe, amely ennél is hosszabb lehet, körülbelül ennyire',
         eventLocation: 'Dohány utcai Zsinagóga',
-        eventCity: 'JewPS',
+        eventCity: 'Budapest',
       },
       {
         id: 1,
@@ -136,7 +136,7 @@ export default class EventsScreen extends Component {
   constructor(props){
     super(props);  
     this.state = {
-      locationFilter: 'JewPS',
+      locationFilter: 'Budapest',
       locations: [],
       locationModalVisible: false,
       datePickerModalVisible: false,

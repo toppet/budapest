@@ -5,6 +5,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
+  Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -16,7 +17,7 @@ export default class SideMenuScreen extends Component {
   render() {
     // console.log('SideMenuScreen.props', this.props);
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
         <ImageBackground source={require('../../assets/images/menu_bg.png')} style={{width: '100%', height: '100%', position: 'relative'}}>
 
@@ -25,11 +26,12 @@ export default class SideMenuScreen extends Component {
             <View style={{opacity: 0.45,  borderRadius: 6, height: '95%', width: 500, right: -485, backgroundColor: "#b7a99b", position: 'absolute', }}></View>
           </View>
 
-          <View style={{flex: 4, marginTop: 130, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'transparent'}}>
+          <View style={{ flex: 1, marginTop: 50, marginBottom: 400, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'transparent'}}>
             {/* <Icon.Button style={styles.button} size={22} name="settings" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.showSettingsDialog()}>
               <Text style={styles.buttonText}>Beállítások</Text>
             </Icon.Button> */}
-            <TouchableOpacity onPress={() => this.props.showSettingsDialog()} style={{marginBottom: 30}}>
+            <Image source={require('../../assets/images/icon_60pt.png')} style={styles.appIcon}/>
+            <TouchableOpacity onPress={() => this.props.showSettingsDialog()} style={{ marginBottom: 30 }}>
               <View style={styles.buttonView}>
                 <Icon style={styles.buttonIcon} size={22} name="settings" color="#c49565" />
                 <Text style={styles.buttonText}>Beállítások</Text>
@@ -58,16 +60,16 @@ export default class SideMenuScreen extends Component {
             </Icon.Button> */}
           </View>
 
-          <View style={{flex: 2, alignItems: 'flex-start', justifyContent: 'flex-end', marginLeft: "auto", marginRight: "auto"}}>
+          <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', marginLeft: "auto", marginRight: "auto"}}>
             <Text style={styles.addressL}>Dohány utcai </Text>
             <Text style={styles.addressL}>Zsinagóga</Text>
-            <Text style={[styles.addressS, {marginTop: 10}]}>JewPS,</Text>
+            <Text style={[styles.addressS, { marginTop: 10 }]}>Budapest,</Text>
             <Text style={styles.addressS}>Dohány u. 2,</Text> 
             <Text style={styles.addressS}>1074</Text>
           </View>
 
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 10}}>
-            <Text style={{fontFamily: "Montserrat", fontSize: 11, fontWeight: "bold",}}>Verzio beta-0.1</Text>
+            <Text style={{fontFamily: "Montserrat", fontSize: 11, color: '#797e9c'}}>Verzio beta-0.1</Text>
           </View>
 
         </ImageBackground>
@@ -78,6 +80,12 @@ export default class SideMenuScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  appIcon: {
+    width: 90,
+    height: 90,
+    borderRadius: 20,
+    marginBottom: 60,
+  },
   buttonView: {
     flexDirection: 'row', 
     width: 165, 

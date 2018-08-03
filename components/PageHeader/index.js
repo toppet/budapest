@@ -14,30 +14,22 @@ const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 export default class PageHeader extends Component {
   render() {
     let leftIcon;
-    let rightIcon;
+    let rightIcon = <View style={styles.rightIconPlaceholder}></View>;
     const { pageTitle, isBack, noRightIcon } = this.props;
     
     if(isBack) {
       leftIcon = (
         <TouchableOpacity
-          style={styles.backButton}
+          style={styles.menuButton}
           onPress={() => this.props.navigation.goBack()}
         >
-          <Icon name='keyboard-backspace' size={30} style={{ marginLeft: -5 }}/>
-        </TouchableOpacity>
-      )
-      rightIcon = (
-        <TouchableOpacity
-          style={styles.shareButton}
-          onPress={() => console.log('share this')}
-        >
-          <CustomIcon name="ic_share" size={20} />
+          <Icon name='keyboard-backspace' size={30} style={styles.backArrow}/>
         </TouchableOpacity>
       )
     } else {
       leftIcon = (
         <TouchableOpacity
-          style={styles.button}
+          style={styles.menuButton}
           onPress={() => this.props.screenProps.openMenu()}
         >
           <Image source={require('../../assets/images/icMenu.png')} />
@@ -46,7 +38,7 @@ export default class PageHeader extends Component {
 
       rightIcon = (
         <TouchableOpacity
-          style={styles.backButton}
+          style={styles.menuButton}
           onPress={() => this.props.navigation.goBack()}
         >
           <Image style={styles.button} source={require('../../assets/images/icKereses.png')} />
@@ -54,13 +46,13 @@ export default class PageHeader extends Component {
       );
     }
 
-    if (noRightIcon) {
-      rightIcon = (
-        <View style={styles.rightIconPlaceholder}>
+    // if (noRightIcon) {
+    //   rightIcon = (
+    //     <View style={styles.rightIconPlaceholder}>
 
-        </View>
-      );
-    }
+    //     </View>
+    //   );
+    // }
 
 
     return (
@@ -76,44 +68,26 @@ export default class PageHeader extends Component {
 const styles = StyleSheet.create({
   header: {
     height: 50,
-    padding: 15,
-    paddingTop: 0,
-    paddingBottom: 0,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between', 
     backgroundColor: "#fff",
-    // borderWidth: 2,
   },
-  button: {
-    // width: 20,
-    // height: 20,
+  menuButton: {
+    width: 50,
+    height: 50,
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  backButton: {
-    width: 30,
-    // height: 30,
-    // borderWidth: 2,
-    // alignItems: 'center',
-    // justifyContent: 'flex-start',
-  },
-  shareButton: {
-    width: 30,
-    height: 30,
-    // borderWidth: 2,
-    paddingTop: 5,
-    alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'center', 
   },
   pageTitle: {
     fontSize: 20,
     fontFamily: "YoungSerif-Regular",
   },
   rightIconPlaceholder: {
-    width: 20,
-    height: 20,
-  }
+    width: 50,
+    height: 50,
+  },
+
 });
 
 

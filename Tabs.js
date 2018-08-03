@@ -5,20 +5,18 @@ import {
 import { createBottomTabNavigator, BottomTabBar } from 'react-navigation';
 
 import HomeScreen from './screens/HomeScreen';
-import MapScreen from './screens/MapScreen';
-import NewsScreen from './screens/NewsScreen';
-import EventsScreen from './screens/EventsScreen';
 import CalendarScreen from './screens/CalendarScreen';
 
 import NewsStack from './NewsStack';
 import EventsStack from './EventsStack';
+import MapStack from './MapStack';
 
 export default createBottomTabNavigator(
   {
     Home: {
       screen: props => <HomeScreen {...props}/>
     },
-    Map: MapScreen,
+    Map: MapStack,
     Events: EventsStack,
     News: NewsStack,
     Calendar: CalendarScreen,
