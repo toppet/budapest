@@ -13,6 +13,7 @@ import {
   Button,
   ActivityIndicator,
   RefreshControl,
+  DatePickerIOS
 } from 'react-native';
 
 import PageHeader from '../../components/PageHeader';
@@ -58,11 +59,14 @@ export default class NewsScreen extends Component {
       selectedDateFilter: null,
       tagModalVisible: false,
       prevItemDate: "",
-      latestNewsInState: null,
+      latestNewsInState: [],
       loading: true,
       top3News: [],
       refreshing: false,
       refreshingNewsList: false,
+      datePickerModalVisible: false,
+      chosenDate: null,
+      formatterChosenDate: null,
     }
   }
 
@@ -74,15 +78,26 @@ export default class NewsScreen extends Component {
   _onRefresh = () => {
     this.setState({
       refreshing: true,
-      refreshingNewsList: true
+      refreshingNewsList: true,
+      selectedTagFilterId: null,
+      selectedDateFilter: null,
     });
-    
+
     setTimeout(() => {
-      this.setState({ 
-        refreshing: false,
-        refreshingNewsList: false
-      });
-    }, 3000);
+      this.getNewsAndTopNews();
+    }, 1000); 
+  }
+
+  getTop3News(response) {
+    let newsArray;
+
+    if(response.length < 3) {
+      newsArray = response.map(r => r);
+    } else {
+      newsArray [response[0], response[1], response[2]];
+    }
+    
+    return newsArray;
   }
 
   getNewsAndTopNews() {
@@ -92,13 +107,15 @@ export default class NewsScreen extends Component {
       fetch('https://jewps.hu/api/v1/news')
         .then((response) => response.json())
         .then((responseJson) => {
-          console.log('news', responseJson);
           const responseData = responseJson.data;
-          
+          console.log('responseData', responseData)
           if(responseJson.success) {
             this.setState({ 
               latestNewsInState: responseData,
-              top3News: [responseData[0], responseData[1], responseData[2]],
+              top3News: this.getTop3News(responseData),
+              refreshing: false,
+              refreshingNewsList: false,
+              loading: false,
             });
           }
           
@@ -135,12 +152,24 @@ export default class NewsScreen extends Component {
   }
 
   getFilteredNews(dateFilter, selectedTagFilterId) {
-    // console.log('dateFilter', dateFilter, 'tagFilter', selectedTagFilterId);
     let fetchUrl = 'https://jewps.hu/api/v1/news';
-
+    
+    let formattedDate;
+    
+    if(dateFilter) {
+      formattedDate = moment(dateFilter).format('YYYY-MM-DD');
+      fetchUrl = `https://jewps.hu/api/v1/news?date=${formattedDate}`;
+    }
+    
     if(selectedTagFilterId) {
       fetchUrl = `https://jewps.hu/api/v1/tags/${selectedTagFilterId}/news`;
     }
+    
+    if(dateFilter && selectedTagFilterId) {
+      fetchUrl = `https://jewps.hu/api/v1/news?tags=${selectedTagFilterId}&date=${formattedDate}`;
+    }
+    console.log('dateFilter', dateFilter, 'formattedDAte', formattedDate, 'selectedTagFilterId', selectedTagFilterId);
+    // console.log('fetchurl', fetchUrl);
 
     this.setState({
       refreshingNewsList: true,
@@ -163,14 +192,6 @@ export default class NewsScreen extends Component {
           console.error(error);
         });
     })
-  }
-
-  filterNews(filterBy) {
-    const filteredValues = [this.state.latestNewsInState[0], this.state.latestNewsInState[1]];
-    console.log('filteredValues', filteredValues);
-    this.setState({
-      latestNewsInState: filteredValues,
-    });
   }
 
   renderNewsListItem = (item, index) => {
@@ -239,27 +260,56 @@ export default class NewsScreen extends Component {
     );
   }
 
-  getFilterValueText(selectedTag) {
-    console.log('getFilterValueText selectedTag', selectedTag);
-    // {tagFilter.name.length > 10 ? `${tagFilter.name.slice(0,10)}...` : tagFilter.name}
+  sliceTagFilterLabel(selectedTagLabel) {
+    // console.log('getFilterValueText selectedTagLabel', selectedTagLabel);
+    return selectedTagLabel.length > 10 ? `${selectedTagLabel.slice(0,10)}...` : selectedTagLabel;
+  }
+
+  setDate(newDate) {
+    this.setState({ 
+      chosenDate: newDate,
+      formatterChosenDate: moment(newDate).format('YYYY.MM.DD'),
+    })
   }
 
   // RENDER
   render() {
-    const { loading, tags, selectedTagFilterId, tagFilterPlaceholder, latestNewsInState, top3News } = this.state;
+    const { 
+      loading, 
+      tags, 
+      selectedTagFilterId, 
+      tagFilterPlaceholder, 
+      latestNewsInState, 
+      top3News,
+      chosenDate,
+      formatterChosenDate
+    } = this.state;
 
     if (loading) {
       return this.getLoadingIndicator();
     }
 
-    console.log('latestNewsInState', latestNewsInState);
-    console.log('tagsInState', tags);
-    console.log('selectedTagFilterId', selectedTagFilterId);
+    if (latestNewsInState.length === 0) {
+      return (
+        <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
+          <Text
+            style={styles.noNewsText}
+          >
+            NINCSENEK HÍREK
+          </Text>
+        </View>
+      );
+    }
+
+    // console.log('latestNewsInState', latestNewsInState);
+    // console.log('tagsInState', tags);
+    // console.log('selectedTagFilterId', selectedTagFilterId);
 
     const selectedTagObj = selectedTagFilterId ? _.find(tags, (o) => o.id == selectedTagFilterId) : '';
     const selectedTagLabel = selectedTagObj.name;
-    console.log('selectedTagLabel', selectedTagLabel);
+    // console.log('selectedTagLabel', selectedTagLabel);
 
+    let dateFilterClearBtn = null;
     let tagFilterClearBtn = null;
     let tagPickers;
 
@@ -273,14 +323,27 @@ export default class NewsScreen extends Component {
       ));
     }
 
+    if(formatterChosenDate) {
+      dateFilterClearBtn = (
+        <TouchableOpacity onPress={() => {
+          this.setState({ 
+            formatterChosenDate: null,
+            chosenDate: null,
+          }, () => this.getFilteredNews(null, selectedTagFilterId))
+        }}>
+          <Icon name="cancel" size={20} />
+        </TouchableOpacity>
+      );
+    }
+
     if(selectedTagFilterId) {
       tagFilterClearBtn = (
         <TouchableOpacity onPress={() => {
           this.setState({ 
             selectedTagFilterId: null,
-          }, () => this.getFilteredNews(null, null))
+          }, () => this.getFilteredNews(chosenDate, null))
         }}>
-            <Icon name="cancel" size={20} />
+          <Icon name="cancel" size={20} />
         </TouchableOpacity>
       );
     }
@@ -295,20 +358,29 @@ export default class NewsScreen extends Component {
               </View>
           </ImageBackground>
         </View>
-        <TouchableOpacity style={styles.readMoreBtn} activeOpacity={0.95}>
+        <TouchableOpacity style={styles.readMoreBtn} activeOpacity={0.95} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n }) }>
           <Text style={styles.readMoreBtnText}>Elolvasom</Text>
         </TouchableOpacity>
       </View>
     ));
    
-    const newsListItems = (
-      <FlatList
-       data={latestNewsInState}
-       renderItem={({item, index}) => this.renderNewsListItem(item, index)}
-       keyExtractor={(item, index) => `${item.id}${index}`}
-      >
-      </FlatList>
-    )
+    let newsListItems;
+    
+    if (latestNewsInState && latestNewsInState.length === 0) {
+      newsListItems = (
+        <Text style={styles.noNewsText}>Nincs bejegyzés</Text>
+      );
+    } else {
+      newsListItems = (
+        <FlatList
+        // data={latestNewsInState}
+        data={latestNewsInState}
+        renderItem={({item, index}) => this.renderNewsListItem(item, index)}
+        keyExtractor={(item, index) => `${item.id}${index}`}
+        >
+        </FlatList>
+      );
+    }
 
     return (
       <View style={styles.container}>
@@ -340,8 +412,18 @@ export default class NewsScreen extends Component {
           <View style={styles.filterRow}>
             <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
               <TouchableOpacity onPress={() => this.setState({datePickerModalVisible: true})} style={styles.tagFilter} activeOpacity={0.8}>
-                <Icon name="date-range" size={20} />
-                <Text style={[styles.filterTextInActive, { color: '#434656'} ]}>Dátum</Text>
+                <Icon 
+                  name="date-range"
+                  size={20}
+                  color={formatterChosenDate ? "#c49565" : "#434656"}
+                />
+                <Text 
+                  // style={[styles.filterTextInActive, { color: '#434656'} ]}>
+                  style={formatterChosenDate ? styles.filterTextActive : styles.filterTextInActive}
+                >
+                  {formatterChosenDate ? formatterChosenDate : 'Dátum'}
+                </Text>
+                {dateFilterClearBtn}
               </TouchableOpacity>
             </View>
 
@@ -355,7 +437,7 @@ export default class NewsScreen extends Component {
                 <Text 
                   style={selectedTagFilterId ? styles.filterTextActive : styles.filterTextInActive}
                 >
-                  {selectedTagLabel ? selectedTagLabel : tagFilterPlaceholder}
+                  {selectedTagLabel ? this.sliceTagFilterLabel(selectedTagLabel) : tagFilterPlaceholder}
                 </Text>
                 {tagFilterClearBtn}
               </TouchableOpacity>
@@ -366,17 +448,42 @@ export default class NewsScreen extends Component {
           <View style={{marginBottom: 25}}>
             { this.state.refreshingNewsList ? this.getLoadingIndicator() : newsListItems }
           </View>
+          
+          <Modal
+            animationType="slide"
+            transparent
+            visible={this.state.datePickerModalVisible}
+            onRequestClose={() => {
+              console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
+            }}
+            onDismiss={() => {
+              console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
+            }}
+          >
+            <View style={{ flex: 1, height: '100%', width: '100%' }}>
+              <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%',}}>
+                <DatePickerIOS
+                  date={this.state.chosenDate ? this.state.chosenDate : new Date()}
+                  onDateChange={(newDate) => this.setDate(newDate)}
+                  locale="hu"
+                  mode="date"
+                />
+                <Button
+                  title="Bezár"
+                  onPress={() => this.setState({ datePickerModalVisible: false }) } />
+              </View>
+            </View>
+          </Modal>
 
           <Modal
             animationType="slide"
-            transparent={false}
             visible={this.state.tagModalVisible}
             transparent
             onRequestClose={() => {
-              console.log('Modal has been closed, state value => ', this.getFilteredNews(null, selectedTagFilterId));
+              console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
             }}
             onDismiss={() => {
-              console.log('Modal has been closed, state value => ', this.getFilteredNews(null, selectedTagFilterId));
+              console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
             }}
           >
             <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%' }}>
@@ -398,7 +505,6 @@ export default class NewsScreen extends Component {
                   onPress={() => this.setState({ tagModalVisible: false }) } />
               </View>
             </View>
-
           </Modal>
           
         </ScrollView>
@@ -413,6 +519,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    minHeight: 150,
   },
   container: {
     flex: 1,
@@ -555,6 +662,18 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: "600",
     color: '#a3abbc',
+  },
+  noNewsText: {
+    marginTop: 25,
+    marginBottom: 25,
+    paddingHorizontal: 15,
+    fontFamily: "Montserrat",
+    fontSize: 15,
+    fontWeight: "600",
+    fontStyle: "italic",
+    letterSpacing: 0,
+    color: "#a3abbc",
+    textAlign: 'center',
   },
 });
 

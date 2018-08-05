@@ -12,8 +12,9 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import moment from 'moment';
 
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
@@ -34,6 +35,53 @@ const Images = [
 const pinIcon = require('../../assets/images/ic_pin.png');
 const selectedPinIcon = require('../../assets/images/ic_pin_valaszt.png');
 
+customMapStyle = [
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+];
+
 export default class MapScreen extends Component {
   state = {
     selectedMarker: null,
@@ -48,20 +96,57 @@ export default class MapScreen extends Component {
         title: "Dohány utcai zsinagóga",
         entryFee: 4000,
         currency: 'Ft',
-        openingHours: 'Kedd 08:00 - 18:00',
+        // openingHours: 'Kedd 08:00 - 18:00',
         state: 'Nyitva',
-      },
-      {
-        coordinate: {
-          latitude: 47.4983726,
-          longitude: 19.0541903,
-        },
-        image: Images[1],
-        title: "Akvárium Klub",
-        entryFee: 3000,
+        title: "Dohány utcai Zsinagóga, neológ",
+        minEntryFee: 1200,
+        maxEntryFee: 4000,
         currency: 'Ft',
-        openingHours: 'Kedd 08:00 - 18:00',
-        state: 'Nyitva',
+        webPageLink: 'http://www.dohany-zsinagoga.hu/',
+        facebookPageLink: 'https://www.facebook.com/Dohanytemplom/',
+        ticketLink: 'https://www.jegy.hu/venue/dohany-utcai-zsinagoga-es-zsido-muzeum',
+        phone: '+36 30 123 4567',
+        address: 'Dohány u. 2, 1074 Budapest',
+        openingHours: [
+          {
+            day: 'Vasárnap',
+            open: 'Zárva',
+            close: 'Zárva',
+            closed: true,
+          },
+          {
+            day: 'Hétfő',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Kedd',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Szerda',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Csütörtök',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Péntek',
+            open: '8:30',
+            close: '16:00',
+          },
+          {
+            day: 'Szombat',
+            open: 'Zárva',
+            close: 'Zárva',
+            closed: true,
+          },
+        ],
+        description: 'A Dohány utcai Zsinagóga Budapest egyik kiemelt turisztikai látványossága, Európa legnagyobb, a világ második legnagyobb zsinagógája. 1859-ban épült mór stílusban, 3000 fő befogadására alkalmas. Nagysága a korabeli fővárosi zsidóság jelentőségét, magas színvonalú gazdasági és kulturális igényét bizonyítja.A templom építésze Ludwig Förster (1797—1863) német építész, a bécsi akadémia tanára volt. Az építésvezető Wechselmann Ignác műépítész (1828—1903), aki később egész vagyonát a Vakok Intézetére hagyta. Förster távozása után Feszl Frigyes, a Vigadó híres építésze tervezte a templom belső szentélyét. A zsinagóga ünnepélyes felavatására 1859. szeptember 6-án került sor. A belső tér 1200 négyzetméter, tornyainak magassága 44 méter, a sík mennyezetű belső térben közel háromezer ember, a földszinten 1497 férfi, az emeleti karzatokon pedig 1472 női ülés található.'
       },
       // {
       //   coordinate: {
@@ -83,11 +168,44 @@ export default class MapScreen extends Component {
       // },
     ],
     region: {
-      latitude: 47.4978032,
-      longitude: 19.0584075,
-      latitudeDelta: 0.04864195044303443,
-      longitudeDelta: 0.040142817690068,
+      latitude: 47.498519,
+      longitude: 19.063052,
+       
+      // latitudeDelta: 0.04864195044303443,
+      // longitudeDelta: 0.040142817690068,
+      latitudeDelta: 0.015,
+      longitudeDelta: 0.015,
     },
+    polygonCoordinates: [
+      {
+        latitude: 47.502895,
+        longitude: 19.064554,
+      },
+      {
+        latitude: 47.501382,
+        longitude: 19.065932,
+      },
+      {
+        latitude: 47.498493,
+        longitude: 19.069804,
+      },
+      {
+        latitude: 47.496672,
+        longitude: 19.066784,
+      },
+      {
+        latitude: 47.495468,
+        longitude: 19.062850,
+      },
+      {
+        latitude: 47.495751,
+        longitude: 19.059064,
+      },
+      {
+        latitude: 47.497643,
+        longitude: 19.055620,
+      },
+    ]
   }
 
   componentWillMount() {
@@ -134,6 +252,28 @@ export default class MapScreen extends Component {
     }
   }
 
+  getOpeningHours(openingHours) {
+    const { open, close, closed } = openingHours;
+    const now = new Date();
+    var format = 'hh:mm';
+    
+    if (closed) {
+      return <Text>{`${openingHours.day}: `} <Text style={styles.closedState}>Zárva</Text></Text>;
+    }
+
+    let time = moment(now, format);
+    let openingTime = moment(open, format);
+    let closingingTime = moment(close, format);
+    let resultText;
+    
+    if(time.isBetween(openingTime, closingingTime)){
+      resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.openState}>Nyitva</Text></Text>;
+    } else {
+      resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.closedState}>Zárva</Text></Text>
+    }
+
+    return resultText;
+  }
 
   render() {
     // const interpolations = this.state.markers.map((marker, index) => {
@@ -156,9 +296,10 @@ export default class MapScreen extends Component {
     // });
     let selectedMarkerCard = <View></View>;
     const { selectedMarker, selectedMarkerIndex } = this.state;
+    const currentDayIndex = moment().day();
 
     if (selectedMarker) {
-    selectedMarkerCard = (
+      selectedMarkerCard = (
         <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
           <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/>
           <View style={styles.leftView}>
@@ -168,11 +309,14 @@ export default class MapScreen extends Component {
               Belépő: <Text style={styles.valueText}>{`${selectedMarker.entryFee} ${selectedMarker.currency}`}</Text>
             </Text>
             <Text style={styles.labelText}>Nyitvatartás:</Text>
-            <Text style={styles.valueText}>{`${selectedMarker.openingHours}`} | <Text style={styles.openState}>{`${selectedMarker.state}`}</Text></Text>
+            <Text style={styles.valueText}>
+              {/* {`${selectedMarker.openingHours}`} | <Text style={styles.openState}>{`${selectedMarker.state}`}</Text> */}
+              {this.getOpeningHours(selectedMarker.openingHours[currentDayIndex])}
+            </Text>
           </View>
           <View style={styles.rightView}>
             <View style={styles.imageWrap}>
-              <ImageBackground source={require('../../assets/images/budapest.jpg')} style={{width: 120, height: 120,}} />
+              <ImageBackground source={require('../../assets/images/budapest.jpg')} style={{width: 120, height: 120}} />
             </View>
           </View>
         </TouchableOpacity>
@@ -182,11 +326,19 @@ export default class MapScreen extends Component {
     return (
       <View style={styles.container}>
         <MapView
+          // provider={PROVIDER_GOOGLE}
           ref={map => this.map = map}
           initialRegion={this.state.region}
           style={styles.container}
+          customMapStyle={customMapStyle}
           onPress={(e) => this.handleMapViewPress(e)}
         >
+          <MapView.Polygon
+            coordinates={this.state.polygonCoordinates}
+            strokeWidth={3}
+            strokeColor="#c49565"
+            fillColor="rgba(183, 169, 155, 0.15)"
+          />
           {this.state.markers.map((marker, index) => {
             return (
               <MapView.Marker
@@ -198,46 +350,8 @@ export default class MapScreen extends Component {
             );
           })}
         </MapView>
-        {/* <Animated.ScrollView
-          horizontal
-          scrollEventThrottle={1}
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={CARD_WIDTH}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: {
-                    x: this.animation,
-                  },
-                },
-              },
-            ],
-            { useNativeDriver: true }
-          )}
-          style={styles.scrollView}
-          contentContainerStyle={styles.endPadding}
-        >
-          {this.state.markers.map((marker, index) => (
-            <View style={styles.card} key={index}>
-              <Image
-                source={marker.image}
-                style={styles.cardImage}
-                resizeMode="cover"
-              />
-              <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>
-                  {marker.description}
-                </Text>
-              </View>
-            </View>
-          ))}
-        </Animated.ScrollView> */}
         
         { selectedMarkerCard }
-
-        
 
       </View>
     );
@@ -332,6 +446,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: '#6ce986',
-  }
+  },
+  closedState: {
+    fontFamily: 'Montserrat',
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#ff7070',
+  },
 
 });

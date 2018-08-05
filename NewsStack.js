@@ -7,12 +7,11 @@ import NewsDetailScreen from './screens/NewsDetailScreen';
 export default createStackNavigator(
   {
     News: {
-      title: 'New List',
+      title: 'News List',
       screen: props => <NewsScreen {...props} />,
     },
     NewsDetail: {
       screen: props => <NewsDetailScreen {...props} />,
-      // path: 'event/:eventId',
       title: 'NewsDetail',
     },
   },

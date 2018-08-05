@@ -29,14 +29,26 @@ const latestNews = [
   },
   {
     id: 1,
-    imageSrc: require('../../assets/images/app.jpg'),
-    desc: 'A fejlesztok azt igerik, hogy jo lesz.',
+    imageSrc: require('../../assets/images/zsinagoga.jpg'),
+    desc: 'Új applikáció készül a zsidó közösség számára',
     date: new Date(),
   },
   {
     id: 3,
-    imageSrc: require('../../assets/images/wellsee.jpg'),
-    desc: 'Meglátjuk...',
+    imageSrc: require('../../assets/images/zsinagoga.jpg'),
+    desc: 'Új applikáció készül a zsidó közösség számára',
+    date: new Date(),
+  },
+  {
+    id: 4,
+    imageSrc: require('../../assets/images/zsinagoga.jpg'),
+    desc: 'Új applikáció készül a zsidó közösség számára',
+    date: new Date(),
+  },
+  {
+    id: 5,
+    imageSrc: require('../../assets/images/zsinagoga.jpg'),
+    desc: 'Új applikáció készül a zsidó közösség számára',
     date: new Date(),
   },
 ];
@@ -103,9 +115,9 @@ export default class HomeScreen extends Component {
               <Icon name="bookmark-border" size={25} color="#73beff" />
             </TouchableOpacity> */}
 
-            <TouchableOpacity onPress={() => console.log('ikonka')} style={{marginLeft: 10}}>
+            {/* <TouchableOpacity onPress={() => console.log('ikonka')} style={{marginLeft: 10}}>
               <CustomIcon name="ic_share" size={20} color='#73beff'/>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </View>

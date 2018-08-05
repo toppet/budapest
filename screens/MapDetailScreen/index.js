@@ -19,22 +19,17 @@ const ENTRIES1 = [
   {
       title: 'Beautiful and dramatic Antelope Canyon',
       subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-      illustration: 'https://scontent-lht6-1.xx.fbcdn.net/v/t1.0-9/38127547_651023835270205_5910063183288074240_n.jpg?_nc_cat=0&oh=ed5c9b5bbbd7913574123b63bdd8c028&oe=5C0B6B83'
+      illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
   },
   {
       title: 'Earlier this morning, NYC',
       subtitle: 'Lorem ipsum dolor sit amet',
-      illustration: 'https://jewps.hu/images/1533116495.jpg'
-  },
-  {
-      title: 'White Pocket Sunset',
-      subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
       illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
   },
   {
       title: 'White Pocket Sunset',
       subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-      illustration: 'https://goo.gl/2W4iW6'
+      illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
   },
 ];
 
@@ -55,7 +50,7 @@ const colors = {
 
 const itemHorizontalMargin = wp(2);
 const slideWidth = wp(75);
-const slideHeight = viewportHeight * 0.36;
+const slideHeight = 175;
 const sliderWidth = viewportWidth;
 const itemWidth = slideWidth + itemHorizontalMargin * 2;
 const entryBorderRadius = 8;
@@ -69,10 +64,7 @@ export default class MapDetailScreen extends Component {
     };
   }
 
-  _renderItem ({item, index}) {
-    const even = (index + 1) % 2 === 0;
-
-    console.log('item.illustration', item.illustration);
+  _renderItem ({ item }) {
     return (
       <TouchableOpacity
         activeOpacity={1}
@@ -91,12 +83,124 @@ export default class MapDetailScreen extends Component {
     );
   }
 
+  
+
   render() {
     const { navigation } = this.props;
     const mapItem = navigation.getParam('mapItem');
     const { slider1ActiveSlide } = this.state;
     console.log('mapItem', mapItem);
     // const { data: { title, subtitle }, even } = this.props;
+
+    let facebookLinkBtn = null;
+    let ticketLinkBtn = null;
+
+    let minEntryFee = null;
+    let maxEntryFee = null;
+    
+    let prices = null;
+    let phoneNumber = null;
+    let openingHours = null;
+    let address = null;
+    let description = null;
+
+    const currentDayIndex = moment().day();
+
+    if(mapItem.facebookPageLink) {
+      facebookLinkBtn = (
+        <TouchableOpacity style={styles.linkBtn} activeOpacity={0.8}>
+          <Text style={styles.linkBtnText}>Facebook oldal</Text>
+        </TouchableOpacity>
+      );
+    }
+
+    if(mapItem.ticketLink) {
+      ticketLinkBtn = (
+        <TouchableOpacity style={styles.linkBtn} activeOpacity={0.8}>
+          <Text style={styles.linkBtnText}>Jegyértékesítés</Text>
+        </TouchableOpacity>
+      );
+    }
+
+    if (mapItem.minEntryFee) {
+      minEntryFee = `${mapItem.minEntryFee} ${mapItem.currency}`;
+    }
+
+    if (mapItem.maxEntryFee) {
+      maxEntryFee = `- ${mapItem.maxEntryFee} ${mapItem.currency}`;
+    }
+  
+    if (mapItem.minEntryFee || mapItem.maxEntryFee) {
+      prices = (
+        <View style={[styles.infoWrap, styles.inforWrapLeft]}>
+          <Icon name="attach-money" size={25} color="#73beff" />
+          <Text style={styles.infoText}>
+            {minEntryFee}
+            {maxEntryFee}
+          </Text>
+        </View>
+      );
+    }
+
+    if (mapItem.phone) {
+      phoneNumber = (
+        <View style={[styles.infoWrap, styles.inforWrapRight]}>
+          <Icon name="call" size={25} color="#73beff"/>
+          <Text style={styles.infoText}>{mapItem.phone}</Text>
+          <TouchableOpacity
+            style={styles.secondIcon}
+            activeOpacity={0.8}
+          >
+            <Icon name="call" size={20} color="#fff"/>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+
+    if (mapItem.openingHours) {
+      openingHours  = (
+        <View style={[styles.infoWrap, styles.inforWrapLeft]}>
+          <Icon name="schedule" size={25} color="#73beff" />
+          <Text style={[styles.infoText, { color: '#6ce986'}]}>{mapItem.openingHours[currentDayIndex].open}</Text>
+        </View>
+      )
+
+      modalBtn = (
+        <View style={[styles.infoWrap, styles.inforWrapLeft, { marginLeft: 25 }]}>
+          <TouchableOpacity style={styles.modalBtn}>
+            <Text style={styles.modalBtnText}>Nyitvatartás ></Text>
+          </TouchableOpacity>
+        </View>
+      )
+
+    }
+
+    
+
+    if (mapItem.address) {
+      address = (
+        <View style={[styles.infoWrap, styles.inforWrapRight]}>
+          <Icon name="near-me" size={25} color="#73beff"/>
+          <Text style={styles.infoText}>{mapItem.address}</Text>
+          <TouchableOpacity
+            style={styles.secondIcon}
+            activeOpacity={0.8}
+          >
+            <Icon name="directions" size={20} color="#fff"/>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+
+    if (mapItem.description) {
+      description = (
+        <View style={styles.descriptionWrap}>
+          <Icon name="format-quote" size={25} color="#73beff"/>
+          <Text style={styles.descriptionText}>{mapItem.description}</Text>
+        </View>
+      )
+    }
+    
 
     return (
       <View style={styles.container}>
@@ -135,12 +239,12 @@ export default class MapDetailScreen extends Component {
               contentContainerCustomStyle={styles.sliderContentContainer}
               firstItem={1}
             />
-            <Pagination
+            {/* <Pagination
               dotsLength={ENTRIES1.length}
               activeDotIndex={slider1ActiveSlide}
               dotStyle={{
-                width: 8,
-                height: 8,
+                width: 5,
+                height: 5,
                 borderRadius: 5,
                 marginHorizontal: 0,
                 backgroundColor: '#c49565'
@@ -152,10 +256,34 @@ export default class MapDetailScreen extends Component {
               inactiveDotScale={0.8}
               carouselRef={this._carousel}
               tappableDots={!!this._carousel}
-            />
+              containerStyle={{borderWidth: 3, borderColor: '#0f0',}}
+            /> */}
           </View>
-        </ScrollView>
+          
+          <View style={styles.linkBtnRow}>
+            { facebookLinkBtn }
+            { ticketLinkBtn }
+          </View>
 
+          <View style={styles.infoRow}>
+            { prices }
+            { phoneNumber }
+          </View>
+
+          <View style={styles.infoRow}>
+            { openingHours }
+            { address }
+          </View>
+
+          <View style={[styles.infoRow, styles.modalBtnRow]}>
+            { modalBtn }
+          </View>
+
+          <View style={styles.descriptionRow}>
+            { description }
+          </View>          
+
+        </ScrollView>
       </View>
     )
   }
@@ -187,10 +315,10 @@ const styles = StyleSheet.create({
   },
 
   flexLeft: {
-    width: '60%',
+    width: '70%',
   },
   flexRight: {
-    width: '40%',
+    width: '30%',
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
@@ -205,18 +333,19 @@ const styles = StyleSheet.create({
     height: 38,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 35,
+    marginLeft: 'auto',
   },
-
-
   sliderContainer: {
     marginTop: 30,
+    marginBottom: 20,
   },
   slideInnerContainer: {
     width: itemWidth,
     height: slideHeight,
     paddingHorizontal: itemHorizontalMargin,
-    paddingBottom: 0 // needed for shadow
+    paddingBottom: 0, // needed for shadow
+    // borderWidth: 3,
+    // borderColor: '#f00'
   },
   shadow: {
     position: 'absolute',
@@ -243,12 +372,103 @@ const styles = StyleSheet.create({
     borderRadius: IS_IOS ? entryBorderRadius : 0,
   },
   slider: {
-    marginTop: -15,
+    // marginTop: -25,
     overflow: 'hidden',
     // borderWidth: 2,
     // borderColor: '#f00'
   },
   sliderContentContainer: {
     paddingVertical: 0 // for custom animation
+  },
+
+  linkBtnRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30,
+  },
+  linkBtn: {
+    borderWidth: 1,
+    borderColor: '#ededed',
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 5,
+    marginHorizontal: 15,
+  },
+  linkBtnText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: "600",
+    fontStyle: "normal",
+    color: '#c49565'
+  },
+  infoRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginHorizontal: 15,
+  },
+  infoWrap: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  inforWrapLeft: {
+    flex: 0.4,
+    marginRight: 25,
+  },
+  inforWrapRight: {
+    flex: 0.6,
+  },
+  infoText: {
+    fontFamily: "Montserrat",
+    fontSize: 12,
+    fontWeight: "600",
+    fontStyle: "normal",
+    marginLeft: 5,
+    width: 100,
+  },
+  modalBtnRow: {
+    alignItems: 'center', 
+    justifyContent: 'flex-start', 
+    marginTop: -25,
+  },
+  modalBtn: {
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#ededed',
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+  },
+  modalBtnText: {
+    fontFamily: "Montserrat",
+    fontSize: 12,
+    fontWeight: "600",
+    fontStyle: "normal",
+    color: '#434656',
+  },
+  descriptionRow: {
+    marginTop: 10,
+    marginBottom: 30,
+    marginHorizontal: 15,
+  },
+  descriptionWrap: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  descriptionText: {
+    fontFamily: "Montserrat",
+    fontSize: 12,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    lineHeight: 18,
+    paddingHorizontal: 15,
+    marginRight: 15,
   },
 });
