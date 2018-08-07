@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="29px" height="29px" viewBox="0 0 29 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_terkepelem_tovabb</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="zsinagogo_app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="map" transform="translate(-174.000000, -450.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="375" height="667"></rect>
+            <g id="Group-3" transform="translate(16.000000, 445.000000)" fill="#C49565">
+                <path d="M179.393542,20.351875 L175.061667,24.6897917 C174.300417,25.4510417 173.001458,24.9072917 173.001458,23.831875 L173.001458,21.9166667 L166.458333,21.9166667 C165.79375,21.9166667 165.25,21.3729167 165.25,20.7083333 L165.25,18.2916667 C165.25,17.6270833 165.79375,17.0833333 166.458333,17.0833333 L173.001458,17.0833333 L173.001458,15.168125 C173.001458,14.0927083 174.300417,13.5489583 175.061667,14.3102083 L179.393542,18.648125 C179.870833,19.119375 179.870833,19.880625 179.393542,20.351875 Z M172.5,5 C164.494792,5 158,11.4947917 158,19.5 C158,27.5052083 164.494792,34 172.5,34 C180.505208,34 187,27.5052083 187,19.5 C187,11.4947917 180.505208,5 172.5,5 Z" id="ic_terkepelem_tovabb"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="48px" viewBox="0 0 35 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_terkeppin_default</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="zsinagogo_app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="map" transform="translate(-196.000000, -196.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="375" height="667"></rect>
+            <g id="ic_terkeppin_default" transform="translate(196.000000, 196.000000)">
+                <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="18" cy="17" r="13"></circle>
+                <path d="M17.4977308,24.50405 C13.6277308,24.50405 10.4977308,21.37405 10.4977308,17.50405 C10.4977308,13.63405 13.6277308,10.50405 17.4977308,10.50405 C21.3677308,10.50405 24.4977308,13.63405 24.4977308,17.50405 C24.4977308,21.37405 21.3677308,24.50405 17.4977308,24.50405 Z M16.5577308,0.0240499727 C8.05773079,0.474049973 0.977730786,7.13404997 0.0977307864,15.54405 C-0.342269214,19.73405 0.727730786,23.64405 2.81773079,26.84405 L15.8077308,47.08405 C16.5977308,48.31405 18.3977308,48.31405 19.1877308,47.08405 L32.1777308,26.84405 C33.9577308,24.12405 34.9977308,20.88405 34.9977308,17.40405 C34.9977308,7.48404997 26.6477308,-0.495950027 16.5577308,0.0240499727 Z" id="Fill-210" fill="#434656"></path>
+            </g>
+        </g>
+    </g>
+</svg>
