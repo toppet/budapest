@@ -168,14 +168,12 @@ export default class MapDetailScreen extends Component {
       modalBtn = (
         <View style={[styles.infoWrap, styles.inforWrapLeft, { marginLeft: 25 }]}>
           <TouchableOpacity style={styles.modalBtn}>
-            <Text style={styles.modalBtnText}>Nyitvatartás ></Text>
+            <Text style={styles.modalBtnText}>Nyitvatartás</Text>
+            <Icon name="keyboard-arrow-right" size={15}/>
           </TouchableOpacity>
         </View>
       )
-
     }
-
-    
 
     if (mapItem.address) {
       address = (
@@ -443,6 +441,9 @@ const styles = StyleSheet.create({
     borderColor: '#ededed',
     paddingHorizontal: 9,
     paddingVertical: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   modalBtnText: {
     fontFamily: "Montserrat",

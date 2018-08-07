@@ -31,7 +31,7 @@ export default class NewsDetailScreen extends Component {
         <ScrollView>
           <Image source={{uri: newsItem.media[0].src_media}} style={{width: '100%', height: 165}}/>
           <View style={styles.dateRow}>
-            <Text style={styles.date}>{moment(newsItem.posted_at).format('YYYY-MM-DD')}</Text>
+            <Text style={styles.date}>{moment(newsItem.posted_at).format('YYYY.MM.DD')}</Text>
             <View style={styles.tagWrap}>
               <Icon name="label" size={13} style={styles.tagIcon}/>
               <Text style={styles.tagText}>{newsItem.tags[0].name}</Text>

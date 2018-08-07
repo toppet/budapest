@@ -11,11 +11,13 @@ import {
   ImageBackground,
   TouchableOpacity,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import moment from 'moment';
 
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -31,6 +33,8 @@ const Images = [
   { uri: "https://i.imgur.com/UDrH0wm.jpg" },
   { uri: "https://i.imgur.com/Ka8kNST.jpg" }
 ]
+
+console.log('fele', Math.round((Dimensions.get('window').width * 0.9) / 2));
 
 const pinIcon = require('../../assets/images/ic_pin.png');
 const selectedPinIcon = require('../../assets/images/ic_pin_valaszt.png');
@@ -96,7 +100,6 @@ export default class MapScreen extends Component {
         title: "Dohány utcai zsinagóga",
         entryFee: 4000,
         currency: 'Ft',
-        // openingHours: 'Kedd 08:00 - 18:00',
         state: 'Nyitva',
         title: "Dohány utcai Zsinagóga, neológ",
         minEntryFee: 1200,
@@ -205,7 +208,8 @@ export default class MapScreen extends Component {
         latitude: 47.497643,
         longitude: 19.055620,
       },
-    ]
+    ],
+    searchText: '',
   }
 
   componentWillMount() {
@@ -325,6 +329,32 @@ export default class MapScreen extends Component {
 
     return (
       <View style={styles.container}>
+
+        <View style={styles.searchBarWrap}>
+          
+          <TouchableOpacity
+            style={[styles.menuButton, {borderRightWidth: 2, borderRightColor: '#ededed'}]}
+            onPress={() => this.props.screenProps.openMenu()}
+          >
+            <Image source={require('../../assets/images/icMenu.png')} />
+          </TouchableOpacity>
+
+          <TextInput
+            style={[styles.searchBarTextInput, { fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal', color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656'}]}
+            placeholder="Helyszín keresése"
+            placeholderTextColor="#b7a99b"
+            onChangeText={(text) => this.setState({ searchText: text })}
+            value={this.state.searchText}
+          />
+
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={() => console.log('search')}
+          >
+            <Icon name='search' color="#434656" size={25}/>
+          </TouchableOpacity>
+        </View>
+
         <MapView
           // provider={PROVIDER_GOOGLE}
           ref={map => this.map = map}
@@ -332,6 +362,8 @@ export default class MapScreen extends Component {
           style={styles.container}
           customMapStyle={customMapStyle}
           onPress={(e) => this.handleMapViewPress(e)}
+          showsUserLocation
+          showsMyLocationButton
         >
           <MapView.Polygon
             coordinates={this.state.polygonCoordinates}
@@ -372,6 +404,34 @@ const styles = StyleSheet.create({
   endPadding: {
     paddingRight: width - CARD_WIDTH,
   },
+  searchBarWrap: {
+    position: 'absolute',
+    zIndex: 5,
+    top: 30,
+    width: '90%',
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: "#ededed",
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: (Dimensions.get('window').width / 2) - parseInt((Dimensions.get('window').width * 0.9) / 2),
+  },
+  searchBarTextInput: {
+    width: 215,
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontWeight: "600",
+    color: '#b7a99b',
+    paddingLeft: 20,
+  },
+  menuButton: {
+    paddingHorizontal: 17,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center', 
+  },
   card: {
     padding: 15,
     elevation: 2,
@@ -384,7 +444,7 @@ const styles = StyleSheet.create({
     width: 330,
     position: 'absolute',
     bottom: 15,
-    left: (Dimensions.get('window').width / 2) - 165,
+    left: (Dimensions.get('window').width / 2) - (Math.round((Dimensions.get('window').width * 0.9) / 2)),
     borderRadius: 10,
     flexDirection: 'row',
   },

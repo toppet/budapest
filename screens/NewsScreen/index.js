@@ -90,11 +90,11 @@ export default class NewsScreen extends Component {
 
   getTop3News(response) {
     let newsArray;
-
+    
     if(response.length < 3) {
       newsArray = response.map(r => r);
     } else {
-      newsArray [response[0], response[1], response[2]];
+      newsArray = [response[0], response[1], response[2]];
     }
     
     return newsArray;
@@ -102,7 +102,7 @@ export default class NewsScreen extends Component {
 
   getNewsAndTopNews() {
     this.setState({
-      loading: true,
+      loading: this.state.refreshing ? false : true,
     }, () => {
       fetch('https://jewps.hu/api/v1/news')
         .then((response) => response.json())
@@ -124,6 +124,8 @@ export default class NewsScreen extends Component {
           console.error(error);
         });
     })
+
+    this.getTags();
   };
 
   getTags() {
@@ -289,17 +291,17 @@ export default class NewsScreen extends Component {
       return this.getLoadingIndicator();
     }
 
-    if (latestNewsInState.length === 0) {
-      return (
-        <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
-          <Text
-            style={styles.noNewsText}
-          >
-            NINCSENEK HÍREK
-          </Text>
-        </View>
-      );
-    }
+    // if (latestNewsInState.length === 0) {
+    //   return (
+    //     <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
+    //       <Text
+    //         style={styles.noNewsText}
+    //       >
+    //         NINCSENEK HÍREK
+    //       </Text>
+    //     </View>
+    //   );
+    // }
 
     // console.log('latestNewsInState', latestNewsInState);
     // console.log('tagsInState', tags);
@@ -352,7 +354,7 @@ export default class NewsScreen extends Component {
       <View style={styles.newsCard} key={n.id}>
         <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0,}}>
           <ImageBackground source={{uri: n.media[0].src_media}} resizeMode='cover' style={{ height: '100%' }}>
-              <View style={{ padding: 15 }}>
+              <View style={{ padding: 15, backgroundColor: 'rgba(0, 0, 0, 0.5)', height: '100%' }}>
                 <Text style={styles.newsDate}>{moment(n.posted_at).format('YYYY.MM.DD')}</Text>
                 <Text style={styles.newsTitle}>{n.title}</Text>
               </View>
@@ -411,7 +413,12 @@ export default class NewsScreen extends Component {
 
           <View style={styles.filterRow}>
             <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
-              <TouchableOpacity onPress={() => this.setState({datePickerModalVisible: true})} style={styles.tagFilter} activeOpacity={0.8}>
+              <TouchableOpacity 
+                onPress={() => {
+                  this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
+                }
+                style={styles.tagFilter} activeOpacity={0.8}
+              >
                 <Icon 
                   name="date-range"
                   size={20}
@@ -459,18 +466,23 @@ export default class NewsScreen extends Component {
             onDismiss={() => {
               console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
             }}
+            onPress={() => console.log('modal pressed')}
           >
             <View style={{ flex: 1, height: '100%', width: '100%' }}>
-              <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%',}}>
+              <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, zIndex: 1000, width: '100%',}}>
                 <DatePickerIOS
                   date={this.state.chosenDate ? this.state.chosenDate : new Date()}
                   onDateChange={(newDate) => this.setDate(newDate)}
                   locale="hu"
                   mode="date"
                 />
-                <Button
-                  title="Bezár"
-                  onPress={() => this.setState({ datePickerModalVisible: false }) } />
+                <TouchableOpacity
+                  style={{position: 'relative', width: '100%', alignItems: 'center', justifyContent: 'center',}}
+                  onPress={() => this.setState({ datePickerModalVisible: false }) }
+                  activeOpacity={0.8}
+                >
+                  <Text style={{paddingHorizontal: 25, paddingVertical: 15, fontFamily: "Montserrat", fontSize: 18, fontWeight: "600", color: '#73beff', position: 'relative', zIndex: 1000, bottom: 10}}>Bezár</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </Modal>
@@ -500,9 +512,13 @@ export default class NewsScreen extends Component {
                   <Picker.Item label="" value="" />
                   {tagPickers}
                 </Picker>
-                <Button
-                  title="Bezár"
-                  onPress={() => this.setState({ tagModalVisible: false }) } />
+                <TouchableOpacity
+                  style={{position: 'relative', width: '100%', alignItems: 'center', justifyContent: 'center',}}
+                  onPress={() => this.setState({ tagModalVisible: false }) }
+                  activeOpacity={0.8}
+                >
+                  <Text style={{paddingHorizontal: 25, paddingVertical: 15, fontFamily: "Montserrat", fontSize: 18, fontWeight: "600", color: '#73beff', position: 'relative', zIndex: 1000, bottom: 10}}>Bezár</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </Modal>
@@ -547,11 +563,11 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   newsDate: {
-    marginTop: 75,
+    marginTop: 50,
     fontFamily: "Montserrat",
     fontSize: 10,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#b7a99b',
   },
   newsTitle: {
     fontFamily: "Montserrat",

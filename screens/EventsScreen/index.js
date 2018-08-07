@@ -265,6 +265,7 @@ export default class EventsScreen extends Component {
             stickyHeaderIndices={[3]}
           >
             <Text style={styles.title}>Közelgő események</Text>
+
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10}}>
               {events}
             </ScrollView>
@@ -316,9 +317,12 @@ export default class EventsScreen extends Component {
                     <Picker.Item label="" value="" />
                     {locationPickers}
                   </Picker>
-                  <Button
-                    title="Bezár"
-                    onPress={() => this.setState({ locationModalVisible: false }) } />
+                  <TouchableOpacity
+                    style={{position: 'relative', width: '100%', alignItems: 'center', justifyContent: 'center',}}
+                    onPress={() => this.setState({ locationModalVisible: false }) }
+                  >
+                    <Text style={{paddingHorizontal: 25, paddingVertical: 15, fontFamily: "Montserrat", fontSize: 18, fontWeight: "600", color: '#73beff', position: 'relative', zIndex: 1000, bottom: 10}}>Bezár</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </Modal>
