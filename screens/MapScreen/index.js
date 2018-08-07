@@ -27,14 +27,7 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-const Images = [
-  { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-  { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-  { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-  { uri: "https://i.imgur.com/Ka8kNST.jpg" }
-]
-
-console.log('fele', Math.round((Dimensions.get('window').width * 0.9) / 2));
+const percent90HalfWidth = Math.round((Dimensions.get('window').width * 0.9) / 2);
 
 const pinIcon = require('../../assets/images/ic_pin.png');
 const selectedPinIcon = require('../../assets/images/ic_pin_valaszt.png');
@@ -96,7 +89,6 @@ export default class MapScreen extends Component {
           latitude: 47.4959529,
           longitude: 19.0605719,
         },
-        image: Images[0],
         title: "Dohány utcai zsinagóga",
         entryFee: 4000,
         currency: 'Ft',
@@ -416,7 +408,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    left: (Dimensions.get('window').width / 2) - parseInt((Dimensions.get('window').width * 0.9) / 2),
+    left: (Dimensions.get('window').width / 2) - percent90HalfWidth,
   },
   searchBarTextInput: {
     width: 215,
@@ -441,10 +433,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowOffset: { x: 2, y: -2 },
     height: 150,
-    width: 330,
+    width: '90%',
     position: 'absolute',
     bottom: 15,
-    left: (Dimensions.get('window').width / 2) - (Math.round((Dimensions.get('window').width * 0.9) / 2)),
+    left: (Dimensions.get('window').width / 2) - percent90HalfWidth,
     borderRadius: 10,
     flexDirection: 'row',
   },
