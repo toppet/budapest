@@ -92,7 +92,7 @@ export default class MapDetailScreen extends Component {
   }
 
   handleWebLink(weblink) {
-    
+
     Linking.canOpenURL(weblink).then(supported => {
       if (supported) {
         Linking.openURL(weblink);
@@ -145,8 +145,8 @@ export default class MapDetailScreen extends Component {
 
     if(mapItem.facebookPageLink) {
       facebookLinkBtn = (
-        <TouchableOpacity 
-          style={styles.linkBtn} 
+        <TouchableOpacity
+          style={styles.linkBtn}
           activeOpacity={0.8}
           onPress={() => this.handleWebLink(mapItem.facebookPageLink)}
         >
@@ -157,7 +157,7 @@ export default class MapDetailScreen extends Component {
 
     if(mapItem.ticketLink) {
       ticketLinkBtn = (
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.linkBtn}
           activeOpacity={0.8}
           onPress={() => this.handleWebLink(mapItem.ticketLink)}
@@ -215,7 +215,7 @@ export default class MapDetailScreen extends Component {
         <View style={[styles.infoWrap, styles.inforWrapLeft, { marginLeft: 25 }]}>
           <TouchableOpacity style={styles.modalBtn} onPress={() => this.showOpeningHoursDialog()}>
             <Text style={styles.modalBtnText}>Nyitvatartás</Text>
-            <Icon name="keyboard-arrow-right" size={15}/>
+            <Icon name="keyboard-arrow-right" size={15} color="#434656"/>
           </TouchableOpacity>
         </View>
       )
@@ -225,7 +225,7 @@ export default class MapDetailScreen extends Component {
       address = (
         <View style={[styles.infoWrap, styles.inforWrapRight]}>
           <Icon name="near-me" size={25} color="#73beff"/>
-          <Text 
+          <Text
             style={styles.infoText}
           >
             {mapItem.address}
@@ -340,8 +340,8 @@ export default class MapDetailScreen extends Component {
           height={265}
           dialogAnimation={ScaleAnim}
           ref={(popupDialog) => { this.openingHoursDialog = popupDialog; }}
-          hasOverlay={false}
-          overlayOpacity={0}
+          hasOverlay={true}
+          overlayOpacity={0.1}
           dialogStyle={{borderWidth: 1, borderColor: '#ededed'}}
         >
           <View style={styles.dialogView}>
@@ -572,6 +572,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#73beff',
     textAlign: 'center',
+    marginTop: 10,
   },
   dayText: {
     fontFamily: "Montserrat",
