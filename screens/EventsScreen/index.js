@@ -134,7 +134,7 @@ const eventList = [
 
 export default class EventsScreen extends Component {
   constructor(props){
-    super(props);  
+    super(props);
     this.state = {
       locationFilter: 'Budapest',
       locations: [],
@@ -167,7 +167,7 @@ export default class EventsScreen extends Component {
     const events = latestEvents.map((e) => (
       <View style={[styles.cardShadow, { width: 315 }]} key={e.id}>
         <TouchableOpacity style={styles.eventsCard} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
-          
+
           <View style={styles.imageBgBox}>
             <ImageBackground source={e.imageSrc} style={{width: '100%', height: '100%'}}/>
           </View>
@@ -183,8 +183,8 @@ export default class EventsScreen extends Component {
                 <Text style={styles.eventYear}>{moment(e.date).format('YYYY')}</Text>
               </View>
               <View style={{width: 150, alignItems: 'flex-end'}}>
-                <Text style={styles.eventTime}>{moment(e.startTime).format('HH:mm')} - {moment(e.endTime).format('HH:mm')}</Text> 
-                <Text style={styles.eventLocationText}>{e.location}</Text> 
+                <Text style={styles.eventTime}>{moment(e.startTime).format('HH:mm')} - {moment(e.endTime).format('HH:mm')}</Text>
+                <Text style={styles.eventLocationText}>{e.location}</Text>
               </View>
             </View>
 
@@ -215,7 +215,7 @@ export default class EventsScreen extends Component {
         </TouchableOpacity>
       );
     }
-    
+
     const eventListItems = (
       <SectionList
         renderItem={({item, index, section}) => (
@@ -224,11 +224,11 @@ export default class EventsScreen extends Component {
               <Text style={styles.eventListItemDesc}>{item.eventDesc}</Text>
               <View style={{flexDirection: 'row'}}>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 20 }}>
-                  <Icon name="watch-later" size={13} color="#73beff" style={{marginRight: 5}}/> 
+                  <Icon name="watch-later" size={13} color="#73beff" style={{marginRight: 5}}/>
                   <Text style={styles.eventListItemText}>{moment(item.startTime).format('HH:mm')}</Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                  <Icon name="near-me" size={13} color="#c49565" style={{marginRight: 5}}/> 
+                  <Icon name="near-me" size={13} color="#c49565" style={{marginRight: 5}}/>
                   <Text style={styles.eventListItemText}>{item.eventLocation}</Text>
                 </View>
               </View>
@@ -250,21 +250,21 @@ export default class EventsScreen extends Component {
       >
       </SectionList>
     )
-    
+
 
     return (
       <View style={styles.container}>
-        <PageHeader 
+        <PageHeader
           { ...this.props }
           pageTitle="Események"
         />
 
-          <ScrollView 
-            showsVerticalScrollIndicator={false} 
+          <ScrollView
+            showsVerticalScrollIndicator={false}
             style={styles.content}
             stickyHeaderIndices={[3]}
           >
-            <Text style={styles.title}>Közelgő események</Text>
+            <Text style={styles.title}>Hamarosan</Text>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10}}>
               {events}
@@ -275,18 +275,18 @@ export default class EventsScreen extends Component {
             <View style={styles.filterRow}>
               <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
                 <TouchableOpacity onPress={() => this.setState({datePickerModalVisible: true})} style={styles.locationFilter}>
-                  <Icon name="date-range" size={20} />
+                  <Icon name="date-range" size={20} color="#434656"/>
                   <Text style={[styles.locationFilterTextInActive, { color: '#434656'} ]}>Dátum</Text>
                 </TouchableOpacity>
               </View>
               <View style={{ position: 'absolute', right: 10, padding: 10, marginLeft: 15, }}>
                 <TouchableOpacity onPress={() => this.setState({locationModalVisible: true})} style={styles.locationFilter}>
-                  <CustomIcon 
-                    name="ic_location" 
-                    size={20} 
+                  <CustomIcon
+                    name="ic_location"
+                    size={20}
                     color={locationFilter !== locationPlaceholder ? "#c49565" : "#434656"}
                   />
-                  <Text 
+                  <Text
                     style={locationFilter !== locationPlaceholder ? styles.locationFilterTextActive : styles.locationFilterTextInActive}
                   >
                     {locationFilter.length > 10 ? `${locationFilter.slice(0,10)}...` : locationFilter}
@@ -312,7 +312,7 @@ export default class EventsScreen extends Component {
               <View style={{marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%' }}>
                 <View>
                   <Picker
-                    selectedValue={locationFilter}  
+                    selectedValue={locationFilter}
                     onValueChange={(itemValue) => this.setState({locationFilter: itemValue !== '' ? itemValue : locationPlaceholder})}>
                     <Picker.Item label="" value="" />
                     {locationPickers}
@@ -347,6 +347,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     color: '#434656',
     marginBottom: 15,
+    marginTop: 15,
   },
   cardShadow: {
     shadowColor: "#000",
@@ -379,12 +380,13 @@ const styles = StyleSheet.create({
   },
   eventCardDesc: {
     flex: 1,
-    paddingLeft: 10, 
-    paddingRight: 10, 
-    marginBottom: 10, 
-    fontFamily: "Montserrat", 
-    fontWeight: "bold", 
-    fontSize: 13
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginBottom: 10,
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
+    fontSize: 13,
+    color: "#434656"
   },
   eventCardInfoView: {
     flex: 1,
@@ -394,12 +396,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   eventDayView: {
-    width: 30, 
-    height: 30, 
-    backgroundColor: 'rgba(183, 169, 155, 0.2)', 
-    borderRadius: 3, 
-    alignItems: 'center', 
-    justifyContent: 'center', 
+    width: 30,
+    height: 30,
+    backgroundColor: 'rgba(183, 169, 155, 0.2)',
+    borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginRight: 10
   },
   eventDay: {
@@ -445,7 +447,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     position: 'relative',
     height: 50,
-  }, 
+  },
   locationFilter: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -468,8 +470,8 @@ const styles = StyleSheet.create({
     // marginRight: 20,
   },
   listItemHeaderText: {
-    backgroundColor: "#ededed", 
-    padding: 5, 
+    backgroundColor: "#ededed",
+    padding: 5,
     paddingLeft: 15,
     fontFamily: "Montserrat",
     fontSize: 14,
@@ -478,7 +480,7 @@ const styles = StyleSheet.create({
   },
   eventListItem: {
     // borderWidth: 1,
-    borderTopWidth: 1, 
+    borderTopWidth: 1,
     borderTopColor: '#ededed',
     flexDirection: 'row',
     padding: 15,
@@ -499,4 +501,3 @@ const styles = StyleSheet.create({
     color: '#a3abbc',
   }
 });
-

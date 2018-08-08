@@ -23,7 +23,7 @@ export default class NewsDetailScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <PageHeader 
+        <PageHeader
           {...this.props}
           pageTitle="Hírek"
           isBack
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
   },
   tagIcon:{
     marginRight: 5,
+    color: "#434656"
   },
   tagText: {
     color: "#b7a99b",
@@ -86,13 +87,13 @@ const styles = StyleSheet.create({
   newsTitle: {
     fontFamily: "Montserrat",
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: 18,
     color: "#333",
     marginBottom: 25,
   },
   newsBody: {
     fontFamily: "Montserrat",
-    fontSize: 12,
+    fontSize: 14,
     color: "#434656",
     lineHeight: 18,
     marginBottom: 25,

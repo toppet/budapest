@@ -63,7 +63,7 @@ const itemWidth = slideWidth + itemHorizontalMargin * 2;
 const entryBorderRadius = 8;
 
 export default class MapDetailScreen extends Component {
- 
+
   constructor (props) {
     super(props);
     this.state = {
@@ -129,7 +129,7 @@ export default class MapDetailScreen extends Component {
 
     let minEntryFee = null;
     let maxEntryFee = null;
-    
+
     let prices = null;
     let phoneNumber = null;
     let openingHours = null;
@@ -174,7 +174,7 @@ export default class MapDetailScreen extends Component {
     if (mapItem.maxEntryFee) {
       maxEntryFee = `- ${mapItem.maxEntryFee} ${mapItem.currency}`;
     }
-  
+
     if (mapItem.minEntryFee || mapItem.maxEntryFee) {
       prices = (
         <View style={[styles.infoWrap, styles.inforWrapLeft]}>
@@ -249,11 +249,11 @@ export default class MapDetailScreen extends Component {
         </View>
       )
     }
-    
+
 
     return (
       <View style={styles.container}>
-        <PageHeader 
+        <PageHeader
           {...this.props}
           pageTitle="Térkép"
           isBack
@@ -309,7 +309,7 @@ export default class MapDetailScreen extends Component {
               containerStyle={{borderWidth: 3, borderColor: '#0f0',}}
             /> */}
           </View>
-          
+
           <View style={styles.linkBtnRow}>
             { facebookLinkBtn }
             { ticketLinkBtn }
@@ -470,6 +470,13 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 5,
     marginHorizontal: 15,
+    shadowColor: '#b7a99b',
+    shadowOffset: {
+            width: 0,
+            height: 15
+          },
+    shadowRadius: 15,
+    shadowOpacity: 0.5,
   },
   linkBtnText: {
     fontFamily: "Montserrat",
@@ -508,8 +515,8 @@ const styles = StyleSheet.create({
     width: 100,
   },
   modalBtnRow: {
-    alignItems: 'center', 
-    justifyContent: 'flex-start', 
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     marginTop: -25,
   },
   modalBtn: {

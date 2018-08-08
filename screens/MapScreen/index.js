@@ -167,7 +167,7 @@ export default class MapScreen extends Component {
     region: {
       latitude: 47.498519,
       longitude: 19.063052,
-       
+
       // latitudeDelta: 0.04864195044303443,
       // longitudeDelta: 0.040142817690068,
       latitudeDelta: 0.015,
@@ -243,7 +243,7 @@ export default class MapScreen extends Component {
 
   handleMapViewPress(e) {
     if (e.nativeEvent.action !== 'marker-press') {
-      this.setState({ 
+      this.setState({
         selectedMarker: null,
         selectedMarkerIndex: null,
       });
@@ -254,7 +254,7 @@ export default class MapScreen extends Component {
     const { open, close, closed } = openingHours;
     const now = new Date();
     var format = 'hh:mm';
-    
+
     if (closed) {
       return <Text>{`${openingHours.day}: `} <Text style={styles.closedState}>Zárva</Text></Text>;
     }
@@ -263,7 +263,7 @@ export default class MapScreen extends Component {
     let openingTime = moment(open, format);
     let closingingTime = moment(close, format);
     let resultText;
-    
+
     if(time.isBetween(openingTime, closingingTime)){
       resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.openState}>Nyitva</Text></Text>;
     } else {
@@ -319,7 +319,7 @@ export default class MapScreen extends Component {
           </View>
         </TouchableOpacity>
       );
-    } 
+    }
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -407,6 +407,7 @@ const styles = StyleSheet.create({
     zIndex: 5,
     top: 30,
     width: '90%',
+    height: 50,
     backgroundColor: '#fff',
     flexDirection: 'row',
     borderWidth: 2,
@@ -425,10 +426,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   menuButton: {
-    paddingHorizontal: 17,
+    paddingHorizontal: 30,
     paddingVertical: 10,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
   },
   card: {
     padding: 15,
