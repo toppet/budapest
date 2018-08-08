@@ -47,7 +47,7 @@ const sampleNews = [
 ]
 
 // const top3News = latestNews.splice(0,3);
-// console.log('top3News', top3News); 
+// console.log('top3News', top3News);
 
 export default class NewsScreen extends Component {
   constructor(props) {
@@ -85,18 +85,18 @@ export default class NewsScreen extends Component {
 
     setTimeout(() => {
       this.getNewsAndTopNews();
-    }, 1000); 
+    }, 1000);
   }
 
   getTop3News(response) {
     let newsArray;
-    
+
     if(response.length < 3) {
       newsArray = response.map(r => r);
     } else {
       newsArray = [response[0], response[1], response[2]];
     }
-    
+
     return newsArray;
   }
 
@@ -110,7 +110,7 @@ export default class NewsScreen extends Component {
           const responseData = responseJson.data;
           console.log('responseData', responseData)
           if(responseJson.success) {
-            this.setState({ 
+            this.setState({
               latestNewsInState: responseData,
               top3News: this.getTop3News(responseData),
               refreshing: false,
@@ -118,7 +118,7 @@ export default class NewsScreen extends Component {
               loading: false,
             });
           }
-          
+
         })
         .catch((error) => {
           console.error(error);
@@ -141,12 +141,12 @@ export default class NewsScreen extends Component {
               tmpTags.push(t);
             }
           });
-          this.setState({ 
+          this.setState({
             tags: tmpTags,
             loading: false,
           });
         }
-        
+
       })
       .catch((error) => {
         console.error(error);
@@ -155,18 +155,18 @@ export default class NewsScreen extends Component {
 
   getFilteredNews(dateFilter, selectedTagFilterId) {
     let fetchUrl = 'https://jewps.hu/api/v1/news';
-    
+
     let formattedDate;
-    
+
     if(dateFilter) {
       formattedDate = moment(dateFilter).format('YYYY-MM-DD');
       fetchUrl = `https://jewps.hu/api/v1/news?date=${formattedDate}`;
     }
-    
+
     if(selectedTagFilterId) {
       fetchUrl = `https://jewps.hu/api/v1/tags/${selectedTagFilterId}/news`;
     }
-    
+
     if(dateFilter && selectedTagFilterId) {
       fetchUrl = `https://jewps.hu/api/v1/news?tags=${selectedTagFilterId}&date=${formattedDate}`;
     }
@@ -181,14 +181,14 @@ export default class NewsScreen extends Component {
         .then((responseJson) => {
           console.log('news filtered by tags', responseJson);
           const responseData = responseJson.data;
-          
+
           if(responseJson.success) {
-            this.setState({ 
+            this.setState({
               latestNewsInState: responseData,
               refreshingNewsList: false,
             });
           }
-          
+
         })
         .catch((error) => {
           console.error(error);
@@ -237,11 +237,11 @@ export default class NewsScreen extends Component {
             <Text style={styles.newsListItemTitle}>{item.title}</Text>
             <View style={{flexDirection: 'row'}}>
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 20 }}>
-                <Icon name="watch-later" size={13} color="#73beff" style={{marginRight: 5}}/> 
+                <Icon name="watch-later" size={13} color="#73beff" style={{marginRight: 5}}/>
                 <Text style={styles.newsListItemText}>{moment(item.posted_at).format('YYYY.MM.DD')}</Text>
               </View>
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                <Icon name="label" size={13} color="#c49565" style={{marginRight: 5}}/> 
+                <Icon name="label" size={13} color="#c49565" style={{marginRight: 5}}/>
                 <Text style={styles.newsListItemText}>{item.tags[0].name}</Text>
               </View>
             </View>
@@ -268,7 +268,7 @@ export default class NewsScreen extends Component {
   }
 
   setDate(newDate) {
-    this.setState({ 
+    this.setState({
       chosenDate: newDate,
       formatterChosenDate: moment(newDate).format('YYYY.MM.DD'),
     })
@@ -276,12 +276,12 @@ export default class NewsScreen extends Component {
 
   // RENDER
   render() {
-    const { 
-      loading, 
-      tags, 
-      selectedTagFilterId, 
-      tagFilterPlaceholder, 
-      latestNewsInState, 
+    const {
+      loading,
+      tags,
+      selectedTagFilterId,
+      tagFilterPlaceholder,
+      latestNewsInState,
       top3News,
       chosenDate,
       formatterChosenDate
@@ -328,7 +328,7 @@ export default class NewsScreen extends Component {
     if(formatterChosenDate) {
       dateFilterClearBtn = (
         <TouchableOpacity onPress={() => {
-          this.setState({ 
+          this.setState({
             formatterChosenDate: null,
             chosenDate: null,
           }, () => this.getFilteredNews(null, selectedTagFilterId))
@@ -341,7 +341,7 @@ export default class NewsScreen extends Component {
     if(selectedTagFilterId) {
       tagFilterClearBtn = (
         <TouchableOpacity onPress={() => {
-          this.setState({ 
+          this.setState({
             selectedTagFilterId: null,
           }, () => this.getFilteredNews(chosenDate, null))
         }}>
@@ -352,7 +352,7 @@ export default class NewsScreen extends Component {
 
     const news = top3News.map((n) => (
       <View style={styles.newsCard} key={n.id}>
-        <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0,}}>
+        <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0, borderRadius: 6,}}>
           <ImageBackground source={{uri: n.media[0].src_media}} resizeMode='cover' style={{ height: '100%' }}>
               <View style={{ padding: 15, backgroundColor: 'rgba(0, 0, 0, 0.5)', height: '100%' }}>
                 <Text style={styles.newsDate}>{moment(n.posted_at).format('YYYY.MM.DD')}</Text>
@@ -365,9 +365,9 @@ export default class NewsScreen extends Component {
         </TouchableOpacity>
       </View>
     ));
-   
+
     let newsListItems;
-    
+
     if (latestNewsInState && latestNewsInState.length === 0) {
       newsListItems = (
         <Text style={styles.noNewsText}>Nincs bejegyzés</Text>
@@ -387,13 +387,13 @@ export default class NewsScreen extends Component {
     return (
       <View style={styles.container}>
 
-        <PageHeader 
+        <PageHeader
           {...this.props}
           pageTitle="Hírek"
         />
 
-        <ScrollView 
-          showsVerticalScrollIndicator={false} 
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           stickyHeaderIndices={[3]}
           refreshControl={
             <RefreshControl
@@ -404,7 +404,7 @@ export default class NewsScreen extends Component {
           style={styles.content}
         >
           <Text style={styles.title}>Aktuális</Text>
-          
+
           <View style={{paddingBottom: 20, paddingHorizontal: 15, }}>
             {news}
           </View>
@@ -413,18 +413,18 @@ export default class NewsScreen extends Component {
 
           <View style={styles.filterRow}>
             <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
-              <TouchableOpacity 
+              <TouchableOpacity
                 onPress={() => {
                   this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
                 }
                 style={styles.tagFilter} activeOpacity={0.8}
               >
-                <Icon 
+                <Icon
                   name="date-range"
                   size={20}
                   color={formatterChosenDate ? "#c49565" : "#434656"}
                 />
-                <Text 
+                <Text
                   // style={[styles.filterTextInActive, { color: '#434656'} ]}>
                   style={formatterChosenDate ? styles.filterTextActive : styles.filterTextInActive}
                 >
@@ -436,12 +436,12 @@ export default class NewsScreen extends Component {
 
             <View style={{ position: 'absolute', right: 90, padding: 10, marginLeft: 15, width: 75,}}>
               <TouchableOpacity onPress={() => this.setState({ tagModalVisible: true })} style={styles.tagFilter} activeOpacity={0.8}>
-                <Icon 
-                  name="label" 
-                  size={20} 
+                <Icon
+                  name="label"
+                  size={20}
                   color={selectedTagFilterId ? "#c49565" : "#434656"}
                 />
-                <Text 
+                <Text
                   style={selectedTagFilterId ? styles.filterTextActive : styles.filterTextInActive}
                 >
                   {selectedTagLabel ? this.sliceTagFilterLabel(selectedTagLabel) : tagFilterPlaceholder}
@@ -455,7 +455,7 @@ export default class NewsScreen extends Component {
           <View style={{marginBottom: 25}}>
             { this.state.refreshingNewsList ? this.getLoadingIndicator() : newsListItems }
           </View>
-          
+
           <Modal
             animationType="slide"
             transparent
@@ -501,7 +501,7 @@ export default class NewsScreen extends Component {
             <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%' }}>
               <View>
                 <Picker
-                  selectedValue={selectedTagFilterId}  
+                  selectedValue={selectedTagFilterId}
                   onValueChange={(itemValue, itemIndex) => {
                     console.log('typeof itemValue', typeof itemValue)
                     console.log('itemValue', itemValue)
@@ -522,7 +522,7 @@ export default class NewsScreen extends Component {
               </View>
             </View>
           </Modal>
-          
+
         </ScrollView>
 
       </View>
@@ -551,13 +551,12 @@ const styles = StyleSheet.create({
     color: '#434656',
     paddingLeft: 15,
     marginBottom: 15,
+    marginTop: 15,
   },
   newsCard: {
     width: '100%',
     height: 155,
-    borderWidth: 2,
-    borderRadius: 3,
-    marginBottom: 30,
+    marginBottom: 25,
   },
   shareBtn: {
     marginBottom: 40,
@@ -582,15 +581,22 @@ const styles = StyleSheet.create({
     bottom: -15,
     right: 15,
     width: 105,
-    paddingTop: 8, 
-    paddingBottom: 8, 
-    paddingLeft: 15, 
-    paddingRight: 15, 
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 15,
+    paddingRight: 15,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#ededed',
     alignItems: 'center',
+    shadowColor: '#b7a99b',
+    shadowOffset: {
+            width: 0,
+            height: 15
+          },
+    shadowRadius: 15,
+    shadowOpacity: 0.5,
   },
   readMoreBtnText: {
     color: '#b7a99b',
@@ -613,7 +619,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginRight: 15,
     marginLeft: 15,
-  }, 
+  },
   tagFilter: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -636,8 +642,8 @@ const styles = StyleSheet.create({
     // marginRight: 20,
   },
   listItemMonthHeaderText: {
-    backgroundColor: "#f5f5f5", 
-    padding: 5, 
+    backgroundColor: "#f5f5f5",
+    padding: 5,
     paddingLeft: 15,
     fontFamily: "Montserrat",
     fontSize: 14,
@@ -649,8 +655,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#e6e6e6',
   },
   listItemHeaderText: {
-    backgroundColor: "#f5f5f5", 
-    padding: 5, 
+    backgroundColor: "#f5f5f5",
+    padding: 5,
     paddingLeft: 15,
     fontFamily: "Montserrat",
     fontSize: 14,
@@ -659,7 +665,7 @@ const styles = StyleSheet.create({
   },
   newsListItem: {
     // borderWidth: 1,
-    borderTopWidth: 1, 
+    borderTopWidth: 1,
     borderTopColor: '#ededed',
     flexDirection: 'row',
     padding: 15,
@@ -692,4 +698,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-

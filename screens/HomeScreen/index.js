@@ -24,7 +24,7 @@ const latestNews = [
   {
     id: 0,
     imageSrc: require('../../assets/images/zsinagoga.jpg'),
-    desc: 'Új applikáció készül a zsidó közösség számára',
+    desc: 'Új applikáció készül a zsidó közösség számára, és ez egy nagyon nagyon hosszú cím ',
     date: new Date(),
   },
   {
@@ -83,7 +83,7 @@ const latestEvents = [
 
 export default class HomeScreen extends Component {
   constructor(props){
-    super(props);  
+    super(props);
     this.state = {
       menuOpened: false,  // Initial value for opacity: 0
     }
@@ -92,7 +92,7 @@ export default class HomeScreen extends Component {
   //   return _.difference(this.state, nextState).length > 0 ? true : false;
   // }
 
-  
+
   render() {
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
@@ -100,17 +100,14 @@ export default class HomeScreen extends Component {
     const newsCards = latestNews.map((n) => (
       <View style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id}>
         <View style={styles.newsCard}>
-          
+
           <View style={styles.imageBgBox}>
             <ImageBackground source={n.imageSrc} style={{width: '100%', height: '100%'}}/>
           </View>
-
-          <Text style={styles.newsCardDesc}>{n.desc}</Text>
-
           <View style={styles.newsCardInfoView}>
-            
+
             <Text style={styles.newsDate}>{moment(n.date).format('YYYY.MM.DD')}</Text>
-            
+
             {/* <TouchableOpacity onPress={() => console.log('ikonka')} style={{ marginLeft: 'auto' }}>
               <Icon name="bookmark-border" size={25} color="#73beff" />
             </TouchableOpacity> */}
@@ -119,6 +116,9 @@ export default class HomeScreen extends Component {
               <CustomIcon name="ic_share" size={20} color='#73beff'/>
             </TouchableOpacity> */}
           </View>
+          <Text style={styles.newsCardDesc}>{n.desc}</Text>
+
+
         </View>
       </View>
     ));
@@ -136,8 +136,8 @@ export default class HomeScreen extends Component {
               <Text style={styles.eventYear}>{moment(e.date).format('YYYY')}</Text>
             </View>
             <View style={{width: 55}}>
-              <Text style={styles.eventTime}>{moment(e.date).format('HH:mm')}</Text> 
-              <Text style={styles.eventTimeText}>{'Kezdés'}</Text> 
+              <Text style={styles.eventTime}>{moment(e.date).format('HH:mm')}</Text>
+              <Text style={styles.eventTimeText}>{'Kezdés'}</Text>
             </View>
           </View>
 
@@ -150,22 +150,27 @@ export default class HomeScreen extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
-      
+
         <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', paddingTop: 20,}}>
-          
+
           <PageHeader {...this.props} noRightIcon/>
 
-          <View style={{flex: 1, padding: 15,}}>
+          <View style={{flex: 1, backgroundColor: 'transparent'}}>
             <ScrollView showsVerticalScrollIndicator={false}>
 
               <View style={{marginBottom: 38}}>
                 <Text style={styles.title}>Üdvözöljük!</Text>
                 <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
               </View>
-              
+
+              <View style={{marginBottom: 50, paddingTop: 10, alignItems: 'center'}}>
+                <Text style={styles.upNextTitle}>További tartalom várható</Text>
+              </View>
+
               <View>
-                <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between' }}>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular'}}>Legfrissebb hírek</Text>
+                <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
+                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>Hírek</Text>
+                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>Legfrissebb hírek</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('News')}
                   >
@@ -173,14 +178,15 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>
                 </View>
 
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10}}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10, paddingHorizontal: 15}}>
                   {newsCards}
                 </ScrollView>
               </View>
 
               <View>
-                <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between' }}>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular'}}>Közelgő események</Text>
+                <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
+                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>Események</Text>
+                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>Közelgő események</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Events')}
                   >
@@ -188,7 +194,23 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>
                 </View>
 
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10}}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10, paddingHorizontal: 15}}>
+                  {eventCards}
+                </ScrollView>
+              </View>
+
+              <View>
+                <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
+                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>Látnivalók</Text>
+                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>Önnek ajánljuk</Text>
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Map')}
+                  >
+                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>Térkép</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10, paddingHorizontal: 15}}>
                   {eventCards}
                 </ScrollView>
               </View>
@@ -214,7 +236,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     backgroundColor: "#fff"
   },
   pageTitle: {
@@ -223,12 +245,24 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#b7a99b",
+    paddingTop: 20,
+    paddingLeft: 15,
     fontSize: 35,
     fontFamily: "YoungSerif-Regular",
+    marginTop: 10,
+  },
+  upNextTitle:{
+    color: "#b7a99b",
+    fontSize: 15,
+    opacity: 0.7,
+    fontFamily: "Montserrat-BoldItalic",
   },
   date: {
     fontFamily: "Montserrat-Black",
     fontSize: 14,
+    paddingTop: 5,
+    paddingLeft: 15,
+    color: "#434656",
   },
   button: {
     width: 20,
@@ -264,25 +298,25 @@ const styles = StyleSheet.create({
   imageBgBox: {
     height: 100,
     width: '100%',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   newsCardDesc: {
     flex: 1,
-    paddingLeft: 10, 
-    paddingRight: 10, 
-    marginBottom: 10, 
-    fontFamily: "Montserrat", 
-    fontWeight: "bold", 
-    fontSize: 12
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginBottom: 15,
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
+    fontSize: 12,
   },
   newsCardInfoView: {
     height: 25,
-    paddingLeft: 10, 
-    paddingRight: 10, 
-    marginBottom: 5, 
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginBottom: 5,
     flex: 1,
-    flexDirection: 'row', 
-    alignItems: 'center', 
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between'
   },
   eventCard:{
@@ -295,11 +329,11 @@ const styles = StyleSheet.create({
   },
   eventCardDesc: {
     flex: 1,
-    paddingLeft: 10, 
-    paddingRight: 10, 
-    marginBottom: 10, 
-    fontFamily: "Montserrat", 
-    fontWeight: "bold", 
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginBottom: 10,
+    fontFamily: "Montserrat",
+    fontWeight: "bold",
     fontSize: 12
   },
   eventCardInfoView: {
@@ -310,12 +344,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   eventDayView: {
-    width: 30, 
-    height: 30, 
-    backgroundColor: 'rgba(183, 169, 155, 0.2)', 
-    borderRadius: 3, 
-    alignItems: 'center', 
-    justifyContent: 'center', 
+    width: 30,
+    height: 30,
+    backgroundColor: 'rgba(183, 169, 155, 0.2)',
+    borderRadius: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginRight: 10
   },
   eventDay: {
@@ -350,4 +384,3 @@ const styles = StyleSheet.create({
     color: '#a3abbc',
   },
 });
-

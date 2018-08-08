@@ -16,11 +16,12 @@ export default class PageHeader extends Component {
     let leftIcon;
     let rightIcon = <View style={styles.rightIconPlaceholder}></View>;
     const { pageTitle, isBack, noRightIcon } = this.props;
-    
+
     if(isBack) {
       leftIcon = (
         <TouchableOpacity
           style={styles.menuButton}
+          activeOpacity={0.8}
           onPress={() => this.props.navigation.goBack()}
         >
           <Icon name='keyboard-backspace' size={30} style={styles.backArrow}/>
@@ -30,6 +31,7 @@ export default class PageHeader extends Component {
       leftIcon = (
         <TouchableOpacity
           style={styles.menuButton}
+          activeOpacity={0.8}
           onPress={() => this.props.screenProps.openMenu()}
         >
           <Image source={require('../../assets/images/icMenu.png')} />
@@ -39,6 +41,7 @@ export default class PageHeader extends Component {
       rightIcon = (
         <TouchableOpacity
           style={styles.menuButton}
+          activeOpacity={0.8}
           onPress={() => this.props.navigation.goBack()}
         >
           <Image style={styles.button} source={require('../../assets/images/icKereses.png')} />
@@ -70,24 +73,26 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     backgroundColor: "#fff",
   },
   menuButton: {
     width: 50,
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
   },
   pageTitle: {
     fontSize: 20,
     fontFamily: "YoungSerif-Regular",
+    color: "#434656"
   },
   rightIconPlaceholder: {
     width: 50,
     height: 50,
   },
+  backArrow: {
+    color: '#434656',
+  },
 
 });
-
-
