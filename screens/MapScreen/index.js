@@ -274,24 +274,6 @@ export default class MapScreen extends Component {
   }
 
   render() {
-    // const interpolations = this.state.markers.map((marker, index) => {
-    //   const inputRange = [
-    //     (index - 1) * CARD_WIDTH,
-    //     index * CARD_WIDTH,
-    //     ((index + 1) * CARD_WIDTH),
-    //   ];
-    //   const scale = this.animation.interpolate({
-    //     inputRange,
-    //     outputRange: [1, 2.5, 1],
-    //     extrapolate: "clamp",
-    //   });
-    //   const opacity = this.animation.interpolate({
-    //     inputRange,
-    //     outputRange: [0.35, 1, 0.35],
-    //     extrapolate: "clamp",
-    //   });
-    //   return { scale, opacity };
-    // });
     let selectedMarkerCard = <View></View>;
     const { selectedMarker, selectedMarkerIndex } = this.state;
     const currentDayIndex = moment().day();
@@ -308,7 +290,6 @@ export default class MapScreen extends Component {
             </Text>
             <Text style={styles.labelText}>Nyitvatartás:</Text>
             <Text style={styles.valueText}>
-              {/* {`${selectedMarker.openingHours}`} | <Text style={styles.openState}>{`${selectedMarker.state}`}</Text> */}
               {this.getOpeningHours(selectedMarker.openingHours[currentDayIndex])}
             </Text>
           </View>
@@ -327,7 +308,7 @@ export default class MapScreen extends Component {
             <View style={styles.searchBarWrap}>
               
               <TouchableOpacity
-                style={[styles.menuButton, {borderRightWidth: 2, borderRightColor: '#ededed'}]}
+                style={styles.menuButton}
                 onPress={() => {
                   Keyboard.dismiss()
                   this.props.screenProps.openMenu();
@@ -340,17 +321,31 @@ export default class MapScreen extends Component {
                 style={[styles.searchBarTextInput,
                   { 
                     fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal',
-                    fontWeight: this.state.searchText.length === 0 ? 'normal' : '600',
-                    color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656'
+                    color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656',
+                    opacity: this.state.searchText.length == 0 ? 0.5 : 1,
+                    
                   }]
                 }
-                placeholder="Helyszín keresése"
+                placeholder="Keresés itt: Helyszínek"
                 placeholderTextColor="#b7a99b"
                 onChangeText={(text) => this.setState({ searchText: text })}
                 value={this.state.searchText}
               />
 
-              <Icon style={styles.menuButton} name='search' color="#434656" size={25}/>
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                {/* <Icon style={styles.menuButton} name='search' color="#434656" size={25}/> */}
+
+                <TouchableOpacity
+                  style={styles.menuButton}
+                  onPress={() => {
+                    Keyboard.dismiss()
+                    console.log('hello');
+                  }}
+                >
+                  <Icon name='gps-fixed' color="#434656" size={25}/>
+                </TouchableOpacity>
+              </View>
+
             </View>
 
             <MapView
@@ -419,14 +414,21 @@ const styles = StyleSheet.create({
   },
   searchBarTextInput: {
     flex: 1,
+    height: '100%',
     fontFamily: "Montserrat",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "600",
     color: '#b7a99b',
-    paddingLeft: 20,
+    paddingLeft: 15 ,
+    borderLeftWidth: 2,
+    borderLeftColor: '#ededed',
+    borderRightWidth: 2,
+    borderRightColor: '#ededed',
   },
   menuButton: {
-    paddingHorizontal: 30,
+    height: '100%',
+    maxWidth: 57,
+    paddingHorizontal: 15,
     paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
