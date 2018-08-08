@@ -6,15 +6,28 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 export default class EventDetailScreen extends Component {
   static navigationOptions = {
     title: 'Event Detail',
     headerTitle: 'Event Detail',
   };
+
+  openFacebookLink (url) {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      }
+      // } else {
+      //   console.log("Don't know how to open URI: " + this.props.url);
+      // }
+    });
+  }
 
   render() {
     console.log('EventDetailScreen this.props', this.props);
@@ -65,7 +78,7 @@ export default class EventDetailScreen extends Component {
               </TouchableOpacity>
             </View>
 
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 35, }}>>
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 25, }}>>
               <Icon name="near-me" style={styles.firstIcon} color="#73beff" size={20} />
               <View style={{ width: 210 }}>
                 <Text style={styles.eventLocationText}>{eventParam.eventLocation}</Text>
@@ -78,13 +91,15 @@ export default class EventDetailScreen extends Component {
                 <Icon name="directions" size={20} color="#fff"/>
               </TouchableOpacity>
             </View>
+            
+            <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.fbEvent)}>
+              <FontAwesome name="facebook-square" size={20} color="#c49565"/>
+              <Text style={styles.facebookBtnText}>Facebook esemény</Text>
+            </TouchableOpacity>
 
             {eventDetails}
 
-            <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8}>
-              <Icon name="face" size={20} color="#c49565"/>
-              <Text style={styles.facebookBtnText}>Facebook esemény</Text>
-            </TouchableOpacity>
+            
 
           </View>
         </ScrollView>
@@ -175,6 +190,7 @@ const styles = StyleSheet.create({
     paddingRight: 35,
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginBottom: 25,
     // position: 'fixed',
     backgroundColor: '#fff',
     // bottom: 0,

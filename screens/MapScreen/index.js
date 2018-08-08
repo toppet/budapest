@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
   Dimensions,
   TextInput,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import moment from 'moment';
 
@@ -320,64 +322,68 @@ export default class MapScreen extends Component {
     } 
 
     return (
-      <View style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+            <View style={styles.searchBarWrap}>
+              
+              <TouchableOpacity
+                style={[styles.menuButton, {borderRightWidth: 2, borderRightColor: '#ededed'}]}
+                onPress={() => {
+                  Keyboard.dismiss()
+                  this.props.screenProps.openMenu();
+                }}
+              >
+                <Image source={require('../../assets/images/icMenu.png')} />
+              </TouchableOpacity>
 
-        <View style={styles.searchBarWrap}>
-          
-          <TouchableOpacity
-            style={[styles.menuButton, {borderRightWidth: 2, borderRightColor: '#ededed'}]}
-            onPress={() => this.props.screenProps.openMenu()}
-          >
-            <Image source={require('../../assets/images/icMenu.png')} />
-          </TouchableOpacity>
+              <TextInput
+                style={[styles.searchBarTextInput,
+                  { 
+                    fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal',
+                    fontWeight: this.state.searchText.length === 0 ? 'normal' : '600',
+                    color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656'
+                  }]
+                }
+                placeholder="Helyszín keresése"
+                placeholderTextColor="#b7a99b"
+                onChangeText={(text) => this.setState({ searchText: text })}
+                value={this.state.searchText}
+              />
 
-          <TextInput
-            style={[styles.searchBarTextInput, { fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal', color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656'}]}
-            placeholder="Helyszín keresése"
-            placeholderTextColor="#b7a99b"
-            onChangeText={(text) => this.setState({ searchText: text })}
-            value={this.state.searchText}
-          />
+              <Icon style={styles.menuButton} name='search' color="#434656" size={25}/>
+            </View>
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => console.log('search')}
-          >
-            <Icon name='search' color="#434656" size={25}/>
-          </TouchableOpacity>
+            <MapView
+              // provider={PROVIDER_GOOGLE}
+              ref={map => this.map = map}
+              initialRegion={this.state.region}
+              style={styles.container}
+              customMapStyle={customMapStyle}
+              onPress={(e) => this.handleMapViewPress(e)}
+              showsUserLocation
+              showsMyLocationButton
+            >
+              <MapView.Polygon
+                coordinates={this.state.polygonCoordinates}
+                strokeWidth={3}
+                strokeColor="#c49565"
+                fillColor="rgba(183, 169, 155, 0.15)"
+              />
+              {this.state.markers.map((marker, index) => {
+                return (
+                  <MapView.Marker
+                    key={index} 
+                    coordinate={marker.coordinate} 
+                    image={selectedMarkerIndex === index ? selectedPinIcon : pinIcon}
+                    onPress={() => this.setState({ selectedMarker: marker, selectedMarkerIndex: index })}>
+                  </MapView.Marker>
+                );
+              })}
+            </MapView>
+            
+            { selectedMarkerCard }
         </View>
-
-        <MapView
-          // provider={PROVIDER_GOOGLE}
-          ref={map => this.map = map}
-          initialRegion={this.state.region}
-          style={styles.container}
-          customMapStyle={customMapStyle}
-          onPress={(e) => this.handleMapViewPress(e)}
-          showsUserLocation
-          showsMyLocationButton
-        >
-          <MapView.Polygon
-            coordinates={this.state.polygonCoordinates}
-            strokeWidth={3}
-            strokeColor="#c49565"
-            fillColor="rgba(183, 169, 155, 0.15)"
-          />
-          {this.state.markers.map((marker, index) => {
-            return (
-              <MapView.Marker
-                key={index} 
-                coordinate={marker.coordinate} 
-                image={selectedMarkerIndex === index ? selectedPinIcon : pinIcon}
-                onPress={() => this.setState({ selectedMarker: marker, selectedMarkerIndex: index })}>
-              </MapView.Marker>
-            );
-          })}
-        </MapView>
-        
-        { selectedMarkerCard }
-
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -407,11 +413,11 @@ const styles = StyleSheet.create({
     borderColor: "#ededed",
     borderRadius: 5,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     left: (Dimensions.get('window').width / 2) - percent90HalfWidth,
   },
   searchBarTextInput: {
-    width: 215,
+    flex: 1,
     fontFamily: "Montserrat",
     fontSize: 16,
     fontWeight: "600",
@@ -445,6 +451,8 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: '#fff',
     borderRadius: 20,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
     top: -15,
     left: (Dimensions.get('window').width / 2) - 45,
     color: '#c49565',
@@ -452,6 +460,7 @@ const styles = StyleSheet.create({
   leftView: {
     width: '55%',
   },
+  
   rightView: {
     width: '45%',
     alignItems: 'flex-end',

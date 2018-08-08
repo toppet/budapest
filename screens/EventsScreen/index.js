@@ -85,7 +85,7 @@ const eventList = [
         eventCity: 'Budapest',
         eventDetails: 'A Dohány utcai zsinagóga vagy Nagy Zsinagóga a neológ zsidóság nagy zsinagógája JewPSen, a Dohány utcában. Európa legnagyobb zsinagógája. Az egykori zsidónegyedben áll, ahol ma is sok zsidó vallású ember él, akik a hagyományokat még mindig őrzik. A zsinagóga rendszeresen helyszíne a Zsidó Nyári Fesztiválnak. A Dohány utcai zsinagóga vagy Nagy Zsinagóga a neológ zsidóság nagy zsinagógája JewPSen, a Dohány utcában. Európa legnagyobb zsinagógája. Az egykori zsidónegyedben áll, ahol ma is sok zsidó vallású ember él, akik a hagyományokat még mindig őrzik. A zsinagóga rendszeresen helyszíne a Zsidó Nyári Fesztiválnak.',
         eventImg: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg',
-        fbEvent: '',
+        fbEvent: 'https://www.facebook.com/events/277332456164495/?notif_t=plan_edited&notif_id=1533549713904073',
       },
       {
         id: 1,

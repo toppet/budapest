@@ -8,11 +8,18 @@ import {
   Dimensions,
   Platform,
   TouchableOpacity,
+  Linking,
+  TextInput
 } from 'react-native';
+import _ from 'lodash';
 import PageHeader from '../../components/PageHeader';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { web, phonecall } from 'react-native-communications';
+
+import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
+const ScaleAnim = new ScaleAnimation();
 
 const SLIDER_1_FIRST_ITEM = 1;
 const ENTRIES1 = [
@@ -60,7 +67,8 @@ export default class MapDetailScreen extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      slider1ActiveSlide: SLIDER_1_FIRST_ITEM
+      slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
+      openingHoursModalVisible: false,
     };
   }
 
@@ -83,13 +91,37 @@ export default class MapDetailScreen extends Component {
     );
   }
 
-  
+  handleWebLink(weblink) {
+    
+    Linking.canOpenURL(weblink).then(supported => {
+      if (supported) {
+        Linking.openURL(weblink);
+      }
+    });
+  }
+
+  handleAddressLink(coordinate) {
+    const url = `https://maps.google.com/?q=${coordinate.latitude},${coordinate.longitude}`;
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      }
+    });
+  }
+
+  handlePhoneCall(phoneNumber) {
+    const trimmedPhoneNumber = phoneNumber.split(' ').join('');
+    phonecall(trimmedPhoneNumber, false);
+  }
+
+  showOpeningHoursDialog() {
+    this.openingHoursDialog.show();
+  }
 
   render() {
     const { navigation } = this.props;
     const mapItem = navigation.getParam('mapItem');
     const { slider1ActiveSlide } = this.state;
-    console.log('mapItem', mapItem);
     // const { data: { title, subtitle }, even } = this.props;
 
     let facebookLinkBtn = null;
@@ -105,10 +137,19 @@ export default class MapDetailScreen extends Component {
     let description = null;
 
     const currentDayIndex = moment().day();
+    const sunday = _.head(mapItem.openingHours);
+    const rest = _.slice(mapItem.openingHours, 1);
+    const weekDays = _.concat(rest, sunday);
+
+    // const reOrdereddOpeningHours = openingHours.map((openingHour, index) => {})
 
     if(mapItem.facebookPageLink) {
       facebookLinkBtn = (
-        <TouchableOpacity style={styles.linkBtn} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={styles.linkBtn} 
+          activeOpacity={0.8}
+          onPress={() => this.handleWebLink(mapItem.facebookPageLink)}
+        >
           <Text style={styles.linkBtnText}>Facebook oldal</Text>
         </TouchableOpacity>
       );
@@ -116,7 +157,11 @@ export default class MapDetailScreen extends Component {
 
     if(mapItem.ticketLink) {
       ticketLinkBtn = (
-        <TouchableOpacity style={styles.linkBtn} activeOpacity={0.8}>
+        <TouchableOpacity 
+          style={styles.linkBtn}
+          activeOpacity={0.8}
+          onPress={() => this.handleWebLink(mapItem.ticketLink)}
+        >
           <Text style={styles.linkBtnText}>Jegyértékesítés</Text>
         </TouchableOpacity>
       );
@@ -150,6 +195,7 @@ export default class MapDetailScreen extends Component {
           <TouchableOpacity
             style={styles.secondIcon}
             activeOpacity={0.8}
+            onPress={() => this.handlePhoneCall(mapItem.phone)}
           >
             <Icon name="call" size={20} color="#fff"/>
           </TouchableOpacity>
@@ -167,7 +213,7 @@ export default class MapDetailScreen extends Component {
 
       modalBtn = (
         <View style={[styles.infoWrap, styles.inforWrapLeft, { marginLeft: 25 }]}>
-          <TouchableOpacity style={styles.modalBtn}>
+          <TouchableOpacity style={styles.modalBtn} onPress={() => this.showOpeningHoursDialog()}>
             <Text style={styles.modalBtnText}>Nyitvatartás</Text>
             <Icon name="keyboard-arrow-right" size={15}/>
           </TouchableOpacity>
@@ -179,10 +225,15 @@ export default class MapDetailScreen extends Component {
       address = (
         <View style={[styles.infoWrap, styles.inforWrapRight]}>
           <Icon name="near-me" size={25} color="#73beff"/>
-          <Text style={styles.infoText}>{mapItem.address}</Text>
+          <Text 
+            style={styles.infoText}
+          >
+            {mapItem.address}
+          </Text>
           <TouchableOpacity
             style={styles.secondIcon}
             activeOpacity={0.8}
+            onPress={() => this.handleAddressLink(mapItem.coordinate)}
           >
             <Icon name="directions" size={20} color="#fff"/>
           </TouchableOpacity>
@@ -218,6 +269,7 @@ export default class MapDetailScreen extends Component {
               <TouchableOpacity
                 style={styles.secondIcon}
                 activeOpacity={0.8}
+                onPress={() => this.handleWebLink(mapItem.webPageLink)}
               >
                 <Icon name="language" size={20} color="#fff"/>
               </TouchableOpacity>
@@ -279,9 +331,34 @@ export default class MapDetailScreen extends Component {
 
           <View style={styles.descriptionRow}>
             { description }
-          </View>          
+          </View>
 
         </ScrollView>
+
+        <PopupDialog
+          width={0.8}
+          height={265}
+          dialogAnimation={ScaleAnim}
+          ref={(popupDialog) => { this.openingHoursDialog = popupDialog; }}
+          hasOverlay={false}
+          overlayOpacity={0}
+          dialogStyle={{borderWidth: 1, borderColor: '#ededed'}}
+        >
+          <View style={styles.dialogView}>
+
+            {weekDays.map((openingHour) => (
+              <View style={styles.dayRow} key={openingHour.day}>
+                <Text style={styles.dayText}>{openingHour.day}</Text>
+                <Text style={openingHour.closed ? styles.closedText : styles.hourText}>{openingHour.closed ? openingHour.open : `${openingHour.open}-${openingHour.close}` }</Text>
+              </View>
+            ))}
+
+            <TouchableOpacity onPress={() => this.openingHoursDialog.dismiss()}>
+              <Text style={styles.dismissBtn}>Ablak bezárása</Text>
+            </TouchableOpacity>
+          </View>
+        </PopupDialog>
+
       </View>
     )
   }
@@ -471,5 +548,39 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     paddingHorizontal: 15,
     marginRight: 15,
+  },
+  dialogView: {
+    padding: 15,
+    flex: 1,
+  },
+  dayRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  dismissBtn: {
+    fontFamily: "Montserrat",
+    fontWeight: '600',
+    fontSize: 16,
+    color: '#73beff',
+    textAlign: 'center',
+  },
+  dayText: {
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontWeight: "600",
+    color: '#434656',
+  },
+  hourText: {
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontWeight: "normal",
+  },
+  closedText: {
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontWeight: "600",
+    color: '#f2426a',
   },
 });
