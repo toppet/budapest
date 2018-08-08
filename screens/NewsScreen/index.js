@@ -23,32 +23,6 @@ import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
 
-const sampleNews = [
-  {
-    id: 0,
-    title: "Következő hetiszakaszunk: Mátajsz-Mászé (מַּטּוֹת-מַסְעֵי)",
-    posted_at: "2018-07-14 14:06:35",
-    body: "Ezen a héten elkezdjük olvasni Mózes V. könyvét. A könyv első hetiszakasza, a könyv elnevezése is egyben Dvárim, askenáz kiejtéssel Dövórim (דְּבָרִים). Jelentése: Szavak./n Nevezik az ötödik könyvet Misné Tórának, a Tan megismétlésének, mert Mózes szózatában a negyven év minden fontos történéseit, tanításait felidézi. A történészek szerint ez a könyv i.e. 621-ben Josijáhu király uralkodása alatt került elő. A fiatal király az elődei által szégyenletesen elhanyagolt Templomot rendbe kívánta hozni, megtisztítva a fizikai és szellemi mocsoktól. A fal egy mélyedésében tekercset találtak, az elveszettnek hitt Ötödik Könyvet. A meghatódott uralkodó elrendelte a Devárim rendszeres felolvasását. A tartalom személyes visszaemlékezés, számadás. Ezért stílusa emelkedett, költői. Egyes eseményeket pl. a kémek történetét megmagyarázza, pontosabban értelmezi annál, ahogyan az a negyedik könyvben történésszerűen volt leírva. Ez a szidra a “látomás” szombatján kerül felolvasásra, amely megelőzi az egyik legnagyobb gyásznapunkat, Ab hó 9.-ét, héberül Tisó beávot. A “látomás” szó Jesája próféta Háftórájának kezdő szava, héberül cházon. Tisó Beáv ebben az évben július 29.-ére, vasárnapra esik. 25 órás böjt. A templomból eltávolítjuk a díszeket, a földön ülünk. Szombaton este Jeremiás Siralmait olvassuk hagyományos dallamra. Vasárnap délelőtt imaszíjak és tálit nélkül mondjuk a reggeli imát. Tórát is olvasnak három személynek. (Mózes 5, 4-25-40.) Bőr cipőt nem hordunk, Kinotot, szomorú énekeket olvasunk. Mindkét Szentély ezen a napon pusztult el. Gyászolunk.",
-    media: [
-      {
-        id: 100,
-        src_media: "https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg",
-        src_thumbs: "https://asd.com/ize-thumb.jpg",
-        type: 1
-      }
-    ],
-    tags: [
-      {
-        id: 100,
-        name: "Budapest"
-      }
-    ]
-  },
-]
-
-// const top3News = latestNews.splice(0,3);
-// console.log('top3News', top3News);
-
 export default class NewsScreen extends Component {
   constructor(props) {
     super(props);
@@ -303,10 +277,6 @@ export default class NewsScreen extends Component {
     //   );
     // }
 
-    // console.log('latestNewsInState', latestNewsInState);
-    // console.log('tagsInState', tags);
-    // console.log('selectedTagFilterId', selectedTagFilterId);
-
     const selectedTagObj = selectedTagFilterId ? _.find(tags, (o) => o.id == selectedTagFilterId) : '';
     const selectedTagLabel = selectedTagObj.name;
     // console.log('selectedTagLabel', selectedTagLabel);
@@ -354,7 +324,7 @@ export default class NewsScreen extends Component {
       <View style={styles.newsCard} key={n.id}>
         <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0, borderRadius: 6,}}>
           <ImageBackground source={{uri: n.media[0].src_media}} resizeMode='cover' style={{ height: '100%' }}>
-              <View style={{ padding: 15, backgroundColor: 'rgba(0, 0, 0, 0.5)', height: '100%' }}>
+              <View style={{ padding: 10, backgroundColor: 'rgba(67, 70, 86, 0.6)', height: '100%' }}>
                 <Text style={styles.newsDate}>{moment(n.posted_at).format('YYYY.MM.DD')}</Text>
                 <Text style={styles.newsTitle}>{n.title}</Text>
               </View>
@@ -405,7 +375,7 @@ export default class NewsScreen extends Component {
         >
           <Text style={styles.title}>Aktuális</Text>
 
-          <View style={{paddingBottom: 20, paddingHorizontal: 15, }}>
+          <View style={{paddingBottom: 10, paddingHorizontal: 15, }}>
             {news}
           </View>
 
@@ -565,14 +535,15 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontFamily: "Montserrat",
     fontSize: 10,
-    fontWeight: 'bold',
-    color: '#b7a99b',
+    fontWeight: '600',
+    color:  "#FFF",
   },
   newsTitle: {
     fontFamily: "Montserrat",
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#fff',
+    marginTop: 3,
     marginBottom: 5,
   },
   readMoreBtn: {

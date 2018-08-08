@@ -81,22 +81,74 @@ const latestEvents = [
   },
 ]
 
+const bestPlaces = [
+  {
+    id: 0,
+    imageSrc: require('../../assets/images/zsinagoga.jpg'),
+    placeName: 'Dohány utcai Zsinagóga',
+  },
+  {
+    id: 1,
+    imageSrc: require('../../assets/images/rumbach.jpg'),
+    placeName: 'Rumbach utcai Zsinagóga',
+  },
+  {
+    id: 2,
+    imageSrc: require('../../assets/images/kazinczy.jpg'),
+    placeName: 'Kazinczy utcai Zsinagóga',
+  },
+  {
+    id: 3,
+    imageSrc: require('../../assets/images/hosoktemploma.jpg'),
+    placeName: 'Hősök Temploma',
+  },
+  {
+    id: 4,
+    imageSrc: require('../../assets/images/hitkozseg.jpg'),
+    placeName: 'A Budapesti Zsidó Hitközség székháza',
+  },
+]
+
 export default class HomeScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
       menuOpened: false,  // Initial value for opacity: 0
+      currencies: {}
     }
   }
   // shouldComponentUpdate(nextProps, nextState) {
   //   return _.difference(this.state, nextState).length > 0 ? true : false;
   // }
-
-
+  componentWillMount(){
+    this.getCurrency();
+  }
+  getCurrency(){
+    fetch('https://free.currencyconverterapi.com/api/v6/convert?q=USD_HUF,EUR_HUF')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        const responseData = responseJson.results;
+        console.log('responseData', responseData)
+        this.setState({
+          currencies: responseData,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   render() {
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
-    // console.log('this.props', this.props);
+    const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
+    const { currencies } = this.state;
+    console.log('currencies', currencies);
+    let EUR_HUF = null;
+    let USD_HUF = null;
+    if(currencies.EUR_HUF && currencies.USD_HUF) {
+      EUR_HUF = currencies.EUR_HUF.val.toFixed(2);
+      USD_HUF = currencies.USD_HUF.val.toFixed(2);
+    }
     const newsCards = latestNews.map((n) => (
       <View style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id}>
         <View style={styles.newsCard}>
@@ -147,6 +199,21 @@ export default class HomeScreen extends Component {
       </TouchableOpacity>
     ));
 
+    const placesCards = bestPlaces.map((e) => (
+      <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth }]} key={e.id} activeOpacity={1}>
+        <View style={styles.placeCard}>
+
+          <View style={styles.imageBgPlace}>
+            <ImageBackground source={e.imageSrc} resizeMode='cover' style={{width: '100%', height: 115}}/>
+          </View>
+          <TouchableOpacity style={styles.readMoreBtn} onPress={() => this.props.navigation.navigate('EventDetail', { event: e  })} activeOpacity={0.95}>
+            <Text style={styles.readMoreBtnText}>{e.placeName}</Text>
+          </TouchableOpacity>
+
+        </View>
+      </TouchableOpacity>
+    ));
+
 
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
@@ -163,8 +230,24 @@ export default class HomeScreen extends Component {
                 <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
               </View>
 
-              <View style={{marginBottom: 50, paddingTop: 10, alignItems: 'center'}}>
-                <Text style={styles.upNextTitle}>További tartalom várható</Text>
+              <View style={{flexDirection: 'row', marginBottom: 50, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{width: "35%", height: 70, padding: 5, alignItems: "center",  borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
+                  <Icon size={30} name="cloud" color="#6ABCFF"/>
+                  <Text style={{fontFamily: "Montserrat", fontSize: 10, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>közepesen felhős</Text>
+                </View>
+                <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
+                  <Icon size={30} name="today" color="#434656"/>
+                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>Tisri 1</Text>
+                </View>
+                <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
+                  <Icon size={30} name="show-chart" color="#434656"/>
+                    <View style={{flexDirection: 'row', paddingTop: 5,}}>
+                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>EUR  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#6CE986"}}>{EUR_HUF ? EUR_HUF : '-'}</Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>USD  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#F2426A"}}>{USD_HUF ? USD_HUF : '-'}</Text>
+                    </View>
+                </View>
               </View>
 
               <View>
@@ -210,8 +293,8 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>
                 </View>
 
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10, paddingHorizontal: 15}}>
-                  {eventCards}
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginBottom: 15, paddingHorizontal: 15}}>
+                  {placesCards}
                 </ScrollView>
               </View>
 
@@ -299,6 +382,54 @@ const styles = StyleSheet.create({
     height: 100,
     width: '100%',
     marginBottom: 5,
+    borderRadius: 6,
+  },
+  placeCard:{
+    flex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginRight: 15,
+    height: 115,
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  imageBgPlace: {
+    height: '100%',
+    width: '100%',
+    marginBottom: 5,
+  },
+  readMoreBtn: {
+    position: 'absolute',
+    zIndex: 5,
+    bottom: -20,
+    width: 135,
+    height: 50,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 5,
+    paddingRight: 5,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#b7a99b',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#b7a99b',
+    shadowOffset: {
+            width: 0,
+            height: 15
+          },
+    shadowRadius: 15,
+    shadowOpacity: 0.5,
+  },
+  readMoreBtnText: {
+    color: '#434656',
+    fontFamily: "Montserrat",
+    fontWeight: '600',
+    fontSize: 12,
+    textAlign: 'center',
   },
   newsCardDesc: {
     flex: 1,
@@ -327,6 +458,7 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
     marginRight: 15,
   },
+
   eventCardDesc: {
     flex: 1,
     paddingLeft: 10,
