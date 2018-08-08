@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
   Dimensions,
   TextInput,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import moment from 'moment';
 
@@ -165,7 +167,7 @@ export default class MapScreen extends Component {
     region: {
       latitude: 47.498519,
       longitude: 19.063052,
-       
+
       // latitudeDelta: 0.04864195044303443,
       // longitudeDelta: 0.040142817690068,
       latitudeDelta: 0.015,
@@ -241,7 +243,7 @@ export default class MapScreen extends Component {
 
   handleMapViewPress(e) {
     if (e.nativeEvent.action !== 'marker-press') {
-      this.setState({ 
+      this.setState({
         selectedMarker: null,
         selectedMarkerIndex: null,
       });
@@ -252,7 +254,7 @@ export default class MapScreen extends Component {
     const { open, close, closed } = openingHours;
     const now = new Date();
     var format = 'hh:mm';
-    
+
     if (closed) {
       return <Text>{`${openingHours.day}: `} <Text style={styles.closedState}>Zárva</Text></Text>;
     }
@@ -261,7 +263,7 @@ export default class MapScreen extends Component {
     let openingTime = moment(open, format);
     let closingingTime = moment(close, format);
     let resultText;
-    
+
     if(time.isBetween(openingTime, closingingTime)){
       resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.openState}>Nyitva</Text></Text>;
     } else {
@@ -317,35 +319,37 @@ export default class MapScreen extends Component {
           </View>
         </TouchableOpacity>
       );
-    } 
+    }
 
     return (
       <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={styles.searchBarWrap}>
 
-        <View style={styles.searchBarWrap}>
-          
-          <TouchableOpacity
-            style={[styles.menuButton, {borderRightWidth: 2, borderRightColor: '#ededed'}]}
-            onPress={() => this.props.screenProps.openMenu()}
-          >
-            <Image source={require('../../assets/images/icMenu.png')} />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.menuButton, {borderRightWidth: 2, borderRightColor: '#ededed'}]}
+              onPress={() => this.props.screenProps.openMenu()}
+              activeOpacity = {0.8}
+            >
+              <Image source={require('../../assets/images/icMenu.png')} />
+            </TouchableOpacity>
 
-          <TextInput
-            style={[styles.searchBarTextInput, { fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal', color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656'}]}
-            placeholder="Helyszín keresése"
-            placeholderTextColor="#b7a99b"
-            onChangeText={(text) => this.setState({ searchText: text })}
-            value={this.state.searchText}
-          />
+            <TextInput
+              style={[styles.searchBarTextInput, { fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal', color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656'}]}
+              placeholder="Helyszín keresése"
+              placeholderTextColor="rgba(183,169,155, 0.5)"
+              onChangeText={(text) => this.setState({ searchText: text })}
+              value={this.state.searchText}
+            />
 
-          <TouchableOpacity
-            style={styles.menuButton}
-            onPress={() => console.log('search')}
-          >
-            <Icon name='search' color="#434656" size={25}/>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={styles.menuButton}
+              activeOpacity = {1}
+            >
+              <Icon name='search' color="#434656" size={25}/>
+            </TouchableOpacity>
+          </View>
+        </TouchableWithoutFeedback>
 
         <MapView
           // provider={PROVIDER_GOOGLE}
@@ -366,15 +370,15 @@ export default class MapScreen extends Component {
           {this.state.markers.map((marker, index) => {
             return (
               <MapView.Marker
-                key={index} 
-                coordinate={marker.coordinate} 
+                key={index}
+                coordinate={marker.coordinate}
                 image={selectedMarkerIndex === index ? selectedPinIcon : pinIcon}
                 onPress={() => this.setState({ selectedMarker: marker, selectedMarkerIndex: index })}>
               </MapView.Marker>
             );
           })}
         </MapView>
-        
+
         { selectedMarkerCard }
 
       </View>
@@ -401,6 +405,7 @@ const styles = StyleSheet.create({
     zIndex: 5,
     top: 30,
     width: '90%',
+    height: 50,
     backgroundColor: '#fff',
     flexDirection: 'row',
     borderWidth: 2,
@@ -419,10 +424,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   menuButton: {
-    paddingHorizontal: 17,
+    paddingHorizontal: 30,
     paddingVertical: 10,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
   },
   card: {
     padding: 15,

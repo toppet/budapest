@@ -13,7 +13,7 @@ export default class SideMenuScreen extends Component {
   state = {
     impressumModalVisible: false,
   }
-  
+
   render() {
     // console.log('SideMenuScreen.props', this.props);
     return (
@@ -64,7 +64,7 @@ export default class SideMenuScreen extends Component {
             <Text style={styles.addressL}>Dohány utcai </Text>
             <Text style={styles.addressL}>Zsinagóga</Text>
             <Text style={[styles.addressS, { marginTop: 10 }]}>Budapest,</Text>
-            <Text style={styles.addressS}>Dohány u. 2,</Text> 
+            <Text style={styles.addressS}>Dohány u. 2,</Text>
             <Text style={styles.addressS}>1074</Text>
           </View>
 
@@ -73,7 +73,7 @@ export default class SideMenuScreen extends Component {
           </View>
 
         </ImageBackground>
-        
+
       </View>
     )
   }
@@ -87,17 +87,17 @@ const styles = StyleSheet.create({
     marginBottom: 60,
   },
   buttonView: {
-    flexDirection: 'row', 
-    width: 165, 
-    alignItems: 'flex-start', 
+    flexDirection: 'row',
+    width: 165,
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },
   buttonIcon: {
     marginRight: 10,
   },
   buttonText: {
-    fontFamily: "Montserrat", 
-    fontSize: 18, 
+    fontFamily: "Montserrat",
+    fontSize: 18,
     fontWeight: "600",
     color: "#434656",
   },
@@ -105,9 +105,11 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat",
     fontSize: 18,
     fontWeight: "bold",
+    color: "#434656"
   },
   addressS: {
     fontFamily: "Montserrat",
     fontSize: 14,
+    color: "#434656"
   }
 });
