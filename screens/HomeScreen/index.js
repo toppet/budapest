@@ -113,16 +113,15 @@ export default class HomeScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
-      menuOpened: false,  // Initial value for opacity: 0
+      menuOpened: false,
       currencies: {}
     }
   }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return _.difference(this.state, nextState).length > 0 ? true : false;
-  // }
-  componentWillMount(){
+  
+  componentDidMount(){
     this.getCurrency();
   }
+
   getCurrency(){
     fetch('https://free.currencyconverterapi.com/api/v6/convert?q=USD_HUF,EUR_HUF')
       .then((response) => response.json())
@@ -137,18 +136,21 @@ export default class HomeScreen extends Component {
         console.error(error);
       });
   }
+
   render() {
+    const { currencies } = this.state;
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
     const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
-    const { currencies } = this.state;
-    console.log('currencies', currencies);
+    
     let EUR_HUF = null;
     let USD_HUF = null;
+
     if(currencies.EUR_HUF && currencies.USD_HUF) {
       EUR_HUF = currencies.EUR_HUF.val.toFixed(2);
       USD_HUF = currencies.USD_HUF.val.toFixed(2);
     }
+
     const newsCards = latestNews.map((n) => (
       <View style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id}>
         <View style={styles.newsCard}>
