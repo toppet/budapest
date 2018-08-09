@@ -13,7 +13,8 @@ import {
   Button,
   ActivityIndicator,
   RefreshControl,
-  DatePickerIOS
+  DatePickerIOS,
+  Image
 } from 'react-native';
 
 import PageHeader from '../../components/PageHeader';
@@ -303,7 +304,7 @@ export default class NewsScreen extends Component {
             chosenDate: null,
           }, () => this.getFilteredNews(null, selectedTagFilterId))
         }}>
-          <Icon name="cancel" size={20} />
+          <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
       );
     }
@@ -315,7 +316,7 @@ export default class NewsScreen extends Component {
             selectedTagFilterId: null,
           }, () => this.getFilteredNews(chosenDate, null))
         }}>
-          <Icon name="cancel" size={20} />
+          <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
       );
     }
@@ -340,7 +341,11 @@ export default class NewsScreen extends Component {
 
     if (latestNewsInState && latestNewsInState.length === 0) {
       newsListItems = (
-        <Text style={styles.noNewsText}>Nincs bejegyzés</Text>
+      <View style={{alignItems: 'center', marginBottom: 20}}>
+        <Text style={styles.noNewsTitle}>Nincs hír</Text>
+        <Text style={styles.noNewsSub}>Állítson be más szűrfeltételeket</Text>
+        <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
+      </View>
       );
     } else {
       newsListItems = (
@@ -656,16 +661,28 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: '#a3abbc',
   },
-  noNewsText: {
-    marginTop: 25,
-    marginBottom: 25,
+  noNewsTitle: {
+    marginTop: 10,
+    marginBottom: 10,
     paddingHorizontal: 15,
-    fontFamily: "Montserrat",
-    fontSize: 15,
-    fontWeight: "600",
-    fontStyle: "italic",
+    fontFamily: "YoungSerif",
+    fontSize: 20,
+    fontWeight: "normal",
+    fontStyle: "normal",
     letterSpacing: 0,
-    color: "#a3abbc",
+    color: '#434656',
+    textAlign: 'center',
+  },
+  noNewsSub: {
+    paddingHorizontal: 15,
+    marginBottom: 5,
+    fontFamily: "YoungSerif",
+    fontSize: 14,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: '#A3ABBC',
     textAlign: 'center',
   },
 });

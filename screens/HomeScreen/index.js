@@ -242,10 +242,10 @@ export default class HomeScreen extends Component {
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
                   <Icon size={30} name="show-chart" color="#434656"/>
                     <View style={{flexDirection: 'row', paddingTop: 5,}}>
-                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>EUR  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#6CE986"}}>{EUR_HUF ? EUR_HUF : '-'}</Text>
+                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>EUR  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#73BEFF"}}>{EUR_HUF ? EUR_HUF : '-'}</Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
-                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>USD  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#F2426A"}}>{USD_HUF ? USD_HUF : '-'}</Text>
+                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>USD  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#C49565"}}>{USD_HUF ? USD_HUF : '-'}</Text>
                     </View>
                 </View>
               </View>
