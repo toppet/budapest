@@ -8,6 +8,8 @@ import {
 import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
+
 import { LocaleConfig, Agenda } from 'react-native-calendars';
 
 LocaleConfig.locales['hu'] = {
@@ -27,6 +29,8 @@ export default class CalendarScreen extends Component {
     };
   }
 
+
+
   loadItems(day) {
     setTimeout(() => {
       // for (let i = -15; i < 85; i++) {
@@ -37,7 +41,7 @@ export default class CalendarScreen extends Component {
       //     const numItems = Math.floor(Math.random() * 5);
       //     for (let j = 0; j < numItems; j++) {
       //       this.state.items[strTime].push({
-      //         name: 'Item for ' + strTime,
+      //         name: 'Esemény ' + strTime,
       //         height: Math.max(50, Math.floor(Math.random() * 150))
       //       });
       //     }
@@ -45,9 +49,12 @@ export default class CalendarScreen extends Component {
       // }
       //console.log(this.state.items);
       const newItems = {
-        '2018-07-25': [{ name: 'Item for 2018-07-25 - 1' }, { name: 'Item for 2018-07-25 - 2' }],
-        '2018-07-28': [{ name: 'Item for 2018-07-28 - 1' }, { name: 'Item for 2018-07-28 - 2' }, { name: 'Item for 2018-07-28 - 3' }],
-        '2018-08-01': [{ name: 'Item for 2018-08-01 - 1' }],
+        '2018-08-09': [{ name: 'Esemény 2018-08-09 - 1' }, { name: 'Esemény 2018-08-09' }],
+        '2018-08-10': [{ name: 'Esemény 2018-08-10 - 1' }, { name: 'Esemény 2018-08-10' }],
+        '2018-08-11': [{ name: 'Esemény 2018-08-11 - 1' }, { name: 'Esemény 2018-08-11' }],
+        '2018-08-12': [{ name: 'Esemény 2018-08-12 - 1' }, { name: 'Esemény 2018-08-12' }],
+        '2018-08-13': [{ name: 'Esemény 2018-08-13 - 1' }, { name: 'Esemény 2018-08-13' }],
+        '2018-08-14': [{ name: 'Esemény 2018-08-14 - 1' }, { name: 'Esemény 2018-08-14' }],
       };
 
       // Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
@@ -61,10 +68,14 @@ export default class CalendarScreen extends Component {
   renderItem(item) {
     return (
       <View style={[styles.item, {height: item.height}]}>
-        <Text style={styles.itemText}>{item.name}</Text>
-        <TouchableOpacity onPress={() => console.log('Add this to calendar', item)}>
-          <Icon name="date-range" />
+        <View style={{marginTop: 5}}>
+          <Text style={styles.itemText}>{item.name}</Text>
+        </View>
+        <View style={{marginTop: 5}}>
+        <TouchableOpacity onPress={() => console.log('Add this to calendar', item)} activeOpacity={0.8}>
+          <Icon size={30} name="today" color="#73BEFF"/>
         </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -85,9 +96,9 @@ export default class CalendarScreen extends Component {
   render() {
       return (
           <View style={styles.container}>
-            <PageHeader 
+            <PageHeader
               { ...this.props }
-              pageTitle="Naptár"  
+              pageTitle="Naptár"
             />
             <Text style={styles.pageTitle}>Válasszon napot!</Text>
             <View style={{ flex: 1 }}>
@@ -133,6 +144,9 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: 'white',
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     padding: 10,
     marginRight: 10,
     marginTop: 17,
@@ -140,7 +154,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontFamily: 'YoungSerif-Regular',
-    fontSize: 20,
+    fontSize: 18,
     color: '#434656',
   },
   emptyDate: {
