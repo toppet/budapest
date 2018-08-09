@@ -464,12 +464,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   linkBtn: {
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#ededed',
+    borderRadius: 5,
     paddingHorizontal: 15,
     paddingVertical: 8,
-    borderRadius: 5,
     marginHorizontal: 15,
+    marginBottom: 5, 
+    borderColor: 'rgba(237, 237, 237, 1)',
     shadowColor: '#b7a99b',
     shadowOffset: {
             width: 0,
