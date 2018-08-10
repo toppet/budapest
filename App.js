@@ -16,7 +16,8 @@ import {
   TouchableOpacity,
   YellowBox,
   Image,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 
 import ProbaScreen from './ProbaScreen';
@@ -88,7 +89,7 @@ export default class App extends Component {
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
-          <View style={{marginTop: 25}}>
+          <SafeAreaView style={{marginTop: 25}}>
             <View style={styles.header}>
               <TouchableOpacity
                 onPress={() => this.setState({ contactPopUpVisible: false }) }
@@ -138,7 +139,7 @@ export default class App extends Component {
               <Text style={styles.kapcsBody}>Kérjük próbáljon meg minél részletesebb leírást adni a tapasztalt rendellenességről. Írja meg, pontosan az: 	{"\n"}{"\n"}• 	eszköz típusát
 	{"\n"}• 	operációs rendszerét. {"\n"}{"\n"}Az e-mailhez csatolhat képernyőfotót is, mely sokat segíthet a hiba feltárásában. Ilyet a bekapcsológomb és a ‘home’ gomb együttes megnyomásával készíthető.</Text>
             </View>
-          </View>
+          </SafeAreaView>
         </Modal>
 
 
@@ -149,7 +150,7 @@ export default class App extends Component {
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
-          <View style={{marginTop: 25}}>
+          <SafeAreaView style={{marginTop: 25}}>
             <View style={styles.header}>
             <TouchableOpacity
               onPress={() => this.setState({ impressumModalVisible: false }) }
@@ -165,7 +166,7 @@ export default class App extends Component {
             <ScrollView style={styles.impresszumBody}>
               <Text style={styles.kapcsBody}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur dapibus nibh, vitae rhoncus augue feugiat sed. Aenean tincidunt dictum nunc, sed rhoncus est aliquam eget. Nullam at tortor varius, tincidunt diam nec, convallis leo. Pellentesque vel ligula ut nisl scelerisque ultricies. Nunc sed purus consectetur, vestibulum nibh ac, elementum elit. Sed volutpat, risus vel viverra porttitor, turpis metus tempor diam, ut vulputate est metus a ex. Ut sed eleifend nunc. Nam rhoncus tellus dui, sed venenatis risus interdum sed. Nam vehicula cursus quam sit amet pulvinar. Curabitur vehicula libero lacinia venenatis condimentum. Curabitur a nibh fringilla, sollicitudin nulla in, tempor massa. Proin libero urna, vestibulum at finibus sed, iaculis a dolor. Aenean tincidunt sagittis nisi, sed convallis quam cursus id. Donec facilisis dolor nec massa mattis pharetra. Vivamus mollis hendrerit odio, non euismod dui dapibus ac. Vivamus ultricies ex erat, ut euismod purus lobortis at. Aenean eu facilisis dolor, nec placerat nisl. Donec ligula augue, cursus vel nisl eget, hendrerit gravida nunc. Nulla mauris nisi, blandit ac turpis at, aliquam ultrices metus. Aenean nec nisl magna. Nullam imperdiet bibendum vestibulum. Aliquam porttitor nisi ac tellus facilisis, vitae tincidunt sem consectetur. Vivamus convallis efficitur magna, at accumsan erat volutpat vel. In aliquet porttitor porttitor. Sed at malesuada nibh. Donec posuere, nulla a viverra pretium, mi arcu consequat augue, at iaculis nunc mauris sit amet augue. Nunc nec erat euismod justo consequat posuere quis eu urna. Aliquam lacus metus, facilisis eu nisi pretium, blandit aliquam ex. Morbi et varius odio. Fusce ac finibus ex, et dignissim massa. Sed nec massa porta dolor fringilla convallis. Etiam sit amet elit sapien. Duis scelerisque egestas enim eu tempor. In hac habitasse platea dictumst. Pellentesque interdum tellus sed ex faucibus sagittis. Proin lorem lectus, dictum nec varius eu, vehicula eget erat. Fusce sit amet imperdiet lectus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque convallis condimentum ante, id egestas nisi ornare id. Curabitur nec quam rhoncus, hendrerit dui vel, sollicitudin risus. Fusce sed erat id ante fringilla blandit sit amet vehicula tellus. Nulla est lectus, fringilla nec sollicitudin non, vulputate vel magna.</Text>
             </ScrollView>
-          </View>
+          </SafeAreaView>
         </Modal>
 
         <ProbaScreen
