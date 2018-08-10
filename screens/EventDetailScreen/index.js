@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  SafeAreaView
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -45,18 +46,18 @@ export default class EventDetailScreen extends Component {
         </View>
       );
     }
-    
+
     return (
-      <View style={styles.container}>
-        <PageHeader 
+      <SafeAreaView style={styles.container}>
+        <PageHeader
           pageTitle="Események"
           isBack
           {...this.props}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
-          
+
           <View style={{ marginBottom: 25, padding: 15, }}>
-            
+
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 25, }}>
               <View style={{width: '50%',}}>
                 <Text style={styles.eventDateText}>{moment(eventParam.date).format('YYYY.MM.DD')}</Text>
@@ -64,8 +65,8 @@ export default class EventDetailScreen extends Component {
               </View>
               <View style={{width: '50%', }}>
                 <Image source={{uri: eventParam.eventImg}} style={{borderWidth: 1, borderRadius: 3, width: 158, height: 90, marginLeft: 'auto'}}/>
-              </View>            
-            </View> 
+              </View>
+            </View>
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 20, }}>
               <Icon name="schedule" style={styles.firstIcon} color="#73beff" size={20} />
@@ -91,7 +92,7 @@ export default class EventDetailScreen extends Component {
                 <Icon name="directions" size={20} color="#fff"/>
               </TouchableOpacity>
             </View>
-            
+
             <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.fbEvent)}>
               <FontAwesome name="facebook-square" size={20} color="#c49565"/>
               <Text style={styles.facebookBtnText}>Facebook esemény</Text>
@@ -99,11 +100,11 @@ export default class EventDetailScreen extends Component {
 
             {eventDetails}
 
-            
+
 
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     )
   }
 }
@@ -165,13 +166,13 @@ const styles = StyleSheet.create({
     color: '#434656',
   },
   detailsTitle: {
-    fontFamily: "YoungSerif-Regular", 
+    fontFamily: "YoungSerif-Regular",
     fontSize: 14,
     color: '#797e9c',
     marginBottom: 15,
   },
   detailsText: {
-    fontFamily: "Montserrat", 
+    fontFamily: "Montserrat",
     fontSize: 12,
     color: '#434656',
     lineHeight: 18,

@@ -4,6 +4,8 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    SafeAreaView,
+    Image
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -49,12 +51,13 @@ export default class CalendarScreen extends Component {
       // }
       //console.log(this.state.items);
       const newItems = {
-        '2018-08-09': [{ name: 'Esemény 2018-08-09 - 1' }, { name: 'Esemény 2018-08-09' }],
+        '2018-08-09': [{ name: 'REGGELI IMA ', desc: '09:00 - 10:00' }, { name: 'ESTI IMA ', desc: '20:00 - 21:00' }, { name: 'Esemény', desc: 'EZ NEM EGY IMA' }],
         '2018-08-10': [{ name: 'Esemény 2018-08-10 - 1' }, { name: 'Esemény 2018-08-10' }],
         '2018-08-11': [{ name: 'Esemény 2018-08-11 - 1' }, { name: 'Esemény 2018-08-11' }],
         '2018-08-12': [{ name: 'Esemény 2018-08-12 - 1' }, { name: 'Esemény 2018-08-12' }],
         '2018-08-13': [{ name: 'Esemény 2018-08-13 - 1' }, { name: 'Esemény 2018-08-13' }],
         '2018-08-14': [{ name: 'Esemény 2018-08-14 - 1' }, { name: 'Esemény 2018-08-14' }],
+        '2018-09-09': [{ name: 'Reggeli ima', desc: '09:00 - 10:00' }, { name: 'Esti ima', desc: '20:00 - 21:00' }, { name: 'Esemény címe ha ilyen hosszú mi történik?', desc: 'EZ NEM EGY IMA' }],
       };
 
       // Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
@@ -67,14 +70,19 @@ export default class CalendarScreen extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.item, {height: item.height}]}>
-        <View style={{marginTop: 5}}>
-          <Text style={styles.itemText}>{item.name}</Text>
+      <View >
+        <View style={[styles.item, {height: item.height}]}>
+          <View style={{marginTop: 5, width: '85%'}}>
+            <Text style={styles.itemText}>{item.name}</Text>
+          </View>
+          <View style={{marginTop: 5}}>
+          <TouchableOpacity onPress={() => console.log('Add this to calendar', item)} activeOpacity={0.8}>
+            <Icon size={30} name="today" color="#73BEFF"/>
+          </TouchableOpacity>
+          </View>
         </View>
         <View style={{marginTop: 5}}>
-        <TouchableOpacity onPress={() => console.log('Add this to calendar', item)} activeOpacity={0.8}>
-          <Icon size={30} name="today" color="#73BEFF"/>
-        </TouchableOpacity>
+          <Text style={styles.itemSubText}>{item.desc}</Text>
         </View>
       </View>
     );
@@ -93,6 +101,7 @@ export default class CalendarScreen extends Component {
     return date.toISOString().split('T')[0];
   }
 
+
   render() {
       return (
           <View style={styles.container}>
@@ -109,6 +118,13 @@ export default class CalendarScreen extends Component {
                 renderEmptyDate={this.renderEmptyDate.bind(this)}
                 rowHasChanged={this.rowHasChanged.bind(this)}
                 firstDay={1}
+                renderEmptyData={() => {return (
+                  <View style={{alignItems: 'center', marginTop: 100}}>
+                    <Text style={styles.noNewsTitle}>Nincs bejegyzés</Text>
+                    <Text style={styles.noNewsSub}>Válasszon másik napot</Text>
+                    <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
+                  </View>
+                );}}
                 monthFormat={'yyyy. MMMM'}
                 theme={{
                   textMonthFontFamily: 'Montserrat',
@@ -135,11 +151,12 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   pageTitle: {
-    fontSize: 20,
+    fontSize: 25,
     fontFamily: "YoungSerif-Regular",
     paddingLeft: 15,
-    marginTop: 15,
+    marginTop: 30,
     marginBottom: 15,
+    color: '#434656',
   },
   item: {
     backgroundColor: 'white',
@@ -154,12 +171,46 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontFamily: 'YoungSerif-Regular',
-    fontSize: 18,
+    fontSize: 17,
     color: '#434656',
+    marginBottom: 5,
+  },
+  itemSubText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    marginTop: 3,
+    fontWeight: '600',
+    fontStyle: "normal",
+    color: '#A3ABBC',
+    marginBottom: 10,
   },
   emptyDate: {
     height: 15,
     flex:1,
     paddingTop: 30
+  },
+  noNewsTitle: {
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 15,
+    fontFamily: "YoungSerif",
+    fontSize: 20,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: '#434656',
+    textAlign: 'center',
+  },
+  noNewsSub: {
+    paddingHorizontal: 15,
+    marginBottom: 5,
+    fontFamily: "YoungSerif",
+    fontSize: 14,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: '#A3ABBC',
+    textAlign: 'center',
   }
 });

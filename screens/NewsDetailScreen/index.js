@@ -5,11 +5,18 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  SafeAreaView
 } from 'react-native';
+import YouTube from 'react-native-youtube';
 import PageHeader from '../../components/PageHeader';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Markdown from 'react-native-simple-markdown'
+
+function ytUrl(url) {
+ const splitted=url.split("=");
+ return splitted.length>1?splitted[1]:url.split("/").slice(-1)[0];
+};
 
 export default class NewsDetailScreen extends Component {
   static navigationOptions = {
@@ -20,17 +27,16 @@ export default class NewsDetailScreen extends Component {
   render() {
     const { navigation } = this.props;
     const newsItem = navigation.getParam('newsItem', 'NO-ID');
-    console.log('newItem', newsItem);
-
+    // console.log('newItem', newsItem);
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <PageHeader
           {...this.props}
           pageTitle="Hírek"
           isBack
         />
         <ScrollView>
-          <Image source={{uri: newsItem.media[0].src_media}} style={{width: '100%', height: 165}}/>
+          <Image source={{uri: newsItem.media[1].src_thumbs}} style={{width: '100%', height: 165}}/>
           <View style={styles.dateRow}>
             <Text style={styles.date}>{moment(newsItem.posted_at).format('YYYY.MM.DD')}</Text>
             <View style={styles.tagWrap}>
@@ -43,8 +49,23 @@ export default class NewsDetailScreen extends Component {
             {/* <Text style={styles.newsBody}><ReactMarkdown source={newsItem.body} /></Text> */}
             <Markdown styles={styles.newsBody}>{newsItem.body}</Markdown>
           </View>
+          <View>
+            <YouTube
+              videoId="sa63632t"   // The YouTube video ID
+              play={false}             // control playback of video with true/false
+              fullscreen={true}       // control whether the video should play in fullscreen or inline
+              loop={false}             // control whether the video should loop when ended
+
+              onReady={e => this.setState({ isReady: true })}
+              onChangeState={e => this.setState({ status: e.state })}
+              onChangeQuality={e => this.setState({ quality: e.quality })}
+              onError={e => this.setState({ error: e.error })}
+
+              style={{ alignSelf: 'stretch', height: 200, marginBottom: 50 }}
+            />
+          </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     )
   }
 }
