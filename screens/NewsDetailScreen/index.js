@@ -9,6 +9,7 @@ import {
 import PageHeader from '../../components/PageHeader';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Markdown from 'react-native-simple-markdown'
 
 export default class NewsDetailScreen extends Component {
   static navigationOptions = {
@@ -39,7 +40,8 @@ export default class NewsDetailScreen extends Component {
           </View>
           <View style={styles.newsContent}>
             <Text style={styles.newsTitle}>{newsItem.title}</Text>
-            <Text style={styles.newsBody}>{newsItem.body}</Text>
+            {/* <Text style={styles.newsBody}><ReactMarkdown source={newsItem.body} /></Text> */}
+            <Markdown styles={styles.newsBody}>{newsItem.body}</Markdown>
           </View>
         </ScrollView>
       </View>

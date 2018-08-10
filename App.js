@@ -16,7 +16,8 @@ import {
   TouchableOpacity,
   YellowBox,
   Image,
-  ScrollView
+  ScrollView,
+  AsyncStorage,
 } from 'react-native';
 
 import ProbaScreen from './ProbaScreen';
@@ -36,6 +37,11 @@ export default class App extends Component {
     settingsEng: false,
   }
 
+  componentDidMount() {
+    // this.getAllKeys();
+    this._getAppLang();
+  }
+
   showSettingsDialog() {
     this.settingsDialog.show();
   }
@@ -46,6 +52,29 @@ export default class App extends Component {
 
   setImpressumModalVisible() {
     this.setState({ impressumModalVisible: true });
+  }
+
+  _getAppLang = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@MySuperStore:key');
+      console.log('langvalue', value)
+      if (value !== null) {
+        // We have data!!
+        this.setState({ settingsEng: value === 'eng' ? true : false });
+      }
+     } catch (error) {
+       // Error retrieving data
+     }
+  }
+
+  _setAppLang = async () => {
+    
+    try {
+      await this.setState({ settingsEng: !this.state.settingsEng }, () => console.log('setting language to english', this.state.settingsEng));
+      await AsyncStorage.setItem('@MySuperStore:key', this.state.settingsEng ? 'eng' : 'hu');
+    } catch (error) {
+      // Error saving data
+    }
   }
 
   render() {
@@ -72,7 +101,7 @@ export default class App extends Component {
 
             <View style={styles.settingRow}>
               <Text style={styles.settingText}>Switch to English</Text>
-              <Switch value={this.state.settingsEng} onValueChange={() => this.setState({settingsEng: !this.state.settingsEng})}></Switch>
+              <Switch value={this.state.settingsEng} onValueChange={() => this._setAppLang()}></Switch>
             </View>
 
             <TouchableOpacity onPress={() => this.settingsDialog.dismiss()}>
