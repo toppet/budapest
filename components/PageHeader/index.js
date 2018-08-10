@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
@@ -59,11 +60,11 @@ export default class PageHeader extends Component {
 
 
     return (
-      <View style={styles.header}>
+      <SafeAreaView style={styles.header}>
         {leftIcon}
         <Text style={styles.pageTitle}>{pageTitle ? pageTitle : 'JewPS'}</Text>
         {rightIcon}
-      </View>
+      </SafeAreaView>
     )
   }
 }

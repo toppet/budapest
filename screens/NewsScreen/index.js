@@ -324,7 +324,7 @@ export default class NewsScreen extends Component {
     const news = top3News.map((n) => (
       <View style={styles.newsCard} key={n.id}>
         <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0, borderRadius: 6,}}>
-          <ImageBackground source={{uri: n.media[0].src_media}} resizeMode='cover' style={{ height: '100%' }}>
+          <ImageBackground source={{uri: n.media[1].src_thumbs}} resizeMode='cover' style={{ height: '100%' }}>
               <View style={{ padding: 10, backgroundColor: 'rgba(67, 70, 86, 0.6)', height: '100%' }}>
                 <Text style={styles.newsDate}>{moment(n.posted_at).format('YYYY.MM.DD')}</Text>
                 <Text style={styles.newsTitle}>{n.title}</Text>

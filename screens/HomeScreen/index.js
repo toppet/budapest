@@ -10,6 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageBackground,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
@@ -117,7 +118,7 @@ export default class HomeScreen extends Component {
       currencies: {}
     }
   }
-  
+
   componentDidMount(){
     this.getCurrency();
   }
@@ -142,7 +143,7 @@ export default class HomeScreen extends Component {
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
     const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
-    
+
     let EUR_HUF = null;
     let USD_HUF = null;
 
@@ -208,7 +209,7 @@ export default class HomeScreen extends Component {
           <View style={styles.imageBgPlace}>
             <ImageBackground source={e.imageSrc} resizeMode='cover' style={{width: '100%', height: 115}}/>
           </View>
-          <TouchableOpacity style={styles.readMoreBtn} onPress={() => this.props.navigation.navigate('EventDetail', { event: e  })} activeOpacity={0.95}>
+          <TouchableOpacity style={styles.readMoreBtn} onPress={() => this.props.navigation.navigate('Map', { mapItem: e  })} activeOpacity={0.95}>
             <Text style={styles.readMoreBtnText}>{e.placeName}</Text>
           </TouchableOpacity>
 
@@ -239,7 +240,7 @@ export default class HomeScreen extends Component {
                 </View>
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   <Icon size={30} name="today" color="#434656"/>
-                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>Tisri 1</Text>
+                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>Sukkot VII (Hoshana Raba)</Text>
                 </View>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
                   <Icon size={30} name="show-chart" color="#434656"/>

@@ -14,6 +14,7 @@ import {
   TextInput,
   Keyboard,
   TouchableWithoutFeedback,
+  SafeAreaView
 } from 'react-native';
 import moment from 'moment';
 
@@ -91,7 +92,6 @@ export default class MapScreen extends Component {
           latitude: 47.4959529,
           longitude: 19.0605719,
         },
-        title: "Dohány utcai zsinagóga",
         entryFee: 4000,
         currency: 'Ft',
         state: 'Nyitva',
@@ -145,31 +145,68 @@ export default class MapScreen extends Component {
         ],
         description: 'A Dohány utcai Zsinagóga Budapest egyik kiemelt turisztikai látványossága, Európa legnagyobb, a világ második legnagyobb zsinagógája. 1859-ban épült mór stílusban, 3000 fő befogadására alkalmas. Nagysága a korabeli fővárosi zsidóság jelentőségét, magas színvonalú gazdasági és kulturális igényét bizonyítja.A templom építésze Ludwig Förster (1797—1863) német építész, a bécsi akadémia tanára volt. Az építésvezető Wechselmann Ignác műépítész (1828—1903), aki később egész vagyonát a Vakok Intézetére hagyta. Förster távozása után Feszl Frigyes, a Vigadó híres építésze tervezte a templom belső szentélyét. A zsinagóga ünnepélyes felavatására 1859. szeptember 6-án került sor. A belső tér 1200 négyzetméter, tornyainak magassága 44 méter, a sík mennyezetű belső térben közel háromezer ember, a földszinten 1497 férfi, az emeleti karzatokon pedig 1472 női ülés található.'
       },
-      // {
-      //   coordinate: {
-      //     latitude: 45.5230786,
-      //     longitude: -122.6701034,
-      //   },
-      //   title: "Third Best Place",
-      //   description: "This is the third best place in Portland",
-      //   image: Images[2],
-      // },
-      // {
-      //   coordinate: {
-      //     latitude: 45.521016,
-      //     longitude: -122.6561917,
-      //   },
-      //   title: "Fourth Best Place",
-      //   description: "This is the fourth best place in Portland",
-      //   image: Images[3],
-      // },
+      {
+        coordinate: {
+          latitude: 47.4977421,
+          longitude: 19.0586996,
+        },
+        entryFee: 0,
+        currency: 'Ft',
+        state: 'Nyitva',
+        title: "Rumbach utcai Zsinagóga, status quo",
+        minEntryFee: 1200,
+        maxEntryFee: 4000,
+        currency: 'Ft',
+        webPageLink: '#',
+        facebookPageLink: 'https://www.facebook.com/Dohanytemplom/',
+        ticketLink: 'https://www.jegy.hu/venue/dohany-utcai-zsinagoga-es-zsido-muzeum',
+        phone: '+36 30 123 4567',
+        address: 'Budapest, Rumbach Sebestyén u. 11-13, 1074',
+        openingHours: [
+          {
+            day: 'Vasárnap',
+            open: 'Zárva',
+            close: 'Zárva',
+            closed: true,
+          },
+          {
+            day: 'Hétfő',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Kedd',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Szerda',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Csütörtök',
+            open: '10:00',
+            close: '20:00',
+          },
+          {
+            day: 'Péntek',
+            open: '8:30',
+            close: '16:00',
+          },
+          {
+            day: 'Szombat',
+            open: 'Zárva',
+            close: 'Zárva',
+            closed: true,
+          },
+        ],
+        description: 'A Dohány utcai Zsinagóga Budapest egyik kiemelt turisztikai látványossága, Európa legnagyobb, a világ második legnagyobb zsinagógája. 1859-ban épült mór stílusban, 3000 fő befogadására alkalmas. Nagysága a korabeli fővárosi zsidóság jelentőségét, magas színvonalú gazdasági és kulturális igényét bizonyítja.A templom építésze Ludwig Förster (1797—1863) német építész, a bécsi akadémia tanára volt. Az építésvezető Wechselmann Ignác műépítész (1828—1903), aki később egész vagyonát a Vakok Intézetére hagyta. Förster távozása után Feszl Frigyes, a Vigadó híres építésze tervezte a templom belső szentélyét. A zsinagóga ünnepélyes felavatására 1859. szeptember 6-án került sor. A belső tér 1200 négyzetméter, tornyainak magassága 44 méter, a sík mennyezetű belső térben közel háromezer ember, a földszinten 1497 férfi, az emeleti karzatokon pedig 1472 női ülés található.'
+      },
     ],
     region: {
-      latitude: 47.498519,
-      longitude: 19.063052,
-
-      // latitudeDelta: 0.04864195044303443,
-      // longitudeDelta: 0.040142817690068,
+      latitude: 47.4984094,
+      longitude: 19.0621811,
       latitudeDelta: 0.015,
       longitudeDelta: 0.015,
     },
@@ -249,7 +286,6 @@ export default class MapScreen extends Component {
       });
     }
   }
-
   getOpeningHours(openingHours) {
     const { open, close, closed } = openingHours;
     const now = new Date();
@@ -306,7 +342,7 @@ export default class MapScreen extends Component {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
             <View style={styles.searchBarWrap}>
-              
+
               <TouchableOpacity
                 style={styles.menuButton}
                 onPress={() => {
@@ -319,11 +355,11 @@ export default class MapScreen extends Component {
 
               <TextInput
                 style={[styles.searchBarTextInput,
-                  { 
+                  {
                     fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal',
                     color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656',
                     opacity: this.state.searchText.length == 0 ? 0.5 : 1,
-                    
+
                   }]
                 }
                 placeholder="Keresés itt: Helyszínek"
@@ -339,8 +375,8 @@ export default class MapScreen extends Component {
                   style={styles.menuButton}
                   onPress={() => {
                     Keyboard.dismiss()
-                    console.log('hello');
                   }}
+                  activeOpacity={0.6}
                 >
                   <Icon name='gps-fixed' color="#434656" size={25}/>
                 </TouchableOpacity>
@@ -367,15 +403,15 @@ export default class MapScreen extends Component {
               {this.state.markers.map((marker, index) => {
                 return (
                   <MapView.Marker
-                    key={index} 
-                    coordinate={marker.coordinate} 
+                    key={index}
+                    coordinate={marker.coordinate}
                     image={selectedMarkerIndex === index ? selectedPinIcon : pinIcon}
                     onPress={() => this.setState({ selectedMarker: marker, selectedMarkerIndex: index })}>
                   </MapView.Marker>
                 );
               })}
             </MapView>
-            
+
             { selectedMarkerCard }
         </View>
       </TouchableWithoutFeedback>
@@ -400,7 +436,7 @@ const styles = StyleSheet.create({
   searchBarWrap: {
     position: 'absolute',
     zIndex: 5,
-    top: 30,
+    top: 50,
     width: '90%',
     height: 50,
     backgroundColor: '#fff',
@@ -464,7 +500,7 @@ const styles = StyleSheet.create({
   leftView: {
     width: '55%',
   },
-  
+
   rightView: {
     width: '45%',
     alignItems: 'flex-end',

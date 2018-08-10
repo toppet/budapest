@@ -9,7 +9,8 @@ import {
   Platform,
   TouchableOpacity,
   Linking,
-  TextInput
+  TextInput,
+  SafeAreaView
 } from 'react-native';
 import _ from 'lodash';
 import PageHeader from '../../components/PageHeader';
@@ -24,18 +25,12 @@ const ScaleAnim = new ScaleAnimation();
 const SLIDER_1_FIRST_ITEM = 1;
 const ENTRIES1 = [
   {
-      title: 'Beautiful and dramatic Antelope Canyon',
-      subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
       illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
   },
   {
-      title: 'Earlier this morning, NYC',
-      subtitle: 'Lorem ipsum dolor sit amet',
       illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
   },
   {
-      title: 'White Pocket Sunset',
-      subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
       illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
   },
 ];
@@ -118,6 +113,17 @@ export default class MapDetailScreen extends Component {
     this.openingHoursDialog.show();
   }
 
+  openFacebookLink (url) {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      }
+      // } else {
+      //   console.log("Don't know how to open URI: " + this.props.url);
+      // }
+    });
+  }
+
   render() {
     const { navigation } = this.props;
     const mapItem = navigation.getParam('mapItem');
@@ -148,7 +154,7 @@ export default class MapDetailScreen extends Component {
         <TouchableOpacity
           style={styles.linkBtn}
           activeOpacity={0.8}
-          onPress={() => this.handleWebLink(mapItem.facebookPageLink)}
+          onPress={() => this.openFacebookLink(mapItem.facebookPageLink)}
         >
           <Text style={styles.linkBtnText}>Facebook oldal</Text>
         </TouchableOpacity>
@@ -252,7 +258,7 @@ export default class MapDetailScreen extends Component {
 
 
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <PageHeader
           {...this.props}
           pageTitle="Térkép"
@@ -359,7 +365,7 @@ export default class MapDetailScreen extends Component {
           </View>
         </PopupDialog>
 
-      </View>
+      </SafeAreaView>
     )
   }
 }
@@ -470,7 +476,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 8,
     marginHorizontal: 15,
-    marginBottom: 5, 
+    marginBottom: 5,
     borderColor: 'rgba(237, 237, 237, 1)',
     shadowColor: '#b7a99b',
     shadowOffset: {
@@ -514,7 +520,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontStyle: "normal",
     marginLeft: 5,
-    width: 100,
+    width: 125,
   },
   modalBtnRow: {
     alignItems: 'center',
