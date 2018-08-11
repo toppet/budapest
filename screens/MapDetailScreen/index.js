@@ -23,15 +23,20 @@ import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
 const ScaleAnim = new ScaleAnimation();
 
 const SLIDER_1_FIRST_ITEM = 1;
+
+const dohany = require('../../assets/images/zsinagoga.jpg');
+const rumbach = require('../../assets/images/rumbach.jpg');
+const kazinczy = require('../../assets/images/kazinczy.jpg');
+
 const ENTRIES1 = [
   {
-      illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
+      illustration: dohany
   },
   {
-      illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
+      illustration: rumbach
   },
   {
-      illustration: 'https://librarius.hu/wp-content/uploads/2016/05/haumann-peter.jpg'
+      illustration: kazinczy
   },
 ];
 
@@ -68,6 +73,7 @@ export default class MapDetailScreen extends Component {
   }
 
   _renderItem ({ item }) {
+    console.log('renderItem');
     return (
       <TouchableOpacity
         activeOpacity={1}
@@ -76,7 +82,7 @@ export default class MapDetailScreen extends Component {
           <View style={styles.shadow} />
           <View style={styles.imageContainer}>
             <Image
-              source={{ uri: item.illustration }}
+              source={item.illustration}
               resizeMode={'cover'}
               style={{width: 310, height: 175}}
               onLoad={() => console.log('loaded')}

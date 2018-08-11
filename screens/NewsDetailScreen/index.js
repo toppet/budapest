@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import {
   View,
   Text,
@@ -11,12 +12,6 @@ import YouTube from 'react-native-youtube';
 import PageHeader from '../../components/PageHeader';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Markdown from 'react-native-simple-markdown'
-
-function ytUrl(url) {
- const splitted=url.split("=");
- return splitted.length>1?splitted[1]:url.split("/").slice(-1)[0];
-};
 
 export default class NewsDetailScreen extends Component {
   static navigationOptions = {
@@ -24,10 +19,39 @@ export default class NewsDetailScreen extends Component {
     headerTitle: 'News Detail',
   };
 
+  getYtId(url) {
+    const splitted = url.split("=");
+    return splitted.length > 1 ? splitted[1] : url.split("/").slice(-1)[0];
+  };
+
   render() {
     const { navigation } = this.props;
-    const newsItem = navigation.getParam('newsItem', 'NO-ID');
+    const newsItem = navigation.getParam('newsItem');
     // console.log('newItem', newsItem);
+
+    const headerImage = _.find(newsItem.media, n => n.type === 1);
+    const youtubeMedia = _.find(newsItem.media, n => n.type === 2) || null;
+    
+    let youTubeWrapper = null;
+    
+    if(youtubeMedia) {
+      const youtubeId = this.getYtId(youtubeMedia.src_media);
+      youTubeWrapper = (
+        <YouTube
+          videoId={youtubeId}   // The YouTube video ID
+          play={false}             // control playback of video with true/false
+          fullscreen={true}       // control whether the video should play in fullscreen or inline
+          loop={false}             // control whether the video should loop when ended
+
+          onReady={e => this.setState({ isReady: true })}
+          onChangeState={e => this.setState({ status: e.state })}
+          onChangeQuality={e => this.setState({ quality: e.quality })}
+          onError={e => this.setState({ error: e.error })}
+
+          style={{ alignSelf: 'stretch', height: 200, marginBottom: 50 }}
+        />
+      );
+    }
     return (
       <SafeAreaView style={styles.container}>
         <PageHeader
@@ -36,7 +60,8 @@ export default class NewsDetailScreen extends Component {
           isBack
         />
         <ScrollView>
-          <Image source={{uri: newsItem.media[1].src_thumbs}} style={{width: '100%', height: 165}}/>
+          <Image source={{uri: headerImage.src_thumbs}} style={{width: '100%', height: 165}}/>
+          
           <View style={styles.dateRow}>
             <Text style={styles.date}>{moment(newsItem.posted_at).format('YYYY.MM.DD')}</Text>
             <View style={styles.tagWrap}>
@@ -44,25 +69,14 @@ export default class NewsDetailScreen extends Component {
               <Text style={styles.tagText}>{newsItem.tags[0].name}</Text>
             </View>
           </View>
+          
           <View style={styles.newsContent}>
             <Text style={styles.newsTitle}>{newsItem.title}</Text>
-            {/* <Text style={styles.newsBody}><ReactMarkdown source={newsItem.body} /></Text> */}
-            <Markdown styles={styles.newsBody}>{newsItem.body}</Markdown>
+            <Text style={styles.newsBody}>{newsItem.body}</Text>
           </View>
+
           <View>
-            <YouTube
-              videoId="sa63632t"   // The YouTube video ID
-              play={false}             // control playback of video with true/false
-              fullscreen={true}       // control whether the video should play in fullscreen or inline
-              loop={false}             // control whether the video should loop when ended
-
-              onReady={e => this.setState({ isReady: true })}
-              onChangeState={e => this.setState({ status: e.state })}
-              onChangeQuality={e => this.setState({ quality: e.quality })}
-              onError={e => this.setState({ error: e.error })}
-
-              style={{ alignSelf: 'stretch', height: 200, marginBottom: 50 }}
-            />
+            { youTubeWrapper }
           </View>
         </ScrollView>
       </SafeAreaView>

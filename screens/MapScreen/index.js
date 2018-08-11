@@ -104,6 +104,7 @@ export default class MapScreen extends Component {
         ticketLink: 'https://www.jegy.hu/venue/dohany-utcai-zsinagoga-es-zsido-muzeum',
         phone: '+36 30 123 4567',
         address: 'Dohány u. 2, 1074 Budapest',
+        thumbnail: require('../../assets/images/zsinagoga.jpg'),
         openingHours: [
           {
             day: 'Vasárnap',
@@ -162,6 +163,7 @@ export default class MapScreen extends Component {
         ticketLink: 'https://www.jegy.hu/venue/dohany-utcai-zsinagoga-es-zsido-muzeum',
         phone: '+36 30 123 4567',
         address: 'Budapest, Rumbach Sebestyén u. 11-13, 1074',
+        thumbnail: require('../../assets/images/rumbach.jpg'),
         openingHours: [
           {
             day: 'Vasárnap',
@@ -331,7 +333,7 @@ export default class MapScreen extends Component {
           </View>
           <View style={styles.rightView}>
             <View style={styles.imageWrap}>
-              <ImageBackground source={require('../../assets/images/budapest.jpg')} style={{width: 120, height: 120}} />
+              <ImageBackground source={selectedMarker.thumbnail} style={{width: 120, height: 120}} />
             </View>
           </View>
         </TouchableOpacity>

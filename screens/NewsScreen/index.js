@@ -10,7 +10,6 @@ import {
   FlatList,
   Picker,
   Modal,
-  Button,
   ActivityIndicator,
   RefreshControl,
   DatePickerIOS,
@@ -46,11 +45,24 @@ export default class NewsScreen extends Component {
   }
 
   componentWillMount() {
-    this.getNewsAndTopNews();
-    this.getTags();
+    this.fetchData();
   }
 
-  _onRefresh = () => {
+  async fetchData() {
+    const newsAndTopNewsResponse = await this.getNewsAndTopNews();
+    const tags = await this.getTags();
+
+    this.setState({ 
+      loading: false,
+      top3News: this.getTop3News(newsAndTopNewsResponse),
+      tags,
+      latestNewsInState: newsAndTopNewsResponse,
+      refreshing: false,
+      refreshingNewsList: false,
+    });
+  }
+
+  _onRefresh = async () => {
     this.setState({
       refreshing: true,
       refreshingNewsList: true,
@@ -58,9 +70,17 @@ export default class NewsScreen extends Component {
       selectedDateFilter: null,
     });
 
-    setTimeout(() => {
-      this.getNewsAndTopNews();
-    }, 1000);
+    const refreshednewsAndTopNewsResponse = await this.getNewsAndTopNews();
+    
+    // a little bit of delay
+    setTimeout(() =>
+      this.setState({ 
+        latestNewsInState: refreshednewsAndTopNewsResponse,
+        top3News: this.getTop3News(refreshednewsAndTopNewsResponse),
+        refreshing: false,
+        refreshingNewsList: false,
+      }),
+    1000);
   }
 
   getTop3News(response) {
@@ -75,51 +95,36 @@ export default class NewsScreen extends Component {
     return newsArray;
   }
 
-  getNewsAndTopNews() {
-    this.setState({
-      loading: this.state.refreshing ? false : true,
-    }, () => {
-      fetch('https://jewps.hu/api/v1/news')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          const responseData = responseJson.data;
-          console.log('responseData', responseData)
-          if(responseJson.success) {
-            this.setState({
-              latestNewsInState: responseData,
-              top3News: this.getTop3News(responseData),
-              refreshing: false,
-              refreshingNewsList: false,
-              loading: false,
-            });
-          }
+  getNewsAndTopNews = async () => {
+    return await fetch('https://jewps.hu/api/v1/news')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        const responseData = responseJson.data;
+        // console.log('responseData', responseData);
+        if(responseJson.success) {
+          return responseData;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }
 
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    })
-
-    this.getTags();
-  };
-
-  getTags() {
-    fetch('https://jewps.hu/api/v1/tags')
+  getTags = async () => {
+    return await fetch('https://jewps.hu/api/v1/tags')
       .then((response) => response.json())
       .then((responseJson) => {
         // console.log('tags', responseJson);
         const responseData = responseJson.data;
         const tmpTags = [];
+
         if(responseJson.success) {
           responseData.map((t) => {
             if (_.includes(tmpTags, t) === false) {
               tmpTags.push(t);
             }
           });
-          this.setState({
-            tags: tmpTags,
-            loading: false,
-          });
+          return tmpTags;
         }
 
       })
@@ -145,7 +150,7 @@ export default class NewsScreen extends Component {
     if(dateFilter && selectedTagFilterId) {
       fetchUrl = `https://jewps.hu/api/v1/news?tags=${selectedTagFilterId}&date=${formattedDate}`;
     }
-    console.log('dateFilter', dateFilter, 'formattedDAte', formattedDate, 'selectedTagFilterId', selectedTagFilterId);
+    // console.log('dateFilter', dateFilter, 'formattedDAte', formattedDate, 'selectedTagFilterId', selectedTagFilterId);
     // console.log('fetchurl', fetchUrl);
 
     this.setState({
@@ -259,32 +264,22 @@ export default class NewsScreen extends Component {
       latestNewsInState,
       top3News,
       chosenDate,
-      formatterChosenDate
+      formatterChosenDate,
+      refreshingNewsList,
+      datePickerModalVisible,
     } = this.state;
 
     if (loading) {
       return this.getLoadingIndicator();
     }
 
-    // if (latestNewsInState.length === 0) {
-    //   return (
-    //     <View style={[styles.container, {alignItems: 'center', justifyContent: 'center'}]}>
-    //       <Text
-    //         style={styles.noNewsText}
-    //       >
-    //         NINCSENEK HÍREK
-    //       </Text>
-    //     </View>
-    //   );
-    // }
-
     const selectedTagObj = selectedTagFilterId ? _.find(tags, (o) => o.id == selectedTagFilterId) : '';
     const selectedTagLabel = selectedTagObj.name;
-    // console.log('selectedTagLabel', selectedTagLabel);
 
     let dateFilterClearBtn = null;
     let tagFilterClearBtn = null;
     let tagPickers;
+    let news = null;
 
     if(tags.length > 0) {
       tagPickers = tags.sort(function(a, b){
@@ -320,42 +315,46 @@ export default class NewsScreen extends Component {
         </TouchableOpacity>
       );
     }
-
-    const news = top3News.map((n) => (
-      <View style={styles.newsCard} key={n.id}>
-        <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0, borderRadius: 6,}}>
-          <ImageBackground source={{uri: n.media[1].src_thumbs}} resizeMode='cover' style={{ height: '100%' }}>
-              <View style={{ padding: 10, backgroundColor: 'rgba(67, 70, 86, 0.6)', height: '100%' }}>
-                <Text style={styles.newsDate}>{moment(n.posted_at).format('YYYY.MM.DD')}</Text>
-                <Text style={styles.newsTitle}>{n.title}</Text>
-              </View>
-          </ImageBackground>
-        </View>
-        <TouchableOpacity style={styles.readMoreBtn} activeOpacity={0.95} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n }) }>
-          <Text style={styles.readMoreBtnText}>Elolvasom</Text>
-        </TouchableOpacity>
-      </View>
-    ));
+    
+    
+    if(top3News) {
+      news = top3News.map((n) => {
+        const headerImage = _.find(n.media, n => n.type === 1);
+        return (
+          <View style={styles.newsCard} key={n.id}>
+            <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0, borderRadius: 6,}}>
+              <ImageBackground source={{uri: headerImage.src_thumbs}} resizeMode='cover' style={{ height: '100%' }}>
+                  <View style={{ padding: 10, backgroundColor: 'rgba(67, 70, 86, 0.6)', height: '100%' }}>
+                    <Text style={styles.newsDate}>{moment(n.posted_at).format('YYYY.MM.DD')}</Text>
+                    <Text style={styles.newsTitle}>{n.title}</Text>
+                  </View>
+              </ImageBackground>
+            </View>
+            <TouchableOpacity style={styles.readMoreBtn} activeOpacity={0.95} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n }) }>
+              <Text style={styles.readMoreBtnText}>Elolvasom</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      );
+    }
 
     let newsListItems;
 
-    if (latestNewsInState && latestNewsInState.length === 0) {
+    if (latestNewsInState && latestNewsInState.length > 0) {
       newsListItems = (
-      <View style={{alignItems: 'center', marginBottom: 20}}>
-        <Text style={styles.noNewsTitle}>Nincs hír</Text>
-        <Text style={styles.noNewsSub}>Állítson be más szűrfeltételeket</Text>
-        <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
-      </View>
+        <FlatList
+          data={latestNewsInState}
+          renderItem={({item, index}) => this.renderNewsListItem(item, index)}
+          keyExtractor={(item, index) => `${item.id}${index}`}
+        />
       );
     } else {
       newsListItems = (
-        <FlatList
-        // data={latestNewsInState}
-        data={latestNewsInState}
-        renderItem={({item, index}) => this.renderNewsListItem(item, index)}
-        keyExtractor={(item, index) => `${item.id}${index}`}
-        >
-        </FlatList>
+        <View style={{alignItems: 'center', marginBottom: 20}}>
+          <Text style={styles.noNewsTitle}>Nincs hír</Text>
+          <Text style={styles.noNewsSub}>Állítson be más szűrfeltételeket</Text>
+          <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
+        </View>
       );
     }
 
@@ -399,10 +398,7 @@ export default class NewsScreen extends Component {
                   size={20}
                   color={formatterChosenDate ? "#c49565" : "#434656"}
                 />
-                <Text
-                  // style={[styles.filterTextInActive, { color: '#434656'} ]}>
-                  style={formatterChosenDate ? styles.filterTextActive : styles.filterTextInActive}
-                >
+                <Text style={formatterChosenDate ? styles.filterTextActive : styles.filterTextInActive}>
                   {formatterChosenDate ? formatterChosenDate : 'Dátum'}
                 </Text>
                 {dateFilterClearBtn}
@@ -428,13 +424,13 @@ export default class NewsScreen extends Component {
           </View>
 
           <View style={{marginBottom: 25}}>
-            { this.state.refreshingNewsList ? this.getLoadingIndicator() : newsListItems }
+            { refreshingNewsList ? this.getLoadingIndicator() : newsListItems }
           </View>
 
           <Modal
             animationType="slide"
             transparent
-            visible={this.state.datePickerModalVisible}
+            visible={datePickerModalVisible}
             onRequestClose={() => {
               console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
             }}
@@ -478,8 +474,8 @@ export default class NewsScreen extends Component {
                 <Picker
                   selectedValue={selectedTagFilterId}
                   onValueChange={(itemValue, itemIndex) => {
-                    console.log('typeof itemValue', typeof itemValue)
-                    console.log('itemValue', itemValue)
+                    // console.log('typeof itemValue', typeof itemValue)
+                    // console.log('itemValue', itemValue)
                     this.setState({
                       selectedTagFilterId: itemValue === "" ? null : itemValue,
                     })
