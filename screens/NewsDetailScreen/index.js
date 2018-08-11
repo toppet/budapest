@@ -38,15 +38,12 @@ export default class NewsDetailScreen extends Component {
       const youtubeId = this.getYtId(youtubeMedia.src_media);
       youTubeWrapper = (
         <YouTube
+          apiKey="AIzaSyARm4hM8Lpcuv4pteH92UYdp1Lq_Pyhin0"
           videoId={youtubeId}   // The YouTube video ID
           play={false}             // control playback of video with true/false
           fullscreen={true}       // control whether the video should play in fullscreen or inline
           loop={false}             // control whether the video should loop when ended
-
-          onReady={e => this.setState({ isReady: true })}
-          onChangeState={e => this.setState({ status: e.state })}
-          onChangeQuality={e => this.setState({ quality: e.quality })}
-          onError={e => this.setState({ error: e.error })}
+          resumePlayAndroid={false}
 
           style={{ alignSelf: 'stretch', height: 200, marginBottom: 50 }}
         />

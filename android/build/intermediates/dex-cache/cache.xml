@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\JewPS\react-native-youtube\unspecified\jars\libs\YouTubeAndroidPlayerApi.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a62cbd1027677c96026b383de62307faa6a4da8f">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\YouTubeAndroidPlayerApi_10751b75fd8765427893d9ce8e14b1008e91db70.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="e31331bdf6b5952badadbfc171f04b95c55d3b16">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.react-react-native-0.55.4_6cb5ee0465750e8979291619620d09de6d53aa6a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\libs\infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\infer-annotations-4.0_2cd736a98d71fd2f0fbb1099d7990b13e25fb910.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.fbui.textlayoutbuilder\textlayoutbuilder\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_cd72aa5cb328d0523b49be79c6f09e96308acab2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp-urlconnection\3.6.0\3f9b16b774f2c36cfd86dd2053d0b3059531dacc\okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-3.6.0_c55c5dd6462c0e0c2d29044b7528f16dd3b7b65f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.3.0_9f8648269a491e3d022b1770e32c1e0a76434c9c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fresco-1.3.0_41718816903822d033ad08198748b9c50686737a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.4.0_887da051f6faacce16798533ad7c029c46f57b8e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.0.1_e8c3081798d332e40466e62a81d24c4e8d432e00.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\javax.inject-1_82db9be18cdb4f9b673705d193c756d91ce50718.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.0.1_00b9b14c593ccaefd19383e3eb2ab343a0e097bc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.3.0_a8d46becd9a99e795ef7fe09fdc8e8c757d65a71.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\okio-1.13.0_bd2e1c6d36826132e1343a42853302b1f74b68a7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-drawee-1.3.0_55b6d9c3392b6c4b939c5f7dd40c412111693d26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\JewPS\react-native-youtube\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="dda70dee137702caaf5cd16e14ee2d74c8c04f6b">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\JewPS-react-native-youtube-unspecified_94895f0f16db99935eab4aa8e3c6280008e97893.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.0.1_7ef944b35e87ab0ec7e098011cf4d6cdf530f703.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fresco-1.3.0_cac95e0427793c9164a119095a3c9202859f8f5e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-1.3.0_7c8022a6b7db04b08bd799718975a2cb46ff6f3c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.soloader\soloader\0.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_e048f935039efa87fab3f79fde324d0c22ada3b2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\.gradle\caches\modules-2\files-2.1\com.facebook.fbui.textlayoutbuilder\staticlayout-proxy\1.0\f162442a19fff13995fbd51ba414d9ee05579080\staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\staticlayout-proxy-1.0_ad4548a8157cd1ae03d2a2af0ccfaca8b60d2478.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\okhttp-3.6.0_d7cb269ab6c3bdb33a67f594326a5453c1266901.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fbcore-1.3.0_9430046c6406114c2ecfe3f25d645db4ce79bc2c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="e31331bdf6b5952badadbfc171f04b95c55d3b16">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.react-react-native-0.55.4_172278f07429e3501b4217006f2d76c655ed085e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.55.4\jars\libs\infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\infer-annotations-4.0_21f3e4f46aaa70fb81036b494a4852b08d41dce3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\JewPS\react-native-youtube\unspecified\jars\libs\YouTubeAndroidPlayerApi.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a62cbd1027677c96026b383de62307faa6a4da8f">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\YouTubeAndroidPlayerApi_532401e606fe3436996855343e58d2d2e33d1aef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.soloader\soloader\0.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.soloader-soloader-0.1.0_f216c7859248a19a22721dcdcada862b2b3b5887.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-fbcore-1.3.0_65ab88bdcf4510e4ab784e404d0800edf4f2fa8b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1_c20e2be60afb14c5a434c03e23b24a2d3def31ba.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\JewPS\react-native-youtube\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="dda70dee137702caaf5cd16e14ee2d74c8c04f6b">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\JewPS-react-native-youtube-unspecified_a6799319b56e6e956bf3c39a88445d21263941b8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1_2244142ba137d9f97600bea77e42275eb4a3201e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-base-1.3.0_07c7064e3ecb86459a622fcc9b65427bb57027e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.0\5871fb60dc68d67da54a663c3fd636a10a532948\jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\jsr305-3.0.0_1e67b0d6a3fa86fb49df1556cdb792736418520b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.fbui.textlayoutbuilder\textlayoutbuilder\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_870bee908162d9808f2070a43bd4210fd2ccdc93.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1_bc3599c280972c57c24a5b509fc113f539e6c35d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-1.3.0_ee391d432268e9fe5aef8622bb5f64ae5b84d1f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-okhttp3\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="C:\Users\topos\Documents\React-Native\androidJewPS\JewPS\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_8db29cdf4c63170265ec306fcc6525c808d3957f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-okhttp3\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_4c0f6ebaa1250b032cbdf9da8805ffc0cc941239.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.0.1_fa1dff2ee34987798d25701054babfaaab2757a0.jar" />
+    </item>
+
+</items>

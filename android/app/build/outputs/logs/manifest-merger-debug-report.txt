@@ -1,0 +1,218 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+MERGED from [:react-native-youtube] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-youtube\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\ba7d8007c27cd010f8b94c4b9649d9c2\AndroidManifest.xml:2:1-15:12
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\ad33b800420741f236f36fa32f4c5c8a\AndroidManifest.xml:17:1-27:12
+MERGED from [:react-native-maps] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-maps\lib\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-12:12
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:16:1-25:12
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:16:1-21:12
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\0d3218a74aac630be91507838b228fef\AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:16:1-23:12
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\a879664bf73146d9dbea62988f8b5e4f\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\3b909beac17b3ab80f8b7fc365d8de5a\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\dedb7c00d03d6413347ae7c062d26ec5\AndroidManifest.xml:17:1-27:12
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\textlayoutbuilder-1.0.0.aar\a353335b60937ae8c0d6f927605c3064\AndroidManifest.xml:10:1-18:12
+MERGED from [com.facebook.fresco:fresco:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\fresco-1.3.0.aar\f06f212b157be950bfc79531d3bb499f\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\5b0408ff45babcc18bf9b1400c95e864\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\499d96edb7a2472fb4353e36e884a0d2\AndroidManifest.xml:1:1-4:12
+MERGED from [org.webkit:android-jsc:r174650] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\83453310b5930fc4ef6843a717c09f0a\AndroidManifest.xml:1:1-3:12
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-maps-utils-0.5.aar\3fe6cf676a21e0d9fdb5828ed007ab7e\AndroidManifest.xml:2:1-13:12
+MERGED from [com.facebook.fresco:drawee:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\drawee-1.3.0.aar\8f1c91e3269d44d60976be370b47fb23\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-1.3.0.aar\e820f5bd665ffb96c1ab3f72d7d8f6f9\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-base-1.3.0.aar\b2502409fc52a15709aa4a40b400533b\AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:fbcore:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\fbcore-1.3.0.aar\c0ca2252be5dd5939527cdfbbf2b1cf2\AndroidManifest.xml:2:1-9:12
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+	package
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:2:5-24
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:4:5-67
+MERGED from [:react-native-maps] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-maps\lib\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:9:5-67
+MERGED from [:react-native-maps] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-maps\lib\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:9:5-67
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:20:5-66
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:4:22-64
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:5:5-77
+MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\ba7d8007c27cd010f8b94c4b9649d9c2\AndroidManifest.xml:11:5-78
+MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\ba7d8007c27cd010f8b94c4b9649d9c2\AndroidManifest.xml:11:5-78
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:5:22-75
+application
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:7:5-28:19
+MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\ba7d8007c27cd010f8b94c4b9649d9c2\AndroidManifest.xml:13:5-20
+MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\ba7d8007c27cd010f8b94c4b9649d9c2\AndroidManifest.xml:13:5-20
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\ad33b800420741f236f36fa32f4c5c8a\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\ad33b800420741f236f36fa32f4c5c8a\AndroidManifest.xml:25:5-20
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\0d3218a74aac630be91507838b228fef\AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\0d3218a74aac630be91507838b228fef\AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:19:5-21:19
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\a879664bf73146d9dbea62988f8b5e4f\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\a879664bf73146d9dbea62988f8b5e4f\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\3b909beac17b3ab80f8b7fc365d8de5a\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\3b909beac17b3ab80f8b7fc365d8de5a\AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\dedb7c00d03d6413347ae7c062d26ec5\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\dedb7c00d03d6413347ae7c062d26ec5\AndroidManifest.xml:25:5-20
+MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\499d96edb7a2472fb4353e36e884a0d2\AndroidManifest.xml:3:3-17
+MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\499d96edb7a2472fb4353e36e884a0d2\AndroidManifest.xml:3:3-17
+MERGED from [org.webkit:android-jsc:r174650] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\83453310b5930fc4ef6843a717c09f0a\AndroidManifest.xml:2:3-17
+MERGED from [org.webkit:android-jsc:r174650] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\83453310b5930fc4ef6843a717c09f0a\AndroidManifest.xml:2:3-17
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-maps-utils-0.5.aar\3fe6cf676a21e0d9fdb5828ed007ab7e\AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-maps-utils-0.5.aar\3fe6cf676a21e0d9fdb5828ed007ab7e\AndroidManifest.xml:7:5-11:19
+	android:label
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:9:7-39
+	android:icon
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:10:7-41
+	android:allowBackup
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:11:7-34
+	android:theme
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:12:7-38
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:8:7-38
+activity#com.jewps.MainActivity
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:13:7-23:18
+	android:screenOrientation
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:17:9-45
+	android:label
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:15:9-41
+	android:windowSoftInputMode
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:18:9-51
+	android:configChanges
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:16:9-79
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:14:9-37
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:19:9-22:25
+action#android.intent.action.MAIN
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:20:13-65
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:20:21-62
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:21:13-73
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:21:23-70
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:24:7-84
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:24:17-81
+meta-data#com.google.android.geo.API_KEY
+ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:25:7-27:66
+	android:value
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:27:9-64
+	android:name
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:26:9-54
+uses-sdk
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+MERGED from [:react-native-youtube] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-youtube\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-youtube] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-youtube\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\ba7d8007c27cd010f8b94c4b9649d9c2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.55.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\react-native-0.55.4.aar\ba7d8007c27cd010f8b94c4b9649d9c2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\ad33b800420741f236f36fa32f4c5c8a\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\ad33b800420741f236f36fa32f4c5c8a\AndroidManifest.xml:21:5-23:78
+MERGED from [:react-native-maps] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-maps\lib\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-maps] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-maps\lib\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:23:5-43
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:23:5-43
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\0d3218a74aac630be91507838b228fef\AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\0d3218a74aac630be91507838b228fef\AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:17:5-43
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\a879664bf73146d9dbea62988f8b5e4f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.0.0.aar\a879664bf73146d9dbea62988f8b5e4f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\3b909beac17b3ab80f8b7fc365d8de5a\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-vector-drawable:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.0.0.aar\3b909beac17b3ab80f8b7fc365d8de5a\AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\dedb7c00d03d6413347ae7c062d26ec5\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\support-v4-24.0.0.aar\dedb7c00d03d6413347ae7c062d26ec5\AndroidManifest.xml:21:5-23:54
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\textlayoutbuilder-1.0.0.aar\a353335b60937ae8c0d6f927605c3064\AndroidManifest.xml:14:5-16:41
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\textlayoutbuilder-1.0.0.aar\a353335b60937ae8c0d6f927605c3064\AndroidManifest.xml:14:5-16:41
+MERGED from [com.facebook.fresco:fresco:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\fresco-1.3.0.aar\f06f212b157be950bfc79531d3bb499f\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\fresco-1.3.0.aar\f06f212b157be950bfc79531d3bb499f\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\5b0408ff45babcc18bf9b1400c95e864\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-okhttp3-1.3.0.aar\5b0408ff45babcc18bf9b1400c95e864\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\499d96edb7a2472fb4353e36e884a0d2\AndroidManifest.xml:2:3-70
+MERGED from [com.facebook.soloader:soloader:0.1.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\soloader-0.1.0.aar\499d96edb7a2472fb4353e36e884a0d2\AndroidManifest.xml:2:3-70
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-maps-utils-0.5.aar\3fe6cf676a21e0d9fdb5828ed007ab7e\AndroidManifest.xml:5:5-43
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-maps-utils-0.5.aar\3fe6cf676a21e0d9fdb5828ed007ab7e\AndroidManifest.xml:5:5-43
+MERGED from [com.facebook.fresco:drawee:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\drawee-1.3.0.aar\8f1c91e3269d44d60976be370b47fb23\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\drawee-1.3.0.aar\8f1c91e3269d44d60976be370b47fb23\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-1.3.0.aar\e820f5bd665ffb96c1ab3f72d7d8f6f9\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-1.3.0.aar\e820f5bd665ffb96c1ab3f72d7d8f6f9\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-base-1.3.0.aar\b2502409fc52a15709aa4a40b400533b\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\imagepipeline-base-1.3.0.aar\b2502409fc52a15709aa4a40b400533b\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\fbcore-1.3.0.aar\c0ca2252be5dd5939527cdfbbf2b1cf2\AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.3.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\fbcore-1.3.0.aar\c0ca2252be5dd5939527cdfbbf2b1cf2\AndroidManifest.xml:5:5-7:41
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:24.0.0] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.0.0.aar\ad33b800420741f236f36fa32f4c5c8a\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [:react-native-maps] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-maps\lib\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from [:react-native-maps] C:\Users\topos\Documents\React-Native\jewps\budapest\node_modules\react-native-maps\lib\android\build\intermediates\manifests\full\debug\AndroidManifest.xml:10:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:19:5-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:19:22-76
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:21:5-77
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:21:19-51
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\855c3b7b85231cb81b4b5bc0fbd8441b\AndroidManifest.xml:21:52-75
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\e6b4555bc58bfcdd3e9593164cc39f51\AndroidManifest.xml:19:19-85
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:20:9-121
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-maps-utils-0.5.aar\3fe6cf676a21e0d9fdb5828ed007ab7e\AndroidManifest.xml:8:9-10:69
+MERGED from [com.google.maps.android:android-maps-utils:0.5] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\android-maps-utils-0.5.aar\3fe6cf676a21e0d9fdb5828ed007ab7e\AndroidManifest.xml:8:9-10:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:20:66-119
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\topos\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\4e6402121d87ae4f62ae9ce798578a49\AndroidManifest.xml:20:20-65
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+IMPLIED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12 reason: org.webkit.android_jsc has a targetSdkVersion < 4
+uses-permission#android.permission.READ_PHONE_STATE
+IMPLIED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12 reason: org.webkit.android_jsc has a targetSdkVersion < 4
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from C:\Users\topos\Documents\React-Native\jewps\budapest\android\app\src\main\AndroidManifest.xml:1:1-30:12 reason: org.webkit.android_jsc requested WRITE_EXTERNAL_STORAGE
