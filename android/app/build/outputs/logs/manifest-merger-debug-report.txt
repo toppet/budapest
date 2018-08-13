@@ -1,0 +1,213 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+MERGED from [:react-native-youtube] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-youtube/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-vector-icons] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-vector-icons/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-maps] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-maps/lib/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:2:1-12:12
+MERGED from [com.facebook.react:react-native:0.55.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/react-native-0.55.4.aar/0fac3b93eac965132ab7001b5d9f856d/AndroidManifest.xml:2:1-15:12
+MERGED from [com.android.support:appcompat-v7:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.0.0.aar/db5a1531b10faea987b53b0e8a0d88b6/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:16:1-25:12
+MERGED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:16:1-21:12
+MERGED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:2:1-13:12
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-24.0.0.aar/75934a70826fd16ed6fa5e76ea82d0c2/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-24.0.0.aar/19e7a867724676f446d75a7d317a3ab2/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-tasks-10.2.4.aar/a3d76df75aee39db8438289292501cfa/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.2.4.aar/fc94929356d0144cb5608797fc3a76a0/AndroidManifest.xml:16:1-23:12
+MERGED from [com.android.support:support-v4:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-v4-24.0.0.aar/c57ab4fa786c3a0fb2ac34b2c7cf1957/AndroidManifest.xml:17:1-27:12
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/textlayoutbuilder-1.0.0.aar/89e296089138cfc36bcd709258d4ffb7/AndroidManifest.xml:10:1-18:12
+MERGED from [com.facebook.fresco:fresco:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/fresco-1.3.0.aar/1d58f3c640ec4745338388a013168e5b/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-okhttp3-1.3.0.aar/2eea159cb9b2049fd0ddf4e634684573/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.1.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/5deb5e581d168e98ee4a869453f4a0c7/AndroidManifest.xml:1:1-4:12
+MERGED from [org.webkit:android-jsc:r174650] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-jsc-r174650.aar/3f6fc97d6a0e0395e0faa0fe3d38276c/AndroidManifest.xml:1:1-3:12
+MERGED from [com.facebook.fresco:drawee:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/drawee-1.3.0.aar/0423b00beeeedad49145aa04f7b4245e/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-1.3.0.aar/cc1f19fe29293a1e7925ac4dda0ec48a/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-1.3.0.aar/c4273cb9d0551d235001185570d7ca04/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:fbcore:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/fbcore-1.3.0.aar/278092f416321fc0b000af12a51b2d13/AndroidManifest.xml:2:1-9:12
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+	package
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:2:5-24
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:4:5-67
+MERGED from [:react-native-maps] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-maps/lib/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:9:5-67
+MERGED from [:react-native-maps] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-maps/lib/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:9:5-67
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:20:5-66
+	android:name
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:4:22-64
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:5:5-77
+MERGED from [com.facebook.react:react-native:0.55.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/react-native-0.55.4.aar/0fac3b93eac965132ab7001b5d9f856d/AndroidManifest.xml:11:5-78
+MERGED from [com.facebook.react:react-native:0.55.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/react-native-0.55.4.aar/0fac3b93eac965132ab7001b5d9f856d/AndroidManifest.xml:11:5-78
+	android:name
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:5:22-75
+application
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:7:5-24:19
+MERGED from [com.facebook.react:react-native:0.55.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/react-native-0.55.4.aar/0fac3b93eac965132ab7001b5d9f856d/AndroidManifest.xml:13:5-20
+MERGED from [com.facebook.react:react-native:0.55.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/react-native-0.55.4.aar/0fac3b93eac965132ab7001b5d9f856d/AndroidManifest.xml:13:5-20
+MERGED from [com.android.support:appcompat-v7:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.0.0.aar/db5a1531b10faea987b53b0e8a0d88b6/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.0.0.aar/db5a1531b10faea987b53b0e8a0d88b6/AndroidManifest.xml:25:5-20
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:7:5-11:19
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-24.0.0.aar/75934a70826fd16ed6fa5e76ea82d0c2/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-24.0.0.aar/75934a70826fd16ed6fa5e76ea82d0c2/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-24.0.0.aar/19e7a867724676f446d75a7d317a3ab2/AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-24.0.0.aar/19e7a867724676f446d75a7d317a3ab2/AndroidManifest.xml:23:5-20
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-tasks-10.2.4.aar/a3d76df75aee39db8438289292501cfa/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-tasks-10.2.4.aar/a3d76df75aee39db8438289292501cfa/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.2.4.aar/fc94929356d0144cb5608797fc3a76a0/AndroidManifest.xml:19:5-21:19
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.2.4.aar/fc94929356d0144cb5608797fc3a76a0/AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support:support-v4:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-v4-24.0.0.aar/c57ab4fa786c3a0fb2ac34b2c7cf1957/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-v4-24.0.0.aar/c57ab4fa786c3a0fb2ac34b2c7cf1957/AndroidManifest.xml:25:5-20
+MERGED from [com.facebook.soloader:soloader:0.1.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/5deb5e581d168e98ee4a869453f4a0c7/AndroidManifest.xml:3:3-17
+MERGED from [com.facebook.soloader:soloader:0.1.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/5deb5e581d168e98ee4a869453f4a0c7/AndroidManifest.xml:3:3-17
+MERGED from [org.webkit:android-jsc:r174650] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-jsc-r174650.aar/3f6fc97d6a0e0395e0faa0fe3d38276c/AndroidManifest.xml:2:3-17
+MERGED from [org.webkit:android-jsc:r174650] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-jsc-r174650.aar/3f6fc97d6a0e0395e0faa0fe3d38276c/AndroidManifest.xml:2:3-17
+	android:label
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:9:7-39
+	android:icon
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:10:7-41
+	android:allowBackup
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:11:7-34
+	android:theme
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:12:7-38
+	android:name
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:8:7-38
+activity#com.jewps.MainActivity
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:13:7-22:18
+	android:label
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:15:9-41
+	android:windowSoftInputMode
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:17:9-51
+	android:configChanges
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:16:9-79
+	android:name
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:14:9-37
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:18:9-21:25
+action#android.intent.action.MAIN
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:19:13-65
+	android:name
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:19:21-62
+category#android.intent.category.LAUNCHER
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:20:13-73
+	android:name
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:20:23-70
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:23:7-84
+	android:name
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:23:17-81
+uses-sdk
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+MERGED from [:react-native-youtube] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-youtube/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-youtube] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-youtube/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-vector-icons] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-vector-icons/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-vector-icons] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-vector-icons/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-maps] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-maps/lib/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-maps] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-maps/lib/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.react:react-native:0.55.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/react-native-0.55.4.aar/0fac3b93eac965132ab7001b5d9f856d/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.55.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/react-native-0.55.4.aar/0fac3b93eac965132ab7001b5d9f856d/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.0.0.aar/db5a1531b10faea987b53b0e8a0d88b6/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.0.0.aar/db5a1531b10faea987b53b0e8a0d88b6/AndroidManifest.xml:21:5-23:78
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:23:5-43
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:23:5-43
+MERGED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:17:5-43
+MERGED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:5:5-43
+MERGED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-24.0.0.aar/75934a70826fd16ed6fa5e76ea82d0c2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-24.0.0.aar/75934a70826fd16ed6fa5e76ea82d0c2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-24.0.0.aar/19e7a867724676f446d75a7d317a3ab2/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-24.0.0.aar/19e7a867724676f446d75a7d317a3ab2/AndroidManifest.xml:21:5-43
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-tasks-10.2.4.aar/a3d76df75aee39db8438289292501cfa/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-tasks-10.2.4.aar/a3d76df75aee39db8438289292501cfa/AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.2.4.aar/fc94929356d0144cb5608797fc3a76a0/AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.2.4.aar/fc94929356d0144cb5608797fc3a76a0/AndroidManifest.xml:17:5-43
+MERGED from [com.android.support:support-v4:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-v4-24.0.0.aar/c57ab4fa786c3a0fb2ac34b2c7cf1957/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/support-v4-24.0.0.aar/c57ab4fa786c3a0fb2ac34b2c7cf1957/AndroidManifest.xml:21:5-23:54
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/textlayoutbuilder-1.0.0.aar/89e296089138cfc36bcd709258d4ffb7/AndroidManifest.xml:14:5-16:41
+MERGED from [com.facebook.fbui.textlayoutbuilder:textlayoutbuilder:1.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/textlayoutbuilder-1.0.0.aar/89e296089138cfc36bcd709258d4ffb7/AndroidManifest.xml:14:5-16:41
+MERGED from [com.facebook.fresco:fresco:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/fresco-1.3.0.aar/1d58f3c640ec4745338388a013168e5b/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/fresco-1.3.0.aar/1d58f3c640ec4745338388a013168e5b/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-okhttp3-1.3.0.aar/2eea159cb9b2049fd0ddf4e634684573/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-okhttp3-1.3.0.aar/2eea159cb9b2049fd0ddf4e634684573/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.1.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/5deb5e581d168e98ee4a869453f4a0c7/AndroidManifest.xml:2:3-70
+MERGED from [com.facebook.soloader:soloader:0.1.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/soloader-0.1.0.aar/5deb5e581d168e98ee4a869453f4a0c7/AndroidManifest.xml:2:3-70
+MERGED from [com.facebook.fresco:drawee:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/drawee-1.3.0.aar/0423b00beeeedad49145aa04f7b4245e/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/drawee-1.3.0.aar/0423b00beeeedad49145aa04f7b4245e/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-1.3.0.aar/cc1f19fe29293a1e7925ac4dda0ec48a/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-1.3.0.aar/cc1f19fe29293a1e7925ac4dda0ec48a/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-1.3.0.aar/c4273cb9d0551d235001185570d7ca04/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-1.3.0.aar/c4273cb9d0551d235001185570d7ca04/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/fbcore-1.3.0.aar/278092f416321fc0b000af12a51b2d13/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.3.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/fbcore-1.3.0.aar/278092f416321fc0b000af12a51b2d13/AndroidManifest.xml:5:5-7:41
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:24.0.0] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.0.0.aar/db5a1531b10faea987b53b0e8a0d88b6/AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [:react-native-maps] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-maps/lib/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from [:react-native-maps] /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/node_modules/react-native-maps/lib/android/build/intermediates/manifests/full/debug/AndroidManifest.xml:10:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:19:5-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:19:22-76
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:21:5-77
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:21:19-51
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-maps-10.2.4.aar/94e223c33e0322344882c57686840a22/AndroidManifest.xml:21:52-75
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-base-10.2.4.aar/e5a3e0508a1df42d5c93661d9af836e1/AndroidManifest.xml:19:19-85
+meta-data#com.google.android.gms.version
+ADDED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:8:9-10:69
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.2.4.aar/fc94929356d0144cb5608797fc3a76a0/AndroidManifest.xml:20:9-121
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/play-services-basement-10.2.4.aar/fc94929356d0144cb5608797fc3a76a0/AndroidManifest.xml:20:9-121
+	android:value
+		ADDED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:10:13-66
+	android:name
+		ADDED from [com.google.maps.android:android-maps-utils:0.5] /home/szuszi2/.gradle/caches/transforms-1/files-1.1/android-maps-utils-0.5.aar/3934ca69ad8369e3916c4b247c84a3d3/AndroidManifest.xml:9:13-58
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+IMPLIED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12 reason: org.webkit.android_jsc has a targetSdkVersion < 4
+uses-permission#android.permission.READ_PHONE_STATE
+IMPLIED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12 reason: org.webkit.android_jsc has a targetSdkVersion < 4
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from /home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/src/main/AndroidManifest.xml:1:1-26:12 reason: org.webkit.android_jsc requested WRITE_EXTERNAL_STORAGE

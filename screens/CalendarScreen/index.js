@@ -1,0 +1,230 @@
+import React, { Component } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    SafeAreaView,
+    Image
+} from 'react-native';
+import PageHeader from '../../components/PageHeader';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
+
+import { LocaleConfig, Agenda } from 'react-native-calendars';
+
+LocaleConfig.locales['hu'] = {
+  monthNames: ['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'],
+  monthNamesShort: ['Jan.','Febr.','Marc.','Apr.','Máj.','Jún.','Júl.','Aug.','Szept.','Okt.','Nov.','Dec.'],
+  dayNames: ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'],
+  dayNamesShort: ['V','H','K','Sz','Cs','P','Szo']
+};
+
+LocaleConfig.defaultLocale = 'hu';
+
+export default class CalendarScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: {}
+    };
+  }
+
+
+
+  loadItems(day) {
+    const endMonth=day.month+(day.month===12?-10:+1);
+    const endYear=day.year+(day.month===12?+1:0);
+    const startMonth=day.month+(day.month===1?11:-1);
+    const startYear=day.year+(day.month===1?-1:0);
+    this.getEvents(startYear+"-"+startMonth+"-"+day.day,endYear+"-"+endMonth+"-"+day.day)
+    // setTimeout(() => {
+    //
+    //   const newItems = {
+    //     '2018-08-09': [{ name: 'REGGELI IMA ', desc: '09:00 - 10:00' }, { name: 'ESTI IMA ', desc: '20:00 - 21:00' }, { name: 'Esemény', desc: 'EZ NEM EGY IMA' }],
+    //     '2018-08-10': [{ name: 'Esemény 2018-08-10 - 1' }, { name: 'Esemény 2018-08-10' }],
+    //     '2018-08-11': [{ name: 'Esemény 2018-08-11 - 1' }, { name: 'Esemény 2018-08-11' }],
+    //     '2018-08-12': [{ name: 'Esemény 2018-08-12 - 1' }, { name: 'Esemény 2018-08-12' }],
+    //     '2018-08-13': [{ name: 'Esemény 2018-08-13 - 1' }, { name: 'Esemény 2018-08-13' }],
+    //     '2018-08-14': [{ name: 'Esemény 2018-08-14 - 1' }, { name: 'Esemény 2018-08-14' }],
+    //     '2018-09-09': [{ name: 'Reggeli ima', desc: '09:00 - 10:00' }, { name: 'Esti ima', desc: '20:00 - 21:00' }, { name: 'Esemény címe ha ilyen hosszú mi történik?', desc: 'EZ NEM EGY IMA' }],
+    //   };
+    //
+    //   // Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+    //   this.setState({
+    //     items: newItems
+    //   });
+    // }, 1000);
+    // console.log(`Load Items for ${day.year}-${day.month}`);
+  }
+    async getEvents(startDate,endDate) {
+         fetch('https://jewps.hu/api/v1/calendar?startDate='+startDate+"&endDate="+endDate)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                const responseData = responseJson.data;
+                if(responseJson.success) {
+                    let items={};
+                    for(var i=0;i<responseData.length;i++){
+                      const tmpKey=responseData[i]["start"].split(" ")[0];
+                      if(tmpKey in items) {
+                        items[tmpKey].push({name: responseData[i]["name"],type:responseData[i]["type"], desc: responseData[i]["start"].split(" ")[1].slice(0, -3)});
+                      }else{
+                          items[tmpKey]=[{name: responseData[i]["name"],responseData[i]["type"], desc: responseData[i]["start"].split(" ")[1].slice(0, -3)}]
+                      }
+                    }
+                    this.setState({
+                        items:items
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+  renderItem(item) {
+    return (
+      <View >
+        <View style={[styles.item, {height: item.height}]}>
+          <View style={{marginTop: 5, width: '85%'}}>
+            <Text style={styles.itemText}>{item.name}</Text>
+          </View>
+          <View style={{marginTop: 5}}>
+          <TouchableOpacity onPress={() => console.log('Add this to calendar', item)} activeOpacity={0.8}>
+            <Icon size={30} name="today" color="#73BEFF"/>
+          </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{marginTop: 5}}>
+          <Text style={styles.itemSubText}>{item.desc}</Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderEmptyDate() {
+    return null;
+  }
+
+  rowHasChanged(r1, r2) {
+    return r1.name !== r2.name;
+  }
+
+  timeToString(time) {
+    const date = new Date(time);
+    return date.toISOString().split('T')[0];
+  }
+
+
+  render() {
+      return (
+          <View style={styles.container}>
+            <PageHeader
+              { ...this.props }
+              pageTitle="Naptár"
+            />
+            <Text style={styles.pageTitle}>Válasszon napot!</Text>
+            <View style={{ flex: 1 }}>
+              <Agenda
+                items={this.state.items}
+                loadItemsForMonth={this.loadItems.bind(this)}
+                renderItem={this.renderItem.bind(this)}
+                renderEmptyDate={this.renderEmptyDate.bind(this)}
+                rowHasChanged={this.rowHasChanged.bind(this)}
+                firstDay={1}
+                renderEmptyData={() => {return (
+                  <View style={{alignItems: 'center', marginTop: 100}}>
+                    <Text style={styles.noNewsTitle}>Nincs bejegyzés</Text>
+                    <Text style={styles.noNewsSub}>Válasszon másik napot</Text>
+                    <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
+                  </View>
+                );}}
+                monthFormat={'yyyy. MMMM'}
+                theme={{
+                  textMonthFontFamily: 'Montserrat',
+                  textMonthFontWeight: 'bold',
+                  textDayFontFamily: 'Montserrat',
+                  monthTextColor: '#c49565',
+                  dotColor: '#c49565',
+                  selectedDayBackgroundColor: '#c49565',
+                  todayTextColor: '#73beff',
+                  textMonthFontSize: 18,
+                  textDayFontSize: 13,
+                }}
+              />
+            </View>
+          </View>
+      )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 20,
+  },
+  pageTitle: {
+    fontSize: 25,
+    fontFamily: "YoungSerif-Regular",
+    paddingLeft: 15,
+    marginTop: 30,
+    marginBottom: 15,
+    color: '#434656',
+  },
+  item: {
+    backgroundColor: 'white',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17,
+    borderRadius: 5,
+  },
+  itemText: {
+    fontFamily: 'YoungSerif-Regular',
+    fontSize: 17,
+    color: '#434656',
+    marginBottom: 5,
+  },
+  itemSubText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    marginTop: 3,
+    fontWeight: '600',
+    fontStyle: "normal",
+    color: '#A3ABBC',
+    marginBottom: 10,
+  },
+  emptyDate: {
+    height: 15,
+    flex:1,
+    paddingTop: 30
+  },
+  noNewsTitle: {
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 15,
+    fontFamily: "YoungSerif",
+    fontSize: 20,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: '#434656',
+    textAlign: 'center',
+  },
+  noNewsSub: {
+    paddingHorizontal: 15,
+    marginBottom: 5,
+    fontFamily: "YoungSerif",
+    fontSize: 14,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: '#A3ABBC',
+    textAlign: 'center',
+  }
+});

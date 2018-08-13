@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>Fill 204</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="zsinagogo_app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="explore" transform="translate(-211.000000, -440.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="375" height="1084"></rect>
+            <path d="M223.726042,447.283333 L221.394583,452.880417 C221.105625,453.573125 220.100208,453.509792 219.902292,452.781458 L219.439167,451.09125 C219.367917,450.822083 219.154167,450.608333 218.885,450.533125 L217.194792,450.073958 C216.466458,449.876042 216.399167,448.870625 217.095833,448.577708 L222.692917,446.24625 C223.346042,445.977083 223.999167,446.630208 223.726042,447.283333 Z M220.5,440 C215.255208,440 211,444.255208 211,449.5 C211,454.744792 215.255208,459 220.5,459 C225.744792,459 230,454.744792 230,449.5 C230,444.255208 225.744792,440 220.5,440 Z" id="Fill-204" fill="#C49565"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="19px" viewBox="0 0 14 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_hir_mentes</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="zsinagogo_app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="main" transform="translate(-146.000000, -465.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="375" height="941"></rect>
+            <g id="Group-3" transform="translate(15.000000, 311.000000)" stroke="#73BEFF" stroke-width="2">
+                <path d="M142.08,171.686604 L138.795,168.585159 C138.35625,168.170429 137.64375,168.170429 137.205,168.585159 L133.92,171.686604 C133.21125,172.355981 132,171.882105 132,170.935415 L132,156.770838 C132,155.792981 132.84,155 133.875,155 L142.125,155 C143.16,155 144,155.792981 144,156.770838 L144,170.935415 C144,171.882105 142.78875,172.355981 142.08,171.686604" id="ic_hir_mentes"></path>
+            </g>
+        </g>
+    </g>
+</svg>

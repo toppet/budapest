@@ -1,0 +1,4 @@
+#Mon Aug 13 11:13:33 CEST 2018
+base.0=/home/szuszi2/Storage/Big/Files/Projects/munka/budapest-master/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
