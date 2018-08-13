@@ -152,7 +152,7 @@ export default class EventsScreen extends Component {
         {listHeader}
         <TouchableOpacity key={index} activeOpacity={0.8} onPress={() => {console.log('item', item); this.props.navigation.navigate('EventDetail', { event: item })}} style={styles.eventListItem}>
           <View style={{flex: 1, paddingRight: 50}}>
-            <Text style={styles.eventListItemDesc}>{this.getItemDescription(item.description)}</Text>
+            <Text style={styles.eventListItemDesc}>{this.getItemDescription(item.name)}</Text>
             <View style={{flexDirection: 'row'}}>
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 20 }}>
                 <Icon name="watch-later" size={13} color="#73beff" style={{marginRight: 5}}/>
@@ -275,7 +275,7 @@ export default class EventsScreen extends Component {
               </View>
             </View>
 
-            <Text style={styles.eventCardDesc}>{this.getItemDescription(e.description)}</Text>
+            <Text style={styles.eventCardDesc}>{this.getItemDescription(e.name)}</Text>
           </View>
 
         </TouchableOpacity>
