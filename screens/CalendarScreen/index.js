@@ -27,8 +27,9 @@ export default class CalendarScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {}
+      items: {},
     };
+    console.disableYellowBox = true;
   }
 
 
