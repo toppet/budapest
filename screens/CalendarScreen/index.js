@@ -17,7 +17,7 @@ import { LocaleConfig, Agenda } from 'react-native-calendars';
 LocaleConfig.locales['hu'] = {
   monthNames: ['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'],
   monthNamesShort: ['Jan.','Febr.','Marc.','Apr.','Máj.','Jún.','Júl.','Aug.','Szept.','Okt.','Nov.','Dec.'],
-  dayNames: ['Hétfő','Kedd','Szerda','Csütörtök','Péntek','Szombat','Vasárnap'],
+  dayNames: ['Vasárnap','Kedd','Szerda','Csütörtök','Péntek','Szombat','Hétfő'],
   dayNamesShort: ['V','H','K','Sz','Cs','P','Szo']
 };
 
