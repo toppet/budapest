@@ -35,7 +35,9 @@ export default class EventsScreen extends Component {
       locations: [],
       locationModalVisible: false,
       datePickerModalVisible: false,
-      eventListHeaders: [],
+      events: null,
+      refreshing: false,
+      refreshingEventsList: false,
     }
   }
 
@@ -50,8 +52,9 @@ export default class EventsScreen extends Component {
       loading: false,
       events: eventsResponse,
       comingEventsInState: this.getComingEvents(eventsResponse),
+      locations: this.getLocationFilters(eventsResponse),
       refreshing: false,
-      refreshingNewsList: false,
+      refreshingEventsList: false,
     });
   }
 
@@ -81,10 +84,14 @@ export default class EventsScreen extends Component {
     return comingEventsArray;
   }
 
+  getLocationFilters(eventsResponse) {
+    return eventsResponse.map(event => event.location.name);
+  }
+
   _onRefresh = async () => {
     this.setState({
       refreshing: true,
-      refreshingNewsList: true,
+      refreshingEventsList: true,
       locationFilter: null,
       dateFilter: null,
     });
@@ -97,7 +104,7 @@ export default class EventsScreen extends Component {
         events: refreshedEvents,
         comingEventsInState: this.getComingEvents(refreshedEvents),
         refreshing: false,
-        refreshingNewsList: false,
+        refreshingEventsList: false,
       }),
     1000);
   }
@@ -179,25 +186,58 @@ export default class EventsScreen extends Component {
   }
 
 
-  getFilteredEvents = (dateFilter, locationFilter) => {
+  getFilteredEvents(dateFilter, locationFilter) {
     console.log('dateFilter', dateFilter, 'locationFilter', locationFilter);
+
+    let fetchUrl = 'https://jewps.hu/api/v1/events';
+
+    let formattedDate;
+
+    if(dateFilter) {
+      formattedDate = moment(dateFilter).format('YYYY-MM-DD');
+      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}`;
+    }
+
+    if(locationFilter) {
+      fetchUrl = `https://jewps.hu/api/v1/events?location=${locationFilter}`;
+    }
+
+    if(dateFilter && locationFilter) {
+      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}&location=${locationFilter}`;
+    }
+    // console.log('dateFilter', dateFilter, 'formattedDAte', formattedDate, 'selectedTagFilterId', selectedTagFilterId);
+    // console.log('fetchurl', fetchUrl);
+
+    this.setState({
+      refreshingEventsList: true,
+    }, () => {
+      fetch(fetchUrl)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const responseData = responseJson.data;
+          console.log('filtered events', responseJson);
+
+          if(responseJson.success) {
+            this.setState({
+              events: responseData,
+              refreshingEventsList: false,
+            });
+          }
+
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    })
   }
 
-  // componentWillMount() {
-  //   const tmpLocations = [];
-  //   // const tmpEventHeaders = [];
-
-  //   eventList.map((e) => {
-  //     e.data.map((d) => {
-  //       if (tmpLocations.indexOf(d.eventCity) === -1) {
-  //         tmpLocations.push(d.eventCity);
-  //       }
-  //     })
-  //   });
-
-  //   this.setState({ locations: tmpLocations });
-    
-  // }
+  getLoadingIndicator() {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   render() {
     const { 
@@ -209,20 +249,19 @@ export default class EventsScreen extends Component {
       comingEventsInState,
       dateFilter,
       formattedDateFilter,
-      chosenDate,
+      refreshingEventsList,
     } = this.state;
-    const locationPlaceholder = "Összes";
-    const tmpLocations = [];
-
+    
     let dateFilterClearBtn = null;
-    let locationFilterClearBtn = null;
+    let locationFilterCancelBtn = null;
 
+    let locationPickers;
+    let comingEvents = null;
+    let eventListItems = null;
+
+    
     if (loading) {
-      return (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" />
-        </View>
-      );
+     return this.getLoadingIndicator();
     }
 
     if(formattedDateFilter) {
@@ -231,7 +270,7 @@ export default class EventsScreen extends Component {
           this.setState({
             formattedDateFilter: null,
             dateFilter: null,
-          }, () => this.getEvents(null, locationFilter))
+          }, () => this.getFilteredEvents(null, locationFilter))
         }}>
           <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
@@ -239,116 +278,78 @@ export default class EventsScreen extends Component {
     }
 
     if(locationFilter) {
-      locationFilterClearBtn = (
+      locationFilterCancelBtn = (
         <TouchableOpacity onPress={() => {
           this.setState({
             locationFilter: null,
-          }, () => this.getEvents(dateFilter, null))
+          }, () => this.getFilteredEvents(dateFilter, null))
         }}>
           <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
       );
     }
 
-    const comingEvents = comingEventsInState.map((e) => (
-      <View style={[styles.cardShadow, { width: 315 }]} key={e.id}>
-        <TouchableOpacity style={styles.eventsCard} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
-
-          <View style={styles.imageBgBox}>
-            <ImageBackground source={{ uri: e.media[0].src_thumbs}} style={{width: '100%', height: '100%'}}/>
-          </View>
-
-          <View style={styles.eventCard}>
-            <View style={styles.eventCardInfoView}>
-              <View style={styles.eventDayView}>
-                <Text style={styles.eventDay}>{moment(e.from).format('DD')}</Text>
-              </View>
-
-              <View style={{flex: 1, marginRight: 'auto'}}>
-                <Text style={styles.eventMonth}>{moment(e.from).format('MMMM').replace(/^\w/, c => c.toUpperCase())}</Text>
-                <Text style={styles.eventYear}>{moment(e.from).format('YYYY')}</Text>
-              </View>
-
-              <View style={{width: 150, alignItems: 'flex-end'}}>
-                <Text style={styles.eventTime}>{moment(e.from).format('HH:mm')} - {moment(e.till).format('HH:mm')}</Text>
-                <Text style={styles.eventLocationText}>{e.location.name}</Text>
-              </View>
-            </View>
-
-            <Text style={styles.eventCardDesc}>{this.getItemDescription(e.name)}</Text>
-          </View>
-
-        </TouchableOpacity>
-      </View>
-    ));
-
-    let locationPickers;
-    let locationFilterCancelBtn = null;
-
-    // if(locations.length > 0) {
-    //   locationPickers = locations.sort(function(a, b){
-    //     if(a < b) return -1;
-    //     if(a > b) return 1;
-    //     return 0;
-    //   }).map((l, i) => (
-    //     <Picker.Item key={`${l}`} label={`${l}`} value={`${l}`} />
-    //   ));
-    // }
-
-    // if(locationFilter !== locationPlaceholder) {
-    //   locationFilterCancelBtn = (
-    //     <TouchableOpacity onPress={() => this.setState({locationFilter: locationPlaceholder})}>
-    //         <Icon name="cancel" size={20} />
-    //     </TouchableOpacity>
-    //   );
-    // }
-
-    // const eventListItems = (
-    //   <SectionList
-    //     renderItem={({item, index, section}) => (
-    //       <TouchableOpacity key={index} activeOpacity={0.8} onPress={() => {console.log('item', item); this.props.navigation.navigate('EventDetail', { event: item })}} style={styles.eventListItem}>
-    //         <View style={{flex: 1, paddingRight: 50}}>
-    //           <Text style={styles.eventListItemDesc}>{item.eventDesc}</Text>
-    //           <View style={{flexDirection: 'row'}}>
-    //             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 20 }}>
-    //               <Icon name="watch-later" size={13} color="#73beff" style={{marginRight: 5}}/>
-    //               <Text style={styles.eventListItemText}>{moment(item.startTime).format('HH:mm')}</Text>
-    //             </View>
-    //             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-    //               <Icon name="near-me" size={13} color="#c49565" style={{marginRight: 5}}/>
-    //               <Text style={styles.eventListItemText}>{item.eventLocation}</Text>
-    //             </View>
-    //           </View>
-    //         </View>
-    //         <View style={{alignItems: 'center', justifyContent: 'center', width: 30, marginRight: 15}}>
-    //           <Icon name="keyboard-arrow-right" size={25} color="#d8d8d8" />
-    //         </View>
-    //       </TouchableOpacity>
-    //     )}
-    //     renderSectionHeader={({section: {title}}) => (
-    //       <Text style={styles.listItemHeaderText}>{moment(title).format('dddd - MMMM DD.')}</Text>
-    //     )}
-    //     // sections={[
-    //     //   {title: 'title1', data: ['item1','item2']},
-    //     //   {title: 'title2', data: ['item1','item2']}
-    //     // ]}
-    //     sections={eventList}
-    //     keyExtractor={(item, index) => item.id + index}
-    //   >
-    //   </SectionList>
-    // )
-
-    let eventListItems = null;
-    console.log(events);
-
-    if(events && events.length > 0) {
-      eventListItems = <FlatList
-        data={events}
-        renderItem={({item, index}) => this.renderEventListItem(item, index)}
-        keyExtractor={(item, index) => `${item.id}${index}`}
-      />
+    if(locations.length > 0) {
+      locationPickers = locations.sort(function(a, b){
+        if(a < b) return -1;
+        if(a > b) return 1;
+        return 0;
+      }).map((l, i) => (
+        <Picker.Item key={`${l}`} label={`${l}`} value={`${l}`} />
+      ));
     }
 
+    if(comingEventsInState && comingEventsInState.length > 0) {
+      comingEvents = comingEventsInState.map((e) => (
+        <View style={[styles.cardShadow, { width: 315 }]} key={e.id}>
+          <TouchableOpacity style={styles.eventsCard} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
+  
+            <View style={styles.imageBgBox}>
+              <ImageBackground source={{ uri: e.media[0].src_thumbs}} style={{width: '100%', height: '100%'}}/>
+            </View>
+  
+            <View style={styles.eventCard}>
+              <View style={styles.eventCardInfoView}>
+                <View style={styles.eventDayView}>
+                  <Text style={styles.eventDay}>{moment(e.from).format('DD')}</Text>
+                </View>
+  
+                <View style={{flex: 1, marginRight: 'auto'}}>
+                  <Text style={styles.eventMonth}>{moment(e.from).format('MMMM').replace(/^\w/, c => c.toUpperCase())}</Text>
+                  <Text style={styles.eventYear}>{moment(e.from).format('YYYY')}</Text>
+                </View>
+  
+                <View style={{width: 150, alignItems: 'flex-end'}}>
+                  <Text style={styles.eventTime}>{moment(e.from).format('HH:mm')} - {moment(e.till).format('HH:mm')}</Text>
+                  <Text style={styles.eventLocationText}>{e.location.name}</Text>
+                </View>
+              </View>
+  
+              <Text style={styles.eventCardDesc}>{this.getItemDescription(e.name)}</Text>
+            </View>
+  
+          </TouchableOpacity>
+        </View>
+      ));
+    }
+
+    if(events && events.length > 0) {
+      eventListItems = (
+        <FlatList
+          data={events}
+          renderItem={({item, index}) => this.renderEventListItem(item, index)}
+          keyExtractor={(item, index) => `${item.id}${index}`}
+        />
+      )
+    } else {
+      eventListItems = (
+        <View style={{alignItems: 'center', marginBottom: 20}}>
+          <Text style={styles.noNewsTitle}>Nincs esemény</Text>
+          <Text style={styles.noNewsSub}>Állítson be más szűrfeltételeket</Text>
+          <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>
@@ -375,34 +376,6 @@ export default class EventsScreen extends Component {
             </ScrollView>
 
             <Text style={styles.title}>Összes esemény</Text>
-
-            {/* <View style={styles.filterRow}>
-              <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
-                <TouchableOpacity onPress={() => this.setState({datePickerModalVisible: true})} style={styles.locationFilter}>
-                  <Icon name="date-range" size={20} color="#434656"/>
-                  <Text style={[styles.locationFilterTextInActive, { color: '#434656'} ]}>Dátum</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ position: 'absolute', right: 10, padding: 10, marginLeft: 15, }}>
-                <TouchableOpacity onPress={() => this.setState({locationModalVisible: true})} style={styles.locationFilter}>
-                  <CustomIcon
-                    name="ic_location"
-                    size={20}
-                    color={locationFilter !== locationPlaceholder ? "#c49565" : "#434656"}
-                  />
-                  <Text
-                    style={locationFilter !== locationPlaceholder ? styles.locationFilterTextActive : styles.locationFilterTextInActive}
-                  >
-                    {locationFilter.length > 10 ? `${locationFilter.slice(0,10)}...` : locationFilter}
-                  </Text>
-                  {locationFilterCancelBtn}
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={{marginBottom: 25}}>
-              {eventListItems}
-            </View> */}
 
             <View style={styles.filterRow}>
               <View style={{ flex: 1, borderRightWidth: 1, borderColor: '#ededed', width: '50%' }}>
@@ -442,7 +415,7 @@ export default class EventsScreen extends Component {
             </View>
 
             <View style={{marginBottom: 25}}>
-              { eventListItems }
+              { refreshingEventsList ? this.getLoadingIndicator() : eventListItems }
             </View>
 
             <Modal
@@ -493,9 +466,11 @@ export default class EventsScreen extends Component {
                 <View>
                   <Picker
                     selectedValue={locationFilter}
-                    onValueChange={(itemValue) => this.setState({locationFilter: itemValue !== '' ? itemValue : locationPlaceholder})}>
+                    onValueChange={(itemValue) => this.setState({
+                      locationFilter: itemValue === "" ? null : itemValue
+                    })}>
                     <Picker.Item label="" value="" />
-                    {locationPickers}
+                    { locationPickers }
                   </Picker>
                   <TouchableOpacity
                     style={{position: 'relative', width: '100%', alignItems: 'center', justifyContent: 'center',}}
