@@ -38,11 +38,11 @@ export default class EventDetailScreen extends Component {
 
     let eventDetails;
 
-    if(eventParam.eventDetails) {
+    if(eventParam.description) {
       eventDetails = (
         <View>
           <Text style={styles.detailsTitle}>RÉSZLETEK</Text>
-          <Text style={styles.detailsText}>{eventParam.eventDetails}</Text>
+          <Text style={styles.detailsText}>{eventParam.description}</Text>
         </View>
       );
     }
@@ -61,10 +61,10 @@ export default class EventDetailScreen extends Component {
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 25, }}>
               <View style={{width: '50%',}}>
                 <Text style={styles.eventDateText}>{moment(eventParam.date).format('YYYY.MM.DD')}</Text>
-                <Text style={styles.eventDescText}>{eventParam.eventDesc}</Text>
+                <Text style={styles.eventDescText}>{eventParam.name}</Text>
               </View>
               <View style={{width: '50%', }}>
-                <Image source={{uri: eventParam.eventImg}} style={{borderWidth: 1, borderRadius: 3, width: 158, height: 90, marginLeft: 'auto'}}/>
+                <Image source={{ uri: eventParam.media[0].src_thumbs}} style={{borderRadius: 3, width: 158, height: 90, marginLeft: 'auto'}}/>
               </View>
             </View>
 
@@ -82,8 +82,8 @@ export default class EventDetailScreen extends Component {
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 25, }}>>
               <Icon name="near-me" style={styles.firstIcon} color="#73beff" size={20} />
               <View style={{ width: 210 }}>
-                <Text style={styles.eventLocationText}>{eventParam.eventLocation}</Text>
-                <Text style={styles.eventAddressText}>{eventParam.eventAddress}</Text>
+                <Text style={styles.eventLocationText}>{eventParam.location.title}</Text>
+                <Text style={styles.eventAddressText}>{eventParam.location.name}</Text>
               </View>
               <TouchableOpacity
                 style={styles.secondIcon}
@@ -93,14 +93,12 @@ export default class EventDetailScreen extends Component {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.fbEvent)}>
+            <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.facebook_event_url)}>
               <FontAwesome name="facebook-square" size={20} color="#c49565"/>
               <Text style={styles.facebookBtnText}>Facebook esemény</Text>
             </TouchableOpacity>
 
-            {eventDetails}
-
-
+            { eventDetails }
 
           </View>
         </ScrollView>
