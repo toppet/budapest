@@ -82,8 +82,8 @@ export default class EventDetailScreen extends Component {
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', marginBottom: 25, }}>>
               <Icon name="near-me" style={styles.firstIcon} color="#73beff" size={20} />
               <View style={{ width: 210 }}>
-                <Text style={styles.eventLocationText}>{eventParam.location.name}</Text>
-                <Text style={styles.eventAddressText}>{eventParam.eventAddress}</Text>
+                <Text style={styles.eventLocationText}>{eventParam.location.title}</Text>
+                <Text style={styles.eventAddressText}>{eventParam.location.name}</Text>
               </View>
               <TouchableOpacity
                 style={styles.secondIcon}

@@ -85,7 +85,16 @@ export default class EventsScreen extends Component {
   }
 
   getLocationFilters(eventsResponse) {
-    return eventsResponse.map(event => event.location.name);
+    const tmpLocations = [];
+    
+    eventsResponse.forEach(({ location }) => {
+      console.log('location', location.title);
+      if (location.title && _.includes(tmpLocations, location.title) === false) {
+        tmpLocations.push(location.title);
+      }
+    });
+
+    return tmpLocations;
   }
 
   _onRefresh = async () => {
@@ -167,7 +176,7 @@ export default class EventsScreen extends Component {
               </View>
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                 <Icon name="near-me" size={13} color="#c49565" style={{marginRight: 5}}/>
-                <Text style={styles.eventListItemText}>{item.location.name}</Text>
+                <Text style={styles.eventListItemText}>{item.location.title ? item.location.title : '-'}</Text>
               </View>
             </View>
           </View>
@@ -187,25 +196,24 @@ export default class EventsScreen extends Component {
 
 
   getFilteredEvents(dateFilter, locationFilter) {
-    console.log('dateFilter', dateFilter, 'locationFilter', locationFilter);
-
+    const encodedLocationFilter = encodeURI(locationFilter);
     let fetchUrl = 'https://jewps.hu/api/v1/events';
-
     let formattedDate;
-
+    
     if(dateFilter) {
       formattedDate = moment(dateFilter).format('YYYY-MM-DD');
       fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}`;
     }
-
+    
     if(locationFilter) {
-      fetchUrl = `https://jewps.hu/api/v1/events?location=${locationFilter}`;
+      fetchUrl = `https://jewps.hu/api/v1/events?location=${encodedLocationFilter}`;
     }
-
+    
     if(dateFilter && locationFilter) {
-      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}&location=${locationFilter}`;
+      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}&location=${encodedLocationFilter}`;
     }
-    // console.log('dateFilter', dateFilter, 'formattedDAte', formattedDate, 'selectedTagFilterId', selectedTagFilterId);
+    
+    // console.log('dateFilter', dateFilter, 'locationFilter', locationFilter, 'encodedLocationFilter', encodedLocationFilter);
     // console.log('fetchurl', fetchUrl);
 
     this.setState({
@@ -321,7 +329,7 @@ export default class EventsScreen extends Component {
   
                 <View style={{width: 150, alignItems: 'flex-end'}}>
                   <Text style={styles.eventTime}>{moment(e.from).format('HH:mm')} - {moment(e.till).format('HH:mm')}</Text>
-                  <Text style={styles.eventLocationText}>{e.location.name}</Text>
+                  <Text style={styles.eventLocationText}>{e.location.title ? e.location.title : '-'}</Text>
                 </View>
               </View>
   
@@ -344,8 +352,8 @@ export default class EventsScreen extends Component {
     } else {
       eventListItems = (
         <View style={{alignItems: 'center', marginBottom: 20}}>
-          <Text style={styles.noNewsTitle}>Nincs esemény</Text>
-          <Text style={styles.noNewsSub}>Állítson be más szűrfeltételeket</Text>
+          <Text style={styles.noEventTitle}>Nincs esemény</Text>
+          <Text style={styles.noEventSub}>Állítson be más szűrfeltételeket</Text>
           <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
         </View>
       );
@@ -686,5 +694,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     color: '#434656',
+  },
+  noEventTitle: {
+    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 15,
+    fontFamily: "YoungSerif",
+    fontSize: 20,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: '#434656',
+    textAlign: 'center',
+  },
+  noEventSub: {
+    paddingHorizontal: 15,
+    marginBottom: 5,
+    fontFamily: "YoungSerif",
+    fontSize: 14,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: '#A3ABBC',
+    textAlign: 'center',
   },
 });
