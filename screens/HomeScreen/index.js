@@ -115,12 +115,14 @@ export default class HomeScreen extends Component {
     super(props);
     this.state = {
       menuOpened: false,
-      currencies: {}
+      currencies: {},
+      weatherBUD: {}
     }
   }
 
   componentDidMount(){
     this.getCurrency();
+    this.getWeather();
   }
 
   getCurrency(){
@@ -128,7 +130,6 @@ export default class HomeScreen extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         const responseData = responseJson.results;
-        console.log('responseData', responseData)
         this.setState({
           currencies: responseData,
         });
@@ -138,19 +139,85 @@ export default class HomeScreen extends Component {
       });
   }
 
+  getWeather(){
+    fetch('https://api.darksky.net/forecast/e2118a40696c374f321c8af86daec18f/47.50045,19.07012?exclude=daily,minutely,hourly,alerts,flags&units=si&lang=hu')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        const responseData = responseJson.currently;
+        console.log('responseData', responseData)
+        this.setState({
+          weatherBUD: responseData,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  renderWeathIcon(iconName){
+    switch (iconName) {
+      case "clear-day":
+       return <Image source={require('../../assets/images/weather/clear-day.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "clear-night":
+        return <Image source={require('../../assets/images/weather/clear-night.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "cloudy":
+        return <Image source={require('../../assets/images/weather/cloudy.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "fog":
+        return <Image source={require('../../assets/images/weather/fog.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "partly-cloudy-day":
+        return <Image source={require('../../assets/images/weather/partly-cloudy-day.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "partly-cloudy-night":
+        return <Image source={require('../../assets/images/weather/partly-cloudy-night.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "rain":
+        return <Image source={require('../../assets/images/weather/rain.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "sleet":
+        return <Image source={require('../../assets/images/weather/sleet.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "snow":
+        return <Image source={require('../../assets/images/weather/snow.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      case "wind":
+        return <Image source={require('../../assets/images/weather/wind.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+        break;
+      default:
+      return <Image source={require('../../assets/images/weather/clear-day.png')} style={{width: 40, height: 40, resizeMode: Image.resizeMode.contain,}}/>
+
+
+    }
+  }
+
   render() {
     const { currencies } = this.state;
+    const { weatherBUD } = this.state;
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
     const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
 
     let EUR_HUF = null;
     let USD_HUF = null;
+    let weathTemp = null;
+    let weathIcon = null;
 
     if(currencies.EUR_HUF && currencies.USD_HUF) {
       EUR_HUF = currencies.EUR_HUF.val.toFixed(2);
       USD_HUF = currencies.USD_HUF.val.toFixed(2);
     }
+
+    if(weatherBUD && weatherBUD.temperature) {
+      weathTemp = weatherBUD.temperature.toFixed(1);
+      weathIcon = this.renderWeathIcon(weatherBUD.icon);
+    }
+
+
+
+
 
     const newsCards = latestNews.map((n) => (
       <View style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id}>
@@ -235,8 +302,8 @@ export default class HomeScreen extends Component {
 
               <View style={{flexDirection: 'row', marginBottom: 50, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center",  borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
-                  <Icon size={30} name="cloud" color="#6ABCFF"/>
-                  <Text style={{fontFamily: "Montserrat", fontSize: 10, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>közepesen felhős</Text>
+                  { weathIcon }
+                  <Text style={{fontFamily: "Montserrat", fontSize: 11, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 10}}>{weatherBUD.summary ? weatherBUD.summary : '-'} | {weathTemp ? weathTemp : '-'} °C</Text>
                 </View>
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   <Icon size={30} name="today" color="#434656"/>

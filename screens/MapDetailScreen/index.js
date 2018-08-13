@@ -130,12 +130,19 @@ export default class MapDetailScreen extends Component {
     });
   }
 
+  componentDidMount() {
+     const _scrollView = this.scrollView;
+     setTimeout(() => {
+        this.scrollView.scrollTo({y: 2});
+     }, 1);
+  }
+
   render() {
     const { navigation } = this.props;
     const mapItem = navigation.getParam('mapItem');
     const { slider1ActiveSlide } = this.state;
     // const { data: { title, subtitle }, even } = this.props;
-
+    let webPageBtn = null;
     let facebookLinkBtn = null;
     let ticketLinkBtn = null;
 
@@ -166,6 +173,20 @@ export default class MapDetailScreen extends Component {
         </TouchableOpacity>
       );
     }
+
+    if(mapItem.webPageLink) {
+      webPageBtn = (
+        <TouchableOpacity
+          style={styles.secondIcon}
+          activeOpacity={0.8}
+          onPress={() => this.handleWebLink(mapItem.webPageLink)}
+        >
+          <Icon name="language" size={20} color="#fff"/>
+        </TouchableOpacity>
+      );
+    }
+
+
 
     if(mapItem.ticketLink) {
       ticketLinkBtn = (
@@ -271,20 +292,14 @@ export default class MapDetailScreen extends Component {
           isBack
         />
 
-        <ScrollView style={styles.content}>
+        <ScrollView style={styles.content} ref={scrollView => this.scrollView = scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.titleBar}>
             <View style={styles.flexLeft}>
               <Text style={styles.titleTypeText}>NEVEZETESSÉG</Text>
               <Text style={styles.titleText}>{mapItem.title}</Text>
             </View>
             <View style={styles.flexRight}>
-              <TouchableOpacity
-                style={styles.secondIcon}
-                activeOpacity={0.8}
-                onPress={() => this.handleWebLink(mapItem.webPageLink)}
-              >
-                <Icon name="language" size={20} color="#fff"/>
-              </TouchableOpacity>
+              { webPageBtn }
             </View>
           </View>
 

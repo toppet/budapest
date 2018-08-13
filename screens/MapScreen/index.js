@@ -155,13 +155,13 @@ export default class MapScreen extends Component {
         currency: 'Ft',
         state: 'Nyitva',
         title: "Rumbach utcai Zsinagóga, status quo",
-        minEntryFee: 1200,
-        maxEntryFee: 4000,
+        minEntryFee: null,
+        maxEntryFee: null,
         currency: 'Ft',
-        webPageLink: '#',
-        facebookPageLink: 'https://www.facebook.com/Dohanytemplom/',
-        ticketLink: 'https://www.jegy.hu/venue/dohany-utcai-zsinagoga-es-zsido-muzeum',
-        phone: '+36 30 123 4567',
+        webPageLink: 'http://www.dohany-zsinagoga.hu/',
+        facebookPageLink: null,
+        ticketLink: null,
+        phone: null,
         address: 'Budapest, Rumbach Sebestyén u. 11-13, 1074',
         thumbnail: require('../../assets/images/rumbach.jpg'),
         openingHours: [
@@ -203,7 +203,7 @@ export default class MapScreen extends Component {
             closed: true,
           },
         ],
-        description: 'A Dohány utcai Zsinagóga Budapest egyik kiemelt turisztikai látványossága, Európa legnagyobb, a világ második legnagyobb zsinagógája. 1859-ban épült mór stílusban, 3000 fő befogadására alkalmas. Nagysága a korabeli fővárosi zsidóság jelentőségét, magas színvonalú gazdasági és kulturális igényét bizonyítja.A templom építésze Ludwig Förster (1797—1863) német építész, a bécsi akadémia tanára volt. Az építésvezető Wechselmann Ignác műépítész (1828—1903), aki később egész vagyonát a Vakok Intézetére hagyta. Förster távozása után Feszl Frigyes, a Vigadó híres építésze tervezte a templom belső szentélyét. A zsinagóga ünnepélyes felavatására 1859. szeptember 6-án került sor. A belső tér 1200 négyzetméter, tornyainak magassága 44 méter, a sík mennyezetű belső térben közel háromezer ember, a földszinten 1497 férfi, az emeleti karzatokon pedig 1472 női ülés található.'
+        description: 'A Rumbach utcai zsinagóga romantikus, a mór építészet jegyeit utánzó stílusban épült zsinagóga a budapesti „zsinagóga-háromszögben”, a későbbi budapesti gettó területén. „Kis zsinagóga”-ként is ismert (a „nagy zsinagóga” a Dohány utcai). A VII. kerületben található, a Rumbach Sebestyén utca 11-13. szám alatt (valamikor a 8-as szám volt).A zsinagóga 1869 és 1872 között épült közadakozásból, tervezője az osztrák Otto Wagner, aki a bécsi szecesszió vezető alakja volt. A falán magyar nyelvű emléktábla olvasható, amely azokra a zsidókra emlékeztet, akiket 1941-ben ebben az épületben gyűjtöttek össze, mielőtt a megszállt ukrajnai Kamenyeck-Podolszkba szállítottak a magyar hatóságok, ahol a németek legyilkolták őket.'
       },
     ],
     region: {
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
   searchBarWrap: {
     position: 'absolute',
     zIndex: 5,
-    top: 50,
+    top: 40,
     width: '90%',
     height: 50,
     backgroundColor: '#fff',

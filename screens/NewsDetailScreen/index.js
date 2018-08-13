@@ -31,9 +31,9 @@ export default class NewsDetailScreen extends Component {
 
     const headerImage = _.find(newsItem.media, n => n.type === 1);
     const youtubeMedia = _.find(newsItem.media, n => n.type === 2) || null;
-    
+
     let youTubeWrapper = null;
-    
+
     if(youtubeMedia) {
       const youtubeId = this.getYtId(youtubeMedia.src_media);
       youTubeWrapper = (
@@ -59,9 +59,9 @@ export default class NewsDetailScreen extends Component {
           pageTitle="Hírek"
           isBack
         />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Image source={{uri: headerImage.src_thumbs}} style={{width: '100%', height: 165}}/>
-          
+
           <View style={styles.dateRow}>
             <Text style={styles.date}>{moment(newsItem.posted_at).format('YYYY.MM.DD')}</Text>
             <View style={styles.tagWrap}>
@@ -69,7 +69,7 @@ export default class NewsDetailScreen extends Component {
               <Text style={styles.tagText}>{newsItem.tags[0].name}</Text>
             </View>
           </View>
-          
+
           <View style={styles.newsContent}>
             <Text style={styles.newsTitle}>{newsItem.title}</Text>
             <Text style={styles.newsBody}>{newsItem.body}</Text>
