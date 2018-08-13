@@ -13,6 +13,7 @@ import {
   SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
@@ -372,6 +373,7 @@ export default class HomeScreen extends Component {
           </View>
 
         </View>
+
       </View>
     )
   }
