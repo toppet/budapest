@@ -52,7 +52,7 @@ export default class NewsScreen extends Component {
     const newsAndTopNewsResponse = await this.getNewsAndTopNews();
     const tags = await this.getTags();
 
-    this.setState({ 
+    this.setState({
       loading: false,
       top3News: this.getTop3News(newsAndTopNewsResponse),
       tags,
@@ -71,10 +71,10 @@ export default class NewsScreen extends Component {
     });
 
     const refreshednewsAndTopNewsResponse = await this.getNewsAndTopNews();
-    
+
     // a little bit of delay
     setTimeout(() =>
-      this.setState({ 
+      this.setState({
         latestNewsInState: refreshednewsAndTopNewsResponse,
         top3News: this.getTop3News(refreshednewsAndTopNewsResponse),
         refreshing: false,
@@ -210,6 +210,7 @@ export default class NewsScreen extends Component {
 
     return (
       <View>
+
         {monthSeparator}
         {listHeader}
         <TouchableOpacity key={item.id} activeOpacity={0.8} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: item }) } style={styles.newsListItem}>
@@ -315,8 +316,8 @@ export default class NewsScreen extends Component {
         </TouchableOpacity>
       );
     }
-    
-    
+
+
     if(top3News) {
       news = top3News.map((n) => {
         const headerImage = _.find(n.media, n => n.type === 1);
