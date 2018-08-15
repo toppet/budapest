@@ -31,7 +31,7 @@ export default class ProbaScreen extends Component {
 
   render() {
     const menu = <SideMenuScreen {...this.props} />;
-
+    console.log('probascreenprops', this.props);
     return (
       <SideMenu 
         menu={menu} 
@@ -39,7 +39,7 @@ export default class ProbaScreen extends Component {
         edgeHitWidth={20}
         onChange={(isOpen) => this.updateMenuState(isOpen)}
       >
-        <Tabs screenProps={{openMenu: () => this.openMenu()}} />
+        <Tabs screenProps={{openMenu: () => this.openMenu(), settingsEng: this.props.settingsEng}} />
       </SideMenu>
     )
   }
