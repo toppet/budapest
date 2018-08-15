@@ -136,7 +136,7 @@ export default class App extends Component {
                   <Text style={styles.kapcsRole}>tartalmakért felelős Dohány utcai Zsinagóga</Text>
               </View>
               <View style={styles.kapcsButtonView}>
-                <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['info@jewps.hu'],null,null,'[JEWPSapp] Kapcsolatfelvétel marketing témakörben','Kedves Hölgyem/Uram,\n\n')} activeOpacity={0.8}>
+                <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['frolich.robert@gmail.com'],null,null,'[JEWPSapp] Kapcsolatfelvétel','Kedves Hölgyem/Uram,\n\n')} activeOpacity={0.8}>
                     <Text style={styles.kapcsBtnText}>Kapcsolatfelvétel</Text>
                 </TouchableOpacity>
               </View>
