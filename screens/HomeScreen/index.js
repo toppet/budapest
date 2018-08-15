@@ -12,7 +12,6 @@ import {
   ImageBackground,
   SafeAreaView,
   ActivityIndicator,
-  AsyncStorage,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -20,11 +19,7 @@ import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
-import 'moment/locale/hu';
-
-// require('moment/locale/hu');
-
-import textContentJSON from './homeScreenTranslation.json';
+require('moment/locale/hu');
 
 import PageHeader from '../../components/PageHeader';
 
@@ -60,8 +55,6 @@ const latestNews = [
     date: new Date(),
   },
 ];
-
-
 
 const latestEvents = [
   {
@@ -122,16 +115,15 @@ const bestPlaces = [
 export default class HomeScreen extends Component {
   constructor(props){
     super(props);
-    console.log('props.settingsEng', props.screenProps.settingsEng);
     this.state = {
       loading: true,
       menuOpened: false,
       currencies: {},
       weatherBUD: {},
-      currentJDate: '-',
+      currentJDate: '-', 
     }
   }
-  
+
   componentDidMount(){
     this.fetchData();
   }
@@ -140,30 +132,14 @@ export default class HomeScreen extends Component {
     const currencies = await this.getCurrency();
     const weather = await this.getWeather();
     const jDate = await this.getJDate();
-    const language = await this._getAppLang();
-
+    console.log("JDate", jDate);
     this.setState({ 
       loading: false,
       refreshing: false,
       currencies,
       weatherBUD: weather,
       currentJDate: jDate,
-      language,
     });
-  }
-
-  _getAppLang = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore:key');
-      console.log('home langvalue', value);
-      if (value !== null) {
-        // We have data!!
-        return value;
-        // this.setState({ settingsEng: value === 'eng' ? true : false });
-      }
-     } catch (error) {
-       // Error retrieving data
-     }
   }
 
   getCurrency = async () => {
@@ -211,9 +187,11 @@ export default class HomeScreen extends Component {
         return null;
       })
       .catch((error) => {
+        console.log('error', error);
         return error;
       });
     } catch(e) {
+      console.log('e', e);
       return e;
     }
   }
@@ -273,18 +251,10 @@ export default class HomeScreen extends Component {
       currentJDate,
     } = this.state;
 
-    let textContent =  textContentJSON.hu;
-    moment.locale('hu');
-
-    if(this.props.screenProps.settingsEng) {
-      textContent = textContentJSON.en;
-      moment.locale('en'); 
-    }
-
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
     const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
-    
+
     let EUR_HUF = null;
     let USD_HUF = null;
     let weathTemp = null;
@@ -381,7 +351,7 @@ export default class HomeScreen extends Component {
             <ScrollView showsVerticalScrollIndicator={false}>
 
               <View style={{marginBottom: 38}}>
-                <Text style={styles.title}>{textContent.homeTitle}</Text>
+                <Text style={styles.title}>Üdvözöljük!</Text>
                 <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
               </View>
 
@@ -408,12 +378,12 @@ export default class HomeScreen extends Component {
 
               <View>
                 <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
-                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>{textContent.hirekBack}</Text>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>{textContent.hirekTop}</Text>
+                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>Hírek</Text>
+                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>Legfrissebb hírek</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('News')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.mindBtn}</Text>
+                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>Mind</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -424,12 +394,12 @@ export default class HomeScreen extends Component {
 
               <View>
                 <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
-                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>{textContent.esemenyekBack}</Text>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>{textContent.esemenyekTop}</Text>
+                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>Események</Text>
+                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>Közelgő események</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Events')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.mindBtn}</Text>
+                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>Mind</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -440,12 +410,12 @@ export default class HomeScreen extends Component {
 
               <View>
                 <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
-                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>{textContent.terkepBack}</Text>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>{textContent.terkepTop}</Text>
+                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>Látnivalók</Text>
+                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>Önnek ajánljuk</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Map')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.terkepBtn}</Text>
+                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>Térkép</Text>
                   </TouchableOpacity>
                 </View>
 
