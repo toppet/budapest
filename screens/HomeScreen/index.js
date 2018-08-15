@@ -24,7 +24,7 @@ import 'moment/locale/hu';
 
 // require('moment/locale/hu');
 
-import textContentJSON from './homeScreenTranslation.json';
+import textContentJSON from './homeScreenTrans.json';
 
 import PageHeader from '../../components/PageHeader';
 
