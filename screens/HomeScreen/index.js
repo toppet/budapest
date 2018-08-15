@@ -419,7 +419,7 @@ export default class HomeScreen extends Component {
                   </TouchableOpacity>
                 </View>
 
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10, marginHorizontal: 15}}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10, paddingHorizontal: 15}}>
                   {newsCards}
                 </ScrollView>
               </View>
