@@ -47,8 +47,8 @@ export default class EventsScreen extends Component {
 
   async fetchData() {
     const eventsResponse = await this.getEvents();
-    
-    this.setState({ 
+
+    this.setState({
       loading: false,
       events: eventsResponse,
       comingEventsInState: this.getComingEvents(eventsResponse),
@@ -74,7 +74,7 @@ export default class EventsScreen extends Component {
 
   getComingEvents(eventsResponse) {
     let comingEventsArray;
-    
+
     if(eventsResponse.length < 5) {
       comingEventsArray = eventsResponse.map(r => r);
     } else {
@@ -86,7 +86,7 @@ export default class EventsScreen extends Component {
 
   getLocationFilters(eventsResponse) {
     const tmpLocations = [];
-    
+
     eventsResponse.forEach(({ location }) => {
       console.log('location', location.title);
       if (location.title && _.includes(tmpLocations, location.title) === false) {
@@ -106,10 +106,10 @@ export default class EventsScreen extends Component {
     });
 
     const refreshedEvents = await this.getEvents();
-    
+
     // a little bit of delay
     setTimeout(() =>
-      this.setState({ 
+      this.setState({
         events: refreshedEvents,
         comingEventsInState: this.getComingEvents(refreshedEvents),
         refreshing: false,
@@ -129,7 +129,7 @@ export default class EventsScreen extends Component {
     return desc.length < 80 ? desc :`${desc.slice(0, 80)} ...`;
   }
 
-  
+
   renderEventListItem = (item, index) => {
     const { events } = this.state;
     let listHeader = null;
@@ -199,20 +199,20 @@ export default class EventsScreen extends Component {
     const encodedLocationFilter = encodeURI(locationFilter);
     let fetchUrl = 'https://jewps.hu/api/v1/events';
     let formattedDate;
-    
+
     if(dateFilter) {
       formattedDate = moment(dateFilter).format('YYYY-MM-DD');
       fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}`;
     }
-    
+
     if(locationFilter) {
       fetchUrl = `https://jewps.hu/api/v1/events?location=${encodedLocationFilter}`;
     }
-    
+
     if(dateFilter && locationFilter) {
       fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}&location=${encodedLocationFilter}`;
     }
-    
+
     // console.log('dateFilter', dateFilter, 'locationFilter', locationFilter, 'encodedLocationFilter', encodedLocationFilter);
     // console.log('fetchurl', fetchUrl);
 
@@ -248,10 +248,10 @@ export default class EventsScreen extends Component {
   }
 
   render() {
-    const { 
-      loading, 
-      locations, 
-      locationFilter, 
+    const {
+      loading,
+      locations,
+      locationFilter,
       locationFilterPlaceholder,
       events,
       comingEventsInState,
@@ -259,7 +259,7 @@ export default class EventsScreen extends Component {
       formattedDateFilter,
       refreshingEventsList,
     } = this.state;
-    
+
     let dateFilterClearBtn = null;
     let locationFilterCancelBtn = null;
 
@@ -267,7 +267,7 @@ export default class EventsScreen extends Component {
     let comingEvents = null;
     let eventListItems = null;
 
-    
+
     if (loading) {
      return this.getLoadingIndicator();
     }
@@ -311,31 +311,31 @@ export default class EventsScreen extends Component {
       comingEvents = comingEventsInState.map((e) => (
         <View style={[styles.cardShadow, { width: 315 }]} key={e.id}>
           <TouchableOpacity style={styles.eventsCard} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
-  
+
             <View style={styles.imageBgBox}>
               <ImageBackground source={{ uri: e.media[0].src_thumbs}} style={{width: '100%', height: '100%'}}/>
             </View>
-  
+
             <View style={styles.eventCard}>
               <View style={styles.eventCardInfoView}>
                 <View style={styles.eventDayView}>
                   <Text style={styles.eventDay}>{moment(e.from).format('DD')}</Text>
                 </View>
-  
+
                 <View style={{flex: 1, marginRight: 'auto'}}>
                   <Text style={styles.eventMonth}>{moment(e.from).format('MMMM').replace(/^\w/, c => c.toUpperCase())}</Text>
                   <Text style={styles.eventYear}>{moment(e.from).format('YYYY')}</Text>
                 </View>
-  
+
                 <View style={{width: 150, alignItems: 'flex-end'}}>
                   <Text style={styles.eventTime}>{moment(e.from).format('HH:mm')} - {moment(e.till).format('HH:mm')}</Text>
                   <Text style={styles.eventLocationText}>{e.location.title ? e.location.title : '-'}</Text>
                 </View>
               </View>
-  
+
               <Text style={styles.eventCardDesc}>{this.getItemDescription(e.name)}</Text>
             </View>
-  
+
           </TouchableOpacity>
         </View>
       ));
