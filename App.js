@@ -75,7 +75,7 @@ export default class App extends Component {
   }
 
   render() {
-    YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'React debugger']);
+    YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Remote debugger']);
     return (
       <View style={{flex:1}}>
 

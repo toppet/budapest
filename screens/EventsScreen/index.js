@@ -385,40 +385,42 @@ export default class EventsScreen extends Component {
 
             <Text style={styles.title}>Összes esemény</Text>
 
-            <View style={styles.filterRow}>
-              <View style={{ flex: 1, borderRightWidth: 1, borderColor: '#ededed', width: '50%' }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
-                  }
-                  style={styles.filterWrap} activeOpacity={0.8}
-                >
-                  <Icon
-                    name="date-range"
-                    size={20}
-                    color={formattedDateFilter ? "#c49565" : "#434656"}
-                  />
-                  <Text style={formattedDateFilter ? styles.filterTextActive : styles.filterTextInActive}>
-                    {formattedDateFilter ? formattedDateFilter : 'Dátum'}
-                  </Text>
-                  { dateFilterClearBtn }
-                </TouchableOpacity>
-              </View>
-
-              <View style={{ position: 'absolute', right: 0, flex: 1, width: '50%'}}>
-                <TouchableOpacity onPress={() => this.setState({ locationModalVisible: true })} style={styles.filterWrap} activeOpacity={0.8}>
-                  <CustomIcon
-                    name="ic_location"
-                    size={20}
-                    color={locationFilter ? "#c49565" : "#434656"}
-                  />
-                  <Text
-                    style={locationFilter ? styles.filterTextActive : styles.filterTextInActive}
+            <View style={styles.filterRowBg}>
+              <View style={styles.filterRow}>
+                <View style={{ flex: 1, borderRightWidth: 1, borderColor: '#ededed', width: '50%' }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
+                    }
+                    style={styles.filterWrap} activeOpacity={0.8}
                   >
-                    { locationFilter ? this.sliceLocationFilter(locationFilter) : locationFilterPlaceholder }
-                  </Text>
-                  { locationFilterCancelBtn }
-                </TouchableOpacity>
+                    <Icon
+                      name="date-range"
+                      size={20}
+                      color={formattedDateFilter ? "#c49565" : "#434656"}
+                    />
+                    <Text style={formattedDateFilter ? styles.filterTextActive : styles.filterTextInActive}>
+                      {formattedDateFilter ? formattedDateFilter : 'Dátum'}
+                    </Text>
+                    { dateFilterClearBtn }
+                  </TouchableOpacity>
+                </View>
+
+                <View style={{ position: 'absolute', right: 0, flex: 1, width: '50%'}}>
+                  <TouchableOpacity onPress={() => this.setState({ locationModalVisible: true })} style={styles.filterWrap} activeOpacity={0.8}>
+                    <CustomIcon
+                      name="ic_location"
+                      size={20}
+                      color={locationFilter ? "#c49565" : "#434656"}
+                    />
+                    <Text
+                      style={locationFilter ? styles.filterTextActive : styles.filterTextInActive}
+                    >
+                      { locationFilter ? this.sliceLocationFilter(locationFilter) : locationFilterPlaceholder }
+                    </Text>
+                    { locationFilterCancelBtn }
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 
@@ -606,22 +608,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#c49565',
   },
+  filterRowBg: {
+    flex: 1,
+    backgroundColor: '#fff', 
+    paddingVertical: 0,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    marginBottom: 15,
+  },
   filterRow: {
     flex: 1,
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
     borderWidth: 1,
     borderRadius: 3,
     borderColor: '#ededed',
     backgroundColor: '#fff',
-    marginBottom: 15,
     position: 'relative',
-    marginHorizontal: 10,
+    
   },
   filterWrap: {
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 13,
     flexDirection: 'row',
     alignItems: 'center',
   },
