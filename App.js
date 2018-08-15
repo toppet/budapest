@@ -10,10 +10,12 @@ import {
   Image,
   ScrollView,
   AsyncStorage,
-  SafeAreaView
+  SafeAreaView,
+  Linking
 } from 'react-native';
 
 import ProbaScreen from './ProbaScreen';
+import OfflineNotice from './OfflineNotice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
@@ -28,6 +30,7 @@ export default class App extends Component {
     settingsNotifications: false,
     settingsLocation: false,
     settingsEng: false,
+
   }
 
   componentDidMount() {
@@ -46,6 +49,7 @@ export default class App extends Component {
   setImpressumModalVisible() {
     this.setState({ impressumModalVisible: true });
   }
+
 
   _getAppLang = async () => {
     try {
@@ -184,7 +188,30 @@ export default class App extends Component {
               </TouchableOpacity>
             </View>
             <ScrollView style={styles.impresszumBody}>
-              <Text style={styles.kapcsBody}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur dapibus nibh, vitae rhoncus augue feugiat sed. Aenean tincidunt dictum nunc, sed rhoncus est aliquam eget. Nullam at tortor varius, tincidunt diam nec, convallis leo. Pellentesque vel ligula ut nisl scelerisque ultricies. Nunc sed purus consectetur, vestibulum nibh ac, elementum elit. Sed volutpat, risus vel viverra porttitor, turpis metus tempor diam, ut vulputate est metus a ex. Ut sed eleifend nunc. Nam rhoncus tellus dui, sed venenatis risus interdum sed. Nam vehicula cursus quam sit amet pulvinar. Curabitur vehicula libero lacinia venenatis condimentum. Curabitur a nibh fringilla, sollicitudin nulla in, tempor massa. Proin libero urna, vestibulum at finibus sed, iaculis a dolor. Aenean tincidunt sagittis nisi, sed convallis quam cursus id. Donec facilisis dolor nec massa mattis pharetra. Vivamus mollis hendrerit odio, non euismod dui dapibus ac. Vivamus ultricies ex erat, ut euismod purus lobortis at. Aenean eu facilisis dolor, nec placerat nisl. Donec ligula augue, cursus vel nisl eget, hendrerit gravida nunc. Nulla mauris nisi, blandit ac turpis at, aliquam ultrices metus. Aenean nec nisl magna. Nullam imperdiet bibendum vestibulum. Aliquam porttitor nisi ac tellus facilisis, vitae tincidunt sem consectetur. Vivamus convallis efficitur magna, at accumsan erat volutpat vel. In aliquet porttitor porttitor. Sed at malesuada nibh. Donec posuere, nulla a viverra pretium, mi arcu consequat augue, at iaculis nunc mauris sit amet augue. Nunc nec erat euismod justo consequat posuere quis eu urna. Aliquam lacus metus, facilisis eu nisi pretium, blandit aliquam ex. Morbi et varius odio. Fusce ac finibus ex, et dignissim massa. Sed nec massa porta dolor fringilla convallis. Etiam sit amet elit sapien. Duis scelerisque egestas enim eu tempor. In hac habitasse platea dictumst. Pellentesque interdum tellus sed ex faucibus sagittis. Proin lorem lectus, dictum nec varius eu, vehicula eget erat. Fusce sit amet imperdiet lectus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque convallis condimentum ante, id egestas nisi ornare id. Curabitur nec quam rhoncus, hendrerit dui vel, sollicitudin risus. Fusce sed erat id ante fringilla blandit sit amet vehicula tellus. Nulla est lectus, fringilla nec sollicitudin non, vulputate vel magna.</Text>
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={styles.kapcsBody}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur dapibus nibh, vitae rhoncus augue feugiat sed. Aenean tincidunt dictum nunc, sed rhoncus est aliquam eget. Nullam at tortor varius, tincidunt diam nec, convallis leo. Pellentesque vel ligula ut nisl scelerisque ultricies. Nunc sed purus consectetur, vestibulum nibh ac, elementum elit. Sed volutpat, risus vel viverra porttitor, turpis metus tempor diam, ut vulputate est metus a ex. Ut sed eleifend nunc.</Text>
+            </View>
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={styles.impHeading}>Időjárás API</Text>
+              <TouchableOpacity
+                style={styles.linkBtn}
+                activeOpacity={0.8}
+                onPress={() => Linking.openURL('https://darksky.net/poweredby/')}
+              >
+                <Text style={styles.linkBtnText}>Powered By Dark Sky API</Text>
+              </TouchableOpacity>
+              <Image source={require('./assets/images/poweredby-oneline.png')} style={{width: 250, height: 50, marginTop: 15,}}/>
+            </View>
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={styles.impHeading}>Árfolyam API</Text>
+              <TouchableOpacity
+                style={styles.linkBtn}
+                activeOpacity={0.8}
+                onPress={() => Linking.openURL('https://free.currencyconverterapi.com/')}
+              >
+                <Text style={styles.linkBtnText}>Powered By CurrencyConverterAPI</Text>
+              </TouchableOpacity>
+            </View>
             </ScrollView>
           </SafeAreaView>
         </Modal>
@@ -195,6 +222,7 @@ export default class App extends Component {
           setImpressumModalVisible={() => this.setImpressumModalVisible()}
           settingsEng={this.state.settingsEng}
         />
+          <OfflineNotice />
       </View>
     )
   }
@@ -270,6 +298,15 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     color: "#434656"
   },
+  impHeading:{
+    paddingTop: 15,
+    paddingBottom: 22,
+    fontFamily: "Montserrat",
+    fontSize: 22,
+    fontWeight: "600",
+    fontStyle: "italic",
+    color: "#434656"
+  },
   kapcsRole:{
     fontFamily: "Montserrat",
     fontSize: 14,
@@ -284,6 +321,7 @@ const styles = StyleSheet.create({
 
   },
   impresszumBody:{
+    height: '150%',
     marginLeft: 15,
     marginRight: 5,
   },
@@ -351,5 +389,29 @@ const styles = StyleSheet.create({
     color: '#73beff',
     textAlign: 'center',
     marginTop: 10,
-  }
+  },
+  linkBtn: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginHorizontal: 15,
+    marginBottom: 5,
+    borderColor: 'rgba(237, 237, 237, 1)',
+    shadowColor: '#b7a99b',
+    shadowOffset: {
+            width: 0,
+            height: 15
+          },
+    shadowRadius: 15,
+    shadowOpacity: 0.5,
+  },
+  linkBtnText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: "600",
+    fontStyle: "normal",
+    color: '#c49565'
+  },
 });
