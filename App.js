@@ -54,10 +54,10 @@ export default class App extends Component {
   _getAppLang = async () => {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore:key');
-      console.log('langvalue', value)
+      // console.log('langvalue', value);
       if (value !== null) {
         // We have data!!
-        this.setState({ settingsEng: value === 'eng' ? true : false });
+        this.setState({ settingsEng: value === 'en' ? true : false });
       }
      } catch (error) {
        // Error retrieving data
@@ -65,10 +65,9 @@ export default class App extends Component {
   }
 
   _setAppLang = async () => {
-
     try {
       await this.setState({ settingsEng: !this.state.settingsEng });
-      await AsyncStorage.setItem('@MySuperStore:key', this.state.settingsEng ? 'eng' : 'hu');
+      await AsyncStorage.setItem('@MySuperStore:key', this.state.settingsEng ? 'en' : 'hu');
     } catch (error) {
       // Error saving data
     }
@@ -221,6 +220,7 @@ export default class App extends Component {
           showSettingsDialog={() => this.showSettingsDialog()}
           showContactDialog={() => this.showContactDialog()}
           setImpressumModalVisible={() => this.setImpressumModalVisible()}
+          settingsEng={this.state.settingsEng}
         />
           <OfflineNotice />
       </View>
