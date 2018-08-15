@@ -140,14 +140,9 @@ export default class HomeScreen extends Component {
     const currencies = await this.getCurrency();
     const weather = await this.getWeather();
     const jDate = await this.getJDate();
-<<<<<<< HEAD
     const language = await this._getAppLang();
 
     this.setState({ 
-=======
-    console.log("JDate", jDate);
-    this.setState({
->>>>>>> 9a01a11fc51845278edd5ce9244c3d2c2156e30a
       loading: false,
       refreshing: false,
       currencies,
@@ -388,11 +383,7 @@ export default class HomeScreen extends Component {
 
               <View style={{marginBottom: 30, flexDirection: 'row'}}>
                 <View>
-<<<<<<< HEAD
                   <Text style={styles.title}>{textContent.homeTitle}</Text>
-=======
-                  <Text style={styles.title}>Üdvözöljük!</Text>
->>>>>>> 9a01a11fc51845278edd5ce9244c3d2c2156e30a
                   <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
                 </View>
 
@@ -542,7 +533,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontStyle: "normal",
     textAlign: "center",
-<<<<<<< HEAD
     color: "#434656",
   },
   unnepnapBox: {
@@ -574,39 +564,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#434656",
   },
-=======
-    color: "#434656",
-  },
-  unnepnapBox: {
-    width: 120,
-    height: 50,
-    borderRadius: 5,
-    backgroundColor: '#FF7070',
-    borderStyle: "solid",
-    borderWidth: 2,
-    borderColor: '#CFD0DF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  unnepBoxTitle: {
-    fontFamily: "Montserrat",
-    fontSize: 10,
-    fontWeight: "bold",
-    fontStyle: "normal",
-    letterSpacing: 0,
-    textAlign: "center",
-    color: '#FFF',
-  },
-  unnepTitle: {
-    fontFamily: "Montserrat",
-    fontSize: 10,
-    fontWeight: "bold",
-    fontStyle: "normal",
-    letterSpacing: 0,
-    textAlign: "center",
-    color: "#434656",
-  },
->>>>>>> 9a01a11fc51845278edd5ce9244c3d2c2156e30a
   unnepTitleView: {
     alignItems: 'center',
     justifyContent: 'center',
