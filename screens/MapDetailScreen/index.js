@@ -210,19 +210,16 @@ export default class MapDetailScreen extends Component {
 
     if (mapItem.minEntryFee || mapItem.maxEntryFee) {
       prices = (
-        <View style={[styles.infoWrap, styles.inforWrapLeft]}>
+        <View style={[styles.infoWrap]}>
           <Icon name="attach-money" size={25} color="#73beff" />
-          <Text style={styles.infoText}>
-            {minEntryFee}
-            {maxEntryFee}
-          </Text>
+          <Text style={styles.infoText}>Belépők ára: {minEntryFee}{maxEntryFee}</Text>
         </View>
       );
     }
 
     if (mapItem.phone) {
       phoneNumber = (
-        <View style={[styles.infoWrap, styles.inforWrapRight]}>
+        <View style={styles.infoWrap}>
           <Icon name="call" size={25} color="#73beff"/>
           <Text style={styles.infoText}>{mapItem.phone}</Text>
           <TouchableOpacity
@@ -238,14 +235,14 @@ export default class MapDetailScreen extends Component {
 
     if (mapItem.openingHours) {
       openingHours  = (
-        <View style={[styles.infoWrap, styles.inforWrapLeft]}>
+        <View style={styles.infoWrap}>
           <Icon name="schedule" size={25} color="#73beff" />
           <Text style={[styles.infoText, { color: '#6ce986'}]}>{mapItem.openingHours[currentDayIndex].open}</Text>
         </View>
       )
 
       modalBtn = (
-        <View style={[styles.infoWrap, styles.inforWrapLeft, { marginLeft: 25 }]}>
+        <View style={styles.infoWrap}>
           <TouchableOpacity style={styles.modalBtn} onPress={() => this.showOpeningHoursDialog()}>
             <Text style={styles.modalBtnText}>Nyitvatartás</Text>
             <Icon name="keyboard-arrow-right" size={15} color="#434656"/>
@@ -256,7 +253,7 @@ export default class MapDetailScreen extends Component {
 
     if (mapItem.address) {
       address = (
-        <View style={[styles.infoWrap, styles.inforWrapRight]}>
+        <View style={styles.infoWrap}>
           <Icon name="near-me" size={25} color="#73beff"/>
           <Text
             style={styles.infoText}
@@ -342,18 +339,25 @@ export default class MapDetailScreen extends Component {
             { ticketLinkBtn }
           </View>
 
-          <View style={styles.infoRow}>
-            { prices }
-            { phoneNumber }
+          <View style={styles.mapInfosListContainer}>
+            <View style={styles.infoRow}>
+              { prices }
+            </View>
           </View>
-
-          <View style={styles.infoRow}>
-            { openingHours }
-            { address }
+          <View style={styles.mapInfosListContainer1}>
+            <View style={styles.infoRow}>
+                { phoneNumber }
+            </View>
           </View>
-
-          <View style={[styles.infoRow, styles.modalBtnRow]}>
-            { modalBtn }
+          <View style={styles.mapInfosListContainer}>
+            <View style={styles.infoRow}>
+                { openingHours } { modalBtn }
+            </View>
+          </View>
+          <View style={styles.mapInfosListContainer1}>
+            <View style={styles.infoRow}>
+                { address }
+            </View>
           </View>
 
           <View style={styles.descriptionRow}>
@@ -514,23 +518,43 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     color: '#c49565'
   },
+  mapInfosListContainer: {
+    width:'100%',
+    backgroundColor: '#FFF',
+    borderTopColor: '#F2F2F2',
+    borderBottomColor: '#F2F2F2',
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
+    borderWidth: 1,
+    height: 55
+  },
+  mapInfosListContainer1: {
+    width:'100%',
+    backgroundColor: '#F7F7F7',
+    borderTopColor: '#F2F2F2',
+    borderBottomColor: '#F2F2F2',
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
+    borderWidth: 1,
+    height: 55
+  },
   infoRow: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
+    justifyContent: 'flex-start',
     marginHorizontal: 15,
   },
   infoWrap: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
+    width: '100%'
   },
   inforWrapLeft: {
-    flex: 0.4,
     marginRight: 25,
+    backgroundColor: 'red'
   },
   inforWrapRight: {
     flex: 0.6,
@@ -541,12 +565,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontStyle: "normal",
     marginLeft: 5,
-    width: 125,
-  },
-  modalBtnRow: {
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginTop: -25,
+    width: '100%',
   },
   modalBtn: {
     borderRadius: 5,
@@ -554,6 +573,7 @@ const styles = StyleSheet.create({
     borderColor: '#ededed',
     paddingHorizontal: 9,
     paddingVertical: 5,
+    marginLeft: 'auto',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row'
@@ -575,10 +595,11 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-start',
+    marginTop: 15,
   },
   descriptionText: {
     fontFamily: "Montserrat",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
     lineHeight: 18,

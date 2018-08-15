@@ -238,7 +238,8 @@ export default class NewsScreen extends Component {
   getLoadingIndicator() {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#B7A99B" />
+        <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>Kérjük várjon ...</Text>
       </View>
     );
   }
