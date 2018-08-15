@@ -34,10 +34,8 @@ export default class EventDetailScreen extends Component {
     //console.log('EventDetailScreen this.props', this.props);
     const { navigation } = this.props;
     const eventParam = navigation.getParam('event');
-    //console.log('EventDetailScreen event', eventParam);
 
     let eventDetails;
-    let facebookEventBtn;
 
     if(eventParam.description) {
       eventDetails = (
@@ -46,15 +44,6 @@ export default class EventDetailScreen extends Component {
           <Text style={styles.detailsText}>{eventParam.description}</Text>
         </View>
       );
-    }
-
-    if(eventParam.facebook_event_url) {
-      facebookEventBtn = (
-        <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.facebook_event_url)}>
-          <FontAwesome name="facebook-square" size={20} color="#c49565"/>
-          <Text style={styles.facebookBtnText}>Facebook esemény</Text>
-        </TouchableOpacity>
-      )
     }
 
     return (
@@ -70,7 +59,7 @@ export default class EventDetailScreen extends Component {
 
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginBottom: 25, }}>
               <View style={{width: '50%',}}>
-                <Text style={styles.eventDateText}>{moment(eventParam.from).format('YYYY.MM.DD')}</Text>
+                <Text style={styles.eventDateText}>{moment(eventParam.date).format('YYYY.MM.DD')}</Text>
                 <Text style={styles.eventDescText}>{eventParam.name}</Text>
               </View>
               <View style={{width: '50%', }}>
@@ -80,9 +69,7 @@ export default class EventDetailScreen extends Component {
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20, }}>
               <Icon name="schedule" style={styles.firstIcon} color="#73beff" size={20} />
-              <Text style={[styles.eventTimeText, { width: 220 }]}>
-                {moment(eventParam.from).format('YYYY. MMMM DD')}<Text style={styles.timeDivider}> | </Text>{moment(eventParam.from).format('HH:mm')} - {moment(eventParam.till).format('HH:mm')}
-              </Text>
+              <Text style={[styles.eventTimeText, { width: 210}]}>{moment(eventParam.date).format('YYYY. MMMM DD')} <Text style={styles.timeDivider}>|</Text> {moment(eventParam.startTime).format('HH:mm')} - {moment(eventParam.endTime).format('HH:mm')}</Text>
               <TouchableOpacity
                 style={styles.secondIcon}
                 activeOpacity={0.8}
@@ -93,7 +80,7 @@ export default class EventDetailScreen extends Component {
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 25, }}>>
               <Icon name="near-me" style={styles.firstIcon} color="#73beff" size={20} />
-              <View style={{ width: 220 }}>
+              <View style={{ width: 210, marginRight: 'auto'}}>
                 <Text style={styles.eventLocationText}>{eventParam.location.title}</Text>
                 <Text style={styles.eventAddressText}>{eventParam.location.name}</Text>
               </View>
@@ -105,7 +92,10 @@ export default class EventDetailScreen extends Component {
               </TouchableOpacity>
             </View>
 
-            { facebookEventBtn }
+            <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.facebook_event_url)}>
+              <FontAwesome name="facebook-square" size={25} color="#c49565"/>
+              <Text style={styles.facebookBtnText}>Facebook esemény</Text>
+            </TouchableOpacity>
 
             { eventDetails }
 
@@ -149,7 +139,8 @@ const styles = StyleSheet.create({
     height: 38,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 'auto',
+    marginLeft: 35,
+
   },
   eventTimeText: {
     fontFamily: 'Montserrat',
