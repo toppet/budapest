@@ -140,9 +140,14 @@ export default class HomeScreen extends Component {
     const currencies = await this.getCurrency();
     const weather = await this.getWeather();
     const jDate = await this.getJDate();
+<<<<<<< HEAD
     const language = await this._getAppLang();
 
     this.setState({ 
+=======
+    console.log("JDate", jDate);
+    this.setState({
+>>>>>>> 9a01a11fc51845278edd5ce9244c3d2c2156e30a
       loading: false,
       refreshing: false,
       currencies,
@@ -207,7 +212,7 @@ export default class HomeScreen extends Component {
         if(responseJson.success) {
           return responseJson.data;
         }
-        
+
         return null;
       })
       .catch((error) => {
@@ -260,13 +265,14 @@ export default class HomeScreen extends Component {
   getLoadingIndicator() {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color="#B7A99B" />
+        <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>Kérjük várjon ...</Text>
       </View>
     );
   }
 
   render() {
-    const { 
+    const {
       loading,
       currencies,
       weatherBUD,
@@ -380,16 +386,34 @@ export default class HomeScreen extends Component {
           <View style={{flex: 1, backgroundColor: 'transparent'}}>
             <ScrollView showsVerticalScrollIndicator={false}>
 
-              <View style={{marginBottom: 38}}>
-                <Text style={styles.title}>{textContent.homeTitle}</Text>
-                <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
+              <View style={{marginBottom: 30, flexDirection: 'row'}}>
+                <View>
+<<<<<<< HEAD
+                  <Text style={styles.title}>{textContent.homeTitle}</Text>
+=======
+                  <Text style={styles.title}>Üdvözöljük!</Text>
+>>>>>>> 9a01a11fc51845278edd5ce9244c3d2c2156e30a
+                  <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
+                </View>
+
+                {/* // ------ ÜNNEPNAP BOX -----
+                <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
+                  <View style={styles.unnepTitleView}>
+                    <Icon size={15} name="notifications" color="#434656"/>
+                    <Text style={styles.unnepTitle}>Ünnepnap:</Text>
+                  </View>
+                  <View style={styles.unnepnapBox}>
+                    <Text style={styles.unnepBoxTitle}>Rosh Hashana 5779</Text>
+                  </View>
+                </View>
+                // ------ ÜNNEPNAP BOX ----- */}
               </View>
 
               <View style={{flexDirection: 'row', marginBottom: 50, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center",  borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   { weathIcon }
                   <Text style={styles.weatherText}>{weatherBUD.summary ? weatherBUD.summary : '-'}</Text>
-                  <Text style={styles.weatherText}>{weathTemp ? weathTemp : '-'} °C</Text>
+                  <Text style={styles.weatherCels}>{weathTemp ? weathTemp : '-'} °C</Text>
                 </View>
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   <Icon size={30} name="today" color="#434656"/>
@@ -499,17 +523,95 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherIcon: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     resizeMode: 'contain',
+    marginBottom: 3,
   },
   weatherText: {
-    fontFamily: "Montserrat", 
-    fontSize: 11, 
-    fontWeight: "bold", 
-    fontStyle: "normal", 
-    textAlign: "center", 
+    fontFamily: "Montserrat",
+    fontSize: 11,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    textAlign: "center",
+    color: "#A3ABBC",
+  },
+  weatherCels: {
+    fontFamily: "Montserrat",
+    fontSize: 11,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    textAlign: "center",
+<<<<<<< HEAD
     color: "#434656",
+  },
+  unnepnapBox: {
+    width: 120,
+    height: 50,
+    borderRadius: 5,
+    backgroundColor: '#FF7070',
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: '#CFD0DF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  unnepBoxTitle: {
+    fontFamily: "Montserrat",
+    fontSize: 10,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: '#FFF',
+  },
+  unnepTitle: {
+    fontFamily: "Montserrat",
+    fontSize: 10,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#434656",
+  },
+=======
+    color: "#434656",
+  },
+  unnepnapBox: {
+    width: 120,
+    height: 50,
+    borderRadius: 5,
+    backgroundColor: '#FF7070',
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: '#CFD0DF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  unnepBoxTitle: {
+    fontFamily: "Montserrat",
+    fontSize: 10,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: '#FFF',
+  },
+  unnepTitle: {
+    fontFamily: "Montserrat",
+    fontSize: 10,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: "#434656",
+  },
+>>>>>>> 9a01a11fc51845278edd5ce9244c3d2c2156e30a
+  unnepTitleView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginBottom: 5,
   },
   upNextTitle:{
     color: "#b7a99b",

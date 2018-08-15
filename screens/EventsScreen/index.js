@@ -242,7 +242,8 @@ export default class EventsScreen extends Component {
   getLoadingIndicator() {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" />
+      <ActivityIndicator size="large" color="#B7A99B" />
+      <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>Kérjük várjon ...</Text>
       </View>
     );
   }
@@ -610,7 +611,7 @@ const styles = StyleSheet.create({
   },
   filterRowBg: {
     flex: 1,
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
     paddingVertical: 0,
     paddingHorizontal: 10,
     justifyContent: 'center',
@@ -623,7 +624,7 @@ const styles = StyleSheet.create({
     borderColor: '#ededed',
     backgroundColor: '#fff',
     position: 'relative',
-    
+
   },
   filterWrap: {
     paddingHorizontal: 15,
