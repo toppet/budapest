@@ -110,7 +110,12 @@ export default class CalendarScreen extends Component {
               { ...this.props }
               pageTitle="Naptár"
             />
-            <Text style={styles.pageTitle}>Válasszon napot!</Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Text style={styles.pageTitle}>Válasszon napot!</Text>
+              <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15, width: '35%'}}>
+                <Text style={styles.jewDate}>Elul 4 5778</Text>
+              </View>
+            </View>
             <View style={{ flex: 1 }}>
               <Agenda
                 items={this.state.items}
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   pageTitle: {
-    fontSize: 25,
+    fontSize: 24,
     fontFamily: "YoungSerif-Regular",
     paddingLeft: 15,
     marginTop: 30,
@@ -184,6 +189,15 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     color: '#A3ABBC',
     marginBottom: 10,
+  },
+  jewDate: {
+    fontFamily: "YoungSerif",
+    fontSize: 16,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "right",
+    color: '#A3ABBC',
   },
   emptyDate: {
     height: 15,
