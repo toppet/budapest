@@ -55,7 +55,7 @@ export default createBottomTabNavigator(
           shadowOffset: { width: 1, height: 5 },
           shadowOpacity: 1,
           shadowRadius: 2,
-          elevation: 1,
+          // elevation: 1,
         },
       }
     }),
