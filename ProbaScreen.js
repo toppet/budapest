@@ -31,7 +31,6 @@ export default class ProbaScreen extends Component {
 
   render() {
     const menu = <SideMenuScreen {...this.props} />;
-    console.log('probascreenprops', this.props);
     return (
       <SideMenu 
         menu={menu} 

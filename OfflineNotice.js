@@ -20,21 +20,20 @@ class OfflineNotice extends Component {
   };
 
   componentDidMount() {
-      NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+      NetInfo.isConnected.addEventListener('connectionChange', isConnected => this.setState({ isConnected }));
   }
 
   componentWillUnmount() {
-    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    NetInfo.isConnected.removeEventListener('connectionChange', isConnected => this.setState({ isConnected }));
   }
 
-  handleConnectivityChange = isConnected => {
-    if (isConnected) {
-      this.setState({ isConnected });
-      console.log(isConnected);
-    } else {
-      this.setState({ isConnected });
-    }
-  };
+  // handleConnectivityChange = isConnected => {
+  //   if (isConnected) {
+  //     this.setState({ isConnected });
+  //   } else {
+  //     this.setState({ isConnected });
+  //   }
+  // };
 
   render() {
     if (!this.state.isConnected) {
