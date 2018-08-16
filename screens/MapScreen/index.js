@@ -248,29 +248,8 @@ export default class MapScreen extends Component {
   }
 
   componentWillMount() {
-    this.index = 0;
+    // this.index = 0;
     // this.animation = new Animated.Value(0);
-  }
-
-  componentDidMount() {
-    // this.setState({
-    //   selectedMarker: this.state.markers[this.props.navigation.getParam('itemId')],
-    //   selectedMarkerIndex: this.props.navigation.getParam('itemId'),
-    // });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    // console.log('this.props', this.props);
-    // console.log('nextProps', nextProps);
-    // console.log('nextState', nextState);
-    // this.setState({
-    //   selectedMarker: this.state.markers[this.props.navigation.getParam('itemId')],
-    //   selectedMarkerIndex: this.props.navigation.getParam('itemId'),
-    // });
-    // if(this.state.selectedMarkerIndex !== nextState.selectedMarkerIndex) {
-    //   return true;
-    // }
-    // return false;
   }
 
   handleMapViewPress(e) {

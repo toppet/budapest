@@ -308,14 +308,14 @@ export default class HomeScreen extends Component {
       });
     }
 
-    if (currentJDate.data.type === 1) {
+    if (currentJDate.type === 1) {
       holidayBox = <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
         <View style={styles.unnepTitleView}>
           <Icon size={15} name="notifications" color="#434656"/>
           <Text style={styles.unnepTitle}>Ünnepnap:</Text>
         </View>
         <View style={styles.unnepnapBox}>
-          <Text style={styles.unnepBoxTitle}>{currentJDate.data.date}</Text>
+          <Text style={styles.unnepBoxTitle}>{currentJDate.date}</Text>
         </View>
       </View>
     }

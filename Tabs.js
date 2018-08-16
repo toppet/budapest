@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   Image
 } from 'react-native';
-import { createBottomTabNavigator, BottomTabBar } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 
 import HomeScreen from './screens/HomeScreen';
 import CalendarScreen from './screens/CalendarScreen';
