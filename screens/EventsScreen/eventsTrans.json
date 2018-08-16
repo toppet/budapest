@@ -1,0 +1,24 @@
+{
+ "en": {
+   "screenTitle": "Events",
+   "hamarosan": "Recent events",
+   "osszesevent": "Browse",
+   "dateBtn": "Date",
+   "tagBtn": "Location",
+   "emptyTitle": "No events found",
+   "emptyBody": "Please set different filter opptions",
+   "facebookBtn": "Check out on Facebook",
+   "details": "DETAILS"
+ },
+ "hu": {
+   "screenTitle": "Események",
+   "hamarosan": "Hamarosan",
+   "osszeshir": "Összes esemény",
+   "dateBtn": "Dátum",
+   "tagBtn": "Helyszín",
+   "emptyTitle": "Nincs esemény",
+   "emptyBody": "Állítson be más szűrőfeltételeket",
+   "facebookBtn": "Facebook esemény",
+   "details": "RÉSZLETEK"
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "en": {
+   "screenTitle": "News",
+   "aktualis": "Recent news",
+   "elolvasomBtn": "Read More",
+   "osszeshir": "Browse",
+   "dateBtn": "Date",
+   "tagBtn": "Tags",
+   "emptyTitle": "No news found",
+   "emptyBody": "Please set different filter opptions"
+ },
+ "hu": {
+   "screenTitle": "Hírek",
+   "aktualis": "Aktuális",
+   "elolvasomBtn": "Elolvasom",
+   "osszeshir": "Összes hír",
+   "dateBtn": "Dátum",
+   "tagBtn": "Címkék",
+   "emptyTitle": "Nincs hír",
+   "emptyBody": "Állítson be más szűrőfeltételeket"
+ }
+}

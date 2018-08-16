@@ -1,0 +1,24 @@
+{
+ "en": {
+   "screenTitle": "Map",
+   "nevezetesseg": "ATTRACTION",
+   "facebookBtn": "Facebook page",
+   "ticketBtn": "Buy tickets",
+   "belepo": "Entry fees: ",
+   "nyitvatartas": "Opening hours",
+   "nyitva": "Open",
+   "zarva": "Closed",
+   "bezaras": "Close"
+ },
+ "hu": {
+   "screenTitle": "Térkép",
+   "nevezetesseg": "NEVEZETESSÉG",
+   "facebookBtn": "Facebook oldal",
+   "ticketBtn": "Jegyértékesítés",
+   "belepo": "Belépők ára: ",
+   "nyitvatartas": "Nyitvatartás",
+   "nyitva": "Nyitva",
+   "zarva": "Zárva",
+   "bezaras": "Bezárás"
+ }
+}

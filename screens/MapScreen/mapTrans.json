@@ -1,0 +1,18 @@
+{
+ "en": {
+   "searchPlaceholder": "Search here: Places",
+   "nevezetesseg": "ATTRACTION",
+   "belepo": "Entry fee:",
+   "nyitvatartas": "Opening hours:",
+   "nyitva": "Open",
+   "zarva": "Closed"
+ },
+ "hu": {
+   "searchPlaceholder": "Keresés itt: Helyszínek",
+   "nevezetesseg": "NEVEZETESSÉG",
+   "belepo": "Belépő:",
+   "nyitvatartas": "Nyitvatartás:",
+   "nyitva": "Nyitva",
+   "zarva": "Zárva"
+ }
+}

@@ -22,13 +22,13 @@ import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
+import textContentJSON from './eventsTrans.json';
 
 export default class EventsScreen extends Component {
   constructor(props){
     super(props);
     this.state = {
       loading: true,
-      locationFilterPlaceholder: 'Helyszín',
       locationFilter: null,
       dateFilter: null,
       formattedDateFilter: null,
@@ -253,7 +253,6 @@ export default class EventsScreen extends Component {
       loading,
       locations,
       locationFilter,
-      locationFilterPlaceholder,
       events,
       comingEventsInState,
       dateFilter,
@@ -267,6 +266,16 @@ export default class EventsScreen extends Component {
     let locationPickers;
     let comingEvents = null;
     let eventListItems = null;
+
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+    let locationFilterPlaceholder = textContent.tagBtn;
+
+    if(this.props.screenProps.settingsEng) {
+      textContent = textContentJSON.en;
+      locationFilterPlaceholder = textContent.tagBtn;
+      moment.locale('en');
+    }
 
 
     if (loading) {
@@ -353,8 +362,8 @@ export default class EventsScreen extends Component {
     } else {
       eventListItems = (
         <View style={{alignItems: 'center', marginBottom: 20}}>
-          <Text style={styles.noEventTitle}>Nincs esemény</Text>
-          <Text style={styles.noEventSub}>Állítson be más szűrfeltételeket</Text>
+          <Text style={styles.noEventTitle}>{textContent.emptyTitle}</Text>
+          <Text style={styles.noEventSub}>{textContent.emptyBody}</Text>
           <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
         </View>
       );
@@ -364,7 +373,7 @@ export default class EventsScreen extends Component {
       <View style={styles.container}>
         <PageHeader
           { ...this.props }
-          pageTitle="Események"
+          pageTitle={textContent.screenTitle}
         />
 
           <ScrollView
@@ -378,13 +387,13 @@ export default class EventsScreen extends Component {
               />
             }
           >
-            <Text style={styles.title}>Hamarosan</Text>
+            <Text style={styles.title}>{textContent.hamarosan}</Text>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingBottom: 10, paddingHorizontal: 10,}}>
               { comingEvents }
             </ScrollView>
 
-            <Text style={styles.title}>Összes esemény</Text>
+            <Text style={styles.title}>{textContent.osszesevent}</Text>
 
             <View style={styles.filterRowBg}>
               <View style={styles.filterRow}>
@@ -401,7 +410,7 @@ export default class EventsScreen extends Component {
                       color={formattedDateFilter ? "#c49565" : "#434656"}
                     />
                     <Text style={formattedDateFilter ? styles.filterTextActive : styles.filterTextInActive}>
-                      {formattedDateFilter ? formattedDateFilter : 'Dátum'}
+                      {formattedDateFilter ? formattedDateFilter : textContent.dateBtn}
                     </Text>
                     { dateFilterClearBtn }
                   </TouchableOpacity>
