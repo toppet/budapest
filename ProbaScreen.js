@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import {
   View,
   Text,
@@ -28,7 +27,6 @@ export default class ProbaScreen extends Component {
     setTimeout(() => this.setState({ isOpen: isOpen }), 0);
   }
   
-
   render() {
     const menu = <SideMenuScreen {...this.props} />;
     return (

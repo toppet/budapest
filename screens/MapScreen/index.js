@@ -243,41 +243,33 @@ export default class MapScreen extends Component {
       },
     ],
     searchText: '',
+    navParamMapItemId: null,
   }
 
   componentWillMount() {
     this.index = 0;
-    this.animation = new Animated.Value(0);
+    // this.animation = new Animated.Value(0);
   }
 
   componentDidMount() {
-    // We should detect when scrolling has stopped then animate
-    // We should just debounce the event listener here
-    this.animation.addListener(({ value }) => {
-      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= this.state.markers.length) {
-        index = this.state.markers.length - 1;
-      }
-      if (index <= 0) {
-        index = 0;
-      }
+    // this.setState({
+    //   selectedMarker: this.state.markers[this.props.navigation.getParam('itemId')],
+    //   selectedMarkerIndex: this.props.navigation.getParam('itemId'),
+    // });
+  }
 
-      clearTimeout(this.regionTimeout);
-      this.regionTimeout = setTimeout(() => {
-        if (this.index !== index) {
-          this.index = index;
-          const { coordinate } = this.state.markers[index];
-          this.map.animateToRegion(
-            {
-              ...coordinate,
-              latitudeDelta: this.state.region.latitudeDelta,
-              longitudeDelta: this.state.region.longitudeDelta,
-            },
-            350
-          );
-        }
-      }, 10);
-    });
+  shouldComponentUpdate(nextProps, nextState) {
+    // console.log('this.props', this.props);
+    // console.log('nextProps', nextProps);
+    // console.log('nextState', nextState);
+    // this.setState({
+    //   selectedMarker: this.state.markers[this.props.navigation.getParam('itemId')],
+    //   selectedMarkerIndex: this.props.navigation.getParam('itemId'),
+    // });
+    // if(this.state.selectedMarkerIndex !== nextState.selectedMarkerIndex) {
+    //   return true;
+    // }
+    // return false;
   }
 
   handleMapViewPress(e) {
@@ -288,6 +280,7 @@ export default class MapScreen extends Component {
       });
     }
   }
+
   getOpeningHours(openingHours) {
     const { open, close, closed } = openingHours;
     const now = new Date();
@@ -311,10 +304,27 @@ export default class MapScreen extends Component {
     return resultText;
   }
 
+  setMarker(markerIndex) {
+    this.setState({
+      selectedMarker: this.state.markers[markerIndex],
+      selectedMarkerIndex: markerIndex,
+    });
+  }
+
   render() {
     let selectedMarkerCard = <View></View>;
-    const { selectedMarker, selectedMarkerIndex } = this.state;
+    let { selectedMarker, selectedMarkerIndex, navParamMapItemId } = this.state;
+    const { navigation } = this.props;
     const currentDayIndex = moment().day();
+    // let navParamMapItemId = navigation.getParam('itemId', null);
+
+    // if(selectedMarker === null && navParamMapItemId !== null) {
+    //   // console.log('this.state.markers[navParamMapItemId]', this.state.markers[navParamMapItemId], 'navParamMapItemId', navParamMapItemId);
+    //   // selectedMarkerIndex = navParamMapItemId;
+    //   // selectedMarker = this.state.markers[navParamMapItemId];
+    //   // navParamMapItemId = null;
+    //   // this.setMarker(navParamMapItemId);
+    // }
 
     if (selectedMarker) {
       selectedMarkerCard = (
@@ -408,7 +418,10 @@ export default class MapScreen extends Component {
                     key={index}
                     coordinate={marker.coordinate}
                     image={selectedMarkerIndex === index ? selectedPinIcon : pinIcon}
-                    onPress={() => this.setState({ selectedMarker: marker, selectedMarkerIndex: index })}>
+                    onPress={() => {
+                      selectedMarkerIndex !== index ? this.setState({ selectedMarker: marker, selectedMarkerIndex: index }) : null 
+                    }}
+                  >
                   </MapView.Marker>
                 );
               })}

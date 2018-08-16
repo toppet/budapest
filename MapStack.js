@@ -7,7 +7,7 @@ import MapScreen from './screens/MapScreen';
 export default createStackNavigator(
   {
     Map: {
-      screen: props => <MapScreen {...props} />,
+      screen: props => <MapScreen {...props} />
     },
     MapDetail: {
       screen: props => <MapDetailScreen {...props} />,

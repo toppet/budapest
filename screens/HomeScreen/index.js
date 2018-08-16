@@ -19,6 +19,8 @@ import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 
+import { NavigationActions } from 'react-navigation';
+
 import moment from 'moment';
 import 'moment/locale/hu';
 
@@ -76,7 +78,7 @@ export default class HomeScreen extends Component {
     const jDate = await this.getJDate();
     const latestNews = await this.getLatestNews();
     const latestEvents = await this.getLatestEvents();
-
+    console.log('jDate', jDate);
     this.setState({ 
       loading: false,
       refreshing: false,
@@ -258,9 +260,9 @@ export default class HomeScreen extends Component {
       moment.locale('en'); 
     }
 
-    const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
-    const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
-    const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
+    const newsCardWidth = parseInt(Dimensions.get('window').width * 0.6, 10);
+    const eventCardWidth = parseInt(Dimensions.get('window').width * 0.7, 10);
+    const placesCardWidth = parseInt(Dimensions.get('window').width * 0.5, 10);
     
     let EUR_HUF = null;
     let USD_HUF = null;
@@ -268,6 +270,7 @@ export default class HomeScreen extends Component {
     let weathIcon = null;
     let newsCards = null;
     let eventCards = null;
+    let holidayBox = null;
 
     if(loading) {
       return this.getLoadingIndicator();
@@ -305,6 +308,18 @@ export default class HomeScreen extends Component {
       });
     }
 
+    if (currentJDate.data.type === 1) {
+      holidayBox = <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
+        <View style={styles.unnepTitleView}>
+          <Icon size={15} name="notifications" color="#434656"/>
+          <Text style={styles.unnepTitle}>Ünnepnap:</Text>
+        </View>
+        <View style={styles.unnepnapBox}>
+          <Text style={styles.unnepBoxTitle}>{currentJDate.data.date}</Text>
+        </View>
+      </View>
+    }
+
     if (latestEvents && latestEvents.length > 0) {
       eventCards = latestEvents.map((e) => (
         <TouchableOpacity style={[styles.cardShadow, { width: eventCardWidth }]} key={e.id} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
@@ -333,20 +348,24 @@ export default class HomeScreen extends Component {
       ));
     }
 
-    const placesCards = bestPlaces.map((e) => (
-      <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth }]} key={e.id} activeOpacity={1}>
-        <View style={styles.placeCard}>
+    const placesCards = bestPlaces.map((e) => {
+      return (
+        <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth }]} key={e.id} activeOpacity={1}>
+          <View style={styles.placeCard}>
 
-          <View style={styles.imageBgPlace}>
-            <ImageBackground source={e.imageSrc} resizeMode='cover' style={{width: '100%', height: 115}}/>
+            <View style={styles.imageBgPlace}>
+              <ImageBackground source={e.imageSrc} resizeMode='cover' style={{width: '100%', height: 115}}/>
+            </View>
+            <TouchableOpacity style={styles.readMoreBtn} onPress={() => { this.props.navigation.navigate("Map", { itemId: e.id }) }}
+              activeOpacity={0.95}
+            >
+              <Text style={styles.readMoreBtnText}>{e.placeName}</Text>
+            </TouchableOpacity>
+
           </View>
-          <TouchableOpacity style={styles.readMoreBtn} onPress={() => this.props.navigation.navigate('Map', { mapItem: e  })} activeOpacity={0.95}>
-            <Text style={styles.readMoreBtnText}>{e.placeName}</Text>
-          </TouchableOpacity>
-
-        </View>
-      </TouchableOpacity>
-    ));
+        </TouchableOpacity>
+      );
+    });
 
 
     return (
@@ -374,17 +393,7 @@ export default class HomeScreen extends Component {
                   <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
                 </View>
 
-                {/* // ------ ÜNNEPNAP BOX -----
-                <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
-                  <View style={styles.unnepTitleView}>
-                    <Icon size={15} name="notifications" color="#434656"/>
-                    <Text style={styles.unnepTitle}>Ünnepnap:</Text>
-                  </View>
-                  <View style={styles.unnepnapBox}>
-                    <Text style={styles.unnepBoxTitle}>Rosh Hashana 5779</Text>
-                  </View>
-                </View>
-                // ------ ÜNNEPNAP BOX ----- */}
+                { holidayBox }
               </View>
 
               <View style={{flexDirection: 'row', marginBottom: 50, alignItems: 'center', justifyContent: 'center' }}>
@@ -395,7 +404,7 @@ export default class HomeScreen extends Component {
                 </View>
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   <Icon size={30} name="today" color="#434656"/>
-                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate.data}</Text>
+                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate.data.date}</Text>
                 </View>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
                   <Icon size={30} name="show-chart" color="#434656"/>
@@ -415,7 +424,7 @@ export default class HomeScreen extends Component {
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('News')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.mindBtn}</Text>
+                    <Text style={styles.moreBtn}>{textContent.mindBtn}</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -431,7 +440,7 @@ export default class HomeScreen extends Component {
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Events')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.mindBtn}</Text>
+                    <Text style={styles.moreBtn}>{textContent.mindBtn}</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -447,12 +456,12 @@ export default class HomeScreen extends Component {
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Map')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.terkepBtn}</Text>
+                    <Text style={styles.moreBtn}>{textContent.terkepBtn}</Text>
                   </TouchableOpacity>
                 </View>
 
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginBottom: 15, paddingHorizontal: 15}}>
-                  {placesCards}
+                  { placesCards }
                 </ScrollView>
               </View>
 
@@ -738,4 +747,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#a3abbc',
   },
+  moreBtn: {
+    fontFamily: "Montserrat", 
+    fontWeight: 'bold', 
+    color: '#b7a99b', 
+    fontSize: 15, 
+    padding: 10
+  }
 });

@@ -39,15 +39,15 @@ class OfflineNotice extends Component {
     if (!this.state.isConnected) {
       return (
         <View style={styles.offlineContainerNo}>
-        <View style={{position: 'absolute', top: 60}}>
-          <Icon name="arrow-downward" size={30} color="#73beff" />
-        </View>
-        <View style={{position: 'absolute', top: 100}}>
-          <Text style={styles.pullText}>Frissítéshez húzza le a képernyőt</Text>
-        </View>
-        <View>
-            <ImageBackground source={require('./assets/images/illustrationNointernet.png')} style={{width: 375, height: 325}} />
-        </View>
+          <View style={{position: 'absolute', top: 60}}>
+            <Icon name="arrow-downward" size={30} color="#73beff" />
+          </View>
+          <View style={{position: 'absolute', top: 100}}>
+            <Text style={styles.pullText}>Frissítéshez húzza le a képernyőt</Text>
+          </View>
+          <View>
+              <ImageBackground source={require('./assets/images/illustrationNointernet.png')} style={{width: 375, height: 325}} />
+          </View>
           <View>
             <Text style={styles.offlineText}>Nincs internetkapcsolat</Text>
           </View>
