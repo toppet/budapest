@@ -259,7 +259,7 @@ export default class EventsScreen extends Component {
       formattedDateFilter,
       refreshingEventsList,
     } = this.state;
-
+    
     let dateFilterClearBtn = null;
     let locationFilterCancelBtn = null;
 

@@ -16,9 +16,9 @@ export default createBottomTabNavigator(
     Home: {
       screen: props => <HomeScreen {...props}/>
     },
-    Map: MapStack,
-    Events: EventsStack,
-    News: NewsStack,
+    MapStack: MapStack,
+    EventsStack: EventsStack,
+    NewsStack: NewsStack,
     Calendar: CalendarScreen,
   },
   {
@@ -30,11 +30,11 @@ export default createBottomTabNavigator(
 
         if (routeName === 'Home') {
           icon = <Image source={require('./assets/images/home.png')} />;
-        } else if (routeName === 'Map') {
+        } else if (routeName === 'MapStack') {
           icon = <Image source={require('./assets/images/map.png')} />;
-        } else if (routeName === 'Events') {
+        } else if (routeName === 'EventsStack') {
           icon = <Image source={require('./assets/images/explore.png')} />;
-        } else if (routeName === 'News') {
+        } else if (routeName === 'NewsStack') {
           icon = <Image source={require('./assets/images/news.png')} />;
         } else if (routeName === 'Calendar') {
           icon = <Image source={require('./assets/images/calendar.png')} />;

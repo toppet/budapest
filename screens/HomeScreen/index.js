@@ -6,90 +6,27 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  Button,
   Dimensions,
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
   ActivityIndicator,
-  AsyncStorage,
+  RefreshControl,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
+
+import { NavigationActions } from 'react-navigation';
+
 import moment from 'moment';
 import 'moment/locale/hu';
-
-// require('moment/locale/hu');
 
 import textContentJSON from './homeScreenTrans.json';
 
 import PageHeader from '../../components/PageHeader';
-
-const latestNews = [
-  {
-    id: 0,
-    imageSrc: require('../../assets/images/zsinagoga.jpg'),
-    desc: 'Új applikáció készül a zsidó közösség számára, és ez egy nagyon nagyon hosszú cím ',
-    date: new Date(),
-  },
-  {
-    id: 1,
-    imageSrc: require('../../assets/images/zsinagoga.jpg'),
-    desc: 'Új applikáció készül a zsidó közösség számára',
-    date: new Date(),
-  },
-  {
-    id: 3,
-    imageSrc: require('../../assets/images/zsinagoga.jpg'),
-    desc: 'Új applikáció készül a zsidó közösség számára',
-    date: new Date(),
-  },
-  {
-    id: 4,
-    imageSrc: require('../../assets/images/zsinagoga.jpg'),
-    desc: 'Új applikáció készül a zsidó közösség számára',
-    date: new Date(),
-  },
-  {
-    id: 5,
-    imageSrc: require('../../assets/images/zsinagoga.jpg'),
-    desc: 'Új applikáció készül a zsidó közösség számára',
-    date: new Date(),
-  },
-];
-
-
-
-const latestEvents = [
-  {
-    id: 0,
-    eventDesc: 'Legközelebbi esemény címe, amely ilyen hosszú lehet.',
-    date: '2018-09-11 12:00',
-  },
-  {
-    id: 1,
-    eventDesc: 'Ez meg pont egy masik esemeny, ami nemsokora lesz.',
-    date: '2018-10-05 20:00',
-  },
-  {
-    id: 2,
-    eventDesc: 'Ez meg mondjuk egy harmadik esemeny.',
-    date: '2018-11-01 00:00',
-  },
-  {
-    id: 3,
-    eventDesc: 'Ez lesz a negyedik.',
-    date: '2019-12-24 22:30',
-  },
-  {
-    id: 4,
-    eventDesc: 'Na még egyet a végére, hogy meglegyen az öt darab.',
-    date: '2019-01-23 09:00',
-  },
-]
 
 const bestPlaces = [
   {
@@ -122,12 +59,11 @@ const bestPlaces = [
 export default class HomeScreen extends Component {
   constructor(props){
     super(props);
-    //console.log('props.settingsEng', props.screenProps.settingsEng);
     this.state = {
       loading: true,
       menuOpened: false,
-      currencies: {},
-      weatherBUD: {},
+      currencies: null,
+      weatherBUD: null,
       currentJDate: '-',
     }
   }
@@ -140,7 +76,8 @@ export default class HomeScreen extends Component {
     const currencies = await this.getCurrency();
     const weather = await this.getWeather();
     const jDate = await this.getJDate();
-    const language = await this._getAppLang();
+    const latestNews = await this.getLatestNews();
+    const latestEvents = await this.getLatestEvents();
 
     this.setState({
       loading: false,
@@ -148,22 +85,27 @@ export default class HomeScreen extends Component {
       currencies,
       weatherBUD: weather,
       currentJDate: jDate,
-      language,
+      latestNews,
+      latestEvents,
     });
   }
 
-  _getAppLang = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore:key');
-      console.log('home langvalue', value);
-      if (value !== null) {
-        // We have data!!
-        return value;
-        // this.setState({ settingsEng: value === 'eng' ? true : false });
-      }
-     } catch (error) {
-       // Error retrieving data
-     }
+  _onRefresh = async () => {
+    this.setState({
+      refreshing: true,
+    });
+
+    setTimeout(() => this.fetchData(), 1000);
+
+    // // a little bit of delay
+    // setTimeout(() =>
+    //   this.setState({
+    //     latestNewsInState: refreshednewsAndTopNewsResponse,
+    //     top3News: this.getTop3News(refreshednewsAndTopNewsResponse),
+    //     refreshing: false,
+    //     refreshingNewsList: false,
+    //   }),
+    // 1000);
   }
 
   getCurrency = async () => {
@@ -175,7 +117,7 @@ export default class HomeScreen extends Component {
         return responseData;
       })
       .catch((error) => {
-        return error;
+        return null;
       });
     } catch(e) {
       return e;
@@ -183,6 +125,7 @@ export default class HomeScreen extends Component {
   }
 
   getWeather = async () => {
+    
     try {
       return fetch('https://api.darksky.net/forecast/e2118a40696c374f321c8af86daec18f/47.50045,19.07012?exclude=daily,minutely,hourly,alerts,flags&units=si&lang=hu')
         .then((response) => response.json())
@@ -191,7 +134,7 @@ export default class HomeScreen extends Component {
           return responseData;
         })
         .catch((error) => {
-          return error;
+          return null;
         });
     } catch(e) {
       return e;
@@ -199,22 +142,55 @@ export default class HomeScreen extends Component {
   }
 
   getJDate = async () => {
+    
     const today = moment().format('YYYY-MM-DD');
     try {
       return await fetch(`https://jewps.hu/api/v1/utils/date?date=${today}`)
       .then((response) => response.json())
       .then((responseJson) => {
-        if(responseJson.success) {
-          return responseJson.data;
-        }
 
-        return null;
+        return responseJson.success ? responseJson.data : null;
       })
       .catch((error) => {
-        return error;
+        return null;
       });
     } catch(e) {
       return e;
+    }
+  }
+
+  getLatestNews = async () => {
+    
+    try {
+      return await fetch('https://jewps.hu/api/v1/news')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const responseData = responseJson.data;
+          if(responseJson.success) {
+            return responseData.slice(0, 4);
+          } 
+          return null;
+        })
+        .catch((error) => {
+          return null;
+
+        });
+        
+    } catch(e) {
+      return e;
+    }
+  }
+
+  getLatestEvents = async () => {
+    
+    try {
+      return await fetch('https://jewps.hu/api/v1/events')
+      .then(response => response.json())
+      .then(resJson => {
+        return resJson.success ? resJson.data.slice(0, 4) : null;
+      })
+    } catch(e) {
+      return null;
     }
   }
 
@@ -272,6 +248,8 @@ export default class HomeScreen extends Component {
       currencies,
       weatherBUD,
       currentJDate,
+      latestNews,
+      latestEvents,
     } = this.state;
 
     let textContent =  textContentJSON.hu;
@@ -282,14 +260,17 @@ export default class HomeScreen extends Component {
       moment.locale('en');
     }
 
-    const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
-    const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
-    const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
+    const newsCardWidth = parseInt(Dimensions.get('window').width * 0.6, 10);
+    const eventCardWidth = parseInt(Dimensions.get('window').width * 0.7, 10);
+    const placesCardWidth = parseInt(Dimensions.get('window').width * 0.5, 10);
 
     let EUR_HUF = null;
     let USD_HUF = null;
     let weathTemp = null;
     let weathIcon = null;
+    let newsCards = null;
+    let eventCards = null;
+    let holidayBox = null;
 
     if(loading) {
       return this.getLoadingIndicator();
@@ -305,70 +286,86 @@ export default class HomeScreen extends Component {
       weathIcon = this.renderWeathIcon(weatherBUD.icon);
     }
 
-    const newsCards = latestNews.map((n) => (
-      <View style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id}>
-        <View style={styles.newsCard}>
+    if(latestNews && latestNews.length > 0) {
+      newsCards = latestNews.map((n) => {
+        const bgImage =  _.find(n.media, n => n.type === 1);
+        return (
+          <TouchableOpacity style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n })} activeOpacity={0.8}>
+            <View style={styles.newsCard}>
+    
+              <View style={styles.imageBgBox}>
+                <ImageBackground source={{ uri: bgImage.src_thumbs }} style={{width: '100%', height: '100%'}}/>
+              </View>
 
-          <View style={styles.imageBgBox}>
-            <ImageBackground source={n.imageSrc} style={{width: '100%', height: '100%'}}/>
-          </View>
-          <View style={styles.newsCardInfoView}>
+              <View style={styles.newsCardInfoView}>
+                <Text style={styles.newsDate}>{moment(n.posted_at).format('YYYY.MM.DD')}</Text>
+              </View>
 
-            <Text style={styles.newsDate}>{moment(n.date).format('YYYY.MM.DD')}</Text>
+              <Text style={styles.newsCardDesc}>{n.title}</Text>
+            </View>
+          </TouchableOpacity>
+        )
+      });
+    }
 
-            {/* <TouchableOpacity onPress={() => console.log('ikonka')} style={{ marginLeft: 'auto' }}>
-              <Icon name="bookmark-border" size={25} color="#73beff" />
-            </TouchableOpacity> */}
-
-            {/* <TouchableOpacity onPress={() => console.log('ikonka')} style={{marginLeft: 10}}>
-              <CustomIcon name="ic_share" size={20} color='#73beff'/>
-            </TouchableOpacity> */}
-          </View>
-          <Text style={styles.newsCardDesc}>{n.desc}</Text>
-
-
+    if (currentJDate.data.type === 1) {
+      holidayBox = <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
+        <View style={styles.unnepTitleView}>
+          <Icon size={15} name="notifications" color="#434656"/>
+          <Text style={styles.unnepTitle}>Ünnepnap:</Text>
+        </View>
+        <View style={styles.unnepnapBox}>
+          <Text style={styles.unnepBoxTitle}>{currentJDate.data.date}</Text>
         </View>
       </View>
-    ));
+    }
 
-    const eventCards = latestEvents.map((e) => (
-      <TouchableOpacity style={[styles.cardShadow, { width: eventCardWidth }]} key={e.id} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
-        <View style={styles.eventCard}>
+    if (latestEvents && latestEvents.length > 0) {
+      eventCards = latestEvents.map((e) => (
+        <TouchableOpacity style={[styles.cardShadow, { width: eventCardWidth }]} key={e.id} onPress={() => this.props.navigation.navigate('EventDetail', { event: e })} activeOpacity={0.8}>
+          <View style={styles.eventCard}>
 
-          <View style={styles.eventCardInfoView}>
-            <View style={styles.eventDayView}>
-              <Text style={styles.eventDay}>{moment(e.date).format('DD')}</Text>
+            <View style={styles.eventCardInfoView}>
+              <View style={styles.eventDayView}>
+                <Text style={styles.eventDay}>{moment(e.from).format('DD')}</Text>
+              </View>
+
+              <View style={{flex: 1, marginRight: 'auto'}}>
+                <Text style={styles.eventMonth}>{moment(e.from).format('MMMM').replace(/^\w/, c => c.toUpperCase())}</Text>
+                <Text style={styles.eventYear}>{moment(e.from).format('YYYY')}</Text>
+              </View>
+              
+              <View style={{width: 55}}>
+                <Text style={styles.eventTime}>{moment(e.from).format('HH:mm')}</Text>
+                <Text style={styles.eventTimeText}>{'Kezdés'}</Text>
+              </View>
             </View>
-            <View style={{flex: 1, marginRight: 'auto'}}>
-              <Text style={styles.eventMonth}>{moment(e.date).format('MMMM').replace(/^\w/, c => c.toUpperCase())}</Text>
-              <Text style={styles.eventYear}>{moment(e.date).format('YYYY')}</Text>
-            </View>
-            <View style={{width: 55}}>
-              <Text style={styles.eventTime}>{moment(e.date).format('HH:mm')}</Text>
-              <Text style={styles.eventTimeText}>{'Kezdés'}</Text>
-            </View>
+
+            <Text style={styles.eventCardDesc}>{e.name}</Text>
+
           </View>
+        </TouchableOpacity>
+      ));
+    }
 
-          <Text style={styles.eventCardDesc}>{e.eventDesc}</Text>
+    const placesCards = bestPlaces.map((e) => {
+      return (
+        <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth }]} key={e.id} activeOpacity={1}>
+          <View style={styles.placeCard}>
 
-        </View>
-      </TouchableOpacity>
-    ));
+            <View style={styles.imageBgPlace}>
+              <ImageBackground source={e.imageSrc} resizeMode='cover' style={{width: '100%', height: 115}}/>
+            </View>
+            <TouchableOpacity style={styles.readMoreBtn} onPress={() => { this.props.navigation.navigate("Map", { itemId: e.id }) }}
+              activeOpacity={0.95}
+            >
+              <Text style={styles.readMoreBtnText}>{e.placeName}</Text>
+            </TouchableOpacity>
 
-    const placesCards = bestPlaces.map((e) => (
-      <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth }]} key={e.id} activeOpacity={1}>
-        <View style={styles.placeCard}>
-
-          <View style={styles.imageBgPlace}>
-            <ImageBackground source={e.imageSrc} resizeMode='cover' style={{width: '100%', height: 115}}/>
           </View>
-          <TouchableOpacity style={styles.readMoreBtn} onPress={() => this.props.navigation.navigate('Map', { mapItem: e  })} activeOpacity={0.95}>
-            <Text style={styles.readMoreBtnText}>{e.placeName}</Text>
-          </TouchableOpacity>
-
-        </View>
-      </TouchableOpacity>
-    ));
+        </TouchableOpacity>
+      );
+    });
 
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
@@ -378,7 +375,16 @@ export default class HomeScreen extends Component {
           <PageHeader {...this.props} noRightIcon/>
 
           <View style={{flex: 1, backgroundColor: 'transparent'}}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+
+            <ScrollView 
+              showsVerticalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this._onRefresh}
+                />
+              }
+            >
 
               <View style={{marginBottom: 30, flexDirection: 'row'}}>
                 <View>
@@ -386,23 +392,13 @@ export default class HomeScreen extends Component {
                   <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
                 </View>
 
-                {/* // ------ ÜNNEPNAP BOX -----
-                <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
-                  <View style={styles.unnepTitleView}>
-                    <Icon size={15} name="notifications" color="#434656"/>
-                    <Text style={styles.unnepTitle}>Ünnepnap:</Text>
-                  </View>
-                  <View style={styles.unnepnapBox}>
-                    <Text style={styles.unnepBoxTitle}>Rosh Hashana 5779</Text>
-                  </View>
-                </View>
-                // ------ ÜNNEPNAP BOX ----- */}
+                { holidayBox }
               </View>
 
               <View style={{flexDirection: 'row', marginBottom: 50, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center",  borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   { weathIcon }
-                  <Text style={styles.weatherText}>{weatherBUD.summary ? weatherBUD.summary : '-'}</Text>
+                  <Text style={styles.weatherText}>{weatherBUD && weatherBUD.summary ? weatherBUD.summary : '-'}</Text>
                   <Text style={styles.weatherCels}>{weathTemp ? weathTemp : '-'} °C</Text>
                 </View>
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
@@ -427,7 +423,7 @@ export default class HomeScreen extends Component {
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('News')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.mindBtn}</Text>
+                    <Text style={styles.moreBtn}>{textContent.mindBtn}</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -443,7 +439,7 @@ export default class HomeScreen extends Component {
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Events')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.mindBtn}</Text>
+                    <Text style={styles.moreBtn}>{textContent.mindBtn}</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -459,12 +455,12 @@ export default class HomeScreen extends Component {
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Map')}
                   >
-                    <Text style={{fontFamily: "Montserrat", fontWeight: 'bold', color: '#b7a99b', fontSize: 15}}>{textContent.terkepBtn}</Text>
+                    <Text style={styles.moreBtn}>{textContent.terkepBtn}</Text>
                   </TouchableOpacity>
                 </View>
 
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginBottom: 15, paddingHorizontal: 15}}>
-                  {placesCards}
+                  { placesCards }
                 </ScrollView>
               </View>
 
@@ -750,4 +746,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#a3abbc',
   },
+  moreBtn: {
+    fontFamily: "Montserrat", 
+    fontWeight: 'bold', 
+    color: '#b7a99b', 
+    fontSize: 15, 
+    padding: 10
+  }
 });
