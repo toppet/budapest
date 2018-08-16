@@ -74,7 +74,6 @@ export default class MapDetailScreen extends Component {
   }
 
   _renderItem ({ item }) {
-    console.log('renderItem');
     return (
       <TouchableOpacity
         activeOpacity={1}
@@ -86,7 +85,6 @@ export default class MapDetailScreen extends Component {
               source={item.illustration}
               resizeMode={'cover'}
               style={{width: 310, height: 175}}
-              onLoad={() => console.log('loaded')}
             />
           </View>
       </TouchableOpacity>
