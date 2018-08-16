@@ -23,12 +23,13 @@ import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
 
+import textContentJSON from './newsTrans.json';
+
 export default class NewsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tags: [],
-      tagFilterPlaceholder: 'Cimkék',
       selectedTagFilterId: null,
       selectedDateFilter: null,
       tagModalVisible: false,
@@ -256,13 +257,14 @@ export default class NewsScreen extends Component {
     })
   }
 
+
+
   // RENDER
   render() {
     const {
       loading,
       tags,
       selectedTagFilterId,
-      tagFilterPlaceholder,
       latestNewsInState,
       top3News,
       chosenDate,
@@ -270,6 +272,17 @@ export default class NewsScreen extends Component {
       refreshingNewsList,
       datePickerModalVisible,
     } = this.state;
+
+
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+    let tagFilterPlaceholder = textContent.tagBtn;
+    
+    if(this.props.screenProps.settingsEng) {
+      textContent = textContentJSON.en;
+      tagFilterPlaceholder = textContent.tagBtn;
+      moment.locale('en');
+    }
 
     if (loading) {
       return this.getLoadingIndicator();
@@ -333,7 +346,7 @@ export default class NewsScreen extends Component {
               </ImageBackground>
             </View>
             <TouchableOpacity style={styles.readMoreBtn} activeOpacity={0.95} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n }) }>
-              <Text style={styles.readMoreBtnText}>Elolvasom</Text>
+              <Text style={styles.readMoreBtnText}>{textContent.elolvasomBtn}</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -353,19 +366,20 @@ export default class NewsScreen extends Component {
     } else {
       newsListItems = (
         <View style={{alignItems: 'center', marginBottom: 20}}>
-          <Text style={styles.noNewsTitle}>Nincs hír</Text>
-          <Text style={styles.noNewsSub}>Állítson be más szűrfeltételeket</Text>
+          <Text style={styles.noNewsTitle}>{textContent.emptyTitle}</Text>
+          <Text style={styles.noNewsSub}>{textContent.emptyBody}</Text>
           <Image source={require('../../assets/images/hir_esemeny_empty.png')} style={{width: 250, height: 125, marginTop: 15,}}/>
         </View>
       );
     }
+
 
     return (
       <View style={styles.container}>
 
         <PageHeader
           {...this.props}
-          pageTitle="Hírek"
+          pageTitle={textContent.screenTitle}
         />
 
         <ScrollView
@@ -379,13 +393,13 @@ export default class NewsScreen extends Component {
           }
           style={styles.content}
         >
-          <Text style={styles.title}>Aktuális</Text>
+          <Text style={styles.title}>{textContent.aktualis}</Text>
 
           <View style={{paddingBottom: 10, paddingHorizontal: 15, }}>
             {news}
           </View>
 
-          <Text style={styles.title}>Összes hír</Text>
+          <Text style={styles.title}>{textContent.osszeshir}</Text>
 
           <View style={styles.filterRow}>
             <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
@@ -401,7 +415,7 @@ export default class NewsScreen extends Component {
                   color={formatterChosenDate ? "#c49565" : "#434656"}
                 />
                 <Text style={formatterChosenDate ? styles.filterTextActive : styles.filterTextInActive}>
-                  {formatterChosenDate ? formatterChosenDate : 'Dátum'}
+                  {formatterChosenDate ? formatterChosenDate : textContent.dateBtn}
                 </Text>
                 {dateFilterClearBtn}
               </TouchableOpacity>

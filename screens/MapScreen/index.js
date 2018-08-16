@@ -24,6 +24,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
+import textContentJSON from './mapTrans.json';
 
 const { width, height } = Dimensions.get("window");
 
@@ -312,6 +313,15 @@ export default class MapScreen extends Component {
   }
 
   render() {
+
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+
+    if(this.props.screenProps.settingsEng) {
+      textContent = textContentJSON.en;
+      moment.locale('en');
+    }
+
     let selectedMarkerCard = <View></View>;
     const { selectedMarker, selectedMarkerIndex } = this.state;
     const currentDayIndex = moment().day();
@@ -321,12 +331,12 @@ export default class MapScreen extends Component {
         <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
           <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/>
           <View style={styles.leftView}>
-            <Text style={styles.markerType}>NEVEZETESSÉG</Text>
+            <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
             <Text style={styles.markerTitle}>{selectedMarker.title}</Text>
             <Text style={styles.labelText}>
-              Belépő: <Text style={styles.valueText}>{`${selectedMarker.entryFee} ${selectedMarker.currency}`}</Text>
+              {textContent.belepo} <Text style={styles.valueText}>{`${selectedMarker.entryFee} ${selectedMarker.currency}`}</Text>
             </Text>
-            <Text style={styles.labelText}>Nyitvatartás:</Text>
+            <Text style={styles.labelText}>{textContent.nyitvatartas}</Text>
             <Text style={styles.valueText}>
               {this.getOpeningHours(selectedMarker.openingHours[currentDayIndex])}
             </Text>
@@ -364,7 +374,7 @@ export default class MapScreen extends Component {
 
                   }]
                 }
-                placeholder="Keresés itt: Helyszínek"
+                placeholder={textContent.searchPlaceholder}
                 placeholderTextColor="#b7a99b"
                 onChangeText={(text) => this.setState({ searchText: text })}
                 value={this.state.searchText}

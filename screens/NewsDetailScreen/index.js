@@ -13,6 +13,8 @@ import PageHeader from '../../components/PageHeader';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import textContentJSON from '../NewsScreen/newsTrans.json';
+
 export default class NewsDetailScreen extends Component {
   static navigationOptions = {
     title: 'News Detail',
@@ -28,6 +30,16 @@ export default class NewsDetailScreen extends Component {
     const { navigation } = this.props;
     const newsItem = navigation.getParam('newsItem');
     // console.log('newItem', newsItem);
+
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+
+    if(this.props.screenProps.settingsEng) {
+      textContent = textContentJSON.en;
+      tagFilterPlaceholder = textContent.tagBtn;
+      moment.locale('en');
+
+    }
 
     const headerImage = _.find(newsItem.media, n => n.type === 1);
     const youtubeMedia = _.find(newsItem.media, n => n.type === 2) || null;
@@ -56,7 +68,7 @@ export default class NewsDetailScreen extends Component {
       <SafeAreaView style={styles.container}>
         <PageHeader
           {...this.props}
-          pageTitle="Hírek"
+          pageTitle={textContent.screenTitle}
           isBack
         />
         <ScrollView showsVerticalScrollIndicator={false}>

@@ -17,6 +17,9 @@ import {
 import ProbaScreen from './ProbaScreen';
 import OfflineNotice from './OfflineNotice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import moment from 'moment';
+
+import textContentJSON from './screens/SideMenuScreen/menuRootTrans.json';
 
 import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
 import Communications from 'react-native-communications';
@@ -30,7 +33,6 @@ export default class App extends Component {
     settingsNotifications: false,
     settingsLocation: false,
     settingsEng: false,
-
   }
 
   componentDidMount() {
@@ -75,6 +77,13 @@ export default class App extends Component {
 
   render() {
     YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Remote debugger']);
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+
+    if(this.state.settingsEng) {
+      textContent = textContentJSON.en;
+      moment.locale('en');
+    }
     return (
       <View style={{flex:1}}>
 
@@ -86,12 +95,12 @@ export default class App extends Component {
         >
           <View style={styles.dialogView}>
             <View style={styles.settingRow}>
-              <Text style={styles.settingText}>Értesítések</Text>
+              <Text style={styles.settingText}>{textContent.beallitasokNotif}</Text>
               <Switch value={this.state.settingsNotifications} onValueChange={() => this.setState({settingsNotifications: !this.state.settingsNotifications})}></Switch>
             </View>
 
             <View style={styles.settingRow}>
-              <Text style={styles.settingText}>Helymeghatározás</Text>
+              <Text style={styles.settingText}>{textContent.beallitasokLocation}</Text>
               <Switch value={this.state.settingsLocation} onValueChange={() => this.setState({settingsLocation: !this.state.settingsLocation})}></Switch>
             </View>
 
@@ -101,7 +110,7 @@ export default class App extends Component {
             </View>
 
             <TouchableOpacity onPress={() => this.settingsDialog.dismiss()}>
-              <Text style={styles.dismissBtn}>Ablak bezárása</Text>
+              <Text style={styles.dismissBtn}>{textContent.beallitasokClose}</Text>
             </TouchableOpacity>
           </View>
         </PopupDialog>
@@ -120,48 +129,47 @@ export default class App extends Component {
                 activeOpacity={0.8}>
                 <Icon size={30} name="clear" style={styles.close} />
               </TouchableOpacity>
-                <Text style={styles.pageTitle}>Kapcsolat</Text>
+                <Text style={styles.pageTitle}>{textContent.kapcsolatTitle}</Text>
               <TouchableOpacity
                 activeOpacity={1}>
                 <Icon size={30} name="clear" style={styles.rightIc} />
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.contentTitle}>Tartalmakért felelős személy</Text>
+            <Text style={styles.contentTitle}>{textContent.kapcsolatTartalom}</Text>
 
             <View style={styles.tartalom}>
               <View style={styles.kapcsolat}>
-                  <Text style={styles.kapcsName}>Bármi Áron</Text>
-                  <Text style={styles.kapcsRole}>tartalmakért felelős Dohány utcai Zsinagóga</Text>
+                  <Text style={styles.kapcsName}>{textContent.kapcsolatPerson}</Text>
+                  <Text style={styles.kapcsRole}>{textContent.kapcsolatPersonSub}</Text>
               </View>
               <View style={styles.kapcsButtonView}>
                 <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['frolich.robert@gmail.com'],null,null,'[JEWPSapp] Kapcsolatfelvétel','Kedves Hölgyem/Uram,\n\n')} activeOpacity={0.8}>
-                    <Text style={styles.kapcsBtnText}>Kapcsolatfelvétel</Text>
+                    <Text style={styles.kapcsBtnText}>{textContent.kapcsolatTartalomBtn}</Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View style={styles.tartalomBody}>
-              <Text style={styles.kapcsBody}>PR megjelenés és rendezvények hirdetéséhez keresse fel munkatársunkat!</Text>
+              <Text style={styles.kapcsBody}>{textContent.kapcsolatTartalomDesc}</Text>
             </View>
-            <Text style={styles.contentTitle}>Hibabejelentés</Text>
+            <Text style={styles.contentTitle}>{textContent.hibaTitle}</Text>
 
             <View style={styles.hibabejelentes}>
               <View style={styles.hibaCegImage}>
                 <Image source={require('./assets/images/garandDesign.png')} style={{width: 45, height: 45, marginTop: 15,}}/>
               </View>
               <View style={styles.hibaCeg}>
-                <Text style={styles.kapcsName}>GarandDesign</Text>
-                <Text style={styles.kapcsRole}>FPM 24/7 Kft.</Text>
+                <Text style={styles.kapcsName}>{textContent.hibaCompany}</Text>
+                <Text style={styles.kapcsRole}>{textContent.hibaSub}</Text>
               </View>
               <View style={styles.hibaButtonView}>
                 <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['info@jewps.hu'],null,null,'[JEWPSapp] Hibabejelentés','Kedves GarandDesign csapat, \n\nAz alábbi hibáról szeretnék beszámolni Önöknek. \n\n⚡️ A hiba leírása, amit tapasztaltam: \n\n⚡️ A készülékem adatai \n ➡️Gyártó, modell: \n ➡️Operációs rendszer verziószáma: \n\n⚡️ Képernyőfotó a hibáról:\n')} activeOpacity={0.8}>
-                    <Text style={styles.kapcsBtnText}>Írjon Nekünk!</Text>
+                    <Text style={styles.kapcsBtnText}>{textContent.hibaBtn}</Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View style={styles.tartalomBody}>
-              <Text style={styles.kapcsBody}>Kérjük próbáljon meg minél részletesebb leírást adni a tapasztalt rendellenességről. Írja meg, pontosan az: 	{"\n"}{"\n"}• 	eszköz típusát
-	{"\n"}• 	operációs rendszerét. {"\n"}{"\n"}Az e-mailhez csatolhat képernyőfotót is, mely sokat segíthet a hiba feltárásában. Ilyet a bekapcsológomb és a ‘home’ gomb együttes megnyomásával készíthető.</Text>
+              <Text style={styles.kapcsBody}>{textContent.hibaDesc}</Text>
             </View>
           </SafeAreaView>
         </Modal>
@@ -181,7 +189,7 @@ export default class App extends Component {
               activeOpacity={0.8}>
               <Icon size={30} name="clear" style={styles.close} />
             </TouchableOpacity>
-              <Text style={styles.pageTitle}>Impresszum</Text>
+              <Text style={styles.pageTitle}>{textContent.impresszumTitle}</Text>
               <TouchableOpacity
                 activeOpacity={1}>
                 <Icon size={30} name="clear" style={styles.rightIc} />
@@ -189,10 +197,10 @@ export default class App extends Component {
             </View>
             <ScrollView style={styles.impresszumBody}>
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={styles.kapcsBody}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur dapibus nibh, vitae rhoncus augue feugiat sed. Aenean tincidunt dictum nunc, sed rhoncus est aliquam eget. Nullam at tortor varius, tincidunt diam nec, convallis leo. Pellentesque vel ligula ut nisl scelerisque ultricies. Nunc sed purus consectetur, vestibulum nibh ac, elementum elit. Sed volutpat, risus vel viverra porttitor, turpis metus tempor diam, ut vulputate est metus a ex. Ut sed eleifend nunc.</Text>
+              <Text style={styles.kapcsBody}>{textContent.impresszumDesc}</Text>
             </View>
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={styles.impHeading}>Időjárás API</Text>
+            <Text style={styles.impHeading}>{textContent.impresszumIdojaras}</Text>
               <TouchableOpacity
                 style={styles.linkBtn}
                 activeOpacity={0.8}
@@ -203,7 +211,7 @@ export default class App extends Component {
               <Image source={require('./assets/images/poweredby-oneline.png')} style={{width: 250, height: 50, marginTop: 15,}}/>
             </View>
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={styles.impHeading}>Árfolyam API</Text>
+              <Text style={styles.impHeading}>{textContent.impresszumCurrency}</Text>
               <TouchableOpacity
                 style={styles.linkBtn}
                 activeOpacity={0.8}
@@ -343,6 +351,7 @@ const styles = StyleSheet.create({
     fontFamily: "YoungSerif-Regular",
     color: "#b7a99b",
     marginLeft: 15,
+    marginRight: 20,
   },
   kapcsButtonView:{
       width: '50%',
