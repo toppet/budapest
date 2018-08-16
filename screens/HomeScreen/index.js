@@ -122,7 +122,7 @@ const bestPlaces = [
 export default class HomeScreen extends Component {
   constructor(props){
     super(props);
-    console.log('props.settingsEng', props.screenProps.settingsEng);
+    //console.log('props.settingsEng', props.screenProps.settingsEng);
     this.state = {
       loading: true,
       menuOpened: false,
@@ -131,7 +131,7 @@ export default class HomeScreen extends Component {
       currentJDate: '-',
     }
   }
-  
+
   componentDidMount(){
     this.fetchData();
   }
@@ -142,7 +142,7 @@ export default class HomeScreen extends Component {
     const jDate = await this.getJDate();
     const language = await this._getAppLang();
 
-    this.setState({ 
+    this.setState({
       loading: false,
       refreshing: false,
       currencies,
@@ -279,13 +279,13 @@ export default class HomeScreen extends Component {
 
     if(this.props.screenProps.settingsEng) {
       textContent = textContentJSON.en;
-      moment.locale('en'); 
+      moment.locale('en');
     }
 
     const newsCardWidth = parseInt(Dimensions.get('window').width*0.6, 10);
     const eventCardWidth = parseInt(Dimensions.get('window').width*0.7, 10);
     const placesCardWidth = parseInt(Dimensions.get('window').width*0.5, 10);
-    
+
     let EUR_HUF = null;
     let USD_HUF = null;
     let weathTemp = null;
@@ -370,7 +370,6 @@ export default class HomeScreen extends Component {
       </TouchableOpacity>
     ));
 
-
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
 
@@ -408,7 +407,7 @@ export default class HomeScreen extends Component {
                 </View>
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   <Icon size={30} name="today" color="#434656"/>
-                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate}</Text>
+                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate.date}</Text>
                 </View>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
                   <Icon size={30} name="show-chart" color="#434656"/>

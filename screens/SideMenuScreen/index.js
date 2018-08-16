@@ -8,6 +8,9 @@ import {
   Image
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import moment from 'moment';
+
+import textContentJSON from './menuRootTrans.json';
 
 export default class SideMenuScreen extends Component {
   state = {
@@ -16,6 +19,14 @@ export default class SideMenuScreen extends Component {
 
   render() {
     // console.log('SideMenuScreen.props', this.props);
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+
+    if(this.props.settingsEng) {
+      textContent = textContentJSON.en;
+      moment.locale('en');
+    }
+    // console.log("this.props", this.props)
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
@@ -34,21 +45,21 @@ export default class SideMenuScreen extends Component {
             <TouchableOpacity onPress={() => this.props.showSettingsDialog()} style={{ marginBottom: 30 }}>
               <View style={styles.buttonView}>
                 <Icon style={styles.buttonIcon} size={22} name="settings" color="#c49565" />
-                <Text style={styles.buttonText}>Beállítások</Text>
+                <Text style={styles.buttonText}>{textContent.beallitasok}</Text>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.props.showContactDialog()} style={{marginBottom: 30}}>
               <View style={styles.buttonView}>
                 <Icon style={styles.buttonIcon} size={22} name="chat-bubble" color="#c49565" />
-                <Text style={styles.buttonText}>Kapcsolat</Text>
+                <Text style={styles.buttonText}>{textContent.kapcsolat}</Text>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.props.setImpressumModalVisible()}>
               <View style={styles.buttonView}>
                 <Icon style={styles.buttonIcon} size={22} name="insert-drive-file" color="#c49565" />
-                <Text style={styles.buttonText}>Impresszum</Text>
+                <Text style={styles.buttonText}>{textContent.impresszum}</Text>
               </View>
             </TouchableOpacity>
 
@@ -61,15 +72,14 @@ export default class SideMenuScreen extends Component {
           </View>
 
           <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', marginLeft: "auto", marginRight: "auto"}}>
-            <Text style={styles.addressL}>Dohány utcai </Text>
-            <Text style={styles.addressL}>Zsinagóga</Text>
-            <Text style={[styles.addressS, { marginTop: 10 }]}>Budapest,</Text>
-            <Text style={styles.addressS}>Dohány u. 2,</Text>
-            <Text style={styles.addressS}>1074</Text>
+            <Text style={styles.addressL}>{textContent.dohanyTitle1}</Text>
+            <Text style={styles.addressL}>{textContent.dohanyTitle2}</Text>
+            <Text style={[styles.addressS, { marginTop: 10 }]}>{textContent.dohanyAddress1}</Text>
+            <Text style={styles.addressS}>{textContent.dohanyAddress2}</Text>
           </View>
 
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 10}}>
-            <Text style={{fontFamily: "Montserrat", fontSize: 11, color: '#797e9c'}}>Verzio beta-0.1</Text>
+            <Text style={{fontFamily: "Montserrat", fontSize: 11, color: '#797e9c'}}>Ver. 1.1</Text>
           </View>
 
         </ImageBackground>

@@ -13,6 +13,7 @@ import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
+import textContentJSON from '../EventsScreen/eventsTrans.json';
 export default class EventDetailScreen extends Component {
   static navigationOptions = {
     title: 'Event Detail',
@@ -37,10 +38,18 @@ export default class EventDetailScreen extends Component {
 
     let eventDetails;
 
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+
+    if(this.props.screenProps.settingsEng) {
+      textContent = textContentJSON.en;
+      moment.locale('en');
+    }
+
     if(eventParam.description) {
       eventDetails = (
         <View>
-          <Text style={styles.detailsTitle}>RÉSZLETEK</Text>
+          <Text style={styles.detailsTitle}>{textContent.details}</Text>
           <Text style={styles.detailsText}>{eventParam.description}</Text>
         </View>
       );
@@ -49,7 +58,7 @@ export default class EventDetailScreen extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <PageHeader
-          pageTitle="Események"
+          pageTitle={textContent.screenTitle}
           isBack
           {...this.props}
         />
@@ -94,7 +103,7 @@ export default class EventDetailScreen extends Component {
 
             <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.facebook_event_url)}>
               <FontAwesome name="facebook-square" size={25} color="#c49565"/>
-              <Text style={styles.facebookBtnText}>Facebook esemény</Text>
+              <Text style={styles.facebookBtnText}>{textContent.facebookBtn}</Text>
             </TouchableOpacity>
 
             { eventDetails }

@@ -3,8 +3,10 @@
    "beallitasok": "Settings",
    "kapcsolat": "Contact",
    "impresszum": "Impressum",
-   "dohanyTitle": "Dohány Street Synagogue",
-   "dohanyAddress": "Dohány Street 2, Budapest, 1074",
+   "dohanyTitle1": "Dohány Street",
+   "dohanyTitle2": "Synagogue",
+   "dohanyAddress1": "Dohány Street 2,",
+   "dohanyAddress2": "Budapest, 1074",
    "beallitasokNotif": "Notifications",
    "beallitasokLocation": "Location",
    "beallitasokClose": "Close",
@@ -22,14 +24,16 @@
    "impresszumTitle": "Impressum",
    "impresszumDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur dapibus nibh, vitae rhoncus augue feugiat sed. Aenean tincidunt dictum nunc, sed rhoncus est aliquam eget. Nullam at tortor varius, tincidunt diam nec, convallis leo. Pellentesque vel ligula ut nisl scelerisque ultricies. Nunc sed purus consectetur, vestibulum nibh ac, elementum elit. Sed volutpat, risus vel viverra porttitor, turpis metus tempor diam, ut vulputate est metus a ex. Ut sed eleifend nunc.",
    "impresszumIdojaras": "Weather API",
-   "impresszumCurrency": "Currency API",
+   "impresszumCurrency": "Currency API"
  },
  "hu": {
    "beallitasok": "Beállítások",
    "kapcsolat": "Kapcsolat",
    "impresszum": "Impresszum",
-   "dohanyTitle": "Dohány utcai Zsinagóga",
-   "dohanyAddress": "Dohány u. 2, Budapest, 1074",
+   "dohanyTitle1": "Dohány utcai",
+   "dohanyTitle2": "Zsinagóga",
+   "dohanyAddress1": "Dohány utca 2,",
+   "dohanyAddress2": "Budapest, 1074",
    "beallitasokNotif": "Értesítések",
    "beallitasokLocation": "Helymeghatározás",
    "beallitasokClose": "Bezárás",
@@ -47,6 +51,6 @@
    "impresszumTitle": "Impresszum",
    "impresszumDesc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur dapibus nibh, vitae rhoncus augue feugiat sed. Aenean tincidunt dictum nunc, sed rhoncus est aliquam eget. Nullam at tortor varius, tincidunt diam nec, convallis leo. Pellentesque vel ligula ut nisl scelerisque ultricies. Nunc sed purus consectetur, vestibulum nibh ac, elementum elit. Sed volutpat, risus vel viverra porttitor, turpis metus tempor diam, ut vulputate est metus a ex. Ut sed eleifend nunc.",
    "impresszumIdojaras": "Időjárás API",
-   "impresszumCurrency": "Időjárás API",
+   "impresszumCurrency": "Árfolyam API"
  }
 }

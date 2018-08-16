@@ -18,6 +18,7 @@ import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { web, phonecall } from 'react-native-communications';
+import textContentJSON from './mapDetailTrans.json';
 
 import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
 const ScaleAnim = new ScaleAnimation();
@@ -160,6 +161,14 @@ export default class MapDetailScreen extends Component {
     const rest = _.slice(mapItem.openingHours, 1);
     const weekDays = _.concat(rest, sunday);
 
+    let textContent =  textContentJSON.hu;
+    moment.locale('hu');
+
+    if(this.props.screenProps.settingsEng) {
+      textContent = textContentJSON.en;
+      moment.locale('en');
+    }
+
     // const reOrdereddOpeningHours = openingHours.map((openingHour, index) => {})
 
     if(mapItem.facebookPageLink) {
@@ -169,7 +178,7 @@ export default class MapDetailScreen extends Component {
           activeOpacity={0.8}
           onPress={() => this.openFacebookLink(mapItem.facebookPageLink)}
         >
-          <Text style={styles.linkBtnText}>Facebook oldal</Text>
+          <Text style={styles.linkBtnText}>{textContent.facebookBtn}</Text>
         </TouchableOpacity>
       );
     }
@@ -195,7 +204,7 @@ export default class MapDetailScreen extends Component {
           activeOpacity={0.8}
           onPress={() => this.handleWebLink(mapItem.ticketLink)}
         >
-          <Text style={styles.linkBtnText}>Jegyértékesítés</Text>
+          <Text style={styles.linkBtnText}>{textContent.ticketBtn}</Text>
         </TouchableOpacity>
       );
     }
@@ -212,7 +221,7 @@ export default class MapDetailScreen extends Component {
       prices = (
         <View style={[styles.infoWrap]}>
           <Icon name="attach-money" size={25} color="#73beff" />
-          <Text style={styles.infoText}>Belépők ára: {minEntryFee}{maxEntryFee}</Text>
+          <Text style={styles.infoText}>{textContent.belepo}{minEntryFee}{maxEntryFee}</Text>
         </View>
       );
     }
@@ -244,7 +253,7 @@ export default class MapDetailScreen extends Component {
       modalBtn = (
         <View style={styles.infoWrap}>
           <TouchableOpacity style={styles.modalBtn} onPress={() => this.showOpeningHoursDialog()}>
-            <Text style={styles.modalBtnText}>Nyitvatartás</Text>
+            <Text style={styles.modalBtnText}>{textContent.nyitvatartas}</Text>
             <Icon name="keyboard-arrow-right" size={15} color="#434656"/>
           </TouchableOpacity>
         </View>
@@ -285,14 +294,14 @@ export default class MapDetailScreen extends Component {
       <SafeAreaView style={styles.container}>
         <PageHeader
           {...this.props}
-          pageTitle="Térkép"
+          pageTitle={textContent.screenTitle}
           isBack
         />
 
         <ScrollView style={styles.content} ref={scrollView => this.scrollView = scrollView} showsVerticalScrollIndicator={false}>
           <View style={styles.titleBar}>
             <View style={styles.flexLeft}>
-              <Text style={styles.titleTypeText}>NEVEZETESSÉG</Text>
+              <Text style={styles.titleTypeText}>{textContent.nevezetesseg}</Text>
               <Text style={styles.titleText}>{mapItem.title}</Text>
             </View>
             <View style={styles.flexRight}>
@@ -385,7 +394,7 @@ export default class MapDetailScreen extends Component {
             ))}
 
             <TouchableOpacity onPress={() => this.openingHoursDialog.dismiss()}>
-              <Text style={styles.dismissBtn}>Ablak bezárása</Text>
+              <Text style={styles.dismissBtn}>{textContent.bezaras}</Text>
             </TouchableOpacity>
           </View>
         </PopupDialog>
@@ -530,7 +539,7 @@ const styles = StyleSheet.create({
   },
   mapInfosListContainer1: {
     width:'100%',
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#FCFCFC',
     borderTopColor: '#F2F2F2',
     borderBottomColor: '#F2F2F2',
     borderRightWidth: 0,
