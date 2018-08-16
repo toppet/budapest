@@ -240,7 +240,7 @@ export default class NewsScreen extends Component {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#B7A99B" />
-        <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>Kérjük várjon ...</Text>
+        <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>{textContent.loadingTitle}</Text>
       </View>
     );
   }
@@ -277,7 +277,7 @@ export default class NewsScreen extends Component {
     let textContent =  textContentJSON.hu;
     moment.locale('hu');
     let tagFilterPlaceholder = textContent.tagBtn;
-    
+
     if(this.props.screenProps.settingsEng) {
       textContent = textContentJSON.en;
       tagFilterPlaceholder = textContent.tagBtn;

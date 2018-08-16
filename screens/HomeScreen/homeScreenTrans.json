@@ -16,6 +16,7 @@
    "map3": "Kazinczy Street Synagogue",
    "map4": "Temple of Heroes",
    "map5": "Office of Jews Community in Budapest",
+   "loadingTitle": "Please wait ..."
  },
  "hu": {
    "homeTitle": "Üdvözöljük!",
@@ -34,5 +35,6 @@
    "map3": "Kazinczy utcai Zsinagóga",
    "map4": "Hősök Temploma",
    "map5": "A Budapesti Zsidó Hitközség székháza",
+   "loadingTitle": "Kérjük várjon ..."
  }
 }
