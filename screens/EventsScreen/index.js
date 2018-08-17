@@ -243,7 +243,7 @@ export default class EventsScreen extends Component {
     return (
       <View style={styles.loadingContainer}>
       <ActivityIndicator size="large" color="#B7A99B" />
-      <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>Kérjük várjon ...</Text>
+      <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>{textContent.loadingTitle}</Text>
       </View>
     );
   }

@@ -7,7 +7,8 @@
    "dateBtn": "Date",
    "tagBtn": "Tags",
    "emptyTitle": "No news found",
-   "emptyBody": "Please set different filter opptions"
+   "emptyBody": "Please set different filter opptions",
+   "loadingTitle": "Please wait ..."
  },
  "hu": {
    "screenTitle": "Hírek",
@@ -17,6 +18,7 @@
    "dateBtn": "Dátum",
    "tagBtn": "Címkék",
    "emptyTitle": "Nincs hír",
-   "emptyBody": "Állítson be más szűrőfeltételeket"
+   "emptyBody": "Állítson be más szűrőfeltételeket",
+   "loadingTitle": "Kérjük várjon ..."
  }
 }
