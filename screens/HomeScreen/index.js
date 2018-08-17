@@ -233,7 +233,7 @@ export default class HomeScreen extends Component {
     return wIcon;
   }
 
-  getLoadingIndicator() {
+  getLoadingIndicator(textContent) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#B7A99B" />
@@ -273,7 +273,7 @@ export default class HomeScreen extends Component {
     let holidayBox = null;
 
     if(loading) {
-      return this.getLoadingIndicator();
+      return this.getLoadingIndicator(textContent);
     }
 
     if(currencies.EUR_HUF && currencies.USD_HUF) {
