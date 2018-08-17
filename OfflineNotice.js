@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import {
   View,
@@ -20,35 +21,34 @@ class OfflineNotice extends Component {
   };
 
   componentDidMount() {
-      NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+      NetInfo.isConnected.addEventListener('connectionChange', isConnected => this.setState({ isConnected }));
   }
 
   componentWillUnmount() {
-    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    NetInfo.isConnected.removeEventListener('connectionChange', isConnected => this.setState({ isConnected }));
   }
 
-  handleConnectivityChange = isConnected => {
-    if (isConnected) {
-      this.setState({ isConnected });
-      console.log(isConnected);
-    } else {
-      this.setState({ isConnected });
-    }
-  };
+  // handleConnectivityChange = isConnected => {
+  //   if (isConnected) {
+  //     this.setState({ isConnected });
+  //   } else {
+  //     this.setState({ isConnected });
+  //   }
+  // };
 
   render() {
     if (!this.state.isConnected) {
       return (
         <View style={styles.offlineContainerNo}>
-        {/* <View style={{position: 'absolute', top: 60}}>
-          <Icon name="arrow-downward" size={30} color="#73beff" />
-        </View>
-        <View style={{position: 'absolute', top: 100}}>
-          <Text style={styles.pullText}>Frissítéshez húzza le a képernyőt</Text>
-        </View>*/}
-        <View>
-            <ImageBackground source={require('./assets/images/illustrationNointernet.png')} style={{width: 375, height: 325}} />
-        </View>
+          <View style={{position: 'absolute', top: 60}}>
+            <Icon name="arrow-downward" size={30} color="#73beff" />
+          </View>
+          <View style={{position: 'absolute', top: 100}}>
+            <Text style={styles.pullText}>Frissítéshez húzza le a képernyőt</Text>
+          </View>
+          <View>
+              <ImageBackground source={require('./assets/images/illustrationNointernet.png')} style={{width: 375, height: 325}} />
+          </View>
           <View>
             <Text style={styles.offlineText}>Nincs internetkapcsolat</Text>
           </View>
