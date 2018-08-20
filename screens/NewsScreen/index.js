@@ -10,7 +10,6 @@ import {
   FlatList,
   Picker,
   Modal,
-  ActivityIndicator,
   RefreshControl,
   DatePickerIOS,
   Image
@@ -22,6 +21,7 @@ import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
+import PageLoader from '../../components/PageLoader';
 
 import textContentJSON from './newsTrans.json';
 
@@ -236,15 +236,6 @@ export default class NewsScreen extends Component {
     );
   }
 
-  getLoadingIndicator() {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#B7A99B" />
-        <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>{textContent.loadingTitle}</Text>
-      </View>
-    );
-  }
-
   sliceTagFilterLabel(selectedTagLabel) {
     // console.log('getFilterValueText selectedTagLabel', selectedTagLabel);
     return selectedTagLabel.length > 10 ? `${selectedTagLabel.slice(0,10)}...` : selectedTagLabel;
@@ -256,8 +247,6 @@ export default class NewsScreen extends Component {
       formatterChosenDate: moment(newDate).format('YYYY.MM.DD'),
     })
   }
-
-
 
   // RENDER
   render() {
@@ -285,7 +274,7 @@ export default class NewsScreen extends Component {
     }
 
     if (loading) {
-      return this.getLoadingIndicator();
+      return <PageLoader textContent={textContent} />;
     }
 
     const selectedTagObj = selectedTagFilterId ? _.find(tags, (o) => o.id == selectedTagFilterId) : '';
@@ -440,7 +429,7 @@ export default class NewsScreen extends Component {
           </View>
 
           <View style={{marginBottom: 25}}>
-            { refreshingNewsList ? this.getLoadingIndicator() : newsListItems }
+            { refreshingNewsList ? <PageLoader textContent={textContent} /> : newsListItems }
           </View>
 
           <Modal

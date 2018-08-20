@@ -11,7 +11,6 @@ import {
   Modal,
   Image,
   FlatList,
-  ActivityIndicator,
   RefreshControl,
   DatePickerIOS,
   DatePickerAndroid,
@@ -23,6 +22,7 @@ import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
 import textContentJSON from './eventsTrans.json';
+import PageLoader from '../../components/PageLoader';
 
 export default class EventsScreen extends Component {
   constructor(props){
@@ -239,15 +239,6 @@ export default class EventsScreen extends Component {
     })
   }
 
-  getLoadingIndicator() {
-    return (
-      <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" color="#B7A99B" />
-      <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>{textContent.loadingTitle}</Text>
-      </View>
-    );
-  }
-
   render() {
     const {
       loading,
@@ -279,7 +270,7 @@ export default class EventsScreen extends Component {
 
 
     if (loading) {
-     return this.getLoadingIndicator();
+     return <PageLoader textContent={textContent} />;
     }
 
     if(formattedDateFilter) {
@@ -435,7 +426,7 @@ export default class EventsScreen extends Component {
             </View>
 
             <View style={{marginBottom: 25}}>
-              { refreshingEventsList ? this.getLoadingIndicator() : eventListItems }
+              { refreshingEventsList ? <PageHeader textContent={textContent} /> : eventListItems }
             </View>
 
             <Modal

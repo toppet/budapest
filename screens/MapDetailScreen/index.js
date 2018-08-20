@@ -25,19 +25,19 @@ const ScaleAnim = new ScaleAnimation();
 
 const SLIDER_1_FIRST_ITEM = 1;
 
-const dohany = require('../../assets/images/zsinagoga.jpg');
-const rumbach = require('../../assets/images/rumbach.jpg');
-const kazinczy = require('../../assets/images/kazinczy.jpg');
+// const thumbnail_1 = require('../../assets/images/zsinagoga.jpg');
+// const thumbnail_2 = require('../../assets/images/rumbach.jpg');
+// const thumbnail_3 = require('../../assets/images/kazinczy.jpg');
 
 const ENTRIES1 = [
   {
-      illustration: dohany
+      illustration: null
   },
   {
-      illustration: rumbach
+      illustration: null
   },
   {
-      illustration: kazinczy
+      illustration: null
   },
 ];
 
@@ -136,10 +136,34 @@ export default class MapDetailScreen extends Component {
      }, 1);
   }
 
+  getOpeningHours(openingHours) {
+    const { open, close, closed } = openingHours;
+    const now = new Date();
+    const format = 'hh:mm';
+    
+    if (closed) {
+      return <Text style={styles.infoText}><Text style={styles.closedState}>Zárva</Text></Text>;
+    }
+
+    let time = moment(now, format);
+    let openingTime = moment(open, format);
+    let closingingTime = moment(close, format);
+    let resultText;
+
+    if(time.isBetween(openingTime, closingingTime)){
+      resultText = <Text style={styles.infoText}>{`${open} - ${close} | `}<Text style={styles.openState}>Nyitva</Text></Text>;
+    } else {
+      resultText = <Text style={styles.infoText}>{`${open} - ${close} | `}<Text style={styles.closedState}>Zárva</Text></Text>
+    }
+
+    return resultText;
+  }
+
   render() {
     const { navigation } = this.props;
     const mapItem = navigation.getParam('mapItem');
-    const { slider1ActiveSlide } = this.state;
+    const openingHoursParam = navigation.getParam('openingHoursParam');
+    // const { slider1ActiveSlide } = this.state;
     // const { data: { title, subtitle }, even } = this.props;
     let webPageBtn = null;
     let facebookLinkBtn = null;
@@ -153,13 +177,20 @@ export default class MapDetailScreen extends Component {
     let openingHours = null;
     let address = null;
     let description = null;
+    let textContent =  textContentJSON.hu;
+    let modalBtn = null;
+    let popupDialogWrap = null;
+    let openingHoursWrap = null;
+    let phoneNumberWrap = null;
+    let entryFeeWrap = null;
 
-    const currentDayIndex = moment().day();
     const sunday = _.head(mapItem.openingHours);
     const rest = _.slice(mapItem.openingHours, 1);
     const weekDays = _.concat(rest, sunday);
 
-    let textContent =  textContentJSON.hu;
+    console.log('MapItem', mapItem);
+    console.log('openingHoursParam', openingHoursParam);
+
     moment.locale('hu');
 
     if(this.props.screenProps.settingsEng) {
@@ -167,7 +198,19 @@ export default class MapDetailScreen extends Component {
       moment.locale('en');
     }
 
-    // const reOrdereddOpeningHours = openingHours.map((openingHour, index) => {})
+    // === ASSIGN IMAGES === //
+
+    if (mapItem.thumbnail_1) {
+      ENTRIES1[0].illustration = mapItem.thumbnail_1;
+    }
+
+    if (mapItem.thumbnail_2) {
+      ENTRIES1[1].illustration = mapItem.thumbnail_2;
+    }
+
+    if (mapItem.thumbnail_3) {
+      ENTRIES1[2].illustration = mapItem.thumbnail_3;
+    }
 
     if(mapItem.facebookPageLink) {
       facebookLinkBtn = (
@@ -192,8 +235,6 @@ export default class MapDetailScreen extends Component {
         </TouchableOpacity>
       );
     }
-
-
 
     if(mapItem.ticketLink) {
       ticketLinkBtn = (
@@ -222,6 +263,14 @@ export default class MapDetailScreen extends Component {
           <Text style={styles.infoText}>{textContent.belepo}{minEntryFee}{maxEntryFee}</Text>
         </View>
       );
+
+      entryFeeWrap = (
+        <View style={styles.mapInfosListContainer}>
+          <View style={styles.infoRow}>
+            { prices }
+          </View>
+        </View>
+      );
     }
 
     if (mapItem.phone) {
@@ -238,15 +287,24 @@ export default class MapDetailScreen extends Component {
           </TouchableOpacity>
         </View>
       )
+
+      phoneNumberWrap = <View style={styles.mapInfosListContainer1}>
+        <View style={styles.infoRow}>
+          { phoneNumber }
+        </View>
+      </View>
     }
 
     if (mapItem.openingHours) {
+      const currentDayIndex = moment().day();
+  
       openingHours  = (
         <View style={styles.infoWrap}>
           <Icon name="schedule" size={25} color="#73beff" />
-          <Text style={[styles.infoText, { color: '#6ce986'}]}>{mapItem.openingHours[currentDayIndex].open}</Text>
+          {this.getOpeningHours(mapItem.openingHours[currentDayIndex])}
         </View>
       )
+      // openingHours = openingHoursParam;
 
       modalBtn = (
         <View style={styles.infoWrap}>
@@ -256,6 +314,40 @@ export default class MapDetailScreen extends Component {
           </TouchableOpacity>
         </View>
       )
+
+      openingHoursWrap = (
+        <View style={styles.mapInfosListContainer}>
+          <View style={styles.infoRow}>
+              { openingHours } { modalBtn }
+          </View>
+        </View>
+      )
+
+      popupDialogWrap = (
+        <PopupDialog
+          width={0.8}
+          height={265}
+          dialogAnimation={ScaleAnim}
+          ref={(popupDialog) => { this.openingHoursDialog = popupDialog; }}
+          hasOverlay={true}
+          overlayOpacity={0.1}
+          dialogStyle={{borderWidth: 1, borderColor: '#ededed'}}
+        >
+          <View style={styles.dialogView}>
+
+            {weekDays.map((openingHour) => (
+              <View style={styles.dayRow} key={openingHour.day}>
+                <Text style={styles.dayText}>{openingHour.day}</Text>
+                <Text style={openingHour.closed ? styles.closedText : styles.hourText}>{openingHour.closed ? openingHour.open : `${openingHour.open}-${openingHour.close}` }</Text>
+              </View>
+            ))}
+
+            <TouchableOpacity onPress={() => this.openingHoursDialog.dismiss()}>
+              <Text style={styles.dismissBtn}>{textContent.bezaras}</Text>
+            </TouchableOpacity>
+          </View>
+        </PopupDialog>
+      );
     }
 
     if (mapItem.address) {
@@ -346,24 +438,15 @@ export default class MapDetailScreen extends Component {
             { ticketLinkBtn }
           </View>
 
-          <View style={styles.mapInfosListContainer}>
-            <View style={styles.infoRow}>
-              { prices }
-            </View>
-          </View>
+          { entryFeeWrap }
+
+          { phoneNumberWrap }
+
+          { openingHoursWrap }
+          
           <View style={styles.mapInfosListContainer1}>
             <View style={styles.infoRow}>
-                { phoneNumber }
-            </View>
-          </View>
-          <View style={styles.mapInfosListContainer}>
-            <View style={styles.infoRow}>
-                { openingHours } { modalBtn }
-            </View>
-          </View>
-          <View style={styles.mapInfosListContainer1}>
-            <View style={styles.infoRow}>
-                { address }
+              { address }
             </View>
           </View>
 
@@ -373,29 +456,7 @@ export default class MapDetailScreen extends Component {
 
         </ScrollView>
 
-        <PopupDialog
-          width={0.8}
-          height={265}
-          dialogAnimation={ScaleAnim}
-          ref={(popupDialog) => { this.openingHoursDialog = popupDialog; }}
-          hasOverlay={true}
-          overlayOpacity={0.1}
-          dialogStyle={{borderWidth: 1, borderColor: '#ededed'}}
-        >
-          <View style={styles.dialogView}>
-
-            {weekDays.map((openingHour) => (
-              <View style={styles.dayRow} key={openingHour.day}>
-                <Text style={styles.dayText}>{openingHour.day}</Text>
-                <Text style={openingHour.closed ? styles.closedText : styles.hourText}>{openingHour.closed ? openingHour.open : `${openingHour.open}-${openingHour.close}` }</Text>
-              </View>
-            ))}
-
-            <TouchableOpacity onPress={() => this.openingHoursDialog.dismiss()}>
-              <Text style={styles.dismissBtn}>{textContent.bezaras}</Text>
-            </TouchableOpacity>
-          </View>
-        </PopupDialog>
+        { popupDialogWrap }
 
       </SafeAreaView>
     )
@@ -647,5 +708,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: '#f2426a',
+  },
+  openState: {
+    fontFamily: 'Montserrat',
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#6ce986',
+  },
+  closedState: {
+    fontFamily: 'Montserrat',
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#ff7070',
   },
 });

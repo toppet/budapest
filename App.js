@@ -11,7 +11,8 @@ import {
   ScrollView,
   AsyncStorage,
   SafeAreaView,
-  Linking
+  Linking,
+  TextInput
 } from 'react-native';
 
 import ProbaScreen from './ProbaScreen';
@@ -23,6 +24,8 @@ import textContentJSON from './screens/SideMenuScreen/menuRootTrans.json';
 
 import PopupDialog, { ScaleAnimation } from 'react-native-popup-dialog';
 import Communications from 'react-native-communications';
+import firebase from 'react-native-firebase';
+
 const ScaleAnim = new ScaleAnimation();
 
 export default class App extends Component {
@@ -33,12 +36,35 @@ export default class App extends Component {
     settingsNotifications: false,
     settingsLocation: false,
     settingsEng: false,
+    fcmToken: null,
   }
 
   componentDidMount() {
     // this.getAllKeys();
+    this.notificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification) => {
+        // Process your notification as required
+        // ANDROID: Remote notifications do not contain the channel ID. You will have to specify this manually if you'd like to re-display the notification.
+    });
+    this.notificationListener = firebase.notifications().onNotification((notification) => {
+        // Process your notification as required
+    });
+    firebase.messaging().getToken()
+      .then(fcmToken => {
+        if (fcmToken) {
+          // user has a device token
+          // this.setState({ fcmToken });
+          this._callFcm(fcmToken);
+        } else {
+          // user doesn't have a device token yet
+        }
+      });
     this._getAppLang();
   }
+
+  componentWillUnmount() {
+    this.notificationDisplayedListener();
+    this.notificationListener();
+}
 
   showSettingsDialog() {
     this.settingsDialog.show();
@@ -52,6 +78,32 @@ export default class App extends Component {
     this.setState({ impressumModalVisible: true });
   }
 
+  _callFcm = async (fcmToken) => {
+    try {
+      const data = {
+        token: fcmToken,
+        lang: "hu",
+      };
+      await fetch('https://jewps.hu/api/v1/fcm', {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, cors, *same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          // "Content-Type": "application/x-www-form-urlencoded",
+        },
+        referrer: "no-referrer", // no-referrer, *client
+        body: JSON.stringify(data), // body data type mu
+      })
+      .then(() => {
+
+      }).catch(e =>{
+        return null;
+      });
+    } catch (error) {
+      // Error saving data
+    }
+  }
 
   _getAppLang = async () => {
     try {
@@ -86,7 +138,6 @@ export default class App extends Component {
     }
     return (
       <View style={{flex:1}}>
-
         <PopupDialog
           width={0.8}
           height={215}
@@ -108,6 +159,10 @@ export default class App extends Component {
               <Text style={styles.settingText}>Switch to English</Text>
               <Switch value={this.state.settingsEng} onValueChange={() => this._setAppLang()}></Switch>
             </View>
+
+            {/* <View style={styles.settingRow}>
+              <TextInput style={styles.settingText}>FCM: {this.state.fcmToken}</TextInput>
+            </View> */}
 
             <TouchableOpacity onPress={() => this.settingsDialog.dismiss()}>
               <Text style={styles.dismissBtn}>{textContent.beallitasokClose}</Text>
@@ -230,7 +285,8 @@ export default class App extends Component {
           setImpressumModalVisible={() => this.setImpressumModalVisible()}
           settingsEng={this.state.settingsEng}
         />
-          <OfflineNotice />
+        
+        <OfflineNotice />
       </View>
     )
   }

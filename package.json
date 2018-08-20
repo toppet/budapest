@@ -20,6 +20,7 @@
     "react-native-add-calendar-event": "^2.0.2",
     "react-native-calendars": "^1.19.4",
     "react-native-communications": "^2.2.1",
+    "react-native-firebase": "^4.3.8",
     "react-native-maps": "^0.21.0",
     "react-native-popup-dialog": "^0.14.52",
     "react-native-side-menu": "^1.1.3",

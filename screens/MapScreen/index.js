@@ -25,6 +25,8 @@ import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import textContentJSON from './mapTrans.json';
+import markersJSON from './markers';
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -35,7 +37,6 @@ const percent90HalfWidth = Math.round((Dimensions.get('window').width * 0.9) / 2
 
 const pinIcon = require('../../assets/images/ic_pin.png');
 const selectedPinIcon = require('../../assets/images/ic_pin_valaszt.png');
-
 customMapStyle = [
   {
     "featureType": "administrative.land_parcel",
@@ -87,126 +88,7 @@ export default class MapScreen extends Component {
   state = {
     selectedMarker: null,
     selectedMarkerIndex: null,
-    markers: [
-      {
-        coordinate: {
-          latitude: 47.4959529,
-          longitude: 19.0605719,
-        },
-        entryFee: 4000,
-        currency: 'Ft',
-        state: 'Nyitva',
-        title: "Dohány utcai Zsinagóga, neológ",
-        minEntryFee: 1200,
-        maxEntryFee: 4000,
-        currency: 'Ft',
-        webPageLink: 'http://www.dohany-zsinagoga.hu/',
-        facebookPageLink: 'https://www.facebook.com/Dohanytemplom/',
-        ticketLink: 'https://www.jegy.hu/venue/dohany-utcai-zsinagoga-es-zsido-muzeum',
-        phone: '+36 30 123 4567',
-        address: 'Dohány u. 2, 1074 Budapest',
-        thumbnail: require('../../assets/images/zsinagoga.jpg'),
-        openingHours: [
-          {
-            day: 'Vasárnap',
-            open: 'Zárva',
-            close: 'Zárva',
-            closed: true,
-          },
-          {
-            day: 'Hétfő',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Kedd',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Szerda',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Csütörtök',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Péntek',
-            open: '8:30',
-            close: '16:00',
-          },
-          {
-            day: 'Szombat',
-            open: 'Zárva',
-            close: 'Zárva',
-            closed: true,
-          },
-        ],
-        description: 'A Dohány utcai Zsinagóga Budapest egyik kiemelt turisztikai látványossága, Európa legnagyobb, a világ második legnagyobb zsinagógája. 1859-ban épült mór stílusban, 3000 fő befogadására alkalmas. Nagysága a korabeli fővárosi zsidóság jelentőségét, magas színvonalú gazdasági és kulturális igényét bizonyítja.A templom építésze Ludwig Förster (1797—1863) német építész, a bécsi akadémia tanára volt. Az építésvezető Wechselmann Ignác műépítész (1828—1903), aki később egész vagyonát a Vakok Intézetére hagyta. Förster távozása után Feszl Frigyes, a Vigadó híres építésze tervezte a templom belső szentélyét. A zsinagóga ünnepélyes felavatására 1859. szeptember 6-án került sor. A belső tér 1200 négyzetméter, tornyainak magassága 44 méter, a sík mennyezetű belső térben közel háromezer ember, a földszinten 1497 férfi, az emeleti karzatokon pedig 1472 női ülés található.'
-      },
-      {
-        coordinate: {
-          latitude: 47.4977421,
-          longitude: 19.0586996,
-        },
-        entryFee: 0,
-        currency: 'Ft',
-        state: 'Nyitva',
-        title: "Rumbach utcai Zsinagóga, status quo",
-        minEntryFee: null,
-        maxEntryFee: null,
-        currency: 'Ft',
-        webPageLink: 'http://www.dohany-zsinagoga.hu/',
-        facebookPageLink: null,
-        ticketLink: null,
-        phone: null,
-        address: 'Budapest, Rumbach Sebestyén u. 11-13, 1074',
-        thumbnail: require('../../assets/images/rumbach.jpg'),
-        openingHours: [
-          {
-            day: 'Vasárnap',
-            open: 'Zárva',
-            close: 'Zárva',
-            closed: true,
-          },
-          {
-            day: 'Hétfő',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Kedd',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Szerda',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Csütörtök',
-            open: '10:00',
-            close: '20:00',
-          },
-          {
-            day: 'Péntek',
-            open: '8:30',
-            close: '16:00',
-          },
-          {
-            day: 'Szombat',
-            open: 'Zárva',
-            close: 'Zárva',
-            closed: true,
-          },
-        ],
-        description: 'A Rumbach utcai zsinagóga romantikus, a mór építészet jegyeit utánzó stílusban épült zsinagóga a budapesti „zsinagóga-háromszögben”, a későbbi budapesti gettó területén. „Kis zsinagóga”-ként is ismert (a „nagy zsinagóga” a Dohány utcai). A VII. kerületben található, a Rumbach Sebestyén utca 11-13. szám alatt (valamikor a 8-as szám volt).A zsinagóga 1869 és 1872 között épült közadakozásból, tervezője az osztrák Otto Wagner, aki a bécsi szecesszió vezető alakja volt. A falán magyar nyelvű emléktábla olvasható, amely azokra a zsidókra emlékeztet, akiket 1941-ben ebben az épületben gyűjtöttek össze, mielőtt a megszállt ukrajnai Kamenyeck-Podolszkba szállítottak a magyar hatóságok, ahol a németek legyilkolták őket.'
-      },
-    ],
+    markers: markersJSON,
     region: {
       latitude: 47.4984094,
       longitude: 19.0621811,
@@ -264,8 +146,8 @@ export default class MapScreen extends Component {
   getOpeningHours(openingHours) {
     const { open, close, closed } = openingHours;
     const now = new Date();
-    var format = 'hh:mm';
-
+    const format = 'hh:mm';
+    
     if (closed) {
       return <Text>{`${openingHours.day}: `} <Text style={styles.closedState}>Zárva</Text></Text>;
     }
@@ -316,23 +198,36 @@ export default class MapScreen extends Component {
     // }
 
     if (selectedMarker) {
+      const openingHours = selectedMarker.openingHours ? selectedMarker.openingHours[currentDayIndex] : null;
+      const entryFee = selectedMarker.entryFee !== 0 ? `${selectedMarker.entryFee} ${selectedMarker.currency}` : 'ingyenes';
+
+      const openingHoursWrap = (
+        <View>
+          <Text style={styles.labelText}>{textContent.nyitvatartas}</Text>
+          <Text style={styles.valueText}>
+            {openingHours ? this.getOpeningHours(openingHours) : null}
+          </Text>
+        </View>
+      );
+      
+      const entryFeeWrap = (
+        <Text style={styles.labelText}>
+          {textContent.belepo} <Text style={styles.valueText}>{entryFee}</Text>
+        </Text>
+      );
+
       selectedMarkerCard = (
         <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
           <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/>
           <View style={styles.leftView}>
             <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
             <Text style={styles.markerTitle}>{selectedMarker.title}</Text>
-            <Text style={styles.labelText}>
-              {textContent.belepo} <Text style={styles.valueText}>{`${selectedMarker.entryFee} ${selectedMarker.currency}`}</Text>
-            </Text>
-            <Text style={styles.labelText}>{textContent.nyitvatartas}</Text>
-            <Text style={styles.valueText}>
-              {this.getOpeningHours(selectedMarker.openingHours[currentDayIndex])}
-            </Text>
+            { selectedMarker.entryFee !== 0 ? entryFeeWrap : null }
+            { selectedMarker.openingHours ? openingHoursWrap : null }
           </View>
           <View style={styles.rightView}>
             <View style={styles.imageWrap}>
-              <ImageBackground source={selectedMarker.thumbnail} style={{width: 120, height: 120}} />
+              <ImageBackground source={selectedMarker.thumbnail_1} style={{width: 120, height: 120}} />
             </View>
           </View>
         </TouchableOpacity>

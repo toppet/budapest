@@ -17,7 +17,7 @@ import { LocaleConfig, Agenda } from 'react-native-calendars';
 LocaleConfig.locales['hu'] = {
   monthNames: ['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'],
   monthNamesShort: ['Jan.','Febr.','Marc.','Apr.','Máj.','Jún.','Júl.','Aug.','Szept.','Okt.','Nov.','Dec.'],
-  dayNames: ['Vasárnap','Kedd','Szerda','Csütörtök','Péntek','Szombat','Hétfő'],
+  dayNames: ['Vasárnap','Hétfő', 'Kedd','Szerda','Csütörtök','Péntek','Szombat'],
   dayNamesShort: ['V','H','K','Sz','Cs','P','Szo']
 };
 
@@ -27,48 +27,57 @@ export default class CalendarScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: {},
+      items: {}
     };
-    console.disableYellowBox = true;
   }
-
-
 
   loadItems(day) {
-    setTimeout(() => {
-      // for (let i = -15; i < 85; i++) {
-      //   const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-      //   const strTime = this.timeToString(time);
-      //   if (!this.state.items[strTime]) {
-      //     this.state.items[strTime] = [];
-      //     const numItems = Math.floor(Math.random() * 5);
-      //     for (let j = 0; j < numItems; j++) {
-      //       this.state.items[strTime].push({
-      //         name: 'Esemény ' + strTime,
-      //         height: Math.max(50, Math.floor(Math.random() * 150))
-      //       });
-      //     }
-      //   }
-      // }
-      //console.log(this.state.items);
-      const newItems = {
-        '2018-08-09': [{ name: 'REGGELI IMA ', desc: '09:00 - 10:00' }, { name: 'ESTI IMA ', desc: '20:00 - 21:00' }, { name: 'Esemény', desc: 'EZ NEM EGY IMA' }],
-        '2018-08-10': [{ name: 'Esemény 2018-08-10 - 1' }, { name: 'Esemény 2018-08-10' }],
-        '2018-08-11': [{ name: 'Esemény 2018-08-11 - 1' }, { name: 'Esemény 2018-08-11' }],
-        '2018-08-12': [{ name: 'Esemény 2018-08-12 - 1' }, { name: 'Esemény 2018-08-12' }],
-        '2018-08-13': [{ name: 'Esemény 2018-08-13 - 1' }, { name: 'Esemény 2018-08-13' }],
-        '2018-08-14': [{ name: 'Esemény 2018-08-14 - 1' }, { name: 'Esemény 2018-08-14' }],
-        '2018-09-09': [{ name: 'Reggeli ima', desc: '09:00 - 10:00' }, { name: 'Esti ima', desc: '20:00 - 21:00' }, { name: 'Esemény címe ha ilyen hosszú mi történik?', desc: 'EZ NEM EGY IMA' }],
-      };
-
-      // Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-      this.setState({
-        items: newItems
-      });
-    }, 1000);
+    const endMonth = day.month + (day.month === 12 ? -10 : +1);
+    const endYear = day.year + (day.month === 12 ? +1 : 0);
+    const startMonth = day.month + (day.month === 1 ? 11 : -1);
+    const startYear = day.year + (day.month === 1 ? -1 : 0);
+    this.getEvents(startYear+"-"+startMonth+"-"+day.day, endYear+"-"+endMonth+"-"+day.day);
+    // setTimeout(() => {
+    //
+    //   const newItems = {
+    //     '2018-08-09': [{ name: 'REGGELI IMA ', desc: '09:00 - 10:00' }, { name: 'ESTI IMA ', desc: '20:00 - 21:00' }, { name: 'Esemény', desc: 'EZ NEM EGY IMA' }],
+    //     '2018-08-10': [{ name: 'Esemény 2018-08-10 - 1' }, { name: 'Esemény 2018-08-10' }],
+    //     '2018-08-11': [{ name: 'Esemény 2018-08-11 - 1' }, { name: 'Esemény 2018-08-11' }],
+    //     '2018-08-12': [{ name: 'Esemény 2018-08-12 - 1' }, { name: 'Esemény 2018-08-12' }],
+    //     '2018-08-13': [{ name: 'Esemény 2018-08-13 - 1' }, { name: 'Esemény 2018-08-13' }],
+    //     '2018-08-14': [{ name: 'Esemény 2018-08-14 - 1' }, { name: 'Esemény 2018-08-14' }],
+    //     '2018-09-09': [{ name: 'Reggeli ima', desc: '09:00 - 10:00' }, { name: 'Esti ima', desc: '20:00 - 21:00' }, { name: 'Esemény címe ha ilyen hosszú mi történik?', desc: 'EZ NEM EGY IMA' }],
+    //   };
+    //
+    //   // Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+    //   this.setState({
+    //     items: newItems
+    //   });
+    // }, 1000);
     // console.log(`Load Items for ${day.year}-${day.month}`);
   }
-
+    async getEvents(startDate,endDate) {
+      return await fetch('https://jewps.hu/api/v1/calendar?startDate='+startDate+"&endDate="+endDate)
+        .then(response => response.json())
+        .then(responseJson => {
+            const responseData = responseJson.data;
+            if (responseJson.success) {
+              let items = {};
+              for (var i = 0; i < responseData.length; i++){
+                const tmpKey = responseData[i]["start"].split(" ")[0];
+                if (tmpKey in items) {
+                  items[tmpKey].push({name: responseData[i]["name"],type:responseData[i]["type"], desc: responseData[i]["start"].split(" ")[1].slice(0, -3)});
+                } else{
+                  items[tmpKey]=[{name: responseData[i]["name"],type: responseData[i]["type"], desc: responseData[i]["start"].split(" ")[1].slice(0, -3)}]
+                }
+              }
+              this.setState({items});
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+    }
   renderItem(item) {
     return (
       <View >
@@ -110,12 +119,7 @@ export default class CalendarScreen extends Component {
               { ...this.props }
               pageTitle="Naptár"
             />
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.pageTitle}>Válasszon napot!</Text>
-              <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15, width: '35%'}}>
-                <Text style={styles.jewDate}>Elul 4 5778</Text>
-              </View>
-            </View>
+            <Text style={styles.pageTitle}>Válasszon napot!</Text>
             <View style={{ flex: 1 }}>
               <Agenda
                 items={this.state.items}
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   pageTitle: {
-    fontSize: 24,
+    fontSize: 25,
     fontFamily: "YoungSerif-Regular",
     paddingLeft: 15,
     marginTop: 30,
@@ -189,15 +193,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     color: '#A3ABBC',
     marginBottom: 10,
-  },
-  jewDate: {
-    fontFamily: "YoungSerif",
-    fontSize: 16,
-    fontWeight: "normal",
-    fontStyle: "normal",
-    letterSpacing: 0,
-    textAlign: "right",
-    color: '#A3ABBC',
   },
   emptyDate: {
     height: 15,

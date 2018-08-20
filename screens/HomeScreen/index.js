@@ -27,31 +27,32 @@ import 'moment/locale/hu';
 import textContentJSON from './homeScreenTrans.json';
 
 import PageHeader from '../../components/PageHeader';
+import PageLoader from '../../components/PageLoader';
 
 const bestPlaces = [
   {
     id: 0,
-    imageSrc: require('../../assets/images/zsinagoga.jpg'),
+    imageSrc: require('../../assets/images/attractions/dohany1.jpg'),
     placeName: 'Dohány utcai Zsinagóga',
   },
   {
     id: 1,
-    imageSrc: require('../../assets/images/rumbach.jpg'),
+    imageSrc: require('../../assets/images/attractions/rumbach1.jpg'),
     placeName: 'Rumbach utcai Zsinagóga',
   },
   {
     id: 2,
-    imageSrc: require('../../assets/images/kazinczy.jpg'),
+    imageSrc: require('../../assets/images/attractions/kazinczy1.jpg'),
     placeName: 'Kazinczy utcai Zsinagóga',
   },
   {
     id: 3,
-    imageSrc: require('../../assets/images/hosoktemploma.jpg'),
+    imageSrc: require('../../assets/images/attractions/hosok1.jpg'),
     placeName: 'Hősök Temploma',
   },
   {
     id: 4,
-    imageSrc: require('../../assets/images/hitkozseg.jpg'),
+    imageSrc: require('../../assets/images/attractions/orthodox1.jpg'),
     placeName: 'A Budapesti Zsidó Hitközség székháza',
   },
 ]
@@ -233,14 +234,14 @@ export default class HomeScreen extends Component {
     return wIcon;
   }
 
-  getLoadingIndicator(textContent) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#B7A99B" />
-        <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>{textContent.loadingTitle}</Text>
-      </View>
-    );
-  }
+  // getLoadingIndicator(textContent) {
+  //   return (
+  //     <View style={styles.loadingContainer}>
+  //       <ActivityIndicator size="large" color="#B7A99B" />
+  //       <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656", marginTop: 15}}>{textContent.loadingTitle}</Text>
+  //     </View>
+  //   );
+  // }
 
   render() {
     const {
@@ -273,7 +274,7 @@ export default class HomeScreen extends Component {
     let holidayBox = null;
 
     if(loading) {
-      return this.getLoadingIndicator(textContent);
+      return <PageLoader textContent={textContent} />;
     }
 
     if(currencies.EUR_HUF && currencies.USD_HUF) {
@@ -418,8 +419,8 @@ export default class HomeScreen extends Component {
 
               <View>
                 <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
-                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>{textContent.hirekBack}</Text>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>{textContent.hirekTop}</Text>
+                  <Text style={styles.subtitleBack}>{textContent.hirekBack}</Text>
+                  <Text style={styles.subtitleFront}>{textContent.hirekTop}</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('News')}
                   >
@@ -434,8 +435,8 @@ export default class HomeScreen extends Component {
 
               <View>
                 <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
-                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>{textContent.esemenyekBack}</Text>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>{textContent.esemenyekTop}</Text>
+                  <Text style={styles.subtitleBack}>{textContent.esemenyekBack}</Text>
+                  <Text style={styles.subtitleFront}>{textContent.esemenyekTop}</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Events')}
                   >
@@ -450,8 +451,8 @@ export default class HomeScreen extends Component {
 
               <View>
                 <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
-                  <Text style={{fontSize: 40, color: "rgba(183,169,155, 0.2)", position: 'absolute', left: 15, bottom: 0, fontFamily: 'YoungSerif-Regular'}}>{textContent.terkepBack}</Text>
-                  <Text style={{fontSize: 20, fontFamily: 'YoungSerif-Regular', color: "#434656"}}>{textContent.terkepTop}</Text>
+                  <Text style={styles.subtitleBack}>{textContent.terkepBack}</Text>
+                  <Text style={styles.subtitleFront}>{textContent.terkepTop}</Text>
                   <TouchableOpacity
                     onPress={() => this.props.navigation.navigate('Map')}
                   >
@@ -507,6 +508,19 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontFamily: "YoungSerif-Regular",
     marginTop: 10,
+  },
+  subtitleBack: {
+    fontFamily: 'YoungSerif-Regular',
+    fontSize: 40, 
+    color: "rgba(183,169,155, 0.2)", 
+    position: 'absolute', 
+    left: 15, 
+    bottom: 5, 
+  },
+  subtitleFront: {
+    fontFamily: 'YoungSerif-Regular',
+    fontSize: 20, 
+    color: "#434656",
   },
   weatherIcon: {
     width: 35,
