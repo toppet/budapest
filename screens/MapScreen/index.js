@@ -6,7 +6,6 @@ import {
   Text,
   View,
   ScrollView,
-  Animated,
   Image,
   ImageBackground,
   TouchableOpacity,
@@ -16,6 +15,7 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView
 } from 'react-native';
+import _ from 'lodash';
 import moment from 'moment';
 
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -127,11 +127,14 @@ export default class MapScreen extends Component {
     ],
     searchText: '',
     navParamMapItemId: null,
+    filteredAttractions: [],
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // this.index = 0;
     // this.animation = new Animated.Value(0);
+    const attractionNames = this.state.markers.map((marker) => marker.title.toLowerCase());
+    this.setState({ attractionNames });
   }
 
   handleMapViewPress(e) {
@@ -173,8 +176,14 @@ export default class MapScreen extends Component {
     });
   }
 
-  render() {
+  filterAttractions(text) {
+    const { markers } = this.state;
+    const lowerCaseFilterText = text.toLowerCase();
+    const filteredAttractions = _.filter(markers, (marker) => marker.title.toLowerCase().indexOf(lowerCaseFilterText) !== -1);
+    this.setState({ filteredAttractions });
+  }
 
+  render() {
     let textContent =  textContentJSON.hu;
     moment.locale('hu');
 
@@ -184,7 +193,12 @@ export default class MapScreen extends Component {
     }
 
     let selectedMarkerCard = <View></View>;
-    let { selectedMarker, selectedMarkerIndex, navParamMapItemId } = this.state;
+    let { 
+      selectedMarker, 
+      selectedMarkerIndex, 
+      navParamMapItemId,
+      filteredAttractions,
+    } = this.state;
     const { navigation } = this.props;
     const currentDayIndex = moment().day();
     // let navParamMapItemId = navigation.getParam('itemId', null);
@@ -234,6 +248,29 @@ export default class MapScreen extends Component {
       );
     }
 
+    let filteredAttractionsList = <Text style={styles.noResultText}>Nincs Találat</Text>;
+
+    if (filteredAttractions && filteredAttractions.length > 0 ){
+      filteredAttractionsList = filteredAttractions.map((attraction) => {
+        return (
+          <TouchableOpacity
+            key={attraction.id}
+            style={styles.filterListItem}
+            onPress={() => this.setState({
+              searchText: '',
+              selectedMarker: attraction,
+              selectedMarkerIndex: attraction.id,
+            })}
+          >
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15, }}>
+              <Text style={styles.filterListItemText}>{attraction.title}</Text>
+              <Icon name="keyboard-arrow-right" size={25} color="#d8d8d8" />
+            </View>
+          </TouchableOpacity>
+        );
+      });  
+    }
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
@@ -245,6 +282,7 @@ export default class MapScreen extends Component {
                   Keyboard.dismiss()
                   this.props.screenProps.openMenu();
                 }}
+                activeOpacity={0.8}
               >
                 <Image source={require('../../assets/images/icMenu.png')} />
               </TouchableOpacity>
@@ -255,14 +293,14 @@ export default class MapScreen extends Component {
                     fontStyle: this.state.searchText.length == 0 ? 'italic' : 'normal',
                     color: this.state.searchText.length == 0 ? '#b7a99b' : '#434656',
                     opacity: this.state.searchText.length == 0 ? 0.5 : 1,
-
                   }]
                 }
                 placeholder={textContent.searchPlaceholder}
                 placeholderTextColor="#b7a99b"
-                onChangeText={(text) => this.setState({ searchText: text })}
+                onChangeText={(text) => this.setState({ searchText: text }, this.filterAttractions(text))}
                 value={this.state.searchText}
               />
+              
 
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                 {/* <Icon style={styles.menuButton} name='search' color="#434656" size={25}/> */}
@@ -277,7 +315,19 @@ export default class MapScreen extends Component {
                   <Icon name='gps-fixed' color="#434656" size={25}/>
                 </TouchableOpacity>
               </View>
+            </View>
 
+            <View style={{ 
+              display: this.state.searchText.length > 0 ? 'flex' :'none', 
+              position: 'absolute', 
+              zIndex: 3, 
+              flex: 1, 
+              height: '100%', 
+              width: '100%', 
+              backgroundColor: '#fff',
+              paddingTop: 125,
+            }}>
+              { filteredAttractionsList }
             </View>
 
             <MapView
@@ -453,5 +503,27 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#ff7070',
   },
+  filterListItem: {
+    padding: 10,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ededed',
+  },
+  filterListItemText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: "600",
+    color: '#434656',
+    maxWidth: '85%',
+  }, 
+  noResultText: {
+    fontFamily: "Montserrat",
+    fontSize: 18,
+    fontWeight: "600",
+    color: '#797e9c',
+    width: '100%',
+    textAlign: 'center',
+    fontStyle: 'italic',
+  }
 
 });
