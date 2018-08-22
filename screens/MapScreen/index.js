@@ -83,18 +83,30 @@ customMapStyle = [
     ]
   }
 ];
-
+const initialRegion = {
+  latitude: 47.4984094,
+  longitude: 19.0621811,
+  latitudeDelta: 0.015,
+  longitudeDelta: 0.015,
+};
 export default class MapScreen extends Component {
   state = {
     selectedMarker: null,
     selectedMarkerIndex: null,
     markers: markersJSON,
-    region: {
-      latitude: 47.4984094,
-      longitude: 19.0621811,
-      latitudeDelta: 0.015,
-      longitudeDelta: 0.015,
-    },
+    // region: {
+    //   latitude: 47.4984094,
+    //   longitude: 19.0621811,
+    //   latitudeDelta: 0.015,
+    //   longitudeDelta: 0.015,
+    // },
+    // initialRegion: {
+    //   latitude: 47.4984094,
+    //   longitude: 19.0621811,
+    //   latitudeDelta: 0.015,
+    //   longitudeDelta: 0.015,
+    // },
+    region: initialRegion,
     polygonCoordinates: [
       {
         latitude: 47.502895,
@@ -142,6 +154,7 @@ export default class MapScreen extends Component {
       this.setState({
         selectedMarker: null,
         selectedMarkerIndex: null,
+        region: this.state.initialRegion,
       });
     }
   }
@@ -231,7 +244,7 @@ export default class MapScreen extends Component {
       );
 
       selectedMarkerCard = (
-        <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
+        <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
           <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/>
           <View style={styles.leftView}>
             <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
@@ -241,7 +254,7 @@ export default class MapScreen extends Component {
           </View>
           <View style={styles.rightView}>
             <View style={styles.imageWrap}>
-              <ImageBackground source={selectedMarker.thumbnail_1} style={{width: 120, height: 120}} />
+              <ImageBackground source={selectedMarker.thumbnail_2} style={{width: 120, height: 120}} />
             </View>
           </View>
         </TouchableOpacity>
@@ -256,11 +269,15 @@ export default class MapScreen extends Component {
           <TouchableOpacity
             key={attraction.id}
             style={styles.filterListItem}
-            onPress={() => this.setState({
-              searchText: '',
-              selectedMarker: attraction,
-              selectedMarkerIndex: attraction.id,
-            })}
+            onPress={() => {
+              Keyboard.dismiss();
+              this.setState({
+                searchText: '',
+                selectedMarker: attraction,
+                selectedMarkerIndex: attraction.id,
+                region: {...attraction.coordinate, longitudeDelta: 0.009, latitudeDelta: 0.009 }
+              });
+            }}
           >
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 15, }}>
               <Text style={styles.filterListItemText}>{attraction.title}</Text>
@@ -325,15 +342,19 @@ export default class MapScreen extends Component {
               height: '100%', 
               width: '100%', 
               backgroundColor: '#fff',
-              paddingTop: 125,
+              // paddingTop: 125,
+              // top: 100
             }}>
-              { filteredAttractionsList }
+              <ScrollView style={{top: 125, marginBottom: 130,}} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
+                  { filteredAttractionsList }
+              </ScrollView>
             </View>
 
             <MapView
               // provider={PROVIDER_GOOGLE}
               ref={map => this.map = map}
-              initialRegion={this.state.region}
+              initialRegion={initialRegion}
+              region={this.state.region}
               style={styles.container}
               customMapStyle={customMapStyle}
               onPress={(e) => this.handleMapViewPress(e)}

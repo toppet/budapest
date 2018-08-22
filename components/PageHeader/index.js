@@ -45,7 +45,7 @@ export default class PageHeader extends Component {
           activeOpacity={0.8}
           onPress={() => this.props.navigation.goBack()}
         >
-          <Image style={styles.button} source={require('../../assets/images/icKereses.png')} />
+          {/* <Image style={styles.button} source={require('../../assets/images/icKereses.png')} /> */}
         </TouchableOpacity>
       );
     }

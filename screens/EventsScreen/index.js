@@ -60,7 +60,7 @@ export default class EventsScreen extends Component {
 
   getEvents = async () => {
     try {
-      return await fetch('https://jewps.hu/api/v1/events')
+      return await fetch(`https://jewps.hu/api/v1/events?fromDate=${moment().format('YYYY-MM-DD')}`)
         .then(response => response.json())
         .then(resJson => {
           if (resJson.success) {
@@ -459,7 +459,6 @@ export default class EventsScreen extends Component {
                 </View>
               </View>
             </Modal>
-
 
             <Modal
               animationType="slide"
