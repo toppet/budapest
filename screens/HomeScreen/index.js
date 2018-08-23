@@ -309,11 +309,11 @@ export default class HomeScreen extends Component {
       });
     }
 
-    if (currentJDate.type === 1) {
+    if (currentJDate && currentJDate.type === 1) {
       holidayBox = <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
         <View style={styles.unnepTitleView}>
           <Icon size={15} name="notifications" color="#434656"/>
-          <Text style={styles.unnepTitle}>Ünnepnap:</Text>
+          <Text style={styles.unnepTitle}>{`${textContent.unnepnapTitle}:`}</Text>
         </View>
         <View style={styles.unnepnapBox}>
           <Text style={styles.unnepBoxTitle}>{currentJDate.date}</Text>
@@ -392,7 +392,6 @@ export default class HomeScreen extends Component {
                   <Text style={styles.title}>{textContent.homeTitle}</Text>
                   <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
                 </View>
-
                 { holidayBox }
               </View>
 
@@ -404,7 +403,7 @@ export default class HomeScreen extends Component {
                 </View>
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   <Icon size={30} name="today" color="#434656"/>
-                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate.date}</Text>
+                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate ? currentJDate.date : null}</Text>
                 </View>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
                   <Icon size={30} name="show-chart" color="#434656"/>

@@ -1,0 +1,19 @@
+{
+  "en": {
+    "infoTextEvent": "Event",
+    "infoTextPrayer": "Prayer",
+    "infoTextHoliday": "Holiday",
+    "currentBtnText": "Current month",
+    "eventTime": "Time",
+    "wholeDayEventText": "Whole day event"
+  },
+  "hu": {
+    "infoTextEvent": "Esemény",
+    "infoTextPrayer": "Ima",
+    "infoTextHoliday": "Ünnep",
+    "currentBtnText": "Aktuális hónap",
+    "eventTime": "Időpont",
+    "wholeDayEventText": "Egész napos esemény"
+  }
+ }
+ 

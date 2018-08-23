@@ -199,7 +199,7 @@ export default class App extends Component {
                   <Text style={styles.kapcsRole}>{textContent.kapcsolatPersonSub}</Text>
               </View>
               <View style={styles.kapcsButtonView}>
-                <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['frolich.robert@gmail.com'],null,null,'[JEWPSapp] Kapcsolatfelvétel','Kedves Hölgyem/Uram,\n\n')} activeOpacity={0.8}>
+                <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['dohanysyn@gmail.com'],null,null,'[JEWPSapp] Kapcsolatfelvétel','Kedves Hölgyem/Uram,\n\n')} activeOpacity={0.8}>
                     <Text style={styles.kapcsBtnText}>{textContent.kapcsolatTartalomBtn}</Text>
                 </TouchableOpacity>
               </View>

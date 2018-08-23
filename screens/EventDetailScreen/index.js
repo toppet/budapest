@@ -14,6 +14,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
 import textContentJSON from '../EventsScreen/eventsTrans.json';
+
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
+
 export default class EventDetailScreen extends Component {
   static navigationOptions = {
     title: 'Event Detail',
@@ -31,12 +34,47 @@ export default class EventDetailScreen extends Component {
     });
   }
 
+  addToCalendar(item) {
+    console.log('item', item);
+    const eventConfig = {
+      title: item.name,
+      startDate: moment(item.from).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+      allDay: '',
+    };
+
+    if (item.till) {
+      eventConfig.endDate = moment(item.till).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+    }
+
+    if(moment(item.from).format('HH:mm') === '00:00') {
+      eventConfig.allDay = true;
+    }
+
+    if (item.location) {
+      eventConfig.location = `${item.location.title} - ${item.location.name}`;
+    }
+
+    AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+      .then((eventInfo) => {
+        // handle success - receives an object with `calendarItemIdentifier` and `eventIdentifier` keys, both of type string.
+        // These are two different identifiers on iOS.
+        // On Android, where they are both equal and represent the event id, also strings.
+        // when { action: 'CANCELLED' } is returned, the dialog was dismissed
+        // console.warn(JSON.stringify(eventInfo));
+      })
+      .catch((error) => {
+        // handle error such as when user rejected permissions
+        console.warn(error);
+      });
+  }
+
   render() {
     //console.log('EventDetailScreen this.props', this.props);
     const { navigation } = this.props;
     const eventParam = navigation.getParam('event');
 
     let eventDetails;
+    let eventDirectionBtn;
 
     let textContent =  textContentJSON.hu;
     moment.locale('hu');
@@ -44,6 +82,25 @@ export default class EventDetailScreen extends Component {
     if(this.props.screenProps.settingsEng) {
       textContent = textContentJSON.en;
       moment.locale('en');
+    }
+
+    if(eventParam.location.longitude && eventParam.location.latitude) {
+      eventDirectionBtn = (
+        <TouchableOpacity
+          style={styles.secondIcon}
+          activeOpacity={0.8}
+          onPress={() => {
+            const url = `https://maps.google.com/?q=${eventParam.location.latitude},${eventParam.location.longitude}`;
+            Linking.canOpenURL(url).then(supported => {
+              if (supported) {
+                Linking.openURL(url);
+              }
+            });
+          }}
+        >
+          <Icon name="directions" size={20} color="#fff"/>
+        </TouchableOpacity>
+      );
     }
 
     if(eventParam.description) {
@@ -54,6 +111,8 @@ export default class EventDetailScreen extends Component {
         </View>
       );
     }
+
+
 
     return (
       <SafeAreaView style={styles.container}>
@@ -82,6 +141,7 @@ export default class EventDetailScreen extends Component {
               <TouchableOpacity
                 style={styles.secondIcon}
                 activeOpacity={0.8}
+                onPress={() => this.addToCalendar(eventParam)}
               >
                 <Icon name="today" size={20} color="#fff"/>
               </TouchableOpacity>
@@ -93,12 +153,7 @@ export default class EventDetailScreen extends Component {
                 <Text style={styles.eventLocationText}>{eventParam.location.title}</Text>
                 <Text style={styles.eventAddressText}>{eventParam.location.name}</Text>
               </View>
-              <TouchableOpacity
-                style={styles.secondIcon}
-                activeOpacity={0.8}
-              >
-                <Icon name="directions" size={20} color="#fff"/>
-              </TouchableOpacity>
+              { eventDirectionBtn }
             </View>
 
             <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.facebook_event_url)}>

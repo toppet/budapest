@@ -258,9 +258,9 @@ export default class MapDetailScreen extends Component {
 
     if (mapItem.minEntryFee || mapItem.maxEntryFee) {
       prices = (
-        <View style={[styles.infoWrap]}>
+        <View style={styles.infoWrap}>
           <Icon name="attach-money" size={25} color="#73beff" />
-          <Text style={styles.infoText}>{textContent.belepo}{minEntryFee}{maxEntryFee}</Text>
+          <Text style={[styles.infoText, {marginRight: 'auto'}]}>{textContent.belepo}{minEntryFee}{maxEntryFee}</Text>
         </View>
       );
 
@@ -618,7 +618,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '100%'
+    width: '100%',
   },
   inforWrapLeft: {
     marginRight: 25,
@@ -632,8 +632,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
     fontStyle: "normal",
-    marginLeft: 5,
-    width: '100%',
+    marginHorizontal: 15,
+    width: '75%',
   },
   modalBtn: {
     borderRadius: 5,

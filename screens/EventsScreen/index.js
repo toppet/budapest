@@ -88,7 +88,6 @@ export default class EventsScreen extends Component {
     const tmpLocations = [];
 
     eventsResponse.forEach(({ location }) => {
-      console.log('location', location.title);
       if (location.title && _.includes(tmpLocations, location.title) === false) {
         tmpLocations.push(location.title);
       }
@@ -166,7 +165,7 @@ export default class EventsScreen extends Component {
       <View>
         {monthSeparator}
         {listHeader}
-        <TouchableOpacity key={index} activeOpacity={0.8} onPress={() => {console.log('item', item); this.props.navigation.navigate('EventDetail', { event: item })}} style={styles.eventListItem}>
+        <TouchableOpacity key={index} activeOpacity={0.8} onPress={() => {this.props.navigation.navigate('EventDetail', { event: item })}} style={styles.eventListItem}>
           <View style={{flex: 1, paddingRight: 50}}>
             <Text style={styles.eventListItemDesc}>{this.getItemDescription(item.name)}</Text>
             <View style={{flexDirection: 'row'}}>
@@ -223,7 +222,7 @@ export default class EventsScreen extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
           const responseData = responseJson.data;
-          console.log('filtered events', responseJson);
+          // console.log('filtered events', responseJson);
 
           if(responseJson.success) {
             this.setState({
@@ -426,7 +425,7 @@ export default class EventsScreen extends Component {
             </View>
 
             <View style={{marginBottom: 25}}>
-              { refreshingEventsList ? <PageHeader textContent={textContent} /> : eventListItems }
+              { refreshingEventsList ? <PageLoader textContent={textContent} /> : eventListItems }
             </View>
 
             <Modal
@@ -439,7 +438,6 @@ export default class EventsScreen extends Component {
               onDismiss={() => {
                 console.log('Modal has been closed, state value => ', this.getFilteredEvents(dateFilter, locationFilter));
               }}
-              onPress={() => console.log('modal pressed')}
             >
               <View style={{ flex: 1, height: '100%', width: '100%' }}>
                 <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, zIndex: 1000, width: '100%',}}>

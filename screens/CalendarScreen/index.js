@@ -18,6 +18,8 @@ import * as AddCalendarEvent from 'react-native-add-calendar-event';
 import { LocaleConfig, Agenda, Calendar, CalendarList } from 'react-native-calendars';
 import moment from 'moment';
 
+import textContentJSON from './calendarScreenTrans.json';
+
 LocaleConfig.locales['hu'] = {
   monthNames: ['Január','Február','Március','Április','Május','Június','Július','Augusztus','Szeptember','Október','November','December'],
   monthNamesShort: ['Jan.','Febr.','Marc.','Apr.','Máj.','Jún.','Júl.','Aug.','Szept.','Okt.','Nov.','Dec.'],
@@ -25,7 +27,11 @@ LocaleConfig.locales['hu'] = {
   dayNamesShort: ['V','H','K','Sz','Cs','P','Szo']
 };
 
-LocaleConfig.defaultLocale = 'hu';
+LocaleConfig.locales['en'] = {
+  monthNames: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+  dayNamesShort: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+};
+
 const dateFormat = "YYYY-MM-DD";
 
 export default class CalendarScreen extends Component {
@@ -41,62 +47,106 @@ export default class CalendarScreen extends Component {
   componentDidMount() {
     const startDate = moment(new Date()).format(dateFormat);
     const endDate = moment().endOf("month").format(dateFormat);
-    this.getEvents(startDate, endDate);
+    this.fetchData(startDate, endDate);
   }
-    async getEvents(startDate, endDate) {
-      const monthDate = moment(startDate).startOf('month');
-      const currentDate = moment().format(dateFormat);
 
-      if (monthDate.isBefore(currentDate)) {
-        startDate = currentDate;
-      }
+  async fetchData(startDateParam, endDateParam) {
+    const { items, markedDates } = await this.getEvents(startDateParam, endDateParam);
+    const todaysjDate = await this.getJDate(moment().format(dateFormat));
 
-      return await fetch(`https://jewps.hu/api/v1/calendar?startDate=${startDate}&endDate=${endDate}`)
-        .then(response => response.json())
-        .then(responseJson => {
-            // const responseData = responseJson.data;
-            if (responseJson.success) {
-              const markedDates = {};              
-              const daysInMonth = [];
-             
-              _.times(monthDate.daysInMonth(), function (n) {
-                daysInMonth.push(`${startDate.slice(0,7)}-${monthDate.format('DD')}`); 
-                monthDate.add(1, 'day');
-              });
-              
-              _.forEach(daysInMonth, (day) => markedDates[day] = { disabled: true, disableTouchEvent: true });
-
-              responseJson.data.forEach((date) => {
-                const key = moment(date.start).format(dateFormat);
-                markedDates[key] = { marked: true, id: date.id, disabled: false, disableTouchEvent: false };
-              });
-              
-              this.setState({ items: responseJson.data, markedDates });
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        })
+    this.setState({
+      reset: false,
+      items,
+      markedDates,
+      todaysjDate,
+    });
   }
-  // renderItem(item) {
-  //   return (
-  //     <View >
-  //       <View style={[styles.item, {height: item.height}]}>
-  //         <View style={{marginTop: 5, width: '85%'}}>
-  //           <Text style={styles.itemText}>{item.name}</Text>
-  //         </View>
-  //         <View style={{marginTop: 5}}>
-  //         <TouchableOpacity onPress={() => console.log('Add this to calendar', item)} activeOpacity={0.8}>
-  //           <Icon size={30} name="today" color="#73BEFF"/>
-  //         </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //       <View style={{marginTop: 5}}>
-  //         <Text style={styles.itemSubText}>{item.desc}</Text>
-  //       </View>
-  //     </View>
-  //   );
-  // }
+
+  async getSelectedDayData(day) {
+    const filteredEvents = await this.getEventsForToday(day.dateString);
+    const jDate = await this.getJDate(day.dateString);
+
+    this.setState({ 
+      calendarModalVisible: true, 
+      selectedDate: day.dateString,
+      filteredEvents,
+      jDate,
+    });
+  }
+
+  async getEvents(startDate, endDate) {
+    const monthDate = moment(startDate).startOf('month');
+    const currentDate = moment().format(dateFormat);
+
+    if (monthDate.isBefore(currentDate)) {
+      startDate = currentDate;
+    }
+
+    return await fetch(`https://jewps.hu/api/v1/calendar?startDate=${startDate}&endDate=${endDate}`)
+      .then(response => response.json())
+      .then(responseJson => {
+          if (responseJson.success) {
+            const markedDates = {};              
+            const daysInMonth = [];
+            
+            const prayerEvent = { key:'prayerEvent', color: '#cfd0df' };
+            const eventEvent = { key:'eventEvent', color: '#6ce986' };
+            const holidayEvent = { key:'holidayEvent', color: '#ff7070' };
+            
+            _.times(monthDate.daysInMonth(), function (n) {
+              daysInMonth.push(`${startDate.slice(0,7)}-${monthDate.format('DD')}`); 
+              monthDate.add(1, 'day');
+            });
+            
+            _.forEach(daysInMonth, (day) => markedDates[day] = { dots: [], disabled: true, disableTouchEvent: true });
+
+            responseJson.data.forEach((date) => {
+              const key = moment(date.start).format(dateFormat);
+              let tmpDots = markedDates[key] && markedDates[key].dots ? markedDates[key].dots : [];
+
+              if (markedDates[key]) {
+                if (date.type === 1) {
+                  if(_.includes(tmpDots, eventEvent) === false) {
+                    tmpDots.push(eventEvent);
+                  }
+                }
+
+                if (date.type === 2) {
+                  if(_.includes(tmpDots, prayerEvent) === false) {
+                    tmpDots.push(prayerEvent);
+                  }
+                }
+
+                if (date.type === 3) {
+                  if(_.includes(tmpDots, holidayEvent) === false) {
+                    tmpDots.push(holidayEvent);
+                  }
+                }
+              }
+
+              markedDates[key] = { dots: [...tmpDots], marked: true, id: date.id, disabled: false, disableTouchEvent: false };
+            });
+            
+            return { items: responseJson.data, markedDates };
+          }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+
+  async getJDate(dayDate) {
+    const jDate = await fetch(`https://jewps.hu/api/v1/utils/date/${dayDate}`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        return responseJson.success ? responseJson.data.date : null;
+      })
+      .catch((error) => {
+        return null;
+      });
+
+    return jDate;
+  }
 
   renderEmptyDate() {
     return null;
@@ -111,36 +161,81 @@ export default class CalendarScreen extends Component {
     return date.toISOString().split('T')[0];
   }
 
-  getEventsForToday(day) {
+  async getEventsForToday(day) {
     const filteredEvents = _.filter(this.state.items, (item) => item.start.slice(0,10) === day);
     
-    this.setState({ filteredEvents });
+    return filteredEvents;
   }
 
   renderCalendarArrows(direction) {
     return direction === 'left' ? <Icon name="keyboard-arrow-left" size={25} color="#c49565" /> : <Icon name="keyboard-arrow-right" size={25} color="#c49565"/>
   }
 
+  addToCalendar(item) {
+    // console.log('item', item);
+    const eventConfig = {
+      title: item.name,
+      startDate: moment(item.start).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+      allDay: '',
+    };
+
+    if (item.end) {
+      eventConfig.endDate = moment(item.end).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+    }
+
+    if(item.type === 2) {
+      eventConfig.endDate = moment(eventConfig.startDate).add(1, 'hour');
+    }
+
+    if(moment(item.start).format('HH:mm') === '00:00') {
+      eventConfig.allDay = true;
+    }
+
+    AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+      .then((eventInfo) => {
+        // handle success - receives an object with `calendarItemIdentifier` and `eventIdentifier` keys, both of type string.
+        // These are two different identifiers on iOS.
+        // On Android, where they are both equal and represent the event id, also strings.
+        // when { action: 'CANCELLED' } is returned, the dialog was dismissed
+        // console.warn(JSON.stringify(eventInfo));
+      })
+      .catch((error) => {
+        // handle error such as when user rejected permissions
+        console.warn(error);
+      });
+  }
+
   render() {
       const { filteredEvents } = this.state;
+      
       let filteredEventItems = null;
+
+      let textContent =  textContentJSON.hu;
+      moment.locale('hu');
+      LocaleConfig.defaultLocale = 'hu';
+      
+      if(this.props.screenProps.settingsEng) {
+        textContent = textContentJSON.en;
+        moment.locale('en');
+        LocaleConfig.defaultLocale = 'en';
+      }
       
       if (filteredEvents) {
         filteredEventItems = filteredEvents.map((item) => {
           let eventStyle = styles.eventEvent;
           let startTime = null;
-          let endTime = null;
+          let endTime = '';
 
           if(item.type === 2) {
             eventStyle = styles.prayerEvent;
           }
 
           if(item.type === 3) {
-            eventStyle = styles.simpleEvent;
+            eventStyle = styles.holidayEvent;
           }
 
           if (item.start) {
-            startTime = moment(item.start).format('HH:mm');
+            startTime = moment(item.start).format('HH:mm') === "00:00" ? textContent.wholeDayEventText : moment(item.start).format('HH:mm');
           }
 
           if (item.end) {
@@ -148,25 +243,24 @@ export default class CalendarScreen extends Component {
           }
 
           return (
-            <View key={item.id} style={eventStyle}>
-              <View style={[styles.item, {height: item.height}]}>
+            <View key={item.id} >
+              <View style={[styles.item, { height: item.height}, eventStyle]}>
                 <View style={{marginTop: 5, width: '85%'}}>
                   <Text style={styles.itemText}>{item.name}</Text>
                 </View>
                 <View style={{marginTop: 5}}>
-                  <TouchableOpacity onPress={() => console.log('Add this to calendar', item)} activeOpacity={0.8}>
+                  <TouchableOpacity onPress={() => this.addToCalendar(item)} activeOpacity={0.8}>
                     <Icon size={30} name="today" color="#73BEFF"/>
                   </TouchableOpacity>
                 </View>
               </View>
               <View style={{marginTop: 5}}>
-                <Text style={styles.itemSubText}>Időpont: {startTime}{endTime}</Text>
+                <Text style={styles.itemSubText}>{`${textContent.eventTime}: ${startTime}${endTime}`}</Text>
               </View>
             </View>
           )
         });
       }
-
 
       return (
           <View style={styles.container}>
@@ -174,25 +268,67 @@ export default class CalendarScreen extends Component {
               { ...this.props }
               pageTitle="Naptár"
             />
-            <Text style={styles.pageTitle}>Válasszon napot!</Text>
+
+            <View style={styles.pageTitleRow}>
+              <Text style={styles.pageTitle}>{moment().format('MMMM DD.').replace(/^\w/, c => c.toUpperCase())}</Text>
+              <TouchableOpacity 
+                onPress={() => {
+                  this.setState({
+                    reset: true,
+                  });
+                  const startDate = moment().startOf('month').format(dateFormat);
+                  const endDate = moment().endOf('month').format(dateFormat);
+                  this.fetchData(startDate, endDate);
+                }}
+                style={styles.currentBtn}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.currentBtnText}>{textContent.currentBtnText}</Text>
+              </TouchableOpacity>
+            </View>
+            
+            <View style={styles.todaysJDate}>
+              <View style={{ backgroundColor: '#ededed', marginRight: 10, paddingHorizontal: 7, paddingVertical: 5, borderRadius: 6}}>
+                <Image source={require('../../assets/images/shape.png')} size={25} />
+              </View>
+              <Text style={styles.todaysJDateText}>{this.state.todaysjDate}</Text>
+            </View>
+            
+            <View style={styles.infoRow}>
+              <View style={styles.infoWrap}>
+                <Text style={[styles.infoCircle, { backgroundColor: '#6ce986' }]}></Text>
+                <Text style={styles.infoText}>{textContent.infoTextEvent}</Text>
+              </View>
+              
+              <View style={styles.infoWrap}>
+                <Text style={[styles.infoCircle, { backgroundColor: '#a3abbc' }]}></Text>
+                <Text style={styles.infoText}>{textContent.infoTextPrayer}</Text>
+              </View>
+              
+              <View style={styles.infoWrap}>
+                <Text style={[styles.infoCircle, { backgroundColor: '#ff7070' }]}></Text>
+                <Text style={styles.infoText}>{textContent.infoTextHoliday}</Text>
+              </View>
+            </View>
+
             <View style={{ flex: 1 }}>
               <Calendar
+                current={this.state.reset ? moment().format(dateFormat) : ''}
                 minDate={moment().format(dateFormat)}
                 hideExtraDays={true}
-                onDayPress={(day) => {
-                  this.setState({ calendarModalVisible: true, selectedDate: day.dateString }, this.getEventsForToday(day.dateString))
-                }}
-                monthFormat={'yyyy MMMM'}
+                onDayPress={(day) => this.getSelectedDayData(day)}
+                monthFormat={'yyyy. MMMM'}
                 // Handler which gets executed when visible month changes in calendar. Default = undefined
                 onMonthChange={(month) => {
                   const startDate = moment(month.dateString).startOf('month').format(dateFormat);
                   const endDate = moment(startDate).endOf('month').format(dateFormat);
-                  this.getEvents(startDate, endDate);
+                  this.fetchData(startDate, endDate);
                 }}
                 renderArrow={(direction) => this.renderCalendarArrows(direction)}
                 firstDay={1}
-                displayLoadingIndicator
+                displayLoadingIndicator={true}
                 markedDates={this.state.markedDates}
+                markingType={'multi-dot'}
                 theme={{
                   textMonthFontFamily: 'Montserrat',
                   textMonthFontWeight: 'bold',
@@ -210,21 +346,31 @@ export default class CalendarScreen extends Component {
                 animationType="slide"
                 transparent={true}
                 visible={this.state.calendarModalVisible}
-                onRequestClose={() => {
-                  alert('Modal has been closed.');
-                }}>
+                onRequestClose={() => {}}
+              >
                 <View style={styles.calendarModalView}>
-                  <TouchableOpacity
-                    onPress={() => this.setState({calendarModalVisible: false})}
-                  >
-                    <Icon size={30} name="clear" style={styles.close} />
-                  </TouchableOpacity>
-                  <View style={{ marginBottom: 5 }}>
-                      <Text style={styles.selectedDateNum}>{moment(this.state.selectedDate).format('YYYY. MMMM DD.')}</Text>
-                      <Text style={styles.selectedDateText}>{moment(this.state.selectedDate).format('dddd')}</Text>
+                  <View style={{flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center'}}>
+                    <TouchableOpacity
+                      onPress={() => this.setState({calendarModalVisible: false})}
+                      style={{ marginRight: 'auto' }}
+                    >
+                      <Icon size={30} name="clear" style={styles.close} />
+                    </TouchableOpacity>
+
+                    <View style={{ marginRight: 'auto', marginBottom: 5, }}>
+                        <Text style={styles.selectedDateNum}>{moment(this.state.selectedDate).format('YYYY. MMMM DD.')}</Text>
+                        <Text style={styles.selectedDateText}>{moment(this.state.selectedDate).format('dddd')}</Text>
+                    </View>
                   </View>
-                  <ScrollView style={styles.calendarModalScrollView} showsVerticalScrollIndicator={false}>
-                    
+
+                  <View style={styles.modalTodaysJDate}>
+                    <View style={{ backgroundColor: '#ededed', marginRight: 10, paddingHorizontal: 7, paddingVertical: 5, borderRadius: 6}}>
+                      <Image source={require('../../assets/images/shape.png')} size={25} />
+                    </View>
+                    <Text style={[styles.todaysJDateText, { color: '#434656' }]}>{this.state.jDate}</Text>
+                  </View>
+
+                  <ScrollView style={styles.calendarModalScrollView} showsVerticalScrollIndicator={false}>                
                     <View>
                       { filteredEventItems }
                     </View>
@@ -244,12 +390,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingTop: 20,
   },
+  pageTitleRow: {
+    marginTop: 30,
+    marginBottom: 15,
+    paddingHorizontal: 15,
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between'
+  },
   pageTitle: {
     fontSize: 25,
     fontFamily: "YoungSerif-Regular",
-    paddingLeft: 15,
-    marginTop: 30,
-    marginBottom: 15,
+    // marginTop: 30,
+    // marginBottom: 15,
     color: '#434656',
   },
   item: {
@@ -335,11 +488,84 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   eventEvent: {
-    
+    borderLeftWidth: 4,
+    borderLeftColor: '#6ce986',    
   },
   prayerEvent: {
-    // borderWidth: 2,
-    // borderColor: '#f00',
+    borderLeftWidth: 4,
+    borderLeftColor: '#cfd0df',
   },
-  simpleEvent: {}
+  holidayEvent: {
+    borderLeftWidth: 4,
+    borderLeftColor: '#ff7070',
+  },
+  todayBtn: {
+    borderWidth: 1,
+    borderColor: '#ededed',
+    padding: 15,
+  },
+  todaysJDate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingLeft: 15,
+  },
+  modalTodaysJDate: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 15,
+    marginVertical: 15,
+    marginLeft: -25,
+  },
+  todaysJDateText: {
+    fontFamily: "YoungSerif-Regular",
+    fontSize: 16,
+    fontWeight: "600",
+    fontStyle: "normal",
+    color: '#a3abbc',
+    textAlign: 'center'
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 25,
+    marginBottom: 25,
+    paddingHorizontal: 20,
+  },
+  infoWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  infoCircle: {
+    width: 8, 
+    height:8, 
+    overflow: 'hidden', 
+    // borderWidth: 1, 
+    borderRadius: 4,
+    marginRight: 5, 
+  },
+  infoText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: "400",
+    fontStyle: "italic",
+    color: '#a3abbc'
+  },
+  currentBtn: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderColor: '#ededed',
+    borderRadius: 6,
+  },
+  currentBtnText: {
+    fontFamily: "Montserrat",
+    fontSize: 14,
+    fontWeight: "600",
+    fontStyle: "normal",
+    color: '#c49565'
+  },
 });

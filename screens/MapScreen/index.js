@@ -196,6 +196,42 @@ export default class MapScreen extends Component {
     this.setState({ filteredAttractions });
   }
 
+  // _getCurrentPosition() {
+  //   try {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         const region = {
+  //           latitude: position.coords.latitude,
+  //           longitude: position.coords.longitude,
+  //           latitudeDelta: 0.01,
+  //           longitudeDelta: 0.01,
+  //         };
+  //         this.setState({ region });
+  //       },
+  //       // (error) => {
+  //       //   //TODO: better design
+  //       //   switch (error.code) {
+  //       //     case 1:
+  //       //       if (Platform.OS === "ios") {
+  //       //         Alert.alert("", "Para ubicar tu locación habilita permiso para la aplicación en Ajustes - Privacidad - Localización");
+  //       //       } else {
+  //       //         Alert.alert("", "Para ubicar tu locación habilita permiso para la aplicación en Ajustes - Apps - ExampleApp - Localización");
+  //       //       }
+  //       //       break;
+  //       //     default:
+  //       //       Alert.alert("", "Error al detectar tu locación");
+  //       //   }
+  //       // }
+  //     );
+  //   } catch(e) {
+  //     alert(e.message || "");
+  //   }
+  // };
+
+  _setInitalRegion() {
+    this.setState({ region: initialRegion });
+  }
+
   render() {
     let textContent =  textContentJSON.hu;
     moment.locale('hu');
@@ -261,7 +297,7 @@ export default class MapScreen extends Component {
       );
     }
 
-    let filteredAttractionsList = <Text style={styles.noResultText}>Nincs Találat</Text>;
+    let filteredAttractionsList = <Text style={styles.noResultText}>{textContent.noresult}</Text>;
 
     if (filteredAttractions && filteredAttractions.length > 0 ){
       filteredAttractionsList = filteredAttractions.map((attraction) => {
@@ -325,7 +361,8 @@ export default class MapScreen extends Component {
                 <TouchableOpacity
                   style={styles.menuButton}
                   onPress={() => {
-                    Keyboard.dismiss()
+                    Keyboard.dismiss();
+                    this._setInitalRegion()
                   }}
                   activeOpacity={0.6}
                 >
