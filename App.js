@@ -175,57 +175,58 @@ export default class App extends Component {
           transparent={false}
           visible={this.state.contactPopUpVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.');
+            // alert('Modal has been closed.');
           }}>
           <SafeAreaView style={{marginTop: 25}}>
             <View style={styles.header}>
               <TouchableOpacity
                 onPress={() => this.setState({ contactPopUpVisible: false }) }
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+                style={styles.closeIconWrap}
+                >
                 <Icon size={30} name="clear" style={styles.close} />
               </TouchableOpacity>
-                <Text style={styles.pageTitle}>{textContent.kapcsolatTitle}</Text>
-              <TouchableOpacity
-                activeOpacity={1}>
-                <Icon size={30} name="clear" style={styles.rightIc} />
-              </TouchableOpacity>
+              <Text style={styles.pageTitle}>{textContent.kapcsolatTitle}</Text>
+              <View style={styles.rightIconPlaceholder}></View>;
             </View>
 
-            <Text style={styles.contentTitle}>{textContent.kapcsolatTartalom}</Text>
+            <ScrollView style={{marginBottom: 25}}>
+              <Text style={styles.contentTitle}>{textContent.kapcsolatTartalom}</Text>
 
-            <View style={styles.tartalom}>
-              <View style={styles.kapcsolat}>
-                  <Text style={styles.kapcsName}>{textContent.kapcsolatPerson}</Text>
-                  <Text style={styles.kapcsRole}>{textContent.kapcsolatPersonSub}</Text>
+              <View style={styles.tartalom}>
+                <View style={styles.kapcsolat}>
+                    <Text style={styles.kapcsName}>{textContent.kapcsolatPerson}</Text>
+                    <Text style={styles.kapcsRole}>{textContent.kapcsolatPersonSub}</Text>
+                </View>
+                <View style={styles.kapcsButtonView}>
+                  <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['dohanysyn@gmail.com'],null,null,'[JEWPSapp] Kapcsolatfelvétel','Kedves Hölgyem/Uram,\n\n')} activeOpacity={0.8}>
+                      <Text style={styles.kapcsBtnText}>{textContent.kapcsolatTartalomBtn}</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={styles.kapcsButtonView}>
-                <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['dohanysyn@gmail.com'],null,null,'[JEWPSapp] Kapcsolatfelvétel','Kedves Hölgyem/Uram,\n\n')} activeOpacity={0.8}>
-                    <Text style={styles.kapcsBtnText}>{textContent.kapcsolatTartalomBtn}</Text>
-                </TouchableOpacity>
+              <View style={styles.tartalomBody}>
+                <Text style={styles.kapcsBody}>{textContent.kapcsolatTartalomDesc}</Text>
               </View>
-            </View>
-            <View style={styles.tartalomBody}>
-              <Text style={styles.kapcsBody}>{textContent.kapcsolatTartalomDesc}</Text>
-            </View>
-            <Text style={styles.contentTitle}>{textContent.hibaTitle}</Text>
+              <Text style={styles.contentTitle}>{textContent.hibaTitle}</Text>
 
-            <View style={styles.hibabejelentes}>
-              <View style={styles.hibaCegImage}>
-                <Image source={require('./assets/images/garandDesign.png')} style={{width: 45, height: 45, marginTop: 15,}}/>
+              <View style={styles.hibabejelentes}>
+                <View style={styles.hibaCegImage}>
+                  <Image source={require('./assets/images/garandDesign.png')} style={{width: 45, height: 45, marginTop: 15,}}/>
+                </View>
+                <View style={styles.hibaCeg}>
+                  <Text style={styles.kapcsName}>{textContent.hibaCompany}</Text>
+                  <Text style={styles.kapcsRole}>{textContent.hibaSub}</Text>
+                </View>
+                <View style={styles.hibaButtonView}>
+                  <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['info@jewps.hu'],null,null,'[JEWPSapp] Hibabejelentés','Kedves GarandDesign csapat, \n\nAz alábbi hibáról szeretnék beszámolni Önöknek. \n\n⚡️ A hiba leírása, amit tapasztaltam: \n\n⚡️ A készülékem adatai \n ➡️Gyártó, modell: \n ➡️Operációs rendszer verziószáma: \n\n⚡️ Képernyőfotó a hibáról:\n')} activeOpacity={0.8}>
+                      <Text style={styles.kapcsBtnText}>{textContent.hibaBtn}</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={styles.hibaCeg}>
-                <Text style={styles.kapcsName}>{textContent.hibaCompany}</Text>
-                <Text style={styles.kapcsRole}>{textContent.hibaSub}</Text>
+              <View style={styles.tartalomBody}>
+                <Text style={styles.kapcsBody}>{textContent.hibaDesc}</Text>
               </View>
-              <View style={styles.hibaButtonView}>
-                <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['info@jewps.hu'],null,null,'[JEWPSapp] Hibabejelentés','Kedves GarandDesign csapat, \n\nAz alábbi hibáról szeretnék beszámolni Önöknek. \n\n⚡️ A hiba leírása, amit tapasztaltam: \n\n⚡️ A készülékem adatai \n ➡️Gyártó, modell: \n ➡️Operációs rendszer verziószáma: \n\n⚡️ Képernyőfotó a hibáról:\n')} activeOpacity={0.8}>
-                    <Text style={styles.kapcsBtnText}>{textContent.hibaBtn}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.tartalomBody}>
-              <Text style={styles.kapcsBody}>{textContent.hibaDesc}</Text>
-            </View>
+            </ScrollView>
           </SafeAreaView>
         </Modal>
 
@@ -235,47 +236,51 @@ export default class App extends Component {
           transparent={false}
           visible={this.state.impressumModalVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.');
-          }}>
-          <SafeAreaView style={{marginTop: 25}}>
+            // alert('Modal has been closed.');
+          }}
+        >
+          <SafeAreaView style={{ marginTop: 25 }}>
             <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => this.setState({ impressumModalVisible: false }) }
-              activeOpacity={0.8}>
-              <Icon size={30} name="clear" style={styles.close} />
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.setState({ impressumModalVisible: false }) }
+                activeOpacity={0.8}
+                style={styles.closeIconWrap}
+              >
+                <Icon size={30} name="clear" style={styles.close} />
+              </TouchableOpacity>
               <Text style={styles.pageTitle}>{textContent.impresszumTitle}</Text>
-              <TouchableOpacity
-                activeOpacity={1}>
-                <Icon size={30} name="clear" style={styles.rightIc} />
-              </TouchableOpacity>
+              <View style={styles.rightIconPlaceholder}></View>;
             </View>
-            <ScrollView style={styles.impresszumBody}>
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={styles.kapcsBody}>{textContent.impresszumDesc}</Text>
-            </View>
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={styles.impHeading}>{textContent.impresszumIdojaras}</Text>
-              <TouchableOpacity
-                style={styles.linkBtn}
-                activeOpacity={0.8}
-                onPress={() => Linking.openURL('https://darksky.net/poweredby/')}
-              >
-                <Text style={styles.linkBtnText}>Powered By Dark Sky API</Text>
-              </TouchableOpacity>
-              <Image source={require('./assets/images/poweredby-oneline.png')} style={{width: 250, height: 50, marginTop: 15,}}/>
-            </View>
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={styles.impHeading}>{textContent.impresszumCurrency}</Text>
-              <TouchableOpacity
-                style={styles.linkBtn}
-                activeOpacity={0.8}
-                onPress={() => Linking.openURL('https://free.currencyconverterapi.com/')}
-              >
-                <Text style={styles.linkBtnText}>Powered By CurrencyConverterAPI</Text>
-              </TouchableOpacity>
-            </View>
+
+            <ScrollView style={styles.impresszumBody} showsVerticalScrollIndicator={false}>
+              <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={styles.kapcsBody}>{textContent.impresszumDesc}</Text>
+              </View>
+
+              <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={styles.impHeading}>{textContent.impresszumIdojaras}</Text>
+                <TouchableOpacity
+                  style={styles.linkBtn}
+                  activeOpacity={0.8}
+                  onPress={() => Linking.openURL('https://darksky.net/poweredby/')}
+                >
+                  <Text style={styles.linkBtnText}>Powered By Dark Sky API</Text>
+                </TouchableOpacity>
+                <Image source={require('./assets/images/poweredby-oneline.png')} style={{width: 250, height: 50, marginTop: 15,}}/>
+              </View>
+
+              <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginBottom: 25,}}>
+                <Text style={styles.impHeading}>{textContent.impresszumCurrency}</Text>
+                <TouchableOpacity
+                  style={styles.linkBtn}
+                  activeOpacity={0.8}
+                  onPress={() => Linking.openURL('https://free.currencyconverterapi.com/')}
+                >
+                  <Text style={styles.linkBtnText}>Powered By CurrencyConverterAPI</Text>
+                </TouchableOpacity>
+              </View>
             </ScrollView>
+
           </SafeAreaView>
         </Modal>
 
@@ -286,7 +291,7 @@ export default class App extends Component {
           settingsEng={this.state.settingsEng}
         />
         
-        <OfflineNotice />
+        {/* <OfflineNotice /> */}
       </View>
     )
   }
@@ -318,19 +323,23 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     backgroundColor: "#FFF",
-    marginBottom: 15,
+    // marginBottom: 15,
+  },
+  closeIconWrap: {
+    marginRight: 'auto'
   },
   pageTitle: {
     fontSize: 20,
     fontFamily: "YoungSerif-Regular",
-    color: "#434656"
+    color: "#434656",
+    marginRight: 'auto'
   },
   close: {
-    paddingLeft: 10,
+    paddingHorizontal: 5,
     justifyContent: 'center',
-    color: "#434656"
+    color: "#434656",
   },
   rightIc: {
     paddingRight: 10,
@@ -344,16 +353,16 @@ const styles = StyleSheet.create({
   kapcsolat:{
     width: '50%',
   },
-  hibaCegImage:{
+  hibaCegImage: {
     width: '15%',
     alignItems: 'center',
     justifyContent: 'center'
   },
-  hibaCeg:{
+  hibaCeg: {
     width: '45%',
     justifyContent: 'center'
   },
-  kapcsName:{
+  kapcsName: {
     paddingTop: 15,
     paddingBottom: 5,
     fontFamily: "Montserrat",
@@ -378,16 +387,15 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     color: "#A3ABBC"
   },
-  tartalomBody:{
+  tartalomBody: {
     marginTop: 15,
-    marginLeft: 15,
+    marginHorizontal: 15,
     marginBottom: 40,
-
   },
-  impresszumBody:{
-    height: '150%',
-    marginLeft: 15,
-    marginRight: 5,
+  impresszumBody: {
+    flex: 1,
+    flexBasis: "90%",
+    marginHorizontal: 15,
   },
   kapcsBody:{
     fontFamily: "Montserrat",
@@ -410,14 +418,14 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   kapcsButtonView:{
-      width: '50%',
-      alignItems: 'center',
-      justifyContent: 'space-around',
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   hibaButtonView:{
-      width: '30%',
-      alignItems: 'center',
-      justifyContent: 'space-around',
+    width: '30%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   kapcsBtn: {
     width: 130,
@@ -434,9 +442,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     shadowColor: '#b7a99b',
     shadowOffset: {
-            width: 0,
-            height: 15
-          },
+      width: 0,
+      height: 15
+    },
     shadowRadius: 15,
     shadowOpacity: 0.5,
   },
@@ -466,9 +474,9 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(237, 237, 237, 1)',
     shadowColor: '#b7a99b',
     shadowOffset: {
-            width: 0,
-            height: 15
-          },
+      width: 0,
+      height: 15
+    },
     shadowRadius: 15,
     shadowOpacity: 0.5,
   },
@@ -479,4 +487,8 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     color: '#c49565'
   },
+  rightIconPlaceholder: {
+    width: 50,
+    height: 50,
+  }
 });
