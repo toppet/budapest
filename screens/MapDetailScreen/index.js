@@ -31,13 +31,13 @@ const SLIDER_1_FIRST_ITEM = 1;
 
 const ENTRIES1 = [
   {
-      illustration: null
+    illustration: null
   },
   {
-      illustration: null
+    illustration: null
   },
   {
-      illustration: null
+    illustration: null
   },
 ];
 
@@ -162,7 +162,7 @@ export default class MapDetailScreen extends Component {
   render() {
     const { navigation } = this.props;
     const mapItem = navigation.getParam('mapItem');
-    const openingHoursParam = navigation.getParam('openingHoursParam');
+    // const openingHoursParam = navigation.getParam('openingHoursParam');
     // const { slider1ActiveSlide } = this.state;
     // const { data: { title, subtitle }, even } = this.props;
     let webPageBtn = null;
@@ -188,8 +188,8 @@ export default class MapDetailScreen extends Component {
     const rest = _.slice(mapItem.openingHours, 1);
     const weekDays = _.concat(rest, sunday);
 
-    console.log('MapItem', mapItem);
-    console.log('openingHoursParam', openingHoursParam);
+    // console.log('MapItem', mapItem);
+    // console.log('openingHoursParam', openingHoursParam);
 
     moment.locale('hu');
 
@@ -304,7 +304,6 @@ export default class MapDetailScreen extends Component {
           {this.getOpeningHours(mapItem.openingHours[currentDayIndex])}
         </View>
       )
-      // openingHours = openingHoursParam;
 
       modalBtn = (
         <View style={styles.infoWrap}>

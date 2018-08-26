@@ -37,11 +37,10 @@ export default class SideMenuScreen extends Component {
             <View style={{opacity: 0.45,  borderRadius: 6, height: '95%', width: 500, right: -485, backgroundColor: "#b7a99b", position: 'absolute', }}></View>
           </View>
 
-          <View style={{ flex: 1, marginTop: 50, marginBottom: 400, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'transparent'}}>
-            {/* <Icon.Button style={styles.button} size={22} name="settings" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.showSettingsDialog()}>
-              <Text style={styles.buttonText}>Beállítások</Text>
-            </Icon.Button> */}
+          <View style={{ flex: 1, marginTop: 50, justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'transparent'}}>
+
             <Image source={require('../../assets/images/icon_60pt.png')} style={styles.appIcon}/>
+
             <TouchableOpacity onPress={() => this.props.showSettingsDialog()} style={{ marginBottom: 30 }}>
               <View style={styles.buttonView}>
                 <Icon style={styles.buttonIcon} size={22} name="settings" color="#c49565" />
@@ -63,15 +62,9 @@ export default class SideMenuScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            {/* <Icon.Button style={styles.button} size={20} name="chat-bubble" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.showContactDialog()}>
-              <Text style={styles.buttonText}>Kapcsolat</Text>
-            </Icon.Button>
-            <Icon.Button style={styles.button} size={20} name="insert-drive-file" color="#c49565" backgroundColor="#ffffff00" onPress={() => this.props.setImpressumModalVisible()}>
-              <Text style={styles.buttonText}>Impresszum</Text>
-            </Icon.Button> */}
           </View>
 
-          <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', marginLeft: "auto", marginRight: "auto"}}>
+          <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', marginTop: 350, marginLeft: "auto", marginRight: "auto"}}>
             <Text style={styles.addressL}>{textContent.dohanyTitle1}</Text>
             <Text style={styles.addressL}>{textContent.dohanyTitle2}</Text>
             <Text style={[styles.addressS, { marginTop: 10 }]}>{textContent.dohanyAddress1}</Text>

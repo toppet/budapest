@@ -46,12 +46,12 @@ const bestPlaces = [
     placeName: 'Kazinczy utcai Zsinagóga',
   },
   {
-    id: 3,
+    id: 6,
     imageSrc: require('../../assets/images/attractions/hosok1.jpg'),
     placeName: 'Hősök Temploma',
   },
   {
-    id: 4,
+    id: 5,
     imageSrc: require('../../assets/images/attractions/orthodox1.jpg'),
     placeName: 'A Budapesti Zsidó Hitközség székháza',
   },
@@ -261,9 +261,12 @@ export default class HomeScreen extends Component {
       moment.locale('en');
     }
 
-    const newsCardWidth = parseInt(Dimensions.get('window').width * 0.6, 10);
-    const eventCardWidth = parseInt(Dimensions.get('window').width * 0.7, 10);
-    const placesCardWidth = parseInt(Dimensions.get('window').width * 0.5, 10);
+    // const newsCardWidth = parseInt(Dimensions.get('window').width * 0.6, 10);
+    // const eventCardWidth = parseInt(Dimensions.get('window').width * 0.7, 10);
+    // const placesCardWidth = parseInt(Dimensions.get('window').width * 0.5, 10);
+    const newsCardWidth = 300;
+    const eventCardWidth = 300;
+    const placesCardWidth = 200;
 
     let EUR_HUF = null;
     let USD_HUF = null;
@@ -351,7 +354,7 @@ export default class HomeScreen extends Component {
 
     const placesCards = bestPlaces.map((e) => {
       return (
-        <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth }]} key={e.id} activeOpacity={1}>
+        <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth, marginBottom: 40 }]} key={e.id} activeOpacity={1}>
           <View style={styles.placeCard}>
 
             <View style={styles.imageBgPlace}>
@@ -395,7 +398,7 @@ export default class HomeScreen extends Component {
                 { holidayBox }
               </View>
 
-              <View style={{flexDirection: 'row', marginBottom: 50, alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{flexDirection: 'row', marginBottom: 30, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center",  borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
                   { weathIcon }
                   <Text style={styles.weatherText}>{weatherBUD && weatherBUD.summary ? weatherBUD.summary : '-'}</Text>
@@ -417,7 +420,7 @@ export default class HomeScreen extends Component {
               </View>
 
               <View>
-                <View style={{ marginBottom: 15, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', paddingHorizontal: 15}}>
                   <Text style={styles.subtitleBack}>{textContent.hirekBack}</Text>
                   <Text style={styles.subtitleFront}>{textContent.hirekTop}</Text>
                   <TouchableOpacity
@@ -606,7 +609,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.1,
     elevation: 2,
-    marginBottom: 40,
+    marginBottom: 20,
   },
   newsCard: {
     flex: 1,

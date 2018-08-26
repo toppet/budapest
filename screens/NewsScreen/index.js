@@ -325,7 +325,7 @@ export default class NewsScreen extends Component {
       news = top3News.map((n) => {
         const headerImage = _.find(n.media, n => n.type === 1);
         return (
-          <View style={styles.newsCard} key={n.id}>
+          <TouchableOpacity style={styles.newsCard} key={n.id} activeOpacity={0.95} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n }) }>
             <View style={{ width: '100%', height: '100%', overflow: 'hidden', padding: 0, borderRadius: 6,}}>
               <ImageBackground source={{uri: headerImage.src_thumbs}} resizeMode='cover' style={{ height: '100%' }}>
                   <View style={{ padding: 10, backgroundColor: 'rgba(67, 70, 86, 0.6)', height: '100%' }}>
@@ -337,7 +337,7 @@ export default class NewsScreen extends Component {
             <TouchableOpacity style={styles.readMoreBtn} activeOpacity={0.95} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n }) }>
               <Text style={styles.readMoreBtnText}>{textContent.elolvasomBtn}</Text>
             </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         )}
       );
     }

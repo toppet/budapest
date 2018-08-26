@@ -6,7 +6,8 @@
    "nyitvatartas": "Opening hours:",
    "nyitva": "Open",
    "zarva": "Closed",
-   "noresult": "No result"
+   "noresult": "No result",
+   "free": "Free of charge"
  },
  "hu": {
    "searchPlaceholder": "Keresés itt: Helyszínek",
@@ -15,6 +16,7 @@
    "nyitvatartas": "Nyitvatartás:",
    "nyitva": "Nyitva",
    "zarva": "Zárva",
-   "noresult": "Nincs találat"
+   "noresult": "Nincs találat",
+   "free": "Ingyenes"
  }
 }

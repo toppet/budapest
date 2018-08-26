@@ -17,6 +17,7 @@ import * as AddCalendarEvent from 'react-native-add-calendar-event';
 
 import { LocaleConfig, Agenda, Calendar, CalendarList } from 'react-native-calendars';
 import moment from 'moment';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import textContentJSON from './calendarScreenTrans.json';
 
@@ -131,7 +132,7 @@ export default class CalendarScreen extends Component {
           }
       })
       .catch((error) => {
-        console.error(error);
+        return null
       })
     }
 
@@ -269,116 +270,117 @@ export default class CalendarScreen extends Component {
               pageTitle="Naptár"
             />
 
-            <View style={styles.pageTitleRow}>
-              <Text style={styles.pageTitle}>{moment().format('MMMM DD.').replace(/^\w/, c => c.toUpperCase())}</Text>
-              <TouchableOpacity 
-                onPress={() => {
-                  this.setState({
-                    reset: true,
-                  });
-                  const startDate = moment().startOf('month').format(dateFormat);
-                  const endDate = moment().endOf('month').format(dateFormat);
-                  this.fetchData(startDate, endDate);
-                }}
-                style={styles.currentBtn}
-                activeOpacity={0.8}
-              >
-                <Text style={styles.currentBtnText}>{textContent.currentBtnText}</Text>
-              </TouchableOpacity>
-            </View>
-            
-            <View style={styles.todaysJDate}>
-              <View style={{ backgroundColor: '#ededed', marginRight: 10, paddingHorizontal: 7, paddingVertical: 5, borderRadius: 6}}>
-                <Image source={require('../../assets/images/shape.png')} size={25} />
-              </View>
-              <Text style={styles.todaysJDateText}>{this.state.todaysjDate}</Text>
-            </View>
-            
-            <View style={styles.infoRow}>
-              <View style={styles.infoWrap}>
-                <Text style={[styles.infoCircle, { backgroundColor: '#6ce986' }]}></Text>
-                <Text style={styles.infoText}>{textContent.infoTextEvent}</Text>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ marginBottom: 50, }}>
+              <View style={styles.pageTitleRow}>
+                <Text style={styles.pageTitle}>{moment().format('MMMM DD.').replace(/^\w/, c => c.toUpperCase())}</Text>
+                <TouchableOpacity 
+                  onPress={() => {
+                    this.setState({
+                      reset: true,
+                    });
+                    const startDate = moment().startOf('month').format(dateFormat);
+                    const endDate = moment().endOf('month').format(dateFormat);
+                    this.fetchData(startDate, endDate);
+                  }}
+                  style={styles.currentBtn}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.currentBtnText}>{textContent.currentBtnText}</Text>
+                </TouchableOpacity>
               </View>
               
-              <View style={styles.infoWrap}>
-                <Text style={[styles.infoCircle, { backgroundColor: '#a3abbc' }]}></Text>
-                <Text style={styles.infoText}>{textContent.infoTextPrayer}</Text>
-              </View>
-              
-              <View style={styles.infoWrap}>
-                <Text style={[styles.infoCircle, { backgroundColor: '#ff7070' }]}></Text>
-                <Text style={styles.infoText}>{textContent.infoTextHoliday}</Text>
-              </View>
-            </View>
-
-            <View style={{ flex: 1 }}>
-              <Calendar
-                current={this.state.reset ? moment().format(dateFormat) : ''}
-                minDate={moment().format(dateFormat)}
-                hideExtraDays={true}
-                onDayPress={(day) => this.getSelectedDayData(day)}
-                monthFormat={'yyyy. MMMM'}
-                // Handler which gets executed when visible month changes in calendar. Default = undefined
-                onMonthChange={(month) => {
-                  const startDate = moment(month.dateString).startOf('month').format(dateFormat);
-                  const endDate = moment(startDate).endOf('month').format(dateFormat);
-                  this.fetchData(startDate, endDate);
-                }}
-                renderArrow={(direction) => this.renderCalendarArrows(direction)}
-                firstDay={1}
-                displayLoadingIndicator={true}
-                markedDates={this.state.markedDates}
-                markingType={'multi-dot'}
-                theme={{
-                  textMonthFontFamily: 'Montserrat',
-                  textMonthFontWeight: 'bold',
-                  textDayFontFamily: 'Montserrat',
-                  monthTextColor: '#c49565',
-                  dotColor: '#c49565',
-                  selectedDayBackgroundColor: '#c49565',
-                  todayTextColor: '#73beff',
-                  textMonthFontSize: 18,
-                  textDayFontSize: 13,
-                }}
-              />
-
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={this.state.calendarModalVisible}
-                onRequestClose={() => {}}
-              >
-                <View style={styles.calendarModalView}>
-                  <View style={{flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center'}}>
-                    <TouchableOpacity
-                      onPress={() => this.setState({calendarModalVisible: false})}
-                      style={{ marginRight: 'auto' }}
-                    >
-                      <Icon size={30} name="clear" style={styles.close} />
-                    </TouchableOpacity>
-
-                    <View style={{ marginRight: 'auto', marginBottom: 5, }}>
-                        <Text style={styles.selectedDateNum}>{moment(this.state.selectedDate).format('YYYY. MMMM DD.')}</Text>
-                        <Text style={styles.selectedDateText}>{moment(this.state.selectedDate).format('dddd')}</Text>
-                    </View>
-                  </View>
-
-                  <View style={styles.modalTodaysJDate}>
-                    <View style={{ backgroundColor: '#ededed', marginRight: 10, paddingHorizontal: 7, paddingVertical: 5, borderRadius: 6}}>
-                      <Image source={require('../../assets/images/shape.png')} size={25} />
-                    </View>
-                    <Text style={[styles.todaysJDateText, { color: '#434656' }]}>{this.state.jDate}</Text>
-                  </View>
-
-                  <ScrollView style={styles.calendarModalScrollView} showsVerticalScrollIndicator={false}>                
-                    <View>
-                      { filteredEventItems }
-                    </View>
-                  </ScrollView>
+              <View style={styles.todaysJDate}>
+                <View style={{ backgroundColor: '#ededed', marginRight: 10, paddingHorizontal: 7, paddingVertical: 5, borderRadius: 6}}>
+                  <Image source={require('../../assets/images/shape.png')} size={25} />
                 </View>
-              </Modal>
+                <Text style={styles.todaysJDateText}>{this.state.todaysjDate}</Text>
+              </View>
+              
+              <View style={styles.infoRow}>
+                <View style={styles.infoWrap}>
+                  <Text style={[styles.infoCircle, { backgroundColor: '#6ce986' }]}></Text>
+                  <Text style={styles.infoText}>{textContent.infoTextEvent}</Text>
+                </View>
+                
+                <View style={styles.infoWrap}>
+                  <Text style={[styles.infoCircle, { backgroundColor: '#a3abbc' }]}></Text>
+                  <Text style={styles.infoText}>{textContent.infoTextPrayer}</Text>
+                </View>
+                
+                <View style={styles.infoWrap}>
+                  <Text style={[styles.infoCircle, { backgroundColor: '#ff7070' }]}></Text>
+                  <Text style={styles.infoText}>{textContent.infoTextHoliday}</Text>
+                </View>
+              </View>
 
-            </View>
+              <View style={{ flex: 1 }}>
+                <Calendar
+                  current={this.state.reset ? moment().format(dateFormat) : ''}
+                  minDate={moment().format(dateFormat)}
+                  hideExtraDays={true}
+                  onDayPress={(day) => this.getSelectedDayData(day)}
+                  monthFormat={'yyyy. MMMM'}
+                  // Handler which gets executed when visible month changes in calendar. Default = undefined
+                  onMonthChange={(month) => {
+                    const startDate = moment(month.dateString).startOf('month').format(dateFormat);
+                    const endDate = moment(startDate).endOf('month').format(dateFormat);
+                    this.fetchData(startDate, endDate);
+                  }}
+                  renderArrow={(direction) => this.renderCalendarArrows(direction)}
+                  firstDay={1}
+                  displayLoadingIndicator={true}
+                  markedDates={this.state.markedDates}
+                  markingType={'multi-dot'}
+                  theme={{
+                    textMonthFontFamily: 'Montserrat',
+                    textMonthFontWeight: 'bold',
+                    textDayFontFamily: 'Montserrat',
+                    monthTextColor: '#c49565',
+                    dotColor: '#c49565',
+                    selectedDayBackgroundColor: '#c49565',
+                    todayTextColor: '#73beff',
+                    textMonthFontSize: 18,
+                    textDayFontSize: 13,
+                  }}
+                />
+
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={this.state.calendarModalVisible}
+                  onRequestClose={() => {}}
+                >
+                  <View style={styles.calendarModalView}>
+                    <View style={{flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'center'}}>
+                      <TouchableOpacity
+                        onPress={() => this.setState({calendarModalVisible: false})}
+                        style={{ marginRight: 'auto' }}
+                      >
+                        <Icon size={30} name="clear" style={styles.close} />
+                      </TouchableOpacity>
+
+                      <View style={{ marginRight: 'auto', marginBottom: 5, }}>
+                          <Text style={styles.selectedDateNum}>{moment(this.state.selectedDate).format('YYYY. MMMM DD.')}</Text>
+                          <Text style={styles.selectedDateText}>{moment(this.state.selectedDate).format('dddd')}</Text>
+                      </View>
+                    </View>
+
+                    <View style={styles.modalTodaysJDate}>
+                      <View style={{ backgroundColor: '#ededed', marginRight: 10, paddingHorizontal: 7, paddingVertical: 5, borderRadius: 6}}>
+                        <Image source={require('../../assets/images/shape.png')} size={25} />
+                      </View>
+                      <Text style={[styles.todaysJDateText, { color: '#434656' }]}>{this.state.jDate}</Text>
+                    </View>
+
+                    <ScrollView style={styles.calendarModalScrollView} showsVerticalScrollIndicator={false}>                
+                      <View>
+                        { filteredEventItems }
+                      </View>
+                    </ScrollView>
+                  </View>
+                </Modal>
+              </View>
+            </ScrollView>
           </View>
       )
   }

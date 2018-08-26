@@ -12,6 +12,7 @@ import YouTube from 'react-native-youtube';
 import PageHeader from '../../components/PageHeader';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Markdown from 'react-native-markdown-renderer';
 
 import textContentJSON from '../NewsScreen/newsTrans.json';
 
@@ -84,7 +85,19 @@ export default class NewsDetailScreen extends Component {
 
           <View style={styles.newsContent}>
             <Text style={styles.newsTitle}>{newsItem.title}</Text>
-            <Text style={styles.newsBody}>{newsItem.body}</Text>
+            {/* <Text style={styles.newsBody}>{newsItem.body}</Text> */}
+            <Markdown style={{
+              heading3: {
+                fontFamily: 'Montserrat',
+                fontSize: 14,
+                fontWeight: 'bold',
+              },
+              text: {
+                fontFamily: 'Montserrat',
+                fontSize: 14,
+              }
+            }}
+            >{newsItem.body}</Markdown>
           </View>
 
           <View>
@@ -132,6 +145,7 @@ const styles = StyleSheet.create({
   newsContent: {
     paddingLeft: 15,
     paddingRight: 15,
+    marginBottom: 25,
   },
   newsTitle: {
     fontFamily: "Montserrat",

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Platform,
   MapRegistry,
@@ -89,23 +89,26 @@ const initialRegion = {
   latitudeDelta: 0.015,
   longitudeDelta: 0.015,
 };
-export default class MapScreen extends Component {
+export default class MapScreen extends PureComponent {
+  static getDerivedStateFromProps(props, state) {
+    const { navigation } = props;
+    const itemId = navigation.state.params && navigation.state.params.itemId;
+
+    if(itemId !== null) {
+      return {
+        ...state,
+        navigationProp: itemId,
+        selectedMarker: markersJSON[itemId],
+        selectedMarkerIndex: itemId,
+      }
+    }
+    return null;
+  }
+
   state = {
     selectedMarker: null,
     selectedMarkerIndex: null,
     markers: markersJSON,
-    // region: {
-    //   latitude: 47.4984094,
-    //   longitude: 19.0621811,
-    //   latitudeDelta: 0.015,
-    //   longitudeDelta: 0.015,
-    // },
-    // initialRegion: {
-    //   latitude: 47.4984094,
-    //   longitude: 19.0621811,
-    //   latitudeDelta: 0.015,
-    //   longitudeDelta: 0.015,
-    // },
     region: initialRegion,
     polygonCoordinates: [
       {
@@ -138,13 +141,12 @@ export default class MapScreen extends Component {
       },
     ],
     searchText: '',
-    navParamMapItemId: null,
+    // navParamMapItemId: null,
     filteredAttractions: [],
+    navParamId: this.props.navigation.getParam('itemId', null),
   }
 
   componentDidMount() {
-    // this.index = 0;
-    // this.animation = new Animated.Value(0);
     const attractionNames = this.state.markers.map((marker) => marker.title.toLowerCase());
     this.setState({ attractionNames });
   }
@@ -158,6 +160,8 @@ export default class MapScreen extends Component {
       });
     }
   }
+
+  
 
   getOpeningHours(openingHours) {
     const { open, close, closed } = openingHours;
@@ -182,13 +186,6 @@ export default class MapScreen extends Component {
     return resultText;
   }
 
-  setMarker(markerIndex) {
-    this.setState({
-      selectedMarker: this.state.markers[markerIndex],
-      selectedMarkerIndex: markerIndex,
-    });
-  }
-
   filterAttractions(text) {
     const { markers } = this.state;
     const lowerCaseFilterText = text.toLowerCase();
@@ -196,40 +193,58 @@ export default class MapScreen extends Component {
     this.setState({ filteredAttractions });
   }
 
-  // _getCurrentPosition() {
-  //   try {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         const region = {
-  //           latitude: position.coords.latitude,
-  //           longitude: position.coords.longitude,
-  //           latitudeDelta: 0.01,
-  //           longitudeDelta: 0.01,
-  //         };
-  //         this.setState({ region });
-  //       },
-  //       // (error) => {
-  //       //   //TODO: better design
-  //       //   switch (error.code) {
-  //       //     case 1:
-  //       //       if (Platform.OS === "ios") {
-  //       //         Alert.alert("", "Para ubicar tu locación habilita permiso para la aplicación en Ajustes - Privacidad - Localización");
-  //       //       } else {
-  //       //         Alert.alert("", "Para ubicar tu locación habilita permiso para la aplicación en Ajustes - Apps - ExampleApp - Localización");
-  //       //       }
-  //       //       break;
-  //       //     default:
-  //       //       Alert.alert("", "Error al detectar tu locación");
-  //       //   }
-  //       // }
-  //     );
-  //   } catch(e) {
-  //     alert(e.message || "");
-  //   }
-  // };
-
   _setInitalRegion() {
     this.setState({ region: initialRegion });
+  }
+
+  onRegionChange(region) {
+    this.setState({ region });
+  }
+  
+  setSelectedMarker(navParamMapItemId) {
+    this.setState({
+      selectedMarker: markersJSON[navParamMapItemId],
+      selectedMarkerIndex: navParamMapItemId,
+    });
+  }
+
+  getSelectedMarkerCard(selectedMarker, textContent) {
+    const currentDayIndex = moment().day();
+    const openingHours = selectedMarker.openingHours ? selectedMarker.openingHours[currentDayIndex] : null;
+    const entryFee = selectedMarker.entryFee !== 0 ? `${selectedMarker.entryFee} ${selectedMarker.currency}` : textContent.free;
+    // console.log('selectedMarker', selectedMarker);
+
+    const openingHoursWrap = (
+      <View>
+        <Text style={styles.labelText}>{textContent.nyitvatartas}</Text>
+        <Text style={styles.valueText}>
+          {openingHours ? this.getOpeningHours(openingHours) : null}
+        </Text>
+      </View>
+    );
+    
+    const entryFeeWrap = (
+      <Text style={styles.labelText}>
+        {textContent.belepo} <Text style={styles.valueText}>{entryFee}</Text>
+      </Text>
+    );
+
+    return (
+      <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
+        <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/>
+        <View style={styles.leftView}>
+          <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
+          <Text style={styles.markerTitle}>{selectedMarker.title}</Text>
+          { selectedMarker.entryFee !== 0 ? entryFeeWrap : null }
+          { selectedMarker.openingHours ? openingHoursWrap : null }
+        </View>
+        <View style={styles.rightView}>
+          <View style={styles.imageWrap}>
+            <ImageBackground source={selectedMarker.thumbnail_2} style={{width: 120, height: 120}} />
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   }
 
   render() {
@@ -245,62 +260,17 @@ export default class MapScreen extends Component {
     let { 
       selectedMarker, 
       selectedMarkerIndex, 
-      navParamMapItemId,
       filteredAttractions,
     } = this.state;
-    const { navigation } = this.props;
-    const currentDayIndex = moment().day();
-    // let navParamMapItemId = navigation.getParam('itemId', null);
-
-    // if(selectedMarker === null && navParamMapItemId !== null) {
-    //   // console.log('this.state.markers[navParamMapItemId]', this.state.markers[navParamMapItemId], 'navParamMapItemId', navParamMapItemId);
-    //   // selectedMarkerIndex = navParamMapItemId;
-    //   // selectedMarker = this.state.markers[navParamMapItemId];
-    //   // navParamMapItemId = null;
-    //   // this.setMarker(navParamMapItemId);
-    // }
-
-    if (selectedMarker) {
-      const openingHours = selectedMarker.openingHours ? selectedMarker.openingHours[currentDayIndex] : null;
-      const entryFee = selectedMarker.entryFee !== 0 ? `${selectedMarker.entryFee} ${selectedMarker.currency}` : 'ingyenes';
-
-      const openingHoursWrap = (
-        <View>
-          <Text style={styles.labelText}>{textContent.nyitvatartas}</Text>
-          <Text style={styles.valueText}>
-            {openingHours ? this.getOpeningHours(openingHours) : null}
-          </Text>
-        </View>
-      );
-      
-      const entryFeeWrap = (
-        <Text style={styles.labelText}>
-          {textContent.belepo} <Text style={styles.valueText}>{entryFee}</Text>
-        </Text>
-      );
-
-      selectedMarkerCard = (
-        <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
-          <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/>
-          <View style={styles.leftView}>
-            <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
-            <Text style={styles.markerTitle}>{selectedMarker.title}</Text>
-            { selectedMarker.entryFee !== 0 ? entryFeeWrap : null }
-            { selectedMarker.openingHours ? openingHoursWrap : null }
-          </View>
-          <View style={styles.rightView}>
-            <View style={styles.imageWrap}>
-              <ImageBackground source={selectedMarker.thumbnail_2} style={{width: 120, height: 120}} />
-            </View>
-          </View>
-        </TouchableOpacity>
-      );
-    }
-
     let filteredAttractionsList = <Text style={styles.noResultText}>{textContent.noresult}</Text>;
+    
+    if (selectedMarker) {
+      selectedMarkerCard = this.getSelectedMarkerCard(selectedMarker, textContent);
+    }
 
     if (filteredAttractions && filteredAttractions.length > 0 ){
       filteredAttractionsList = filteredAttractions.map((attraction) => {
+        const { region } = this.state;
         return (
           <TouchableOpacity
             key={attraction.id}
@@ -311,7 +281,11 @@ export default class MapScreen extends Component {
                 searchText: '',
                 selectedMarker: attraction,
                 selectedMarkerIndex: attraction.id,
-                region: {...attraction.coordinate, longitudeDelta: 0.009, latitudeDelta: 0.009 }
+                region: {
+                  ...attraction.coordinate,
+                  longitudeDelta: region ? region.longitudeDelta : 0.009,
+                  latitudeDelta: region ? region.latitudeDelta : 0.009,
+                }
               });
             }}
           >
@@ -356,8 +330,6 @@ export default class MapScreen extends Component {
               
 
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                {/* <Icon style={styles.menuButton} name='search' color="#434656" size={25}/> */}
-
                 <TouchableOpacity
                   style={styles.menuButton}
                   onPress={() => {
@@ -379,8 +351,6 @@ export default class MapScreen extends Component {
               height: '100%', 
               width: '100%', 
               backgroundColor: '#fff',
-              // paddingTop: 125,
-              // top: 100
             }}>
               <ScrollView style={{top: 125, marginBottom: 130,}} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
                   { filteredAttractionsList }
@@ -389,14 +359,15 @@ export default class MapScreen extends Component {
 
             <MapView
               // provider={PROVIDER_GOOGLE}
+              // customMapStyle={customMapStyle}
               ref={map => this.map = map}
               initialRegion={initialRegion}
-              region={this.state.region}
+              region={this.state.region}  
               style={styles.container}
-              customMapStyle={customMapStyle}
-              onPress={(e) => this.handleMapViewPress(e)}
               showsUserLocation
-              showsMyLocationButton
+              showsMyLocationButton={false}
+              onPress={(e) => this.handleMapViewPress(e)}
+              onRegionChangeComplete={(region) => this.onRegionChange(region)}
             >
               <MapView.Polygon
                 coordinates={this.state.polygonCoordinates}
@@ -411,7 +382,7 @@ export default class MapScreen extends Component {
                     coordinate={marker.coordinate}
                     image={selectedMarkerIndex === index ? selectedPinIcon : pinIcon}
                     onPress={() => {
-                      selectedMarkerIndex !== index ? this.setState({ selectedMarker: marker, selectedMarkerIndex: index }) : null 
+                      selectedMarkerIndex !== index ? this.setState({ navParamId: null, selectedMarker: marker, selectedMarkerIndex: index }) : null 
                     }}
                   >
                   </MapView.Marker>
@@ -486,10 +457,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowOffset: { x: 2, y: -2 },
     height: 150,
-    width: '90%',
+    width: 350,
     position: 'absolute',
     bottom: 15,
-    left: (Dimensions.get('window').width / 2) - percent90HalfWidth,
+    left: (Dimensions.get('window').width / 2) - 175,
     borderRadius: 10,
     flexDirection: 'row',
   },
@@ -501,7 +472,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     overflow: 'hidden',
     top: -15,
-    left: (Dimensions.get('window').width / 2) - 45,
+    left: 150,
     color: '#c49565',
   },
   leftView: {
