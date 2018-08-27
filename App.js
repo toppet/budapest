@@ -136,6 +136,7 @@ export default class App extends Component {
       textContent = textContentJSON.en;
       moment.locale('en');
     }
+    
     return (
       <View style={{flex:1}}>
         <PopupDialog

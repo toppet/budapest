@@ -12,7 +12,8 @@ import {
   Modal,
   RefreshControl,
   DatePickerIOS,
-  Image
+  Image,
+  Platform,
 } from 'react-native';
 
 import PageHeader from '../../components/PageHeader';
@@ -516,7 +517,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 20,
+    paddingTop: Platform.OS === 'android' ? 0 : 20,
   },
   content: {
     // padding: 10,

@@ -14,6 +14,7 @@ import {
   RefreshControl,
   DatePickerIOS,
   DatePickerAndroid,
+  Platform,
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -506,7 +507,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 20,
+    paddingTop: Platform.OS === 'android' ? 0 : 20,
   },
   content: {
     // padding: 10,
