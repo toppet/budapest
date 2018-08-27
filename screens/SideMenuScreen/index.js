@@ -5,12 +5,14 @@ import {
   ImageBackground,
   TouchableOpacity,
   StyleSheet,
-  Image
+  Image,
+  Switch
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
 
 import textContentJSON from './menuRootTrans.json';
+import firebase from 'react-native-firebase';
 
 export default class SideMenuScreen extends Component {
   state = {
@@ -41,12 +43,6 @@ export default class SideMenuScreen extends Component {
 
             <Image source={require('../../assets/images/icon_60pt.png')} style={styles.appIcon}/>
 
-            <TouchableOpacity onPress={() => this.props.showSettingsDialog()} style={{ marginBottom: 30 }}>
-              <View style={styles.buttonView}>
-                <Icon style={styles.buttonIcon} size={22} name="settings" color="#c49565" />
-                <Text style={styles.buttonText}>{textContent.beallitasok}</Text>
-              </View>
-            </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.props.showContactDialog()} style={{marginBottom: 30}}>
               <View style={styles.buttonView}>
@@ -55,12 +51,18 @@ export default class SideMenuScreen extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.setImpressumModalVisible()}>
+            <TouchableOpacity onPress={() => this.props.setImpressumModalVisible()}  style={{ marginBottom: 30 }}>
               <View style={styles.buttonView}>
                 <Icon style={styles.buttonIcon} size={22} name="insert-drive-file" color="#c49565" />
                 <Text style={styles.buttonText}>{textContent.impresszum}</Text>
               </View>
             </TouchableOpacity>
+
+              <View style={styles.buttonView}>
+                <Icon style={styles.buttonIcon} size={22} name="language" color="#c49565" />
+                <Text style={styles.buttonText}>English</Text>
+                <Switch value={this.state.settingsEng} onValueChange={() => this._setAppLang()}></Switch>
+              </View>
 
           </View>
 
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
   buttonView: {
     flexDirection: 'row',
     width: 165,
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'flex-start',
   },
   buttonIcon: {
