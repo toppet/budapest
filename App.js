@@ -218,7 +218,7 @@ export default class App extends Component {
                   <Text style={styles.kapcsRole}>{textContent.hibaSub}</Text>
                 </View>
                 <View style={styles.hibaButtonView}>
-                  <TouchableOpacity style={styles.kapcsBtn} onPress={() => Communications.email(['info@jewps.hu'],null,null,'[JEWPSapp] Hibabejelentés','Kedves GarandDesign csapat, \n\nAz alábbi hibáról szeretnék beszámolni Önöknek. \n\n⚡️ A hiba leírása, amit tapasztaltam: \n\n⚡️ A készülékem adatai \n ➡️Gyártó, modell: \n ➡️Operációs rendszer verziószáma: \n\n⚡️ Képernyőfotó a hibáról:\n')} activeOpacity={0.8}>
+                  <TouchableOpacity style={styles.kapcsBtnGarand} onPress={() => Communications.email(['info@jewps.hu'],null,null,'[JEWPSapp] Hibabejelentés','Kedves GarandDesign csapat, \n\nAz alábbi hibáról szeretnék beszámolni Önöknek. \n\n⚡️ A hiba leírása, amit tapasztaltam: \n\n⚡️ A készülékem adatai \n ➡️Gyártó, modell: \n ➡️Operációs rendszer verziószáma: \n\n⚡️ Képernyőfotó a hibáról:\n')} activeOpacity={0.8}>
                       <Text style={styles.kapcsBtnText}>{textContent.hibaBtn}</Text>
                   </TouchableOpacity>
                 </View>
@@ -290,7 +290,7 @@ export default class App extends Component {
           setImpressumModalVisible={() => this.setImpressumModalVisible()}
           settingsEng={this.state.settingsEng}
         />
-        
+
         {/* <OfflineNotice /> */}
       </View>
     )
@@ -421,14 +421,38 @@ const styles = StyleSheet.create({
     width: '50%',
     alignItems: 'center',
     justifyContent: 'space-around',
+    marginLeft: 'auto',
   },
   hibaButtonView:{
     width: '30%',
     alignItems: 'center',
     justifyContent: 'space-around',
+    marginLeft: 'auto',
+    marginRight: 20,
   },
   kapcsBtn: {
-    width: 130,
+    width: 125,
+    height: 33,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 5,
+    paddingRight: 5,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: 'rgba(237, 237, 237, 1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#b7a99b',
+    shadowOffset: {
+      width: 0,
+      height: 15
+    },
+    shadowRadius: 15,
+    shadowOpacity: 0.5,
+  },
+  kapcsBtnGarand: {
+    width: 100,
     height: 33,
     paddingTop: 8,
     paddingBottom: 8,

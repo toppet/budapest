@@ -126,7 +126,7 @@ export default class HomeScreen extends Component {
   }
 
   getWeather = async () => {
-    
+
     try {
       return fetch('https://api.darksky.net/forecast/e2118a40696c374f321c8af86daec18f/47.50045,19.07012?exclude=daily,minutely,hourly,alerts,flags&units=si&lang=hu')
         .then((response) => response.json())
@@ -143,7 +143,7 @@ export default class HomeScreen extends Component {
   }
 
   getJDate = async () => {
-    
+
     const today = moment().format('YYYY-MM-DD');
     try {
       return await fetch(`https://jewps.hu/api/v1/utils/date?date=${today}`)
@@ -161,7 +161,7 @@ export default class HomeScreen extends Component {
   }
 
   getLatestNews = async () => {
-    
+
     try {
       return await fetch('https://jewps.hu/api/v1/news')
         .then((response) => response.json())
@@ -169,21 +169,21 @@ export default class HomeScreen extends Component {
           const responseData = responseJson.data;
           if(responseJson.success) {
             return responseData.slice(0, 4);
-          } 
+          }
           return null;
         })
         .catch((error) => {
           return null;
 
         });
-        
+
     } catch(e) {
       return e;
     }
   }
 
   getLatestEvents = async () => {
-    
+
     try {
       return await fetch('https://jewps.hu/api/v1/events')
       .then(response => response.json())
@@ -296,7 +296,7 @@ export default class HomeScreen extends Component {
         return (
           <TouchableOpacity style={[styles.cardShadow, {width: newsCardWidth}]} key={n.id} onPress={() => this.props.navigation.navigate('NewsDetail', { newsItem: n })} activeOpacity={0.8}>
             <View style={styles.newsCard}>
-    
+
               <View style={styles.imageBgBox}>
                 <ImageBackground source={{ uri: bgImage.src_thumbs }} style={{width: '100%', height: '100%'}}/>
               </View>
@@ -338,7 +338,7 @@ export default class HomeScreen extends Component {
                 <Text style={styles.eventMonth}>{moment(e.from).format('MMMM').replace(/^\w/, c => c.toUpperCase())}</Text>
                 <Text style={styles.eventYear}>{moment(e.from).format('YYYY')}</Text>
               </View>
-              
+
               <View style={{width: 55}}>
                 <Text style={styles.eventTime}>{moment(e.from).format('HH:mm')}</Text>
                 <Text style={styles.eventTimeText}>{'Kezdés'}</Text>
@@ -380,7 +380,7 @@ export default class HomeScreen extends Component {
 
           <View style={{flex: 1, backgroundColor: 'transparent'}}>
 
-            <ScrollView 
+            <ScrollView
               showsVerticalScrollIndicator={false}
               refreshControl={
                 <RefreshControl
@@ -404,10 +404,18 @@ export default class HomeScreen extends Component {
                   <Text style={styles.weatherText}>{weatherBUD && weatherBUD.summary ? weatherBUD.summary : '-'}</Text>
                   <Text style={styles.weatherCels}>{weathTemp ? weathTemp : '-'} °C</Text>
                 </View>
+
                 <View style={{width: "30%", height: 70, padding: 5, alignItems: "center", borderRightWidth: 2, borderRightColor: "#EDEDED"}}>
-                  <Icon size={30} name="today" color="#434656"/>
-                  <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate ? currentJDate.date : null}</Text>
+                  <TouchableOpacity onPress={() => { this.props.navigation.navigate("Calendar") }}
+                    activeOpacity={0.8}
+                  >
+                    <View style={{alignItems: "center"}}>
+                      <Icon size={30} name="today" color="#434656"/>
+                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate ? currentJDate.date : null}</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
+
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
                   <Icon size={30} name="show-chart" color="#434656"/>
                     <View style={{flexDirection: 'row', paddingTop: 5,}}>
@@ -513,15 +521,15 @@ const styles = StyleSheet.create({
   },
   subtitleBack: {
     fontFamily: 'YoungSerif-Regular',
-    fontSize: 40, 
-    color: "rgba(183,169,155, 0.2)", 
-    position: 'absolute', 
-    left: 15, 
-    bottom: 5, 
+    fontSize: 40,
+    color: "rgba(183,169,155, 0.2)",
+    position: 'absolute',
+    left: 15,
+    bottom: 5,
   },
   subtitleFront: {
     fontFamily: 'YoungSerif-Regular',
-    fontSize: 20, 
+    fontSize: 20,
     color: "#434656",
   },
   weatherIcon: {
@@ -763,10 +771,10 @@ const styles = StyleSheet.create({
     color: '#a3abbc',
   },
   moreBtn: {
-    fontFamily: "Montserrat", 
-    fontWeight: 'bold', 
-    color: '#b7a99b', 
-    fontSize: 15, 
+    fontFamily: "Montserrat",
+    fontWeight: 'bold',
+    color: '#b7a99b',
+    fontSize: 15,
     padding: 10
   }
 });
