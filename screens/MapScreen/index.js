@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import {
-  Platform,
   MapRegistry,
   StyleSheet,
   Text,
@@ -13,7 +12,8 @@ import {
   TextInput,
   Keyboard,
   TouchableWithoutFeedback,
-  SafeAreaView
+  SafeAreaView,
+  Platform,
 } from 'react-native';
 import _ from 'lodash';
 import moment from 'moment';
@@ -230,20 +230,22 @@ export default class MapScreen extends PureComponent {
     );
 
     return (
-      <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
-        <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/>
-        <View style={styles.leftView}>
-          <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
-          <Text style={styles.markerTitle}>{selectedMarker.title}</Text>
-          { selectedMarker.entryFee !== 0 ? entryFeeWrap : null }
-          { selectedMarker.openingHours ? openingHoursWrap : null }
-        </View>
-        <View style={styles.rightView}>
-          <View style={styles.imageWrap}>
-            <ImageBackground source={selectedMarker.thumbnail_2} style={{width: 120, height: 120}} />
+      <View style={styles.cardWrapper}>
+        <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
+          <View style={styles.leftView}>
+            <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
+            <Text style={styles.markerTitle}>{selectedMarker.title}</Text>
+            { selectedMarker.entryFee !== 0 ? entryFeeWrap : null }
+            { selectedMarker.openingHours ? openingHoursWrap : null }
           </View>
-        </View>
-      </TouchableOpacity>
+          <View style={styles.rightView}>
+            <View style={styles.imageWrap}>
+              <ImageBackground source={selectedMarker.thumbnail_2} style={{width: 120, height: 120}} />
+            </View>
+          </View>
+        </TouchableOpacity>
+        {Platform.OS === 'android' ? <View /> : <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/> }
+      </View>
     );
   }
 
@@ -263,6 +265,7 @@ export default class MapScreen extends PureComponent {
       filteredAttractions,
     } = this.state;
     let filteredAttractionsList = <Text style={styles.noResultText}>{textContent.noresult}</Text>;
+
     
     if (selectedMarker) {
       selectedMarkerCard = this.getSelectedMarkerCard(selectedMarker, textContent);
@@ -298,6 +301,22 @@ export default class MapScreen extends PureComponent {
       });  
     }
 
+    const filteredListWrapper = (
+      <View style={{ 
+        display: this.state.searchText.length > 0 ? 'flex' :'none', 
+        position: 'absolute', 
+        zIndex: 3, 
+        flex: 1, 
+        height: '100%', 
+        width: '100%', 
+        backgroundColor: '#fff',
+      }}>
+        <ScrollView style={{top: 125, marginBottom: 130,}} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
+          { filteredAttractionsList }
+        </ScrollView>
+      </View>
+    );
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
@@ -324,6 +343,7 @@ export default class MapScreen extends PureComponent {
                 }
                 placeholder={textContent.searchPlaceholder}
                 placeholderTextColor="#b7a99b"
+                onFocus={() => this.setState({ selectedMarker: null, selectedMarkerIndex: null })}
                 onChangeText={(text) => this.setState({ searchText: text }, this.filterAttractions(text))}
                 value={this.state.searchText}
               />
@@ -343,7 +363,7 @@ export default class MapScreen extends PureComponent {
               </View>
             </View>
 
-            <View style={{ 
+            {/* <View style={{ 
               display: this.state.searchText.length > 0 ? 'flex' :'none', 
               position: 'absolute', 
               zIndex: 3, 
@@ -353,9 +373,11 @@ export default class MapScreen extends PureComponent {
               backgroundColor: '#fff',
             }}>
               <ScrollView style={{top: 125, marginBottom: 130,}} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
-                  { filteredAttractionsList }
+                { filteredAttractionsList }
               </ScrollView>
-            </View>
+            </View> */}
+
+            { this.state.searchText.length > 0 ? filteredListWrapper : <View/> }
 
             <MapView
               // provider={PROVIDER_GOOGLE}
@@ -414,7 +436,7 @@ const styles = StyleSheet.create({
   searchBarWrap: {
     position: 'absolute',
     zIndex: 5,
-    top: 40,
+    top: Platform.OS === 'android' ? 20 : 40,
     width: '90%',
     height: 50,
     backgroundColor: '#fff',
@@ -448,6 +470,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  cardWrapper: {
+    position: 'absolute',
+    bottom: 15,
+    left: (Dimensions.get('window').width / 2) - 175,
+    // borderWidth: 2,
+  },
   card: {
     padding: 15,
     elevation: 2,
@@ -458,11 +486,11 @@ const styles = StyleSheet.create({
     shadowOffset: { x: 2, y: -2 },
     height: 150,
     width: 350,
-    position: 'absolute',
-    bottom: 15,
-    left: (Dimensions.get('window').width / 2) - 175,
+    // position: 'absolute',
+    // bottom: 15,
     borderRadius: 10,
     flexDirection: 'row',
+    zIndex: 5, 
   },
   arrowIcon: {
     position: 'absolute',
@@ -474,6 +502,7 @@ const styles = StyleSheet.create({
     top: -15,
     left: 150,
     color: '#c49565',
+    zIndex: 6,
   },
   leftView: {
     width: '55%',

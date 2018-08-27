@@ -30,7 +30,7 @@ export default class SideMenuScreen extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-        <ImageBackground source={require('../../assets/images/menu_bg.png')} style={{width: '100%', height: '100%', position: 'relative'}}>
+        <ImageBackground source={require('../../assets/images/menu_bg.png')} style={{width: '100%', height: '100%', position: 'relative',}}>
 
           <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'flex-end'}}>
             <View style={{opacity: 0.3, borderRadius: 6, height: '90%', width: 500, right: -470, backgroundColor: "#b7a99b", position: 'absolute', }}></View>
@@ -64,16 +64,14 @@ export default class SideMenuScreen extends Component {
 
           </View>
 
-          <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-end', marginTop: 350, marginLeft: "auto", marginRight: "auto"}}>
+          <View style={{alignSelf: 'center', justifyContent: 'flex-start', alignItems: 'flex-start', width: 165, height: 150}}>
             <Text style={styles.addressL}>{textContent.dohanyTitle1}</Text>
             <Text style={styles.addressL}>{textContent.dohanyTitle2}</Text>
             <Text style={[styles.addressS, { marginTop: 10 }]}>{textContent.dohanyAddress1}</Text>
-            <Text style={styles.addressS}>{textContent.dohanyAddress2}</Text>
+            <Text style={[styles.addressS, {marginBottom: 35}]}>{textContent.dohanyAddress2}</Text>
+            <Text style={{justifyContent: 'center', fontFamily: "Montserrat", fontSize: 11, marginBottom: 10, textAlign: 'center', color: '#797e9c'}}>Ver. 1.1</Text>
           </View>
 
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 10}}>
-            <Text style={{fontFamily: "Montserrat", fontSize: 11, color: '#797e9c'}}>Ver. 1.1</Text>
-          </View>
 
         </ImageBackground>
 

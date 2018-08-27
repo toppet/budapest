@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
   RefreshControl,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -374,7 +375,7 @@ export default class HomeScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
 
-        <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', paddingTop: 20,}}>
+        <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'flex-start', paddingTop: Platform.OS === 'android' ? 0 :  20,}}>
 
           <PageHeader {...this.props} noRightIcon/>
 
@@ -491,7 +492,7 @@ const styles = StyleSheet.create({
   header: {
     // flex: 1,
     height: 50,
-    padding: 15,
+    padding: Platform.OS === 'android' ? 0 : 15,
     paddingTop: 0,
     paddingBottom: 0,
     flexDirection: 'row',

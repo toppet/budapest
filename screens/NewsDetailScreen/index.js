@@ -6,7 +6,8 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  SafeAreaView
+  SafeAreaView,
+  Platform,
 } from 'react-native';
 import YouTube from 'react-native-youtube';
 import PageHeader from '../../components/PageHeader';
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 20,
+    paddingTop: Platform.OS === 'android' ? 0 : 20,
   },
   dateRow: {
     flex: 1,
