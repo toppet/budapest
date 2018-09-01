@@ -12,7 +12,8 @@ import {
   AsyncStorage,
   SafeAreaView,
   Linking,
-  TextInput
+  NativeModules,
+  Platform,
 } from 'react-native';
 
 import ProbaScreen from './ProbaScreen';
@@ -58,7 +59,14 @@ export default class App extends Component {
           // user doesn't have a device token yet
         }
       });
-    this._getAppLang();
+
+    const locale = Platform.OS === 'android' ? NativeModules.I18nManager.localeIdentifier : NativeModules.SettingsManager.settings.AppleLocale;
+    console.log('locale', locale);
+    if(locale !== 'hu_HU') {
+      this._setAppLang(true);
+    } else {
+      this._getAppLang();
+    }
   }
 
   componentWillUnmount() {
@@ -118,9 +126,9 @@ export default class App extends Component {
      }
   }
 
-  _setAppLang = async () => {
+  _setAppLang = async (forceEnglish) => {
     try {
-      await this.setState({ settingsEng: !this.state.settingsEng });
+      await this.setState({ settingsEng: forceEnglish ? true : !this.state.settingsEng });
       await AsyncStorage.setItem('@MySuperStore:key', this.state.settingsEng ? 'en' : 'hu');
     } catch (error) {
       // Error saving data
@@ -175,10 +183,14 @@ export default class App extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.contactPopUpVisible}
+          hardwareAccelerated
+          style={{margin: 0,}}
+          backdropOpacity={1}
+          backdropColor={'white'}
           onRequestClose={() => {
             // alert('Modal has been closed.');
           }}>
-          <SafeAreaView style={{marginTop: 25}}>
+          <SafeAreaView style={{flex: 1, marginTop: Platform.OS === 'android' ? 0 : 25, width: '100%', height: '100%', backgroundColor: '#fff'}}>
             <View style={styles.header}>
               <TouchableOpacity
                 onPress={() => this.setState({ contactPopUpVisible: false }) }
@@ -188,9 +200,8 @@ export default class App extends Component {
                 <Icon size={30} name="clear" style={styles.close} />
               </TouchableOpacity>
               <Text style={styles.pageTitle}>{textContent.kapcsolatTitle}</Text>
-              <View style={styles.rightIconPlaceholder}></View>;
+              <View style={styles.rightIconPlaceholder}/>
             </View>
-
             <ScrollView style={{marginBottom: 25}}>
               <Text style={styles.contentTitle}>{textContent.kapcsolatTartalom}</Text>
 
@@ -240,7 +251,7 @@ export default class App extends Component {
             // alert('Modal has been closed.');
           }}
         >
-          <SafeAreaView style={{ marginTop: 25 }}>
+          <SafeAreaView style={{ marginTop: Platform.OS === 'android' ? 0 : 25 }}>
             <View style={styles.header}>
               <TouchableOpacity
                 onPress={() => this.setState({ impressumModalVisible: false }) }
@@ -250,7 +261,7 @@ export default class App extends Component {
                 <Icon size={30} name="clear" style={styles.close} />
               </TouchableOpacity>
               <Text style={styles.pageTitle}>{textContent.impresszumTitle}</Text>
-              <View style={styles.rightIconPlaceholder}></View>;
+              <View style={styles.rightIconPlaceholder}></View>
             </View>
 
             <ScrollView style={styles.impresszumBody} showsVerticalScrollIndicator={false}>
@@ -290,6 +301,7 @@ export default class App extends Component {
           showContactDialog={() => this.showContactDialog()}
           setImpressumModalVisible={() => this.setImpressumModalVisible()}
           settingsEng={this.state.settingsEng}
+          setAppLang={() => this._setAppLang()}
         />
 
         {/* <OfflineNotice /> */}
@@ -315,7 +327,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   settingText: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
     fontWeight: '600',
     fontSize: 16,
     color: '#434656',
@@ -366,7 +378,7 @@ const styles = StyleSheet.create({
   kapcsName: {
     paddingTop: 15,
     paddingBottom: 5,
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
     fontSize: 18,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -375,14 +387,14 @@ const styles = StyleSheet.create({
   impHeading:{
     paddingTop: 15,
     paddingBottom: 22,
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
     fontSize: 22,
     fontWeight: "600",
     fontStyle: "italic",
     color: "#434656"
   },
   kapcsRole:{
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
     fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -399,7 +411,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   kapcsBody:{
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
     fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -475,13 +487,13 @@ const styles = StyleSheet.create({
   },
   kapcsBtnText: {
     color: '#c49565',
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-SemiBold",
     fontWeight: '600',
     fontSize: 12,
     textAlign: 'center',
   },
   dismissBtn: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-SemiBold",
     fontWeight: '600',
     fontSize: 16,
     color: '#73beff',
@@ -506,7 +518,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
   },
   linkBtnText: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-SemiBold",
     fontSize: 14,
     fontWeight: "600",
     fontStyle: "normal",

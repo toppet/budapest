@@ -136,7 +136,7 @@ export default class MapDetailScreen extends Component {
      }, 1);
   }
 
-  getOpeningHours(openingHours) {
+  getOpeningHours(openingHours, textContent) {
     const { open, close, closed } = openingHours;
     const now = new Date();
     const format = 'hh:mm';
@@ -151,9 +151,9 @@ export default class MapDetailScreen extends Component {
     let resultText;
 
     if(time.isBetween(openingTime, closingingTime)){
-      resultText = <Text style={styles.infoText}>{`${open} - ${close} | `}<Text style={styles.openState}>Nyitva</Text></Text>;
+      resultText = <Text style={styles.infoText}>{`${open} - ${close} | `}<Text style={styles.openState}>{textContent.nyitva}</Text></Text>;
     } else {
-      resultText = <Text style={styles.infoText}>{`${open} - ${close} | `}<Text style={styles.closedState}>Zárva</Text></Text>
+      resultText = <Text style={styles.infoText}>{`${open} - ${close} | `}<Text style={styles.closedState}>{textContent.zarva}</Text></Text>
     }
 
     return resultText;
@@ -301,7 +301,7 @@ export default class MapDetailScreen extends Component {
       openingHours  = (
         <View style={styles.infoWrap}>
           <Icon name="schedule" size={25} color="#73beff" />
-          {this.getOpeningHours(mapItem.openingHours[currentDayIndex])}
+          {this.getOpeningHours(mapItem.openingHours[currentDayIndex], textContent)}
         </View>
       )
 
@@ -317,7 +317,8 @@ export default class MapDetailScreen extends Component {
       openingHoursWrap = (
         <View style={styles.mapInfosListContainer}>
           <View style={styles.infoRow}>
-              { openingHours } { modalBtn }
+            { openingHours }
+            { modalBtn }
           </View>
         </View>
       )
@@ -411,25 +412,6 @@ export default class MapDetailScreen extends Component {
               contentContainerCustomStyle={styles.sliderContentContainer}
               firstItem={1}
             />
-            {/* <Pagination
-              dotsLength={ENTRIES1.length}
-              activeDotIndex={slider1ActiveSlide}
-              dotStyle={{
-                width: 5,
-                height: 5,
-                borderRadius: 5,
-                marginHorizontal: 0,
-                backgroundColor: '#c49565'
-              }}
-              inactiveDotStyle={{
-                backgroundColor: '#a3abbc',
-              }}
-              inactiveDotOpacity={0.4}
-              inactiveDotScale={0.8}
-              carouselRef={this._carousel}
-              tappableDots={!!this._carousel}
-              containerStyle={{borderWidth: 3, borderColor: '#0f0',}}
-            /> */}
           </View>
 
           <View style={styles.linkBtnRow}>
@@ -437,7 +419,7 @@ export default class MapDetailScreen extends Component {
             { ticketLinkBtn }
           </View>
 
-          { entryFeeWrap }
+           { entryFeeWrap }
 
           { phoneNumberWrap }
 

@@ -36,15 +36,16 @@ export default class EventDetailScreen extends Component {
   }
 
   addToCalendar(item) {
-    console.log('item', item);
+    // console.log('item', item);
     const eventConfig = {
       title: item.name,
-      startDate: moment(item.from).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
-      allDay: '',
+      // startDate: moment(item.from).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+      startDate: moment(item.from).subtract(2, 'hours').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
+      allDay: false,
     };
 
     if (item.till) {
-      eventConfig.endDate = moment(item.till).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      eventConfig.endDate = moment(item.till).subtract(2, 'hours').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
     }
 
     if(moment(item.from).format('HH:mm') === '00:00') {
@@ -54,6 +55,7 @@ export default class EventDetailScreen extends Component {
     if (item.location) {
       eventConfig.location = `${item.location.title} - ${item.location.name}`;
     }
+    
 
     AddCalendarEvent.presentEventCreatingDialog(eventConfig)
       .then((eventInfo) => {
@@ -65,7 +67,7 @@ export default class EventDetailScreen extends Component {
       })
       .catch((error) => {
         // handle error such as when user rejected permissions
-        console.warn(error);
+        // console.warn(error);
       });
   }
 
@@ -76,6 +78,7 @@ export default class EventDetailScreen extends Component {
 
     let eventDetails;
     let eventDirectionBtn;
+    let facebookEventBtn;
 
     let textContent =  textContentJSON.hu;
     moment.locale('hu');
@@ -85,7 +88,7 @@ export default class EventDetailScreen extends Component {
       moment.locale('en');
     }
 
-    if(eventParam.location.longitude && eventParam.location.latitude) {
+    if(eventParam.location && eventParam.location.longitude && eventParam.location.latitude) {
       eventDirectionBtn = (
         <TouchableOpacity
           style={styles.secondIcon}
@@ -113,6 +116,15 @@ export default class EventDetailScreen extends Component {
       );
     }
 
+    if(eventParam.facebook_event_url) {
+      facebookEventBtn = (
+        <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.facebook_event_url)}>
+          <FontAwesome name="facebook-square" size={25} color="#c49565"/>
+          <Text style={styles.facebookBtnText}>{textContent.facebookBtn}</Text>
+        </TouchableOpacity>
+      );
+    }
+
 
 
     return (
@@ -122,7 +134,7 @@ export default class EventDetailScreen extends Component {
           isBack
           {...this.props}
         />
-        <ScrollView showsVerticalScrollIndicator={false}>
+         <ScrollView showsVerticalScrollIndicator={false}>
 
           <View style={{ marginBottom: 25, padding: 15, }}>
 
@@ -132,7 +144,7 @@ export default class EventDetailScreen extends Component {
                 <Text style={styles.eventDescText}>{eventParam.name}</Text>
               </View>
               <View style={{width: '50%', }}>
-                <Image source={{ uri: eventParam.media[0].src_thumbs}} style={{borderRadius: 3, width: 158, height: 90, marginLeft: 'auto'}}/>
+                <Image source={{ uri: eventParam.media[0].src_thumbs}} style={{borderRadius: 3, width: 158, height: 90, marginLeft: 'auto'}} />
               </View>
             </View>
 
@@ -148,7 +160,7 @@ export default class EventDetailScreen extends Component {
               </TouchableOpacity>
             </View>
 
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 25, }}>>
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 25, }}>
               <Icon name="near-me" style={styles.firstIcon} color="#73beff" size={20} />
               <View style={{ width: 210, marginRight: 'auto'}}>
                 <Text style={styles.eventLocationText}>{eventParam.location.title}</Text>
@@ -157,13 +169,9 @@ export default class EventDetailScreen extends Component {
               { eventDirectionBtn }
             </View>
 
-            <TouchableOpacity style={styles.facebookBtn} activeOpacity={0.8} onPress={() => this.openFacebookLink(eventParam.facebook_event_url)}>
-              <FontAwesome name="facebook-square" size={25} color="#c49565"/>
-              <Text style={styles.facebookBtnText}>{textContent.facebookBtn}</Text>
-            </TouchableOpacity>
+            { facebookEventBtn }
 
             { eventDetails }
-
           </View>
         </ScrollView>
       </SafeAreaView>

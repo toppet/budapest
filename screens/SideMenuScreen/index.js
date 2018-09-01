@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  Switch
+  Switch,
+  Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import moment from 'moment';
@@ -61,7 +62,7 @@ export default class SideMenuScreen extends Component {
               <View style={styles.buttonView}>
                 <Icon style={styles.buttonIcon} size={22} name="language" color="#c49565" />
                 <Text style={styles.buttonText}>English</Text>
-                <Switch value={this.state.settingsEng} onValueChange={() => this._setAppLang()}></Switch>
+                <Switch style={{marginLeft: Dimensions.get('window').width < 350 ? 5 : 10 }} value={this.props.settingsEng} onValueChange={() => this.props.setAppLang()}></Switch>
               </View>
 
           </View>
@@ -71,7 +72,7 @@ export default class SideMenuScreen extends Component {
             <Text style={styles.addressL}>{textContent.dohanyTitle2}</Text>
             <Text style={[styles.addressS, { marginTop: 10 }]}>{textContent.dohanyAddress1}</Text>
             <Text style={[styles.addressS, {marginBottom: 35}]}>{textContent.dohanyAddress2}</Text>
-            <Text style={{justifyContent: 'center', fontFamily: "Montserrat", fontSize: 11, marginBottom: 10, textAlign: 'center', color: '#797e9c'}}>Ver. 1.1</Text>
+            <Text style={{justifyContent: 'center', fontFamily: "Montserrat-Regular", fontSize: 11, marginBottom: 10, textAlign: 'center', color: '#797e9c'}}>Ver. 1.1</Text>
           </View>
 
 
@@ -99,19 +100,19 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   buttonText: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-SemiBold",
     fontSize: 18,
     fontWeight: "600",
     color: "#434656",
   },
   addressL: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Black",
     fontSize: 18,
     fontWeight: "bold",
     color: "#434656"
   },
   addressS: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
     fontSize: 14,
     color: "#434656"
   }

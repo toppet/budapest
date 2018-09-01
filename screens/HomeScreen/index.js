@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
   RefreshControl,
   Platform,
+  NativeModules
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -72,6 +73,7 @@ export default class HomeScreen extends Component {
 
   componentDidMount(){
     this.fetchData();
+    
   }
 
   async fetchData() {
@@ -144,20 +146,19 @@ export default class HomeScreen extends Component {
   }
 
   getJDate = async () => {
-
     const today = moment().format('YYYY-MM-DD');
     try {
-      return await fetch(`https://jewps.hu/api/v1/utils/date?date=${today}`)
+      return await fetch(`https://jewps.hu/api/v1/utils/date/${today}`)
       .then((response) => response.json())
       .then((responseJson) => {
-
+        console.log('responseJson', responseJson);
         return responseJson.success ? responseJson.data : null;
       })
       .catch((error) => {
         return null;
       });
     } catch(e) {
-      return e;
+      return null;
     }
   }
 
@@ -186,7 +187,7 @@ export default class HomeScreen extends Component {
   getLatestEvents = async () => {
 
     try {
-      return await fetch('https://jewps.hu/api/v1/events')
+      return await fetch(`https://jewps.hu/api/v1/events?fromDate=${moment().format('YYYY-MM-DD')}`)
       .then(response => response.json())
       .then(resJson => {
         return resJson.success ? resJson.data.slice(0, 4) : null;
@@ -314,15 +315,17 @@ export default class HomeScreen extends Component {
     }
 
     if (currentJDate && currentJDate.type === 1) {
-      holidayBox = <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
-        <View style={styles.unnepTitleView}>
-          <Icon size={15} name="notifications" color="#434656"/>
-          <Text style={styles.unnepTitle}>{`${textContent.unnepnapTitle}:`}</Text>
+      holidayBox = (
+        <View style={{marginLeft: 'auto', marginRight: 15, marginTop: 15}}>
+          <View style={styles.unnepTitleView}>
+            <Icon size={15} name="notifications" color="#434656"/>
+            <Text style={styles.unnepTitle}>{`${textContent.unnepnapTitle}:`}</Text>
+          </View>
+          <View style={styles.unnepnapBox}>
+            <Text style={styles.unnepBoxTitle}>{currentJDate.date}</Text>
+          </View>
         </View>
-        <View style={styles.unnepnapBox}>
-          <Text style={styles.unnepBoxTitle}>{currentJDate.date}</Text>
-        </View>
-      </View>
+      );
     }
 
     if (latestEvents && latestEvents.length > 0) {
@@ -355,7 +358,7 @@ export default class HomeScreen extends Component {
 
     const placesCards = bestPlaces.map((e) => {
       return (
-        <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth, marginBottom: 40 }]} key={e.id} activeOpacity={1}>
+        <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth, marginBottom: 40, }]} key={e.id} activeOpacity={1}>
           <View style={styles.placeCard}>
 
             <View style={styles.imageBgPlace}>
@@ -412,7 +415,7 @@ export default class HomeScreen extends Component {
                   >
                     <View style={{alignItems: "center"}}>
                       <Icon size={30} name="today" color="#434656"/>
-                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate ? currentJDate.date : null}</Text>
+                      <Text style={{fontFamily: "Montserrat-Regular", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate ? currentJDate.date : null}</Text>
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -420,10 +423,10 @@ export default class HomeScreen extends Component {
                 <View style={{width: "35%", height: 70, padding: 5, alignItems: "center"}}>
                   <Icon size={30} name="show-chart" color="#434656"/>
                     <View style={{flexDirection: 'row', paddingTop: 5,}}>
-                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>EUR  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#73BEFF"}}>{EUR_HUF ? EUR_HUF : '-'}</Text>
+                      <Text style={{fontFamily: "Montserrat-Regular", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>EUR  </Text><Text style={{fontFamily: "Montserrat-Regular", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#73BEFF"}}>{EUR_HUF ? EUR_HUF : '-'}</Text>
                     </View>
                     <View style={{flexDirection: 'row'}}>
-                      <Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>USD  </Text><Text style={{fontFamily: "Montserrat", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#C49565"}}>{USD_HUF ? USD_HUF : '-'}</Text>
+                      <Text style={{fontFamily: "Montserrat-Regular", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656"}}>USD  </Text><Text style={{fontFamily: "Montserrat-Regular", fontSize: 12, fontWeight: "bold", fontStyle: "normal", color: "#C49565"}}>{USD_HUF ? USD_HUF : '-'}</Text>
                     </View>
                 </View>
               </View>
@@ -540,24 +543,23 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   weatherText: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Bold",
     fontSize: 11,
-    fontWeight: "bold",
-    fontStyle: "normal",
+    // fontWeight: "bold",
+    // fontStyle: "normal",
     textAlign: "center",
     color: "#A3ABBC",
   },
   weatherCels: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Bold",
     fontSize: 11,
-    fontWeight: "bold",
-    fontStyle: "normal",
+    // fontWeight: "bold",
+    // fontStyle: "normal",
     textAlign: "center",
     color: "#434656",
   },
   unnepnapBox: {
-    width: 120,
-    height: 50,
+    padding: Dimensions.get('window').width < 350 ? 10 : 20,
     borderRadius: 5,
     backgroundColor: '#FF7070',
     borderStyle: "solid",
@@ -567,19 +569,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   unnepBoxTitle: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Bold",
     fontSize: 10,
-    fontWeight: "bold",
-    fontStyle: "normal",
+    // fontWeight: "bold",
+    // fontStyle: "normal",
     letterSpacing: 0,
     textAlign: "center",
     color: '#FFF',
   },
   unnepTitle: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Bold",
     fontSize: 10,
-    fontWeight: "bold",
-    fontStyle: "normal",
+    // fontWeight: "bold",
+    // fontStyle: "normal",
     letterSpacing: 0,
     textAlign: "center",
     color: "#434656",
@@ -590,14 +592,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 5,
   },
-  upNextTitle:{
-    color: "#b7a99b",
-    fontSize: 15,
-    opacity: 0.7,
-    fontFamily: "Montserrat-BoldItalic",
-  },
+  // upNextTitle:{
+  //   color: "#b7a99b",
+  //   fontSize: 15,
+  //   opacity: 0.7,
+  //   fontFamily: "Montserrat-Regular",
+  // },
   date: {
-    fontFamily: "Montserrat-Black",
+    fontFamily: "Montserrat-Bold",
     fontSize: 14,
     paddingTop: 5,
     paddingLeft: 15,
@@ -630,7 +632,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   newsDate: {
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat-Light',
     fontSize: 11,
     color: '#797e9c',
   },
@@ -659,7 +661,7 @@ const styles = StyleSheet.create({
   readMoreBtn: {
     position: 'absolute',
     zIndex: 5,
-    bottom: -20,
+    bottom: Platform.OS === 'android' ? 0 : -20,
     width: 135,
     height: 50,
     paddingTop: 8,
@@ -682,8 +684,8 @@ const styles = StyleSheet.create({
   },
   readMoreBtnText: {
     color: '#434656',
-    fontFamily: "Montserrat",
-    fontWeight: '600',
+    fontFamily: "Montserrat-SemiBold",
+    // fontWeight: '600',
     fontSize: 12,
     textAlign: 'center',
   },
@@ -692,8 +694,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     marginBottom: 15,
-    fontFamily: "Montserrat",
-    fontWeight: "bold",
+    fontFamily: "Montserrat-Bold",
+    color: '#000',
     fontSize: 12,
   },
   newsCardInfoView: {
@@ -720,8 +722,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     marginBottom: 10,
-    fontFamily: "Montserrat",
-    fontWeight: "bold",
+    fontFamily: "Montserrat-Bold",
+    // fontWeight: "bold",
+    color: '#000',
     fontSize: 12
   },
   eventCardInfoView: {
@@ -741,39 +744,39 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   eventDay: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Regular",
     fontWeight: '900',
     fontSize: 16,
     color: '#8e6034',
     fontStyle: 'italic',
   },
   eventMonth:{
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-SemiBold",
     fontSize: 14,
-    fontWeight: '600',
+    // fontWeight: '600',
     color: '#434656',
   },
   eventYear: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-SemiBold",
     fontSize: 10,
-    fontWeight: '600',
+    // fontWeight: '600',
     color: '#a3abbc',
   },
   eventTime: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-Bold",
     fontSize: 15,
-    fontWeight: '900',
+    // fontWeight: '900',
     color: '#434656',
   },
   eventTimeText: {
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat-SemiBold",
     fontSize: 10,
     fontWeight: '600',
     color: '#a3abbc',
   },
   moreBtn: {
-    fontFamily: "Montserrat",
-    fontWeight: 'bold',
+    fontFamily: "Montserrat-Bold",
+    // fontWeight: 'bold',
     color: '#b7a99b',
     fontSize: 15,
     padding: 10

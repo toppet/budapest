@@ -9,7 +9,8 @@
    "emptyBody": "Please set different filter opptions",
    "facebookBtn": "Check out on Facebook",
    "details": "DETAILS",
-   "loadingTitle": "Please wait ..."
+   "loadingTitle": "Please wait ...",
+   "pickerTitle": "Pick a location"
  },
  "hu": {
    "screenTitle": "Események",
@@ -21,6 +22,7 @@
    "emptyBody": "Állítson be más szűrőfeltételeket",
    "facebookBtn": "Facebook esemény",
    "details": "RÉSZLETEK",
-   "loadingTitle": "Kérjük várjon ..."
+   "loadingTitle": "Kérjük várjon ...",
+   "pickerTitle": "Válasszon egy helyszínt"
  }
 }

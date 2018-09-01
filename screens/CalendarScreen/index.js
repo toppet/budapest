@@ -9,6 +9,8 @@ import {
     ScrollView,
     Modal,
     Platform,
+    ActivityIndicator,
+    Dimensions,
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -18,7 +20,6 @@ import * as AddCalendarEvent from 'react-native-add-calendar-event';
 
 import { LocaleConfig, Agenda, Calendar, CalendarList } from 'react-native-calendars';
 import moment from 'moment';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import textContentJSON from './calendarScreenTrans.json';
 
@@ -41,6 +42,7 @@ export default class CalendarScreen extends Component {
     super(props);
     this.state = {
       items: {},
+      month: moment().format(dateFormat),
       calendarModalVisible: false,
       filteredEvents: null,
     };
@@ -53,6 +55,7 @@ export default class CalendarScreen extends Component {
   }
 
   async fetchData(startDateParam, endDateParam) {
+    this.disableDatesWhileLoading(startDateParam);    
     const { items, markedDates } = await this.getEvents(startDateParam, endDateParam);
     const todaysjDate = await this.getJDate(moment().format(dateFormat));
 
@@ -61,6 +64,7 @@ export default class CalendarScreen extends Component {
       items,
       markedDates,
       todaysjDate,
+      loading: false,
     });
   }
 
@@ -79,21 +83,22 @@ export default class CalendarScreen extends Component {
   async getEvents(startDate, endDate) {
     const monthDate = moment(startDate).startOf('month');
     const currentDate = moment().format(dateFormat);
-
+    
     if (monthDate.isBefore(currentDate)) {
       startDate = currentDate;
+      return {};
     }
-
+    
     return await fetch(`https://jewps.hu/api/v1/calendar?startDate=${startDate}&endDate=${endDate}`)
       .then(response => response.json())
       .then(responseJson => {
           if (responseJson.success) {
-            const markedDates = {};              
-            const daysInMonth = [];
-            
             const prayerEvent = { key:'prayerEvent', color: '#cfd0df' };
             const eventEvent = { key:'eventEvent', color: '#6ce986' };
             const holidayEvent = { key:'holidayEvent', color: '#ff7070' };
+            
+            const markedDates = {};       
+            const daysInMonth = [];
             
             _.times(monthDate.daysInMonth(), function (n) {
               daysInMonth.push(`${startDate.slice(0,7)}-${monthDate.format('DD')}`); 
@@ -102,6 +107,10 @@ export default class CalendarScreen extends Component {
             
             _.forEach(daysInMonth, (day) => markedDates[day] = { dots: [], disabled: true, disableTouchEvent: true });
 
+            if (monthDate.isBefore(currentDate)) {
+              startDate = currentDate;
+            }
+            
             responseJson.data.forEach((date) => {
               const key = moment(date.start).format(dateFormat);
               let tmpDots = markedDates[key] && markedDates[key].dots ? markedDates[key].dots : [];
@@ -133,7 +142,7 @@ export default class CalendarScreen extends Component {
           }
       })
       .catch((error) => {
-        return null
+        return {};
       })
     }
 
@@ -177,15 +186,17 @@ export default class CalendarScreen extends Component {
     // console.log('item', item);
     const eventConfig = {
       title: item.name,
-      startDate: moment(item.start).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
-      allDay: '',
+      // startDate: moment(item.start).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+      startDate: moment(item.start).subtract(2, 'hours').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'),
+      allDay: false,
     };
 
     if (item.end) {
-      eventConfig.endDate = moment(item.end).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      // eventConfig.endDate = moment(item.end).format('YYYY-MM-DDTHH:mm:ss.SSSZ');
+      eventConfig.endDate = moment(item.end).subtract(2, 'hours').format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
     }
 
-    if(item.type === 2) {
+    if(item.type === 2 && Platform.OS === 'ios') {
       eventConfig.endDate = moment(eventConfig.startDate).add(1, 'hour');
     }
 
@@ -203,12 +214,30 @@ export default class CalendarScreen extends Component {
       })
       .catch((error) => {
         // handle error such as when user rejected permissions
-        console.warn(error);
+        console.warn('Something went wrong');
       });
   }
 
+  disableDatesWhileLoading(startDate) {
+    const monthDate = moment(startDate).startOf('month');
+    const markedDates = {};       
+    const daysInMonth = [];
+    
+    _.times(monthDate.daysInMonth(), function (n) {
+      daysInMonth.push(`${startDate.slice(0,7)}-${monthDate.format('DD')}`); 
+      monthDate.add(1, 'day');
+    });
+    
+    _.forEach(daysInMonth, (day) => markedDates[day] = { dots: [], disabled: true, disableTouchEvent: true });
+    
+    this.setState({ 
+      loading: true, 
+      markedDates,
+    });
+  }
+
   render() {
-      const { filteredEvents } = this.state;
+      const { filteredEvents, loading } = this.state;
       
       let filteredEventItems = null;
 
@@ -264,6 +293,43 @@ export default class CalendarScreen extends Component {
         });
       }
 
+      const calendar = (
+        <Calendar
+          // current={this.state.reset ? moment().format(dateFormat) : ''}
+          current={this.state.reset ? moment().format(dateFormat): this.state.month }
+          minDate={moment().format(dateFormat)}
+          hideExtraDays={true}
+          onDayPress={(day) => this.getSelectedDayData(day)}
+          monthFormat={'yyyy. MMMM'}
+          // Handler which gets executed when visible month changes in calendar. Default = undefined
+          onMonthChange={(month) => {
+            // this.setState({ markedDates: {}, loading: true, month });
+            this.setState({ markedDates: {}, month });
+            const startDate = moment(month.dateString).startOf('month').format(dateFormat);
+            const endDate = moment(startDate).endOf('month').format(dateFormat);
+            this.fetchData(startDate, endDate);
+          }}
+          renderArrow={(direction) => this.renderCalendarArrows(direction)}
+          firstDay={1}
+          // displayLoadingIndicator={true}
+          markedDates={this.state.markedDates}
+          markingType={'multi-dot'}
+          theme={{
+            textMonthFontFamily: 'Montserrat-SemiBold',
+            textMonthFontWeight: 'bold',
+            textDayFontFamily: 'Montserrat-Regular',
+            monthTextColor: '#c49565',
+            dotColor: '#c49565',
+            selectedDayBackgroundColor: '#c49565',
+            todayTextColor: '#73beff',
+            textMonthFontSize: 18,
+            textDayFontSize: 13,
+          }}
+        />
+      );
+
+      const loader = <ActivityIndicator style={styles.loader} />;
+
       return (
           <View style={styles.container}>
             <PageHeader
@@ -278,6 +344,7 @@ export default class CalendarScreen extends Component {
                   onPress={() => {
                     this.setState({
                       reset: true,
+                      month: moment().format(dateFormat), 
                     });
                     const startDate = moment().startOf('month').format(dateFormat);
                     const endDate = moment().endOf('month').format(dateFormat);
@@ -314,37 +381,9 @@ export default class CalendarScreen extends Component {
                 </View>
               </View>
 
-              <View style={{ flex: 1 }}>
-                <Calendar
-                  current={this.state.reset ? moment().format(dateFormat) : ''}
-                  minDate={moment().format(dateFormat)}
-                  hideExtraDays={true}
-                  onDayPress={(day) => this.getSelectedDayData(day)}
-                  monthFormat={'yyyy. MMMM'}
-                  // Handler which gets executed when visible month changes in calendar. Default = undefined
-                  onMonthChange={(month) => {
-                    const startDate = moment(month.dateString).startOf('month').format(dateFormat);
-                    const endDate = moment(startDate).endOf('month').format(dateFormat);
-                    this.fetchData(startDate, endDate);
-                  }}
-                  renderArrow={(direction) => this.renderCalendarArrows(direction)}
-                  firstDay={1}
-                  displayLoadingIndicator={true}
-                  markedDates={this.state.markedDates}
-                  markingType={'multi-dot'}
-                  theme={{
-                    textMonthFontFamily: 'Montserrat',
-                    textMonthFontWeight: 'bold',
-                    textDayFontFamily: 'Montserrat',
-                    monthTextColor: '#c49565',
-                    dotColor: '#c49565',
-                    selectedDayBackgroundColor: '#c49565',
-                    todayTextColor: '#73beff',
-                    textMonthFontSize: 18,
-                    textDayFontSize: 13,
-                  }}
-                />
-
+              <View style={{ flex: 1, position: 'relative' }}>
+                { calendar }
+                { loading ? loader : null }
                 <Modal
                   animationType="slide"
                   transparent={true}
@@ -469,7 +508,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#f7f7f7',
     padding: 15,
-    paddingTop: 35,
+    paddingTop: Platform.OS === 'android' ? 10 : 35,
   },
   calendarModalScrollView: {
     backgroundColor: '#f7f7f7',
@@ -558,17 +597,27 @@ const styles = StyleSheet.create({
     color: '#a3abbc'
   },
   currentBtn: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    maxWidth: Dimensions.get('window').width < 350 ? 120 : 150,
+    paddingHorizontal: Dimensions.get('window').width < 350 ? 5 : 15,
+    paddingVertical: Dimensions.get('window').width < 350 ? 5 : 10,
     borderWidth: 2,
     borderColor: '#ededed',
     borderRadius: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   currentBtnText: {
     fontFamily: "Montserrat",
     fontSize: 14,
     fontWeight: "600",
     fontStyle: "normal",
-    color: '#c49565'
+    color: '#c49565',
+    textAlign: 'center',
+  },
+  loader: { 
+    position: 'absolute',
+    // borderWidth: 2, 
+    top: 168, 
+    left: (Dimensions.get('window').width / 2) - 10,
   },
 });

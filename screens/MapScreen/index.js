@@ -26,12 +26,13 @@ import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import textContentJSON from './mapTrans.json';
 import markersJSON from './markers';
+import markersJSONEN from './markersEN';
 
 
 const { width, height } = Dimensions.get("window");
 
 const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+// const CARD_WIDTH = ;
 
 const percent90HalfWidth = Math.round((Dimensions.get('window').width * 0.9) / 2);
 
@@ -98,52 +99,55 @@ export default class MapScreen extends PureComponent {
       return {
         ...state,
         navigationProp: itemId,
-        selectedMarker: markersJSON[itemId],
+        selectedMarker: props.screenProps.settingsEng ? markersJSONEN[itemId] : markersJSON[itemId],
         selectedMarkerIndex: itemId,
       }
     }
     return null;
   }
 
-  state = {
-    selectedMarker: null,
-    selectedMarkerIndex: null,
-    markers: markersJSON,
-    region: initialRegion,
-    polygonCoordinates: [
-      {
-        latitude: 47.502895,
-        longitude: 19.064554,
-      },
-      {
-        latitude: 47.501382,
-        longitude: 19.065932,
-      },
-      {
-        latitude: 47.498493,
-        longitude: 19.069804,
-      },
-      {
-        latitude: 47.496672,
-        longitude: 19.066784,
-      },
-      {
-        latitude: 47.495468,
-        longitude: 19.062850,
-      },
-      {
-        latitude: 47.495751,
-        longitude: 19.059064,
-      },
-      {
-        latitude: 47.497643,
-        longitude: 19.055620,
-      },
-    ],
-    searchText: '',
-    // navParamMapItemId: null,
-    filteredAttractions: [],
-    navParamId: this.props.navigation.getParam('itemId', null),
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedMarker: null,
+      selectedMarkerIndex: null,
+      markers: props.screenProps.settingsEng ? markersJSONEN : markersJSON,
+      region: initialRegion,
+      polygonCoordinates: [
+        {
+          latitude: 47.502895,
+          longitude: 19.064554,
+        },
+        {
+          latitude: 47.501382,
+          longitude: 19.065932,
+        },
+        {
+          latitude: 47.498493,
+          longitude: 19.069804,
+        },
+        {
+          latitude: 47.496672,
+          longitude: 19.066784,
+        },
+        {
+          latitude: 47.495468,
+          longitude: 19.062850,
+        },
+        {
+          latitude: 47.495751,
+          longitude: 19.059064,
+        },
+        {
+          latitude: 47.497643,
+          longitude: 19.055620,
+        },
+      ],
+      searchText: '',
+      // navParamMapItemId: null,
+      filteredAttractions: [],
+      navParamId: this.props.navigation.getParam('itemId', null),
+    }
   }
 
   componentDidMount() {
@@ -163,7 +167,7 @@ export default class MapScreen extends PureComponent {
 
   
 
-  getOpeningHours(openingHours) {
+  getOpeningHours(openingHours, textContent) {
     const { open, close, closed } = openingHours;
     const now = new Date();
     const format = 'hh:mm';
@@ -178,9 +182,9 @@ export default class MapScreen extends PureComponent {
     let resultText;
 
     if(time.isBetween(openingTime, closingingTime)){
-      resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.openState}>Nyitva</Text></Text>;
+      resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.openState}>{textContent.nyitva}</Text></Text>;
     } else {
-      resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.closedState}>Zárva</Text></Text>
+      resultText = <Text>{`${openingHours.day}: ${open} - ${close} | `}<Text style={styles.closedState}>{textContent.zarva}</Text></Text>
     }
 
     return resultText;
@@ -203,7 +207,7 @@ export default class MapScreen extends PureComponent {
   
   setSelectedMarker(navParamMapItemId) {
     this.setState({
-      selectedMarker: markersJSON[navParamMapItemId],
+      selectedMarker: this.props.screenProps.settingsEng ? markersJSONEN[navParamMapItemId] : markersJSON[navParamMapItemId],
       selectedMarkerIndex: navParamMapItemId,
     });
   }
@@ -218,7 +222,7 @@ export default class MapScreen extends PureComponent {
       <View>
         <Text style={styles.labelText}>{textContent.nyitvatartas}</Text>
         <Text style={styles.valueText}>
-          {openingHours ? this.getOpeningHours(openingHours) : null}
+          {openingHours ? this.getOpeningHours(openingHours, textContent) : null}
         </Text>
       </View>
     );
@@ -232,6 +236,7 @@ export default class MapScreen extends PureComponent {
     return (
       <View style={styles.cardWrapper}>
         <TouchableOpacity style={styles.card} activeOpacity={0.9} onPress={() => this.props.navigation.navigate('MapDetail', { mapItem: this.state.selectedMarker }) }>
+          {Platform.OS === 'android' ? <View /> : <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/> }
           <View style={styles.leftView}>
             <Text style={styles.markerType}>{textContent.nevezetesseg}</Text>
             <Text style={styles.markerTitle}>{selectedMarker.title}</Text>
@@ -244,7 +249,6 @@ export default class MapScreen extends PureComponent {
             </View>
           </View>
         </TouchableOpacity>
-        {Platform.OS === 'android' ? <View /> : <CustomIcon name="ic_forward" size={30} style={styles.arrowIcon}/> }
       </View>
     );
   }
@@ -430,9 +434,9 @@ const styles = StyleSheet.create({
     right: 0,
     paddingVertical: 10,
   },
-  endPadding: {
-    paddingRight: width - CARD_WIDTH,
-  },
+  // endPadding: {
+  //   paddingRight: width - CARD_WIDTH,
+  // },
   searchBarWrap: {
     position: 'absolute',
     zIndex: 5,
@@ -473,7 +477,7 @@ const styles = StyleSheet.create({
   cardWrapper: {
     position: 'absolute',
     bottom: 15,
-    left: (Dimensions.get('window').width / 2) - 175,
+    left: (Dimensions.get('window').width / 2) - (Dimensions.get('window').width < 350 ? 150 : 175),
     // borderWidth: 2,
   },
   card: {
@@ -485,7 +489,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowOffset: { x: 2, y: -2 },
     height: 150,
-    width: 350,
+    width: Dimensions.get('window').width < 350 ? 300 : 350,
     // position: 'absolute',
     // bottom: 15,
     borderRadius: 10,
@@ -500,7 +504,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     overflow: 'hidden',
     top: -15,
-    left: 150,
+    left: Dimensions.get('window').width < 350 ? 125 : 150,
     color: '#c49565',
     zIndex: 6,
   },

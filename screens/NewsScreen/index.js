@@ -12,6 +12,7 @@ import {
   Modal,
   RefreshControl,
   DatePickerIOS,
+  DatePickerAndroid,
   Image,
   Platform,
 } from 'react-native';
@@ -87,8 +88,12 @@ export default class NewsScreen extends Component {
 
   getTop3News(response) {
     let newsArray;
+    
+    if(!response) {
+      return null;
+    }
 
-    if(response.length < 3) {
+    if(response && response.length < 3) {
       newsArray = response.map(r => r);
     } else {
       newsArray = [response[0], response[1], response[2]];
@@ -108,7 +113,7 @@ export default class NewsScreen extends Component {
         }
       })
       .catch((error) => {
-        console.error(error);
+        return null;
       })
   }
 
@@ -131,7 +136,7 @@ export default class NewsScreen extends Component {
 
       })
       .catch((error) => {
-        console.error(error);
+        return null;
       });
   }
 
@@ -173,7 +178,7 @@ export default class NewsScreen extends Component {
 
         })
         .catch((error) => {
-          console.error(error);
+          return null;
         });
     })
   }
@@ -239,7 +244,7 @@ export default class NewsScreen extends Component {
 
   sliceTagFilterLabel(selectedTagLabel) {
     // console.log('getFilterValueText selectedTagLabel', selectedTagLabel);
-    return selectedTagLabel.length > 10 ? `${selectedTagLabel.slice(0,10)}...` : selectedTagLabel;
+    return selectedTagLabel && selectedTagLabel.length > 10 ? `${selectedTagLabel.slice(0,10)}...` : selectedTagLabel;
   }
 
   setDate(newDate) {
@@ -286,7 +291,7 @@ export default class NewsScreen extends Component {
     let tagPickers;
     let news = null;
 
-    if(tags.length > 0) {
+    if(tags && tags.length > 0) {
       tagPickers = tags.sort(function(a, b){
         if(a.name < b.name) return -1;
         if(a.name > b.name) return 1;
@@ -363,6 +368,16 @@ export default class NewsScreen extends Component {
       );
     }
 
+    const datePickerElement = (
+      <DatePickerIOS
+        date={this.state.chosenDate ? this.state.chosenDate : new Date()}
+        onDateChange={(newDate) => this.setDate(newDate)}
+        locale="hu"
+        mode="date"
+      />
+    );
+    
+
 
     return (
       <View style={styles.container}>
@@ -394,8 +409,33 @@ export default class NewsScreen extends Component {
           <View style={styles.filterRow}>
             <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
               <TouchableOpacity
-                onPress={() => {
-                  this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
+                onPress={async () => {
+                  if(Platform.OS === 'android') {
+                    try {
+                      const {action, year, month, day} = await DatePickerAndroid.open({
+                        // Use `new Date()` for current date.
+                        // May 25 2020. Month 0 is January.
+                        date: new Date()
+                      });
+                      if (action !== DatePickerAndroid.dismissedAction) {
+                        // Selected year, month (0-11), day
+                        // this.setDate(moment(`${year}-${month}-${day}`));
+                        const curMon = ++month;
+                        const rightMonth = curMon < 10 ? `0${curMon}` : curMon;
+                        const rightDay = day < 10 ? `0${day}` : day;
+                        const selectedDate = moment(`${year}-${rightMonth}-${rightDay}`).toDate();
+                        
+                        this.setState({
+                          chosenDate: selectedDate,
+                          formatterChosenDate: moment(selectedDate).format('YYYY.MM.DD'),
+                        }, () => this.getFilteredNews(selectedDate, selectedTagFilterId))
+                      }
+                    } catch ({code, message}) {
+                      console.warn('Cannot open date picker', message);
+                    }
+                  } else {
+                    this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
+                  }
                 }
                 style={styles.tagFilter} activeOpacity={0.8}
               >
@@ -447,12 +487,9 @@ export default class NewsScreen extends Component {
           >
             <View style={{ flex: 1, height: '100%', width: '100%' }}>
               <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, zIndex: 1000, width: '100%',}}>
-                <DatePickerIOS
-                  date={this.state.chosenDate ? this.state.chosenDate : new Date()}
-                  onDateChange={(newDate) => this.setDate(newDate)}
-                  locale="hu"
-                  mode="date"
-                />
+                
+                { datePickerElement }
+
                 <TouchableOpacity
                   style={{position: 'relative', width: '100%', alignItems: 'center', justifyContent: 'center',}}
                   onPress={() => this.setState({ datePickerModalVisible: false }) }
@@ -478,6 +515,7 @@ export default class NewsScreen extends Component {
             <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%' }}>
               <View>
                 <Picker
+                  style={{ height: 350, width: '100%' }}
                   selectedValue={selectedTagFilterId}
                   onValueChange={(itemValue, itemIndex) => {
                     // console.log('typeof itemValue', typeof itemValue)
@@ -556,7 +594,7 @@ const styles = StyleSheet.create({
   readMoreBtn: {
     position: 'absolute',
     zIndex: 5,
-    bottom: -15,
+    bottom: Platform.OS ? 10 : -15,
     right: 15,
     width: 105,
     paddingTop: 8,
@@ -570,9 +608,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: '#b7a99b',
     shadowOffset: {
-            width: 0,
-            height: 15
-          },
+      width: 0,
+      height: 15
+    },
     shadowRadius: 15,
     shadowOpacity: 0.5,
   },

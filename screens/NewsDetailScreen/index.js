@@ -52,6 +52,7 @@ export default class NewsDetailScreen extends Component {
       const youtubeId = this.getYtId(youtubeMedia.src_media);
       youTubeWrapper = (
         <YouTube
+          apiKey="AIzaSyARm4hM8Lpcuv4pteH92UYdp1Lq_Pyhin0"
           videoId={youtubeId}   // The YouTube video ID
           play={false}             // control playback of video with true/false
           fullscreen={true}       // control whether the video should play in fullscreen or inline

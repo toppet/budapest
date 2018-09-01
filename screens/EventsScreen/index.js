@@ -24,6 +24,9 @@ const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
 import textContentJSON from './eventsTrans.json';
 import PageLoader from '../../components/PageLoader';
+import { SinglePickerMaterialDialog } from 'react-native-material-dialog';
+
+const dateFormat = 'YYYY-MM-DD';
 
 export default class EventsScreen extends Component {
   constructor(props){
@@ -39,6 +42,7 @@ export default class EventsScreen extends Component {
       events: null,
       refreshing: false,
       refreshingEventsList: false,
+      singlePickerVisible: false,
     }
   }
 
@@ -197,24 +201,25 @@ export default class EventsScreen extends Component {
 
   getFilteredEvents(dateFilter, locationFilter) {
     const encodedLocationFilter = encodeURI(locationFilter);
-    let fetchUrl = 'https://jewps.hu/api/v1/events';
+    const today = moment().format(dateFormat);
+    let fetchUrl = `https://jewps.hu/api/v1/events?fromDate=${today}`;
     let formattedDate;
 
     if(dateFilter) {
       formattedDate = moment(dateFilter).format('YYYY-MM-DD');
-      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}`;
+      fetchUrl = `https://jewps.hu/api/v1/events?fromDate=${formattedDate}`;
     }
 
     if(locationFilter) {
-      fetchUrl = `https://jewps.hu/api/v1/events?location=${encodedLocationFilter}`;
+      fetchUrl = `https://jewps.hu/api/v1/events?fromDate=${today}&location=${encodedLocationFilter}`;
     }
 
     if(dateFilter && locationFilter) {
-      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}&location=${encodedLocationFilter}`;
+      fetchUrl = `https://jewps.hu/api/v1/events?fromDate=${formattedDate}&location=${encodedLocationFilter}`;
     }
 
     // console.log('dateFilter', dateFilter, 'locationFilter', locationFilter, 'encodedLocationFilter', encodedLocationFilter);
-    // console.log('fetchurl', fetchUrl);
+    // console.warn('fetchurl', fetchUrl);
 
     this.setState({
       refreshingEventsList: true,
@@ -223,11 +228,11 @@ export default class EventsScreen extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
           const responseData = responseJson.data;
-          // console.log('filtered events', responseJson);
-
+          
           if(responseJson.success) {
+            const sortedEventsById = _.sortBy(responseData, ['from']);
             this.setState({
-              events: responseData,
+              events: sortedEventsById,
               refreshingEventsList: false,
             });
           }
@@ -291,6 +296,7 @@ export default class EventsScreen extends Component {
         <TouchableOpacity onPress={() => {
           this.setState({
             locationFilter: null,
+            selectedPickerItem: null,
           }, () => this.getFilteredEvents(dateFilter, null))
         }}>
           <Icon name="cancel" size={20} color="#434656"/>
@@ -408,7 +414,12 @@ export default class EventsScreen extends Component {
                 </View>
 
                 <View style={{ position: 'absolute', right: 0, flex: 1, width: '50%'}}>
-                  <TouchableOpacity onPress={() => this.setState({ locationModalVisible: true })} style={styles.filterWrap} activeOpacity={0.8}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      Platform.OS === 'android' ? this.setState({ singlePickerVisible: true}) : this.setState({ locationModalVisible: true })}
+                    } 
+                    style={styles.filterWrap} activeOpacity={0.8
+                  }>
                     <CustomIcon
                       name="ic_location"
                       size={20}
@@ -429,15 +440,36 @@ export default class EventsScreen extends Component {
               { refreshingEventsList ? <PageLoader textContent={textContent} /> : eventListItems }
             </View>
 
+            <SinglePickerMaterialDialog
+              title={textContent.pickerTitle}
+              items={locations.map((row, index) => ({ value: index, label: row }))}
+              visible={this.state.singlePickerVisible}
+              selectedItem={this.state.selectedPickerItem}
+              onCancel={() => this.setState({ singlePickerVisible: false })}
+              onOk={async result => {
+                // console.warn('selected', result.selectedItem);
+                // await this.setState({ singlePickerVisible: false })
+                await this.setState({
+                  singlePickerVisible: false,
+                  selectedPickerItem: result.selectedItem,
+                  locationFilter: result.selectedItem && result.selectedItem.label !== "" ? result.selectedItem.label : null,
+                }, () => this.getFilteredEvents(dateFilter, result.selectedItem.label))
+                // this.getFilteredEvents(dateFilter, result.selectedItem.label)
+                // this.setState({ singlePickerVisible: false }, () => {
+                //   console.warn('result.selectedItem.label', result.selectedItem.label);
+                // });
+              }}
+            />
+
             <Modal
               animationType="slide"
               transparent
               visible={this.state.datePickerModalVisible}
               onRequestClose={() => {
-                console.log('Modal has been closed, state value => ', this.getFilteredEvents(dateFilter, locationFilter));
+                this.getFilteredEvents(dateFilter, locationFilter);
               }}
               onDismiss={() => {
-                console.log('Modal has been closed, state value => ', this.getFilteredEvents(dateFilter, locationFilter));
+                this.getFilteredEvents(dateFilter, locationFilter);
               }}
             >
               <View style={{ flex: 1, height: '100%', width: '100%' }}>
@@ -465,10 +497,10 @@ export default class EventsScreen extends Component {
               visible={this.state.locationModalVisible}
               transparent
               onRequestClose={() => {
-                console.log('Modal has been closed, state value => ', this.getFilteredEvents(dateFilter, locationFilter));
+                this.getFilteredEvents(dateFilter, locationFilter);
               }}
               onDismiss={() => {
-                console.log('Modal has been closed, state value => ', this.getFilteredEvents(dateFilter, locationFilter));
+                this.getFilteredEvents(dateFilter, locationFilter);
               }}
             >
               <View style={{marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%' }}>

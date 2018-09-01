@@ -1,0 +1,517 @@
+[
+  {
+    "id": 0,
+    "coordinate": {
+      "latitude": 47.495938,
+      "longitude": 19.060764
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Dohány Street Synagogue",
+    "minEntryFee": 1200,
+    "maxEntryFee": 4000,
+    "webPageLink": "http://www.jewishtourhungary.com/en/",
+    "facebookPageLink": "https://www.facebook.com/Dohanytemplom/",
+    "ticketLink": "https://www.jegy.hu/program/felnott-belepojegy-61785",
+    "phone": "+36 1 413 5584",
+    "address": "1074 Budapest, Dohány u. 2.",
+    "thumbnail_1": require("../../assets/images/attractions/dohany1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/dohany2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/dohany3.jpg"),
+    "openingHours": [
+      {
+        "day": "Sunday",
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": "Monday",
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": "Tuesday",
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": "Wednesday",
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": "Thursday",
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": "Friday",
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": "Saturday",
+        "open": "Closed",
+        "close": "Closed",
+        "closed": true
+      }
+    ],
+    "description": "The Dohány Street Synagogue is one of the most prominent tourist attractions in Budapest. It is the largest synagogue in Europe and the second largest in the world. It was built in 1859 in Moorish style. It can accommodate about 3000 people. Its greatness demonstrates the significance and high-quality economic and cultural needs of the Jewish people of Budapest of the time. \n\nThe architect of the church was Ludwig Förster (1797-1863), a German architect, a teacher at the Vienna Academy. The supervisor architect of the construction was Ignác Wechselmann, (1828-1903), who later gave his entire estate to the Institute of Blinds. After Förster left Frigyes Feszl, the famous architect of Vigadó designed the temple's inner sanctuary. The solemn opening of the synagogue took place on September 6, 1859. The interior is 1200 square meters, its towers are 44 meters high, the ground floor has 1497 men seats, and the floor has 1472 women's seats.\n\nThe Synagogue is the temple of Neolog Jewry, was built in the former Jewish quarter, in Dohány Street, where many Jews live nowadays, too. The memory of Holocaust is strongly linked to the old Jewish quarter, where the Synagogue is located. The Dohány Street was the border of Jewish ghetto in the World War II. Today, about 2600 Jewish man who died in the Holocaust rest in the place, which originally was planned for the synagogue's garden. The Synagogue receives its visitors on weekdays and Sunday. It is closed on Saturdays and Jewish holidays.The synagogue is still a place of worship today, but cultural programs and concerts are also held here."
+  },
+  {
+    "id": 1,
+    "coordinate": {
+      "latitude": 47.497816,
+      "longitude": 19.058897
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Rumbach Street Synagogue",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "https://en.wikipedia.org/wiki/Rumbach_Street_Synagogue",
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "Budapest, Rumbach Sebestyén u. 11-13, 1074",
+    "thumbnail_1": require("../../assets/images/attractions/rumbach1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/rumbach2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/rumbach3.jpg"),
+    "openingHours": null,
+    "description": "The Rumbach Street Synagogue was built in romantic style, with Moorish features in the ”synagogue triangle” of Budapest, which was the territory of the later ghetto of Budapest. It is also known as ”Little Synagogue” (the ”Great Synagogue” is the Dohány Street Synagogue). The Synagogue was built between 1869 and 1872, and it was designed by Austrian Otto Wagner, who was the leading figure in Viennese Art Nouveau. \n\nIt is characterized by a specially crafted sacred space, its appearance is similar to the Dohány Street Synagogue. It is currently under renovation, after which it will have community functions, but of course its synagogue function will also remain."
+  },
+  {
+    "id": 2,
+    "coordinate": {
+      "latitude":  47.498519,
+      "longitude": 19.062437
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Kazinczy Street Synagogue",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://kazinczyutcaizsinagoga.hu/",
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": "+36 1 351 0524",
+    "address": "1075 Budapest, Kazinczy utca 29-31.",
+    "thumbnail_1": require("../../assets/images/attractions/kazinczy1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/kazinczy2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/kazinczy3.jpg"),
+    "openingHours": null,
+    "description": "The Kazinczy Street Synagogue is the great synagogue of orthodox Jews, which was built in Art Nouveau between 1912-1913 in the VII. district of Budapest, Kazinczy Street 29-31. One of the most characteristic works of Hungarian synagogue architecture before the First World War. \n\nThe center of orthodoxy is located around the synagogue, which is commonly referred to as ghetto in the ghetto. The traditional “minighetto” of the VII. district where all the institutions belonging to the religious life outside of the mikveh, the ritual bath are found. Even the mikveh is not built in the center for religious reasons. The mikveh is located in Kazinczy Street 16."
+  },
+  {
+    "id": 3,
+    "coordinate": {
+      "latitude": 47.497038,
+      "longitude": 19.063322
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "A Kazincy Street Mikveh",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://www.maoih.hu/?page_id=182&lang=en",
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": "+36 1 351 0524",
+    "address": "1075 Budapest, Kazinczy u. 16.",
+    "thumbnail_1": require("../../assets/images/attractions/mikve1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/mikve2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/mikve3.jpg"),
+    "openingHours": null,
+    "description": "The Kazincy Street Mikveh is a Jewish ritual bath maintained by the orthodox community. From 1928 it has been operating continuously. The ritual bath is an indispensable element of Jewish family life: once every month the wife submerges, because she can fulfil her obligation related to the marriage only in ritual purity. Men usually use the mikveh on Fridays and the days before the holiday. \n\nThe building where the mikveh is located was built in art deco-style, designed by unknown architect(s). It was built between 1925 and 1930 in several phases. \n\nThe 7 floor bath complex can be reached on the ground floor corridor behind the reception building. The ground floor is covered with red marble, above the upper windows there are folk motifs and there are friezesabove them. In the inner courtyard, the facade of the bath complex is puritanical, only framed by a ribbon frame (with two letter motifs in the middle). \n\nThe renovation of the mikveh, which terminated in 2004 was financed by two men from New York with Hungarian descent. According to Hassidic tradition, it is a great honor to build a mikveh and can promote to have children."
+  },
+  {
+    "id": 4,
+    "coordinate": {
+      "latitude": 47.499030,
+      "longitude": 19.062368
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Hungarian Autonomous Orthodox Jewish Community",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://www.maoih.hu/?page_id=161&lang=en",
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": "+36 1 351 0524",
+    "address": "1074  Budapest Dob utca 35.",
+    "thumbnail_1": require("../../assets/images/attractions/orthodox1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/orthodox2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/orthodox3.jpg"),
+    "openingHours": null,
+    "description": "The Budapest Autonomous Orthodox Community is the “church district“ of the Orthodox Jews in Budapest. It was founded at the Pest Jewish Congress in 1868-1869, by the orthodox Jews of Pest who disagreed with the Neolog approach and therefore left Pest Jewish Community. Orthodox Jews of Buda and Óbuda also joined to them, forming one joint community, whose inaugural meeting was held on October 16, 1870 (Budapest was “formally“ established only in 1873). \n\nThe Hanna Restaurant is located in the courtyard, which was first a soup-kitchen and then became a restaurant. Next to there is the only orthodox butchery. \n\nThe Hungarian Autonomous Orthodox Jewish Community continues to play a prominent role in the life of the Jewish community in Hungary. It maintains educational institutions (nursery, kindergartens, schools, high schools), provides opportunities for learning for all ages, maintains elderly home and mikveh, synagogues and prayer houses in the capital and in the country side and cares for orthodox cemeteries. Last but not least, it provides the kashrut for the entire Hungarian Jewry and its institutional system. \n\nThe rabbi lives there, cultural events take place here."
+  },
+  {
+    "id": 5,
+    "coordinate": {
+      "latitude": 47.496632,
+      "longitude": 19.061988
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Budapest Jewish Community (BZSH)",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://www.bzsh.hu/",
+    "facebookPageLink": "https://www.facebook.com/bzsh.hu/",
+    "ticketLink": null,
+    "phone": "+36 1 413-5500",
+    "address": "1075 Budapest, Síp u. 12.",
+    "thumbnail_1": require("../../assets/images/attractions/bzsh1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/bzsh2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/bzsh3.jpg"),
+    "openingHours": null,
+    "description": "It is the central building of Hungarian Jewry. The Budapest Jewish Community’s past reaches until the 18th century, until the establishment of the Jewish Community of Óbuda. The first Jewish settlers appeared in Óbuda in the first decades of the 18th century. The 1725 county census speaks about 10 Jewish heads of families in Óbuda, while another document in1727 mentioned 24 families living in the same place. According to the census of 1737, the Jewish community of Óbuda exceeded the Jewish community of the close Buda in terms of size. At that time 43 families (199 souls) lived in the settlement. \n\nThe Rabbinate of Budapest, the funeral group called Chevra Kadisa, and the entire establishment are located. Buildings of Síp street 12. and Wesselényi u. 7. form an organic unit. \n\n BZSH operates a large-scale kosher kitchen, through which not only students and beneficiaries of the institutions, but also the BZSH's extensive social care system, hundreds of needy people have access to social-based everyday kosher service. \n\nThe Jewish Tourism and Culture Center (ZSIKK) – which is the organizer of the Jewish Cultural Festival among others – is part of BZSH."
+  },
+  {
+    "id": 6,
+    "coordinate": {
+      "latitude": 47.496511,
+      "longitude": 19.060754
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Heroes’ Temple",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://www.jewishtourhungary.com/en/a-hosok-temploma/",
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1077 Budapest, Wesselényi u. 5.",
+    "thumbnail_1": require("../../assets/images/attractions/hosok1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/hosok2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/hosok3.jpg"),
+    "openingHours": null,
+    "description": "The Heroes’ Temple is now an inseparable part of the Dohány Street Synagogue. The building was built in Art Deco style in 1931, designed by László Vágó, József Vágó and Ferenc Faragó. It can accommodate 186 person and is used for worship. \n\nThe Heroes' Synagogue commemorates the 10,000 Hungarian Jewish soldiers who died in World War I. The epigraph “1914-1918” and the biblical poems about heroes in the shape of the star of David in the interior refer to the fallen soldiers. \n\nThis is the winter church of the Dohány Street Synagogue."
+  },
+  {
+    "id": 7,
+    "coordinate": {
+      "latitude": 47.496576,
+      "longitude": 19.061269
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "MAZSIHISZ, BZSH and Goldmark Hall",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://www.mazsihisz.hu/",
+    "facebookPageLink": "https://www.facebook.com/mazsihisz",
+    "ticketLink": null,
+    "phone": null,
+    "address": "1077 Budapest, Wesselényi u. 7.",
+    "thumbnail_1": require("../../assets/images/attractions/goldmark1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/goldmark2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/goldmark3.jpg"),
+    "openingHours": null,
+    "description": "The Mazsihisz (Federation of Jewish Communities of Hungary) - one of the four Hungarian historical churches - is the general representative body of the Hungarian Jewish community. Its main body is the General Assembly, consisting of 121 members of representatives of the Hungarian synagogues and the rabbis. Every four years they elect the president, the executive director and the executive body. \n\nThe Goldmark Hall, which can be accessed from Wesselényi Street, is the everyday prayer room of the Dohány district and hosts cultural events. The hall was named after Károly Goldmark, the world-famous composer. \n\nThe twelve reliefs on the wall of the building symbolize the twelve tribes of Israel, with their Hebrew inscription under the emblems. The Goldmark Hall was the only venue where Jewish artists who were banned from practicing their profession during the time of the World War II could perform. All genres were represented from comedies to operas. There is a huge marble plaque on the wall of the hall for the memory of martyr artists."
+  },
+  {
+    "id": 8,
+    "coordinate": {
+      "latitude": 47.498391,
+      "longitude": 19.060410
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Holló street. 4. – House of Ignác Goldziher, Sámuel Kohn",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1075 Budapest, Holló u. 4.",
+    "thumbnail_1": require("../../assets/images/attractions/hollo41.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/hollo42.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/hollo43.jpg"),
+    "openingHours": null,
+    "description": "Ignác Goldziher (1850-1921), world-famous orientalist scholar (member of Hungarian Academy of Sciences, honorary member of Royal Asiatic Society) and Sámuel Kohn (1841-1920), chief rabbi of the Pest Jewish Community, historian, court councilor lived in this house. There is a memorial plaque on the wall of the house, which shows this. \n\nGoldziher Ignác (Székesfehérvár, June 22, 1850 - Budapest, November 13, 1921) was an orientalist, university professor, secretary of the Jewish Community of Budapest, member of the Hungarian Academy of Sciences. His father was Adolf Goldziher, who was a merchant. He studied at the Cistercian high school in Székesfehérvár, but from the age of 16 he was a student of Ármin Vámbéry at the University of Pest (ELTE). He continued his university studies in Berlin and Leipzig; he obtained his doctoral degree from here. In 1872-73 he received a public scholarship in Leiden and Vienna to study eastern manuscripts of the libraries there for his later papers. He made researches in Oxford and Cambridge, and then returned home in 1872. At age 22, he was habilitated as a private university teacher. In 1873-74, courtesy of Baron József Eötvös, minister of culture, he got a public scholarship for a study trip in Syria, Palestine, and Egypt. From 1894 he was a university professor at the Department of Semitic Philology, Faculty of Humanities at the Budapest University. From 1874 he was the secretary of the Pest Jewish Community, and from 1900 he was a lecturer at the Jewish Theological Seminary – University of Jewish Studies. \n\nSámuel Kohn (1841-1920) was born in Baja, his father’s and mother's father were rabbis, and this family tradition directed his interest to Jewish sciences. His desire for knowledge led him to the town of Boroszló (Wrocław) after his theological studies in his hometown of Kismarton and later in Pápa. He was student of the theological seminar in Boroszló (Wrocław) for 8 years, and in 1865 he got his doctoral degree. Next year, he was invited to be the rabbi of the Pest Jewish Community. Sámuel Kohn spiritual leader of the community for more than half a century. \n\nOn the ground floor of the building there is David's star in the pavement."
+  },
+  {
+    "id": 9,
+    "coordinate": {
+      "latitude": 47.497621,
+      "longitude": 19.055713
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Király street 1. - Josef Schlesinger bookshop and publishing",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1061 Budapest, Király u. 1.",
+    "thumbnail_1": require("../../assets/images/attractions/kiraly1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/kiraly2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/kiraly3.jpg"),
+    "openingHours": null,
+    "description": "The history of Josef Schlesinger's bookshop and publishing house – and its successor, the Sinai Publishing House –  began in Burgenland. Josef Gins-Schlesinger’s (founder of the company, 1790-1871) father was Simha Bunim Gins (1765/1770-1829), rabbi of Nagymarton (Mattersdorf), who was the brother of the famous rabbi of Poznań, Akiva Gins Eger (1761-1837). \n\nThe bookshop and publishing house mainly issued prayer books, Bible, Haggadah, Psals throughout Europe, but soon also provided remote countries with prayer books and religious objects necessary for holidays and everyday religious life. Its Sefardic prayer books reached Turkey, Greece, Tunisia, Morocco and Algeria. Hebrew prayer books have been translated into several languages and are also published in bilingual volumes. In 1905 Rosa-Rözl Schlesinger's two eldest sons Josef Smuel Benjamin (1871-1933) and Adolf Avraham Schlesinger (1873-1952) opened a branch office in Budapest, Király utca 1. \n\nThe general and festive prayer books issued by them are still used in synagogues."
+  },
+  {
+    "id": 10,
+    "coordinate": {
+      "latitude": 47.500070,
+      "longitude": 19.063198
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Klauzál square 16. – Vine shop of Verpelét",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "null",
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1072 Budapest, Klauzál tér 16.",
+    "thumbnail_1": require("../../assets/images/attractions/klauzal161.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/klauzal162.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/klauzal163.jpg"),
+    "openingHours": null,
+    "description": "Market of Klauzál square was the center of supply of kosher Jewish cuisine. Even the market was divided into two parts: one half sold pig bacon, the other sold strictly controlled kosher stuffs. The vine shop belonged to former kosher farm of Verpelét. This vine shop functioned for a long time, under orthodox supervision. It was a cultic place of Jewish life in Pest until the change of regime."
+  },
+  {
+    "id": 11,
+    "coordinate": {
+      "latitude": 47.499787,
+      "longitude": 19.064571
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Klauzál square 11. - Kosher butchery",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1072 Budapest, Klauzál tér 11.",
+    "thumbnail_1": require("../../assets/images/attractions/klauzal111.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/klauzal112.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/klauzal113.jpg"),
+    "openingHours": null,
+    "description": "Kosher butchery, sausage poultry shop was under Neolog supervision until the regime change. In the Klauzál square store, products which met the most stringent kosher requirements could be purchased in excellent quality. \n\nThe kosher butchery was located next to Klauzál square market hall, which is one of the most prominent buildings of the historic Jewish quarter."
+  },
+  {
+    "id": 12,
+    "coordinate": {
+      "latitude": 47.499064,
+      "longitude": 19.061230
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Butchery – Meat Shop",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://www.maoih.hu/?page_id=463&lang=hu",
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": "+36 1 342 16 39",
+    "address": "1075 Budapest, Kazinczy u. 41.",
+    "thumbnail_1": require("../../assets/images/attractions/husbolt1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/husbolt2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/husbolt3.jpg"),
+    "openingHours": [
+      {
+        "day": "Sunday",
+        "open": "Closed",
+        "close": "Closed",
+        "closed": true
+      },
+      {
+        "day": "Monday",
+        "open": "8:00",
+        "close": "16:00"
+      },
+      {
+        "day": "Tuesday",
+        "open": "8:00",
+        "close": "16:00"
+      },
+      {
+        "day": "Wednesday",
+        "open": "8:00",
+        "close": "16:00"
+      },
+      {
+        "day": "Thursday",
+        "open": "8:00",
+        "close": "18:00"
+      },
+      {
+        "day": "Friday",
+        "open": "8:00",
+        "close": "12:00"
+      },
+      {
+        "day": "Saturday",
+        "open": "Closed",
+        "close": "Closed",
+        "closed": true
+      }
+    ],
+    "description": "It was a kosher butchery for generations, Jewish people of Pest could buy kosher meat here. The owners were legendary: Rebenwurst, Berkovits, and then Kővári. \n\nToday it functions in Dob street 35. It the Dob street shop, products which met the most stringent kosher requirements could be purchased in excellent quality. \n\nIn addition to knowing which animals are considered kosher by our Jewish laws, the way of slaughtering is also very important. Only a well-trained professional, who knows the Torah, the so called “sakter” or “sajhet” (mashgiach) can perform kosher cutting. \n\nFrom the Torah (Vayikra/Leviticus 11:1–23), we get an accurate explanation of which animal's meat are kosher and which ones are not. According to these, mammals that “chews the cud“ and has a completely split hoof is ritually clean, but those mammals that only chew the cud or only have cloven hooves are unclean. In the case of “birds”, we did not get clear “signs“, which are kosher, just a list of birds that cannot be eaten. From this list, however, our sages have compiled the signs on which the birds are judged to be kosher. These are: the plus one finger, the gizzard whose membrane can be peeled off and the conical beak. The fishes are considered neutral in terms of kashrut, so they can be consumed with meat and milk. Fish do not require a ritual cut, but it is needed to check that there is no worm under the scales."
+  },
+  {
+    "id": 13,
+    "coordinate": {
+      "latitude": 47.500049,
+      "longitude": 19.067871
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Wesselényi Street Nursery, Kindergarten, Primary School and High School",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "http://www.wesselenyiiskola.hu/enter/",
+    "facebookPageLink": "https://www.facebook.com/wesselenyiiskola/",
+    "ticketLink": null,
+    "phone": "+36 1 413 0137",
+    "address": "1077 Budapest, Wesselényi u. 44.",
+    "thumbnail_1": require("../../assets/images/attractions/wesselenyi441.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/wesselenyi442.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/wesselenyi443.jpg"),
+    "openingHours": null,
+    "description": "Jewish Boys' School, which was a hospital in the ghetto and is now an orthodox school. The building was designed by Vilmos Freund in 1896. On the wall of the house, a memorial plaque preserves the memory of the victims of holocaust. In the 90s’, following the change of regime, the Orthodox community had the opportunity to build its educational system. In the school, they put great emphasis on the education of children according Jewish traditions. To this, all means are given: in the school you can find a synagogue and kosher kitchen, besides the equipment of religious life, the building is equipped with the most modern means. The building houses the nursery, kindergarten, high school and vocational school besides the primary school."
+  },
+  {
+    "id": 14,
+    "coordinate": {
+      "latitude": 47.497250,
+      "longitude": 19.062787
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Wesselényi street 13. – Building of the “Orthodox People’s Table",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1077 Budapest, Wesselényi u. 13.",
+    "thumbnail_1": require("../../assets/images/attractions/wesselenyi131.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/wesselenyi132.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/wesselenyi133.jpg"),
+    "openingHours": null,
+    "description": "Building of the Orthodox People’s Table (practically a soup kitchen). During the holocaust, the survival of the people in the ghetto was greatly helped by the food produced and distributed here. \n\nThe building was built in 1908. Prior to that, the plot was bigger, but Wesselényi Street was a dead end, as it was only the Millennium Urban Development that connected the street with the boulevard. The building was built on the corner of Kazinczy street and Wesselényi street (which width was expanded from 7 meters to 14 meters) wide, originally with 5 to 6 apartments. Residents were rich traders, lawyers, doctors. Since 1913, the Orthodox Jewish People’s Table Association was operating in the building, the primary goal of which was to feed poor orthodox Jews. The association published Eszter's book in 1936, the Haggadah in 1941 as a gift for the people who donated to the organization. The People’s Table worked even during the ghetto period: more than 20,000 portions of food were produced per day."
+  },
+  {
+    "id": 15,
+    "coordinate": {
+      "latitude": 47.498981,
+      "longitude": 19.061107
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Kazinczy Street 40. – Bath of József Scheibel ",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1075 Budapest, Kazinczy u. 40.",
+    "thumbnail_1": require("../../assets/images/attractions/kazinczy401.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/kazinczy402.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/kazinczy403.jpg"),
+    "openingHours": null,
+    "description": "József Scheibel opened his first vapor bath (lower temperature, but much more humid than the Finnish sauna) in the small Nákó house in 1840, in the Szarka (today Zrínyi) street, about 100 steps from the Diana Bath. Two years later, when he had to leave this place because of the town's development, he moved the vapor bath to Kiskereszt (today Kazinczy) street. \n\nScheibel built the building on the basis of József Hild's plan, and in 1847, according to Lóránt Zofahl's plan, reconstruction was also carried out. The neo-classical cour d'honneur (open-air ornamental garden) bath was a very cozy and popular place according to contemporary descriptions. The separate (female and male) sweat and shower rooms were provided by the heated water of the Danube. \n\nAfterwards the bath was ran from 1868 by József Tarcsay, from 1891 by Jánosné Tarcsay, from 1894 by Géza Ringer, then by his widow Juvelier Malvin, and from 1921 onwards by their children, dr. István Ringer, a spa therapist, with the name “First Hungarian Vapor Bath and Bath“. The bath (with other three adjacent historical building) was dismantled in 1969, to replace it with the temporary building of Hungarian Dance Academy (this temporary container building is still there…). \n\nThe interesting fact in connection with the bath is that an orthodox mikveh was operating in a part of it."
+  },
+  {
+    "id": 16,
+    "coordinate": {
+      "latitude": 47.500418,
+      "longitude": 19.060319
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Király u. 36. - Jewish National Fund",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": "https://www.jnf.org/",
+    "facebookPageLink": "https://www.facebook.com/jewishnationalfund/",
+    "ticketLink": null,
+    "phone": null,
+    "address": "1061 Budapest, Király u. 36.",
+    "thumbnail_1": require("../../assets/images/attractions/jnf1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/jnf2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/jnf3.jpg"),
+    "openingHours": null,
+    "description": "It was served as the HQ of Keren Kajemet Leisrael, (KKL, Jewish National Fund). KKL is Israel's largest and the world's oldest environmentalist organization. It was founded in 1901, and to this day the foundation for its activity is the construction and protection of the environment. Today it is working again in Budapest."
+  },
+  {
+    "id": 17,
+    "coordinate": {
+      "latitude": 47.498231,
+      "longitude": 19.060970
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Holló street 1. - Lina Ha’tzedek",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "Budapest, Rumbach Sebestyén u. 11-13, 1074",
+    "thumbnail_1": require("../../assets/images/attractions/linat1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/linat2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/linat3.jpg"),
+    "openingHours": null,
+    "description": "It was the building of Linat Ha’Tzedek orthodox prayer house. Typical features of the Jewish life before the change of regime were the prayer houses in apartments, mostly with orthodox communities. These sites were originally flats of rabbis or others, and they were modified to meet the requirements of a synagogue. Since they were in apartment houses, people could come here inconspicuously."
+  },
+  {
+    "id": 18,
+    "coordinate": {
+      "latitude": 47.497576,
+      "longitude": 19.063682
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Wesselényi street 17. - Community House",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1077 Budapest, Wesselényi u. 17.",
+    "thumbnail_1": require("../../assets/images/attractions/wesselenyi171.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/wesselenyi172.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/wesselenyi173.jpg"),
+    "openingHours": null,
+    "description": "The building was built in romantic style in 1905, designed by György Kopeczek). The facade of a house has mosaic and wrought iron decorations. It was the HQ of  Székesfőváros Shoe Industrial Association. Today it is Community House of Erzsébetváros (VII. district of Budapest) and HQ of the district’s NGOs. \n\nA Neolog prayer house also operated in the building before the holocaust."
+  },
+  {
+    "id": 19,
+    "coordinate": {
+      "latitude": 47.498724,
+      "longitude": 19.067184
+    },
+    "entryFee": 0,
+    "currency": "Ft",
+    "title": "Akácfa street 22. - Groszberg Jenő",
+    "minEntryFee": null,
+    "maxEntryFee": null,
+    "webPageLink": null,
+    "facebookPageLink": null,
+    "ticketLink": null,
+    "phone": null,
+    "address": "1072 Budapest, Akácfa u. 22.",
+    "thumbnail_1": require("../../assets/images/attractions/akacfa1.jpg"),
+    "thumbnail_2": require("../../assets/images/attractions/akacfa2.jpg"),
+    "thumbnail_3": require("../../assets/images/attractions/akacfa3.jpg"),
+    "openingHours": null,
+    "description": "It was a prayer house. The last rabbi of it was Jenő Groszberg, who edited the synagogue’s calendar (luach) for a long time. He also edited and issued the Orthodox Jewish Newspaper. After his death, his son Slomó undertook these tasks, who had done this work from Israel. \n\nSlomó Groszberg (Ervin) came from a famous family which fundamentally influenced Hungarian Ashkenazi orthodoxy. His grandfather, Lipót Groszberg founded the Orthodox daily called Allgemeine Jüdische Zeitung. His father, Jenő Groszberg was an orthodox rabbi, editor and publisher of Jewish newspaper, later Orthodox Jewish Newspaper. Slomó was the leader of youth organization of anti-Zionist orthodox Agudat Yisrael between 1945 and 1948. \n\nSlomó Groszberg moved to Israel in 1957 and settled in the religious Bnei Brak. He led the education department of Poalei Agudat Yisrael (an ultra-orthodox workers' political party associated with Agudat Yisrael)."
+  }
+]
