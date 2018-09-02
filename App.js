@@ -61,7 +61,7 @@ export default class App extends Component {
       });
 
     const locale = Platform.OS === 'android' ? NativeModules.I18nManager.localeIdentifier : NativeModules.SettingsManager.settings.AppleLocale;
-    console.log('locale', locale);
+    
     if(locale !== 'hu_HU') {
       this._setAppLang(true);
     } else {

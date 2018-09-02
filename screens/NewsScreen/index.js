@@ -15,6 +15,7 @@ import {
   DatePickerAndroid,
   Image,
   Platform,
+  Dimensions,
 } from 'react-native';
 
 import PageHeader from '../../components/PageHeader';
@@ -24,6 +25,7 @@ import icomoonConfig from '../../selection.json';
 const CustomIcon = createIconSetFromIcoMoon(icomoonConfig);
 import moment from 'moment';
 import PageLoader from '../../components/PageLoader';
+import { SinglePickerMaterialDialog } from 'react-native-material-dialog';
 
 import textContentJSON from './newsTrans.json';
 
@@ -44,6 +46,7 @@ export default class NewsScreen extends Component {
       datePickerModalVisible: false,
       chosenDate: null,
       formatterChosenDate: null,
+      singlePickerVisible: false,
     }
   }
 
@@ -166,12 +169,17 @@ export default class NewsScreen extends Component {
       fetch(fetchUrl)
         .then((response) => response.json())
         .then((responseJson) => {
-          console.log('news filtered by tags', responseJson);
+          // console.log('news filtered by tags', responseJson);
           const responseData = responseJson.data;
 
           if(responseJson.success) {
             this.setState({
               latestNewsInState: responseData,
+              refreshingNewsList: false,
+            });
+          } else {
+            this.setState({
+              latestNewsInState: null,
               refreshingNewsList: false,
             });
           }
@@ -303,12 +311,15 @@ export default class NewsScreen extends Component {
 
     if(formatterChosenDate) {
       dateFilterClearBtn = (
-        <TouchableOpacity onPress={() => {
-          this.setState({
-            formatterChosenDate: null,
-            chosenDate: null,
-          }, () => this.getFilteredNews(null, selectedTagFilterId))
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            this.setState({
+              formatterChosenDate: null,
+              chosenDate: null,
+            }, () => this.getFilteredNews(null, selectedTagFilterId))
+          }}
+          style={styles.clearBtn}
+        >
           <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
       );
@@ -316,11 +327,16 @@ export default class NewsScreen extends Component {
 
     if(selectedTagFilterId) {
       tagFilterClearBtn = (
-        <TouchableOpacity onPress={() => {
-          this.setState({
-            selectedTagFilterId: null,
-          }, () => this.getFilteredNews(chosenDate, null))
-        }}>
+        <TouchableOpacity 
+          onPress={() => {
+            this.setState({
+              selectedTagFilterId: null,
+              selectedPickerItem: null,
+            }, () => this.getFilteredNews(chosenDate, null))
+            
+          }}
+          style={styles.clearBtn}
+        >
           <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
       );
@@ -406,72 +422,96 @@ export default class NewsScreen extends Component {
 
           <Text style={styles.title}>{textContent.osszeshir}</Text>
 
-          <View style={styles.filterRow}>
-            <View style={{ width: '50%', padding: 10, borderRightWidth: 1, borderColor: '#ededed' }}>
-              <TouchableOpacity
-                onPress={async () => {
-                  if(Platform.OS === 'android') {
-                    try {
-                      const {action, year, month, day} = await DatePickerAndroid.open({
-                        // Use `new Date()` for current date.
-                        // May 25 2020. Month 0 is January.
-                        date: new Date()
-                      });
-                      if (action !== DatePickerAndroid.dismissedAction) {
-                        // Selected year, month (0-11), day
-                        // this.setDate(moment(`${year}-${month}-${day}`));
-                        const curMon = ++month;
-                        const rightMonth = curMon < 10 ? `0${curMon}` : curMon;
-                        const rightDay = day < 10 ? `0${day}` : day;
-                        const selectedDate = moment(`${year}-${rightMonth}-${rightDay}`).toDate();
-                        
-                        this.setState({
-                          chosenDate: selectedDate,
-                          formatterChosenDate: moment(selectedDate).format('YYYY.MM.DD'),
-                        }, () => this.getFilteredNews(selectedDate, selectedTagFilterId))
+          <View style={styles.filterRowBg}>
+            <View style={styles.filterRow}>
+              <View style={{ flex: 1, width: '50%' }}>
+                <TouchableOpacity
+                  onPress={async () => {
+                    if(Platform.OS === 'android') {
+                      try {
+                        const {action, year, month, day} = await DatePickerAndroid.open({
+                          // Use `new Date()` for current date.
+                          // May 25 2020. Month 0 is January.
+                          date: new Date()
+                        });
+                        if (action !== DatePickerAndroid.dismissedAction) {
+                          // Selected year, month (0-11), day
+                          // this.setDate(moment(`${year}-${month}-${day}`));
+                          const curMon = ++month;
+                          const rightMonth = curMon < 10 ? `0${curMon}` : curMon;
+                          const rightDay = day < 10 ? `0${day}` : day;
+                          const selectedDate = moment(`${year}-${rightMonth}-${rightDay}`).toDate();
+                          
+                          this.setState({
+                            chosenDate: selectedDate,
+                            formatterChosenDate: moment(selectedDate).format('YYYY.MM.DD'),
+                          }, () => this.getFilteredNews(selectedDate, selectedTagFilterId))
+                        }
+                      } catch ({code, message}) {
+                        console.warn('Cannot open date picker', message);
                       }
-                    } catch ({code, message}) {
-                      console.warn('Cannot open date picker', message);
+                    } else {
+                      this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
                     }
-                  } else {
-                    this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
                   }
-                }
-                style={styles.tagFilter} activeOpacity={0.8}
-              >
-                <Icon
-                  name="date-range"
-                  size={20}
-                  color={formatterChosenDate ? "#c49565" : "#434656"}
-                />
-                <Text style={formatterChosenDate ? styles.filterTextActive : styles.filterTextInActive}>
-                  {formatterChosenDate ? formatterChosenDate : textContent.dateBtn}
-                </Text>
-                {dateFilterClearBtn}
-              </TouchableOpacity>
-            </View>
-
-            <View style={{ position: 'absolute', right: 90, padding: 10, marginLeft: 15, width: 75,}}>
-              <TouchableOpacity onPress={() => this.setState({ tagModalVisible: true })} style={styles.tagFilter} activeOpacity={0.8}>
-                <Icon
-                  name="label"
-                  size={20}
-                  color={selectedTagFilterId ? "#c49565" : "#434656"}
-                />
-                <Text
-                  style={selectedTagFilterId ? styles.filterTextActive : styles.filterTextInActive}
+                  activeOpacity={0.8}
+                  style={styles.tagFilter} 
                 >
-                  {selectedTagLabel ? this.sliceTagFilterLabel(selectedTagLabel) : tagFilterPlaceholder}
-                </Text>
-                {tagFilterClearBtn}
-              </TouchableOpacity>
-            </View>
+                  <Icon
+                    name="date-range"
+                    size={20}
+                    color={formatterChosenDate ? "#c49565" : "#434656"}
+                  />
+                  <Text style={formatterChosenDate ? styles.filterTextActive : styles.filterTextInActive}>
+                    {formatterChosenDate ? formatterChosenDate : textContent.dateBtn}
+                  </Text>
+                  {dateFilterClearBtn}
+                </TouchableOpacity>
+              </View>
 
+              <View style={{ position: 'absolute', right: 0, flex: 1, borderLeftWidth: 1, borderColor: '#ededed', width: '50%'}}>
+                <TouchableOpacity 
+                  onPress={() => 
+                    Platform.OS === 'android' ? this.setState({ singlePickerVisible: true}) : this.setState({ tagModalVisible: true })
+                  }
+                  style={styles.tagFilter} 
+                  activeOpacity={0.8}
+                >
+                  <Icon
+                    name="label"
+                    size={20}
+                    color={selectedTagFilterId ? "#c49565" : "#434656"}
+                  />
+                  <Text
+                    style={selectedTagFilterId ? styles.filterTextActive : styles.filterTextInActive}
+                  >
+                    {selectedTagLabel ? this.sliceTagFilterLabel(selectedTagLabel) : tagFilterPlaceholder}
+                  </Text>
+                  {tagFilterClearBtn}
+                </TouchableOpacity>
+              </View>
+
+            </View>
           </View>
 
           <View style={{marginBottom: 25}}>
             { refreshingNewsList ? <PageLoader textContent={textContent} /> : newsListItems }
           </View>
+
+          <SinglePickerMaterialDialog
+              title={textContent.pickerTitle}
+              items={tags.map(row => ({ value: row.id, label: row.name }))}
+              visible={this.state.singlePickerVisible}
+              selectedItem={this.state.selectedPickerItem}
+              onCancel={() => this.setState({ singlePickerVisible: false })}
+              onOk={async result => {
+                await this.setState({
+                  singlePickerVisible: false,
+                  selectedPickerItem: result.selectedItem,
+                  selectedTagFilterId: result.selectedItem.value,
+                }, () => this.getFilteredNews(chosenDate, result.selectedItem.value))
+              }}
+            />
 
           <Modal
             animationType="slide"
@@ -506,16 +546,16 @@ export default class NewsScreen extends Component {
             visible={this.state.tagModalVisible}
             transparent
             onRequestClose={() => {
-              console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
+              this.getFilteredNews(chosenDate, selectedTagFilterId);
             }}
             onDismiss={() => {
-              console.log('Modal has been closed, state value => ', this.getFilteredNews(chosenDate, selectedTagFilterId));
+              this.getFilteredNews(chosenDate, selectedTagFilterId);
             }}
           >
             <View style={{ marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%' }}>
               <View>
                 <Picker
-                  style={{ height: 350, width: '100%' }}
+                  style={{ width: '100%' }}
                   selectedValue={selectedTagFilterId}
                   onValueChange={(itemValue, itemIndex) => {
                     // console.log('typeof itemValue', typeof itemValue)
@@ -561,7 +601,7 @@ const styles = StyleSheet.create({
     // padding: 10,
   },
   title: {
-    fontFamily: "YoungSerif",
+    fontFamily: "YoungSerif-Regular",
     fontSize: 26,
     color: '#434656',
     paddingLeft: 15,
@@ -630,13 +670,14 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     borderColor: '#ededed',
     backgroundColor: '#fff',
-    marginBottom: 15,
     position: 'relative',
-    height: 50,
-    marginRight: 15,
-    marginLeft: 15,
+    height: 55,
   },
   tagFilter: {
+    // flexDirection: 'row',
+    // alignItems: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -653,9 +694,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: '#c49565',
-    width: 85,
-    marginLeft: 10,
-    // marginRight: 20,
+    width: Dimensions.get('window').width < 350 ? 70 : 85,
+    marginLeft: Dimensions.get('window').width < 350 ? 5 : 10,
   },
   listItemMonthHeaderText: {
     backgroundColor: "#f5f5f5",
@@ -705,7 +745,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingHorizontal: 15,
-    fontFamily: "YoungSerif",
+    fontFamily: "YoungSerif-Regular",
     fontSize: 20,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -716,7 +756,7 @@ const styles = StyleSheet.create({
   noNewsSub: {
     paddingHorizontal: 15,
     marginBottom: 5,
-    fontFamily: "YoungSerif",
+    fontFamily: "YoungSerif-Regular",
     fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -725,4 +765,15 @@ const styles = StyleSheet.create({
     color: '#A3ABBC',
     textAlign: 'center',
   },
+  filterRowBg: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingVertical: 0,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    marginBottom: 15,
+  },
+  clearBtn: {
+    padding: 5,
+  }
 });

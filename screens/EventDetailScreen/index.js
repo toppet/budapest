@@ -17,6 +17,7 @@ import moment from 'moment';
 import textContentJSON from '../EventsScreen/eventsTrans.json';
 
 import * as AddCalendarEvent from 'react-native-add-calendar-event';
+import Markdown from 'react-native-markdown-renderer';
 
 export default class EventDetailScreen extends Component {
   static navigationOptions = {
@@ -111,7 +112,13 @@ export default class EventDetailScreen extends Component {
       eventDetails = (
         <View>
           <Text style={styles.detailsTitle}>{textContent.details}</Text>
-          <Text style={styles.detailsText}>{eventParam.description}</Text>
+          {/* <Text style={styles.detailsText}>{eventParam.description}</Text> */}
+          <Markdown style={{
+            text: {
+              fontFamily: 'Montserrat-Regular',
+              fontSize: 14,
+            }
+          }}>{eventParam.description}</Markdown>
         </View>
       );
     }

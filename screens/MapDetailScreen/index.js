@@ -142,7 +142,7 @@ export default class MapDetailScreen extends Component {
     const format = 'hh:mm';
     
     if (closed) {
-      return <Text style={styles.infoText}><Text style={styles.closedState}>Zárva</Text></Text>;
+      return <Text style={styles.infoText}><Text style={styles.closedState}>{textContent.zarva}</Text></Text>;
     }
 
     let time = moment(now, format);

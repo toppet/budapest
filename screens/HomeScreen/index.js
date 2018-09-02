@@ -322,7 +322,7 @@ export default class HomeScreen extends Component {
             <Text style={styles.unnepTitle}>{`${textContent.unnepnapTitle}:`}</Text>
           </View>
           <View style={styles.unnepnapBox}>
-            <Text style={styles.unnepBoxTitle}>{currentJDate.date}</Text>
+            <Text style={styles.unnepBoxTitle}>{currentJDate.name}</Text>
           </View>
         </View>
       );
@@ -358,7 +358,12 @@ export default class HomeScreen extends Component {
 
     const placesCards = bestPlaces.map((e) => {
       return (
-        <TouchableOpacity style={[styles.cardShadow, { width: placesCardWidth, marginBottom: 40, }]} key={e.id} activeOpacity={1}>
+        <TouchableOpacity 
+          style={[styles.cardShadow, { width: placesCardWidth, marginBottom: 40, }]} 
+          key={e.id} 
+          activeOpacity={0.9}
+          onPress={() => { this.props.navigation.navigate("Map", { itemId: e.id }) }}
+        >
           <View style={styles.placeCard}>
 
             <View style={styles.imageBgPlace}>
@@ -394,7 +399,7 @@ export default class HomeScreen extends Component {
               }
             >
 
-              <View style={{marginBottom: 30, flexDirection: 'row'}}>
+              <View style={{marginBottom: 30, flexDirection: 'row', alignItems:'flex-end'}}>
                 <View>
                   <Text style={styles.title}>{textContent.homeTitle}</Text>
                   <Text style={styles.date}>{moment().format('MMMM DD., dddd').replace(/^\w/, c => c.toUpperCase())}</Text>
@@ -414,7 +419,7 @@ export default class HomeScreen extends Component {
                     activeOpacity={0.8}
                   >
                     <View style={{alignItems: "center"}}>
-                      <Icon size={30} name="today" color="#434656"/>
+                      <Image source={require('../../assets/images/calendar.png')} />
                       <Text style={{fontFamily: "Montserrat-Regular", fontSize: 12, fontWeight: "bold", fontStyle: "normal", textAlign: "center", color: "#434656", paddingTop: 5}}>{currentJDate ? currentJDate.date : null}</Text>
                     </View>
                   </TouchableOpacity>
@@ -559,7 +564,8 @@ const styles = StyleSheet.create({
     color: "#434656",
   },
   unnepnapBox: {
-    padding: Dimensions.get('window').width < 350 ? 10 : 20,
+    maxWidth: Dimensions.get('window').width < 350 ? 80 : 120,
+    padding: 10,
     borderRadius: 5,
     backgroundColor: '#FF7070',
     borderStyle: "solid",

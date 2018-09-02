@@ -52,13 +52,14 @@ export default class CalendarScreen extends Component {
     const startDate = moment(new Date()).format(dateFormat);
     const endDate = moment().endOf("month").format(dateFormat);
     this.fetchData(startDate, endDate);
+
   }
 
   async fetchData(startDateParam, endDateParam) {
     this.disableDatesWhileLoading(startDateParam);    
     const { items, markedDates } = await this.getEvents(startDateParam, endDateParam);
     const todaysjDate = await this.getJDate(moment().format(dateFormat));
-
+    
     this.setState({
       reset: false,
       items,
@@ -83,15 +84,21 @@ export default class CalendarScreen extends Component {
   async getEvents(startDate, endDate) {
     const monthDate = moment(startDate).startOf('month');
     const currentDate = moment().format(dateFormat);
-    
+    const paramMonth = moment(startDate).month();
+    const currentMonth = moment().month();
+
+    if (paramMonth < currentMonth) {
+      return {};
+    }
+
     if (monthDate.isBefore(currentDate)) {
       startDate = currentDate;
-      return {};
     }
     
     return await fetch(`https://jewps.hu/api/v1/calendar?startDate=${startDate}&endDate=${endDate}`)
       .then(response => response.json())
       .then(responseJson => {
+        
           if (responseJson.success) {
             const prayerEvent = { key:'prayerEvent', color: '#cfd0df' };
             const eventEvent = { key:'eventEvent', color: '#6ce986' };

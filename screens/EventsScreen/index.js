@@ -14,6 +14,7 @@ import {
   RefreshControl,
   DatePickerIOS,
   DatePickerAndroid,
+  Dimensions,
   Platform,
 } from 'react-native';
 import PageHeader from '../../components/PageHeader';
@@ -207,7 +208,7 @@ export default class EventsScreen extends Component {
 
     if(dateFilter) {
       formattedDate = moment(dateFilter).format('YYYY-MM-DD');
-      fetchUrl = `https://jewps.hu/api/v1/events?fromDate=${formattedDate}`;
+      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}`;
     }
 
     if(locationFilter) {
@@ -215,7 +216,7 @@ export default class EventsScreen extends Component {
     }
 
     if(dateFilter && locationFilter) {
-      fetchUrl = `https://jewps.hu/api/v1/events?fromDate=${formattedDate}&location=${encodedLocationFilter}`;
+      fetchUrl = `https://jewps.hu/api/v1/events?date=${formattedDate}&location=${encodedLocationFilter}`;
     }
 
     // console.log('dateFilter', dateFilter, 'locationFilter', locationFilter, 'encodedLocationFilter', encodedLocationFilter);
@@ -280,12 +281,15 @@ export default class EventsScreen extends Component {
 
     if(formattedDateFilter) {
       dateFilterClearBtn = (
-        <TouchableOpacity onPress={() => {
-          this.setState({
-            formattedDateFilter: null,
-            dateFilter: null,
-          }, () => this.getFilteredEvents(null, locationFilter))
-        }}>
+        <TouchableOpacity 
+          onPress={() => {
+            this.setState({
+              formattedDateFilter: null,
+              dateFilter: null,
+            }, () => this.getFilteredEvents(null, locationFilter))
+          }}
+          style={styles.cancelBtn}
+        >
           <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
       );
@@ -293,12 +297,15 @@ export default class EventsScreen extends Component {
 
     if(locationFilter) {
       locationFilterCancelBtn = (
-        <TouchableOpacity onPress={() => {
-          this.setState({
-            locationFilter: null,
-            selectedPickerItem: null,
-          }, () => this.getFilteredEvents(dateFilter, null))
-        }}>
+        <TouchableOpacity 
+          onPress={() => {
+            this.setState({
+              locationFilter: null,
+              selectedPickerItem: null,
+            }, () => this.getFilteredEvents(dateFilter, null))
+          }}
+          style={styles.cancelBtn}
+        >
           <Icon name="cancel" size={20} color="#434656"/>
         </TouchableOpacity>
       );
@@ -366,6 +373,7 @@ export default class EventsScreen extends Component {
       );
     }
 
+
     return (
       <View style={styles.container}>
         <PageHeader
@@ -394,10 +402,35 @@ export default class EventsScreen extends Component {
 
             <View style={styles.filterRowBg}>
               <View style={styles.filterRow}>
-                <View style={{ flex: 1, borderRightWidth: 1, borderColor: '#ededed', width: '50%' }}>
+                <View style={{ flex: 1, justifyContent: 'center', borderRightWidth: 1, borderColor: '#ededed', width: '50%' }}>
                   <TouchableOpacity
-                    onPress={() => {
-                      this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
+                    onPress={async () => {
+                      if(Platform.OS === 'android') {
+                        try {
+                          const {action, year, month, day} = await DatePickerAndroid.open({
+                            // Use `new Date()` for current date.
+                            // May 25 2020. Month 0 is January.
+                            date: new Date()
+                          });
+                          if (action !== DatePickerAndroid.dismissedAction) {
+                            // Selected year, month (0-11), day
+                            // this.setDate(moment(`${year}-${month}-${day}`));
+                            const curMon = ++month;
+                            const rightMonth = curMon < 10 ? `0${curMon}` : curMon;
+                            const rightDay = day < 10 ? `0${day}` : day;
+                            const selectedDate = moment(`${year}-${rightMonth}-${rightDay}`).toDate();
+                            
+                            this.setState({
+                              dateFilter: selectedDate,
+                              formattedDateFilter: moment(selectedDate).format('YYYY.MM.DD'),
+                            }, () => this.getFilteredEvents(selectedDate, locationFilter))
+                          }
+                        } catch ({code, message}) {
+                          console.warn('Cannot open date picker', message);
+                        }
+                      } else {
+                        this.setState({ datePickerModalVisible: true }, this.setDate(new Date()))}
+                      }
                     }
                     style={styles.filterWrap} activeOpacity={0.8}
                   >
@@ -418,8 +451,8 @@ export default class EventsScreen extends Component {
                     onPress={() => {
                       Platform.OS === 'android' ? this.setState({ singlePickerVisible: true}) : this.setState({ locationModalVisible: true })}
                     } 
-                    style={styles.filterWrap} activeOpacity={0.8
-                  }>
+                    style={styles.filterWrap} activeOpacity={0.8}
+                  >
                     <CustomIcon
                       name="ic_location"
                       size={20}
@@ -489,6 +522,7 @@ export default class EventsScreen extends Component {
                   </TouchableOpacity>
                 </View>
               </View>
+              
             </Modal>
 
             <Modal
@@ -503,23 +537,22 @@ export default class EventsScreen extends Component {
                 this.getFilteredEvents(dateFilter, locationFilter);
               }}
             >
-              <View style={{marginTop: 22, backgroundColor: '#fafafa', position: 'absolute', bottom: 0, width: '100%' }}>
-                <View>
-                  <Picker
-                    selectedValue={locationFilter}
-                    onValueChange={(itemValue) => this.setState({
-                      locationFilter: itemValue === "" ? null : itemValue
-                    })}>
-                    <Picker.Item label="" value="" />
-                    { locationPickers }
-                  </Picker>
-                  <TouchableOpacity
-                    style={{position: 'relative', width: '100%', alignItems: 'center', justifyContent: 'center',}}
-                    onPress={() => this.setState({ locationModalVisible: false }) }
-                  >
-                    <Text style={{paddingHorizontal: 25, paddingVertical: 15, fontFamily: "Montserrat", fontSize: 18, fontWeight: "600", color: '#73beff', position: 'relative', zIndex: 1000, bottom: 10}}>Bezár</Text>
-                  </TouchableOpacity>
-                </View>
+              <View style={{ backgroundColor: '#fafafa', borderWidth: 3, position: 'absolute', bottom: 0, width: '100%' }}>
+                <Picker
+                  selectedValue={locationFilter}
+                  onValueChange={(itemValue) => this.setState({
+                    locationFilter: itemValue === "" ? null : itemValue
+                  })}
+                >
+                  <Picker.Item label="" value="" />
+                  { locationPickers }
+                </Picker>
+                <TouchableOpacity
+                  style={{position: 'relative', width: '100%', alignItems: 'center', justifyContent: 'center',}}
+                  onPress={() => this.setState({ locationModalVisible: false }) }
+                >
+                  <Text style={{paddingHorizontal: 25, paddingVertical: 15, fontFamily: "Montserrat", fontSize: 18, fontWeight: "600", color: '#73beff', position: 'relative', zIndex: 1000, bottom: 10}}>Bezár</Text>
+                </TouchableOpacity>
               </View>
             </Modal>
 
@@ -542,11 +575,10 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? 0 : 20,
   },
   content: {
-    // padding: 10,
     flex: 1,
   },
   title: {
-    fontFamily: "YoungSerif",
+    fontFamily: "YoungSerif-Regular",
     fontSize: 26,
     color: '#434656',
     marginBottom: 15,
@@ -654,11 +686,13 @@ const styles = StyleSheet.create({
     borderColor: '#ededed',
     backgroundColor: '#fff',
     position: 'relative',
-
+    justifyContent: 'center',
+    height: 55,
+    paddingVertical: 5,
   },
   filterWrap: {
     paddingHorizontal: 15,
-    paddingVertical: 13,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -675,8 +709,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: '#c49565',
-    width: 85,
-    marginLeft: 10,
+    width: Dimensions.get('window').width < 350 ? 70 : 85,
+    marginLeft: Dimensions.get('window').width < 350 ? 5 : 10,
     // marginRight: 20,
   },
   listItemHeaderText: {
@@ -736,7 +770,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingHorizontal: 15,
-    fontFamily: "YoungSerif",
+    fontFamily: "YoungSerif-Regular",
     fontSize: 20,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -747,7 +781,7 @@ const styles = StyleSheet.create({
   noEventSub: {
     paddingHorizontal: 15,
     marginBottom: 5,
-    fontFamily: "YoungSerif",
+    fontFamily: "YoungSerif-Regular",
     fontSize: 14,
     fontWeight: "normal",
     fontStyle: "normal",
@@ -756,4 +790,9 @@ const styles = StyleSheet.create({
     color: '#A3ABBC',
     textAlign: 'center',
   },
+  cancelBtn: {
+    padding: 5,
+    // borderWidth: 2,
+    height: 32,
+  }
 });

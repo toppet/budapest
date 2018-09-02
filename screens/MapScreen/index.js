@@ -173,7 +173,7 @@ export default class MapScreen extends PureComponent {
     const format = 'hh:mm';
     
     if (closed) {
-      return <Text>{`${openingHours.day}: `} <Text style={styles.closedState}>Zárva</Text></Text>;
+      return <Text>{`${openingHours.day}: `} <Text style={styles.closedState}>{textContent.zarva}</Text></Text>;
     }
 
     let time = moment(now, format);
