@@ -101,8 +101,8 @@ android {
         applicationId "com.jewps"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -154,7 +154,7 @@ dependencies {
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-maps')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.facebook.react:react-native:+'
 
     // From node_modules

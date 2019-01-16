@@ -86,7 +86,7 @@ export default class HomeScreen extends Component {
     this.setState({
       loading: false,
       refreshing: false,
-      currencies,
+      currencies: currencies || {},
       weatherBUD: weather,
       currentJDate: jDate,
       latestNews,
@@ -270,13 +270,13 @@ export default class HomeScreen extends Component {
     const eventCardWidth = 300;
     const placesCardWidth = 200;
 
-    let EUR_HUF = null;
-    let USD_HUF = null;
-    let weathTemp = null;
-    let weathIcon = null;
-    let newsCards = null;
-    let eventCards = null;
-    let holidayBox = null;
+    let EUR_HUF = "";
+    let USD_HUF = "";
+    let weathTemp = "";
+    let weathIcon = "";
+    let newsCards = [];
+    let eventCards = [];
+    let holidayBox = [];
 
     if(loading) {
       return <PageLoader textContent={textContent} />;
