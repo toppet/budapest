@@ -1,1 +1,0 @@
-../../../../../node_modules/react-native-add-calendar-event/ios/EKEventStoreSingleton.h
