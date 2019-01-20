@@ -3,6 +3,21 @@ package com.jewps;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import com.vonovak.AddCalendarEventPackage;
+import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import com.vonovak.AddCalendarEventPackage;
+import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import com.vonovak.AddCalendarEventPackage;
 import com.vonovak.AddCalendarEventPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
@@ -30,6 +45,21 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeYouTube(),
+            new VectorIconsPackage(),
+            new MapsPackage(),
+            new RNFirebasePackage(),
+            new AddCalendarEventPackage(),
+            new ReactNativeYouTube(),
+            new VectorIconsPackage(),
+            new MapsPackage(),
+            new RNFirebasePackage(),
+            new AddCalendarEventPackage(),
+            new ReactNativeYouTube(),
+            new VectorIconsPackage(),
+            new MapsPackage(),
+            new RNFirebasePackage(),
+            new AddCalendarEventPackage(),
             new AddCalendarEventPackage(),
             new RNFirebasePackage(),
             new RNFirebaseMessagingPackage(),

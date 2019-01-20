@@ -41,6 +41,12 @@ target 'JewPS' do
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
 
+  pod 'react-native-add-calendar-event', :path => '../node_modules/react-native-add-calendar-event'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'react-native-youtube', :path => '../node_modules/react-native-youtube'
+
 end
 
 post_install do |installer|
